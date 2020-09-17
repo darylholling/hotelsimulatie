@@ -1,3 +1,5 @@
+package com.company;
+
 import javafx.application.Application;
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;

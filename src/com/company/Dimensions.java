@@ -1,3 +1,5 @@
+package com.company;
+
 public class Dimensions {
     Integer width;
     Integer height;

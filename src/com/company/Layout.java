@@ -1,3 +1,5 @@
+package com.company;
+
 public class Layout {
 
     private final String type;

@@ -1,3 +1,5 @@
+package com.company;
+
 public class Position {
     Integer x;
     Integer y;
