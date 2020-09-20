@@ -5,60 +5,47 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Time {
-    static Timer timer = new Timer();
+    static Timer timer;
 
-    static HteCounter htecounter = new HteCounter();
+    static boolean running;
 
     public static void main(String[] args) throws InterruptedException {
         startTimer();
-        Thread.sleep(9000);
+        Thread.sleep(6000);
         stopTimer();
+        Thread.sleep(1000);
+        resumeTimer();
+    }
+
+    public boolean isRunning() {
+        return running;
     }
 
     public static void startTimer() {
-        timer.scheduleAtFixedRate(htecounter, 3000, 3000);
+        timer = new Timer();
+        running = true;
+        HteCounter htecounter = new HteCounter();
+        timer.scheduleAtFixedRate(htecounter, 2000, 2000);
     }
 
     public static void stopTimer() {
+        running = false;
         timer.cancel();
+    }
+
+    public static void resumeTimer(){
+        startTimer();
     }
 }
 class HteCounter extends TimerTask
-{
-    public static int hte = 0;
+{   public static int hte;
     public void run()
     {
         hte++;
         System.out.println("HTE: " + hte);
     }
+
 }
 
 
-
-
-//package com.company;
-//
-//
-//        import java.util.Timer;
-//        import java.util.TimerTask;
-//
-//public class Time {
-//    static Timer timer = new Timer();
-//
-//    static HteCounter htecounter = new HteCounter();
-//
-//    public static void main(String[] args){
-//        timer.scheduleAtFixedRate(htecounter, 3000, 3000);
-//    }
-//}
-//
-//class HteCounter extends TimerTask
-//{
-//    public static int hte = 0;
-//    public void run()
-//    {
-//        hte++;
-//        System.out.println("HTE: " + hte);
-//    }
-//}
 
