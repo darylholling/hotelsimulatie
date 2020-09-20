@@ -25,6 +25,8 @@ public class JsonReader{
 
 //        String fileName = "json/layout.json";
         Path path = new File("json/layout.json").toPath();
+        String fileName = "src/com/company/layout.json";
+        Path path = new File(fileName).toPath();
 
         try (Reader reader = Files.newBufferedReader(path, StandardCharsets.UTF_8)) {
 
@@ -41,6 +43,6 @@ public class JsonReader{
         }
     }
     public void readJson(){
-        
+
     }
 }
