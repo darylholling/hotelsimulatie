@@ -24,7 +24,7 @@ public class JsonReader{
         Gson gson = new GsonBuilder().create();
 
 //        String fileName = "json/layout.json";
-        Path path = new File("json/layout.json").toPath();
+//        Path path = new File("json/layout.json").toPath();
         String fileName = "src/com/company/layout.json";
         Path path = new File(fileName).toPath();
 
