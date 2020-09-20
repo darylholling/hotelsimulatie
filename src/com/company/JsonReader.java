@@ -10,14 +10,21 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
+import java.util.concurrent.atomic.AtomicInteger;
 
 
 public class JsonReader{
 
     public static void main(String[] args) throws IOException {
 
+        AtomicInteger numberOfRows = new AtomicInteger();
+        AtomicInteger numberOfColumns = new AtomicInteger();
+
+
         Gson gson = new GsonBuilder().create();
 
+//        String fileName = "json/layout.json";
+//        Path path = new File("json/layout.json").toPath();
         String fileName = "src/com/company/layout.json";
         Path path = new File(fileName).toPath();
 
@@ -25,8 +32,17 @@ public class JsonReader{
 
             Layout[] layouts = gson.fromJson(reader, Layout[].class);
             Arrays.stream(layouts).forEach(e -> {
-                System.out.println(e);
+                if (e.getPosition().getX() > numberOfRows.get()){
+                    numberOfRows.set(e.getPosition().getX());
+                }  if (e.getPosition().getY() > numberOfRows.get()){
+                    numberOfColumns.set(e.getPosition().getY());
+                }
+                System.out.println("X = " + e.getPosition().getX() + " Y = " + e.getPosition().getY());
+                System.out.println(numberOfRows + "  " + numberOfColumns);
             });
         }
+    }
+    public void readJson(){
+
     }
 }
