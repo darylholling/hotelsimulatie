@@ -1,4 +1,4 @@
 package com.company;
 
-public class Cinema {
+public class Cinema extends Area {
 }

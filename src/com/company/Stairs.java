@@ -1,4 +1,4 @@
 package com.company;
 
-public class Stairs {
+public class Stairs extends Area {
 }

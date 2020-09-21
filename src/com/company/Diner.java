@@ -1,4 +1,6 @@
 package com.company;
 
-public class Diner {
+public class Diner extends Area {
+
+
 }

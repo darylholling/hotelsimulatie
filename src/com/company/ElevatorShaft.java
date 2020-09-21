@@ -1,4 +1,4 @@
 package com.company;
 
-public class ElevatorShaft {
+public class ElevatorShaft extends Area {
 }

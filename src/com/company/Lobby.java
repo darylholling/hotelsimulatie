@@ -1,4 +1,4 @@
 package com.company;
 
-public class Lobby {
+public class Lobby extends Area {
 }
