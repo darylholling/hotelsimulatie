@@ -14,17 +14,27 @@ public class Layout {
         this.data = data;
     }
 
-
-    @Override
-    public String toString() {
-        String a = "Type: "+ type + ", Position x/y: " +position.x +" "+ position.y+", Dimensions: "+dimensions.width+" x "+dimensions.height+", Rating (in stars): "+data.stars;
-            return a;
-
-    }
-
     //because variables are private
     public Position getPosition() {
         return this.position;
     }
     public Dimensions getDimensions() {return this.dimensions; }
+
+    public String getType() {
+        return type;
+    }
+
+    public Data getData() {
+        return data;
+    }
+
+    @Override
+    public String toString() {
+        return "Layout{" +
+                "type='" + type + '\'' +
+                ", position=" + position +
+                ", dimensions=" + dimensions +
+                ", data=" + data +
+                '}';
+    }
 }

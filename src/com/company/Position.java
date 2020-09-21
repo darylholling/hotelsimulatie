@@ -1,8 +1,8 @@
 package com.company;
 
 public class Position {
-    Integer x;
-    Integer y;
+    private Integer x;
+    private Integer y;
 
     public Position(Integer x, Integer y) {
         this.x = x;
