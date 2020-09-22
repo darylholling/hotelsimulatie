@@ -11,16 +11,13 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class HotelBuilder extends Application {
@@ -40,46 +37,42 @@ public class HotelBuilder extends Application {
 
 
         try (Reader reader = Files.newBufferedReader(path, StandardCharsets.UTF_8)) {
-//            System.out.println(gson.fromJson(reader));
             Layout[] layouts = gson.fromJson(reader, Layout[].class);
 
             // every object in json file
-            Arrays.stream(layouts).forEach(layout -> {
-//                System.out.println(layout.getClass().isArray());
-//                System.out.println(layout.getClass());
-                switch (layout.getType()) {
-                    case  "room" :
-                        GuestRoom guestRoom = new GuestRoom();
-                        guestRoom.setStars(layout.getData().getStars());
-                        guestRoom.setPosition(layout.getPosition());
-                        guestRoom.setDimensions(layout.getDimensions());
-                        break;
-                }
+            Arrays.stream(layouts).forEach(e -> {
 
-//                Rectangle area = new Rectangle(layout.getDimensions().getWidth().intValue(), layout.getDimensions().getHeight().intValue());
-//
-//                area.setStroke(Color.BLACK);
-//                area.setTranslateX(layout.getPosition().getX().intValue());
-//                area.setTranslateY(layout.getPosition().getY().intValue());
-//
-//                root.getChildren().addAll(area);
-//
-//
-//                System.out.println(layout.getPosition());
-//                System.out.println(layout.getDimensions());
-//
-                if (layout.getPosition().getX() > numberOfRows.get()) {
-                    numberOfRows.set(layout.getPosition().getX());
+
+                System.out.println(e.getPosition());
+                System.out.println(e.getDimensions());
+
+                if (e.getPosition().getX() > numberOfRows.get()) {
+                    numberOfRows.set(e.getPosition().getX());
                 }
-                else if (layout.getPosition().getY() > numberOfRows.get()) {
-                    numberOfColumns.set(layout.getPosition().getY());
+                if (e.getPosition().getY() > numberOfRows.get()) {
+                    numberOfColumns.set(e.getPosition().getY());
                 }
-                System.out.println("X = " + layout.getPosition().getX() + " Y = " + layout.getPosition().getY());
+                System.out.println("X = " + e.getPosition().getX() + " Y = " + e.getPosition().getY());
                 System.out.println("rows = " + (1 + numberOfRows.intValue()) + "  columns = " + (1 + numberOfColumns.intValue()));
+
+
             });
 
         } catch (IOException e) {
             e.printStackTrace();
+        }
+
+        //Building the Area's
+        for(int i = 0; i < numberOfRows.intValue(); i++){
+            for(int j = 0; j < numberOfColumns.intValue(); j++){
+                Rectangle area = new Rectangle(10, 10);
+                area.setFill(null);
+                area.setStroke(Color.BLACK);
+                area.setTranslateX(10);
+                area.setTranslateY(10);
+
+                root.getChildren().addAll(area);
+            }
         }
 
         return root;

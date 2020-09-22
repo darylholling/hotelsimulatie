@@ -1,4 +1,7 @@
 package com.company;
 
-public interface Move {
+public class Move {
+    private Area startArea;
+    private Area endArea;
+
 }
