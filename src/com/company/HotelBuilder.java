@@ -71,11 +71,13 @@ public class HotelBuilder extends Application {
                 if (layout.getPosition().getX() > numberOfRows.get()) {
                     numberOfRows.set(layout.getPosition().getX());
                 }
-                else if (layout.getPosition().getY() > numberOfRows.get()) {
+                if (layout.getPosition().getY() > numberOfRows.get()) {
                     numberOfColumns.set(layout.getPosition().getY());
                 }
                 System.out.println("X = " + layout.getPosition().getX() + " Y = " + layout.getPosition().getY());
                 System.out.println("rows = " + (1 + numberOfRows.intValue()) + "  columns = " + (1 + numberOfColumns.intValue()));
+
+
             });
 
         } catch (IOException e) {
