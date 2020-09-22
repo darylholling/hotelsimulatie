@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -21,16 +22,17 @@ import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class HotelBuilder extends Application {
-
+    int maxWidth = 0;
+    int maxHeight = 0;
     private Parent createContent() {
 
         // size of window
         Pane root = new Pane();
-        root.setPrefSize(600, 600);
+        GridPane gridPane = new GridPane();
 
         //import json
-        AtomicInteger numberOfRows = new AtomicInteger();
-        AtomicInteger numberOfColumns = new AtomicInteger();
+//        AtomicInteger numberOfRows = new AtomicInteger();
+//        AtomicInteger numberOfColumns = new AtomicInteger();
 
         Gson gson = new GsonBuilder().create();
         Path path = new File("json/layout.json").toPath();
@@ -39,43 +41,37 @@ public class HotelBuilder extends Application {
         try (Reader reader = Files.newBufferedReader(path, StandardCharsets.UTF_8)) {
             Layout[] layouts = gson.fromJson(reader, Layout[].class);
 
+
             // every object in json file
-            Arrays.stream(layouts).forEach(e -> {
+            for(Layout e:layouts) {
 
-
-                System.out.println(e.getPosition());
-                System.out.println(e.getDimensions());
-
-                if (e.getPosition().getX() > numberOfRows.get()) {
-                    numberOfRows.set(e.getPosition().getX());
+                int layoutHeight = e.getPosition().getY() + (e.getDimensions().getHeight() - 1);
+                if (maxHeight < layoutHeight) {
+                    maxHeight = layoutHeight;
                 }
-                if (e.getPosition().getY() > numberOfRows.get()) {
-                    numberOfColumns.set(e.getPosition().getY());
+                int layoutWidth = e.getPosition().getX() + (e.getDimensions().getWidth() - 1);
+                if (maxWidth < layoutWidth) {
+                    maxWidth = layoutWidth;
                 }
-                System.out.println("X = " + e.getPosition().getX() + " Y = " + e.getPosition().getY());
-                System.out.println("rows = " + (1 + numberOfRows.intValue()) + "  columns = " + (1 + numberOfColumns.intValue()));
+            }
+            System.out.println("Max X: " + maxWidth + " & Max Y: " + maxHeight);
 
-
-            });
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         //Building the Area's
-        for(int i = 0; i < numberOfRows.intValue(); i++){
-            for(int j = 0; j < numberOfColumns.intValue(); j++){
-                Rectangle area = new Rectangle(10, 10);
-                area.setFill(null);
+        for(int i = 0; i < maxWidth; i++){
+            for(int j = 0; j < maxHeight; j++){
+                Rectangle area = new Rectangle(50, 50);
+                area.setFill(Color.LIGHTBLUE);
                 area.setStroke(Color.BLACK);
-                area.setTranslateX(10);
-                area.setTranslateY(10);
-
-                root.getChildren().addAll(area);
+                gridPane.add(area, i,j);
             }
         }
 
-        return root;
+        return gridPane;
     }
 
     @Override
@@ -86,7 +82,7 @@ public class HotelBuilder extends Application {
 
     private class Area extends StackPane {
         public Area() {
-            Rectangle border = new Rectangle(10, 10);
+            Rectangle border = new Rectangle(50, 50);
             border.setFill(null);
             border.setStroke(Color.BLACK);
 

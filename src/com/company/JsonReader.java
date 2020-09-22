@@ -17,27 +17,15 @@ public class JsonReader{
 
     public static void main(String[] args) throws IOException {
 
-        AtomicInteger numberOfRows = new AtomicInteger();
-        AtomicInteger numberOfColumns = new AtomicInteger();
-
 
         Gson gson = new GsonBuilder().create();
 
-//        String fileName = "json/layout.json";
         Path path = new File("json/layout.json").toPath();
 
         try (Reader reader = Files.newBufferedReader(path, StandardCharsets.UTF_8)) {
 
             Layout[] layouts = gson.fromJson(reader, Layout[].class);
-            Arrays.stream(layouts).forEach(e -> {
-                if (e.getPosition().getX() > numberOfRows.get()){
-                    numberOfRows.set(e.getPosition().getX());
-                }  if (e.getPosition().getY() > numberOfRows.get()){
-                    numberOfColumns.set(e.getPosition().getY());
-                }
-                System.out.println("X = " + e.getPosition().getX() + " Y = " + e.getPosition().getY());
-                System.out.println(numberOfRows + "  " + numberOfColumns);
-            });
+            Arrays.stream(layouts).forEach(System.out::println);
         }
     }
     public void readJson(){
