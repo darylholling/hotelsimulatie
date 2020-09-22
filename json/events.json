@@ -1,0 +1,849 @@
+[
+	{
+		"type": "CHECK_IN",
+		"time": 1,
+		"data": {
+			"guest": 1,
+			"stars": 1
+		}
+	},
+	{
+		"type": "CHECK_OUT",
+		"time": 20,
+		"data": {
+			"guest": 1
+		}
+	},
+
+	{
+		"type": "CHECK_IN",
+		"time": 2,
+		"data": {
+			"guest": 2,
+			"stars": 3
+		}
+	},
+	{
+		"type": "GO_TO_FITNESS",
+		"time": 15,
+		"data": {
+			"guest": 2,
+			"time": 10
+		}
+	}, 
+	{
+		"type": "CHECK_OUT",
+		"time": 50,
+		"data": {
+			"guest": 2
+		}
+	},
+
+	{
+		"type": "CHECK_IN",
+		"time": 5,
+		"data": {
+			"guest": 3,
+			"stars": 3
+		}
+	},
+	{
+		"type": "GO_TO_DINER",
+		"time": 16,
+		"data": {
+			"guest": 3
+		}
+	},
+	{
+		"type": "GO_TO_FITNESS",
+		"time": 44,
+		"data": {
+			"guest": 3,
+			"time": 10
+		}
+	},
+	{
+		"type": "CHECK_OUT",
+		"time": 67,
+		"data": {
+			"guest": 3
+		}
+	},
+
+	{
+		"type": "CHECK_IN",
+		"time": 5,
+		"data": {
+			"guest": 4,
+			"stars": 4
+		}
+	},
+	{
+		"type": "GO_TO_CINEMA",
+		"time": 18,
+		"data": {
+			"guest": 4
+		}
+	},
+	{
+		"type": "CHECK_OUT",
+		"time": 55,
+		"data": {
+			"guest": 4
+		}
+	},
+
+	{
+		"type": "CHECK_IN",
+		"time": 5,
+		"data": {
+			"guest": 5,
+			"stars": 5
+		}
+	},
+	{
+		"type": "GO_TO_CINEMA",
+		"time": 18,
+		"data": {
+			"guest": 5
+		}
+	},
+	{
+		"type": "CHECK_OUT",
+		"time": 55,
+		"data": {
+			"guest": 4
+		}
+	},
+
+	{
+		"type": "CHECK_IN",
+		"time": 8,
+		"data": {
+			"guest": 6,
+			"stars": 3
+		}
+	},
+	{
+		"type": "GO_TO_FITNESS",
+		"time": 22,
+		"data": {
+			"guest": 6
+		}
+	},
+	{
+		"type": "GO_TO_DINER",
+		"time": 52,
+		"data": {
+			"guest": 6
+		}
+	},
+	{
+		"type": "GO_TO_DINER",
+		"time": 70,
+		"data": {
+			"guest": 6
+		}
+	},
+	{
+		"type": "CHECK_OUT",
+		"time": 100,
+		"data": {
+			"guest": 6
+		}
+	},
+
+	{
+		"type": "CHECK_IN",
+		"time": 8,
+		"data": {
+			"guest": 7,
+			"stars": 4
+		}
+	},
+	{
+		"type": "GO_TO_CINEMA",
+		"time": 19,
+		"data": {
+			"guest": 7
+		}
+	},
+	{
+		"type": "GO_TO_DINER",
+		"time": 56,
+		"data": {
+			"guest": 7
+		}
+	},
+	{
+		"type": "GO_TO_CINEMA",
+		"time": 62,
+		"data": {
+			"guest": 7
+		}
+	},
+	{
+		"type": "CHECK_OUT",
+		"time": 90,
+		"data": {
+			"guest": 7
+		}
+	},
+
+	{
+		"type": "CHECK_IN",
+		"time": 8,
+		"data": {
+			"guest": 8,
+			"stars": 4
+		}
+	},
+	{
+		"type": "GO_TO_CINEMA",
+		"time": 18,
+		"data": {
+			"guest": 8
+		}
+	},
+	{
+		"type": "GO_TO_DINER",
+		"time": 77,
+		"data": {
+			"guest": 8
+		}
+	},
+	{
+		"type": "CHECK_OUT",
+		"time": 90,
+		"data": {
+			"guest": 8
+		}
+	},
+
+	{
+		"type": "CHECK_IN",
+		"time": 15,
+		"data": {
+			"guest": 9,
+			"stars": 2
+		}
+	},
+	{
+		"type": "GO_TO_DINER",
+		"time": 37,
+		"data": {
+			"guest": 9
+		}
+	},
+	{
+		"type": "CHECK_OUT",
+		"time": 74,
+		"data": {
+			"guest": 9
+		}
+	},
+
+	{
+		"type": "CHECK_IN",
+		"time": 15,
+		"data": {
+			"guest": 10,
+			"stars": 2
+		}
+	},
+	{
+		"type": "CLEANING_EMERGENCY",
+		"time": 27,
+		"data": {
+			"guest": 10
+		}
+	},
+	{
+		"type": "CLEANING_EMERGENCY",
+		"time": 33,
+		"data": {
+			"guest": 10
+		}
+	},
+	{
+		"type": "CLEANING_EMERGENCY",
+		"time": 39,
+		"data": {
+			"guest": 10
+		}
+	},
+	{
+		"type": "CLEANING_EMERGENCY",
+		"time": 45,
+		"data": {
+			"guest": 10
+		}
+	},
+	{
+		"type": "GO_TO_FITNESS",
+		"time": 63,
+		"data": {
+			"guest": 10
+		}
+	},
+	{
+		"type": "CLEANING_EMERGENCY",
+		"time": 75,
+		"data": {
+			"guest": 10
+		}
+	},
+	{
+		"type": "CHECK_OUT",
+		"time": 100,
+		"data": {
+			"guest": 10
+		}
+	},
+
+	{
+		"type": "CHECK_IN",
+		"time": 16,
+		"data": {
+			"guest": 11,
+			"stars": 4
+		}
+	},
+	{
+		"type": "CLEANING_EMERGENCY",
+		"time": 34,
+		"data": {
+			"guest": 11
+		}
+	},
+	{
+		"type": "GO_TO_FITNESS",
+		"time": 69,
+		"data": {
+			"guest": 11
+		}
+	},
+	{
+		"type": "CHECK_OUT",
+		"time": 100,
+		"data": {
+			"guest": 11
+		}
+	},
+
+	{
+		"type": "CHECK_IN",
+		"time": 20,
+		"data": {
+			"guest": 12,
+			"stars": 1
+		}
+	},
+	{
+		"type": "GO_TO_FITNESS",
+		"time": 35,
+		"data": {
+			"guest": 12
+		}
+	},
+	{
+		"type": "GO_TO_CINEMA",
+		"time": 62,
+		"data": {
+			"guest": 12
+		}
+	},
+	{
+		"type": "CHECK_OUT",
+		"time": 100,
+		"data": {
+			"guest": 12
+		}
+	},
+
+	{
+		"type": "CHECK_IN",
+		"time": 21,
+		"data": {
+			"guest": 13,
+			"stars": 1
+		}
+	},
+	{
+		"type": "GO_TO_CINEMA",
+		"time": 27,
+		"data": {
+			"guest": 13
+		}
+	},
+	{
+		"type": "CLEANING_EMERGENCY",
+		"time": 80,
+		"data": {
+			"guest": 13
+		}
+	},
+	{
+		"type": "CHECK_OUT",
+		"time": 100,
+		"data": {
+			"guest": 13
+		}
+	},
+
+	{
+		"type": "CHECK_IN",
+		"time": 21,
+		"data": {
+			"guest": 14,
+			"stars": 5
+		}
+	},
+	{
+		"type": "CHECK_OUT",
+		"time": 49,
+		"data": {
+			"guest": 14
+		}
+	},
+
+	{
+		"type": "CHECK_IN",
+		"time": 30,
+		"data": {
+			"guest": 15,
+			"stars": 1
+		}
+	},
+	{
+		"type": "GO_TO_DINER",
+		"time": 34,
+		"data": {
+			"guest": 15
+		}
+	},
+	{
+		"type": "CHECK_OUT",
+		"time": 77,
+		"data": {
+			"guest": 15
+		}
+	},
+
+	{
+		"type": "CHECK_IN",
+		"time": 31,
+		"data": {
+			"guest": 16,
+			"stars": 3
+		}
+	},
+	{
+		"type": "GO_TO_DINER",
+		"time": 47,
+		"data": {
+			"guest": 16
+		}
+	},
+	{
+		"type": "CLEANING_EMERGENCY",
+		"time": 50,
+		"data": {
+			"guest": 16
+		}
+	},
+	{
+		"type": "GO_TO_FITNESS",
+		"time": 79,
+		"data": {
+			"guest": 16
+		}
+	},
+	{
+		"type": "CHECK_OUT",
+		"time": 100,
+		"data": {
+			"guest": 16
+		}
+	},
+
+	{
+		"type": "CHECK_IN",
+		"time": 32,
+		"data": {
+			"guest": 17,
+			"stars": 3
+		}
+	},
+	{
+		"type": "GO_TO_DINER",
+		"time": 48,
+		"data": {
+			"guest": 17
+		}
+	},
+	{
+		"type": "CLEANING_EMERGENCY",
+		"time": 51,
+		"data": {
+			"guest": 17
+		}
+	},
+	{
+		"type": "GO_TO_FITNESS",
+		"time": 86,
+		"data": {
+			"guest": 17
+		}
+	},
+	{
+		"type": "CHECK_OUT",
+		"time": 100,
+		"data": {
+			"guest": 17
+		}
+	},
+
+	{
+		"type": "CHECK_IN",
+		"time": 40,
+		"data": {
+			"guest": 18,
+			"stars": 1
+		}
+	},
+	{
+		"type": "CLEANING_EMERGENCY",
+		"time": 55,
+		"data": {
+			"guest": 18
+		}
+	},
+	{
+		"type": "GO_TO_DINER",
+		"time": 57,
+		"data": {
+			"guest": 18
+		}
+	},
+	{
+		"type": "GO_TO_DINER",
+		"time": 62,
+		"data": {
+			"guest": 18
+		}
+	},
+	{
+		"type": "CHECK_OUT",
+		"time": 100,
+		"data": {
+			"guest": 18
+		}
+	},
+	
+	{
+		"type": "CHECK_IN",
+		"time": 40,
+		"data": {
+			"guest": 19,
+			"stars": 1
+		}
+	},
+	{
+		"type": "GO_TO_DINER",
+		"time": 57,
+		"data": {
+			"guest": 19
+		}
+	},
+	{
+		"type": "CLEANING_EMERGENCY",
+		"time": 67,
+		"data": {
+			"guest": 19
+		}
+	},
+	{
+		"type": "CHECK_OUT",
+		"time": 100,
+		"data": {
+			"guest": 19
+		}
+	},
+
+	{
+		"type": "CHECK_IN",
+		"time": 45,
+		"data": {
+			"guest": 20,
+			"stars": 5
+		}
+	},
+	{
+		"type": "GO_TO_FITNESS",
+		"time": 54,
+		"data": {
+			"guest": 20
+		}
+	},
+	{
+		"type": "GO_TO_DINER",
+		"time": 65,
+		"data": {
+			"guest": 20
+		}
+	},
+	{
+		"type": "CHECK_OUT",
+		"time": 88,
+		"data": {
+			"guest": 20
+		}
+	},
+
+	{
+		"type": "CHECK_IN",
+		"time": 46,
+		"data": {
+			"guest": 21,
+			"stars": 2
+		}
+	},
+	{
+		"type": "GO_TO_FITNESS",
+		"time": 58,
+		"data": {
+			"guest": 21
+		}
+	},
+	{
+		"type": "CHECK_OUT",
+		"time": 100,
+		"data": {
+			"guest": 21
+		}
+	},
+
+	{
+		"type": "CHECK_IN",
+		"time": 48,
+		"data": {
+			"guest": 22,
+			"stars": 2
+		}
+	},
+	{
+		"type": "GO_TO_FITNESS",
+		"time": 63,
+		"data": {
+			"guest": 22
+		}
+	},
+	{
+		"type": "CHECK_OUT",
+		"time": 83,
+		"data": {
+			"guest": 22
+		}
+	},
+
+	{
+		"type": "CHECK_IN",
+		"time": 50,
+		"data": {
+			"guest": 23,
+			"stars": 3
+		}
+	},
+	{
+		"type": "GO_TO_CINEMA",
+		"time": 73,
+		"data": {
+			"guest": 23
+		}
+	},
+	{
+		"type": "CHECK_OUT",
+		"time": 100,
+		"data": {
+			"guest": 23
+		}
+	},
+
+	{
+		"type": "CHECK_IN",
+		"time": 55,
+		"data": {
+			"guest": 24,
+			"stars": 1
+		}
+	},
+	{
+		"type": "GO_TO_CINEMA",
+		"time": 73,
+		"data": {
+			"guest": 24
+		}
+	},
+	{
+		"type": "CHECK_OUT",
+		"time": 100,
+		"data": {
+			"guest": 24
+		}
+	},
+
+	{
+		"type": "CHECK_IN",
+		"time": 55,
+		"data": {
+			"guest": 25,
+			"stars": 1
+		}
+	},
+	{
+		"type": "CHECK_OUT",
+		"time": 100,
+		"data": {
+			"guest": 25
+		}
+	},
+
+	{
+		"type": "CHECK_IN",
+		"time": 65,
+		"data": {
+			"guest": 26,
+			"stars": 3
+		}
+	},
+	{
+		"type": "GO_TO_CINEMA",
+		"time": 79,
+		"data": {
+			"guest": 26
+		}
+	},
+	{
+		"type": "CHECK_OUT",
+		"time": 100,
+		"data": {
+			"guest": 26
+		}
+	},
+
+	{
+		"type": "CHECK_IN",
+		"time": 65,
+		"data": {
+			"guest": 27,
+			"stars": 2
+		}
+	},
+	{
+		"type": "GO_TO_DINER",
+		"time": 68,
+		"data": {
+			"guest": 27
+		}
+	},
+	{
+		"type": "CHECK_OUT",
+		"time": 100,
+		"data": {
+			"guest": 27
+		}
+	},
+
+	{
+		"type": "CHECK_IN",
+		"time": 65,
+		"data": {
+			"guest": 28,
+			"stars": 2
+		}
+	},
+	{
+		"type": "GO_TO_FITNESS",
+		"time": 83,
+		"data": {
+			"guest": 28
+		}
+	},
+	{
+		"type": "CHECK_OUT",
+		"time": 100,
+		"data": {
+			"guest": 28
+		}
+	},
+	
+	{
+		"type": "CHECK_IN",
+		"time": 69,
+		"data": {
+			"guest": 29,
+			"stars": 5
+		}
+	},
+	{
+		"type": "GO_TO_DINER",
+		"time": 82,
+		"data": {
+			"guest": 29
+		}
+	},
+	{
+		"type": "CHECK_OUT",
+		"time": 100,
+		"data": {
+			"guest": 29
+		}
+	},
+
+	{
+		"type": "CHECK_IN",
+		"time": 70,
+		"data": {
+			"guest": 30,
+			"stars": 4
+		}
+	},
+	{
+		"type": "GO_TO_DINER",
+		"time": 91,
+		"data": {
+			"guest": 30
+		}
+	},
+	{
+		"type": "CHECK_OUT",
+		"time": 100,
+		"data": {
+			"guest": 30
+		}
+	},
+	
+	
+	
+	{
+		"type": "START_CINEMA",
+		"time": 30,
+		"data": {}
+	},
+	{
+		"type": "START_CINEMA",
+		"time": 85,
+		"data": {}
+	},
+	{
+		"type": "EVACUATE",
+		"time": 60,
+		"data": {}
+	},
+	{
+		"type": "GODZILLA",
+		"time": 95,
+		"data": {}
+	}
+]
