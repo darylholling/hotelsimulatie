@@ -13,9 +13,9 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-
 public class Menu extends Application {
     private Stage primaryStage;
+    Settings settings = new Settings();
 
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -24,7 +24,6 @@ public class Menu extends Application {
         this.primaryStage.show();
         Image gameIcon = new Image("com/company/images/HotelIcon.png");
         primaryStage.getIcons().add(gameIcon);
-
     }
 
     public void changeScene(String newScene) {
@@ -35,6 +34,9 @@ public class Menu extends Application {
                 break;
             case "SETTINGS":
                 scene = settings();
+                break;
+            case "LOADPAGE":
+//                scene = filePage();
                 break;
         }
         primaryStage.setScene(scene);
@@ -83,7 +85,6 @@ public class Menu extends Application {
         mainMenuButtons.add(startHotel, 0, 0);
         mainMenuButtons.add(settingsMenu, 1, 0);
 
-
         startHotel.setOnAction((ActionEvent event) -> {
             changeScene("STARTHOTEL");
         });
@@ -99,13 +100,14 @@ public class Menu extends Application {
         return new Scene(base);
     }
 
+    // Scene for settings pane
     public Scene settings() {
         BorderPane base = base();
 
         // Creating all Panes
         VBox settingsPane = new VBox();
         Pane header = new Pane();
-        GridPane settings = new GridPane();
+        GridPane settingsGridPane = new GridPane();
 
         settingsPane.setAlignment(Pos.CENTER);
         settingsPane.setPadding(new Insets(10));
@@ -113,17 +115,17 @@ public class Menu extends Application {
         settingsPane.setMaxHeight(600);
         settingsPane.setSpacing(10);
 
-        settings.setStyle(
+        settingsGridPane.setStyle(
             "-fx-background-color: whitesmoke;"
             +"-fx-border-color: black;"
             +"-fx-border-width: 3 3 3 3;"
             +"-fx-spacing: 1;"
             +"-fx-opacity: 80"
         );
-        settings.setAlignment(Pos.CENTER);
-        settings.setHgap(10);
-        settings.setVgap(10);
-        settings.setPadding(new Insets(10, 10, 10, 10));
+        settingsGridPane.setAlignment(Pos.CENTER);
+        settingsGridPane.setHgap(10);
+        settingsGridPane.setVgap(10);
+        settingsGridPane.setPadding(new Insets(10, 10, 10, 10));
 
         // Return to menu button
         Button returnButton = new Button("Return To Menu");
@@ -142,33 +144,52 @@ public class Menu extends Application {
         Button saveButton = new Button("Save settings");
 
         // Settings HTE
-        Label setHTELabel = new Label("Amount of milliseconds a HTE represents:");
-        TextField setHTEInput = new TextField("Enter the amount of ms");
+        Label setHTETimeLabel = new Label("Amount of milliseconds a HTE represents:");
+        String setHTETimeText = String.valueOf(settings.getHTETime());
+        TextField setHTETimeInput = new TextField(setHTETimeText);
 
         // Settings HTE Stairs
-        Label setHTEStairsLabel = new Label("Amount of HTE it takes gusets to use stairs:");
-        TextField setHTEStairsInput = new TextField("Enter the amount of HTE");
+        Label setHTEStairsLabel = new Label("Amount of HTE it takes guests to use stairs:");
+        String setHTEStairsText = String.valueOf(settings.getStairsHTE());
+        TextField setHTEStairsInput = new TextField(setHTEStairsText);
+
+        // Settings HTE Clean
+        Label setHTECleanLabel = new Label("Amount of HTE it takes to clean a room:");
+        String setHTECleanText = String.valueOf(settings.getCleanHTE());
+        TextField setHTECleanInput = new TextField(setHTECleanText);
+
+        // Settings HTE Death
+        Label setHTEDeathLabel = new Label("Amount of HTE it takes for guests to die from waiting for the elevator:");
+        String setHTEDeathText = String.valueOf(settings.getElevatorDeathHTE());
+        TextField setHTEDeathInput = new TextField(setHTEDeathText);
 
         // Add everything to header
         header.getChildren().add(title);
         header.getChildren().add(returnButton);
 
         // Add everything to settings
-        settings.add(introSetttings,0,0);
-        settings.add(setHTELabel,0,1);
-        settings.add(setHTEInput,1,1);
-        settings.add(setHTEStairsLabel,0,2);
-        settings.add(setHTEStairsInput,1,2);
-
+        settingsGridPane.add(introSetttings,0,0);
+        settingsGridPane.add(setHTETimeLabel,0,1);
+        settingsGridPane.add(setHTETimeInput,1,1);
+        settingsGridPane.add(setHTEStairsLabel,0,2);
+        settingsGridPane.add(setHTEStairsInput,1,2);
+        settingsGridPane.add(setHTECleanLabel,0,3);
+        settingsGridPane.add(setHTECleanInput,1,3);
+        settingsGridPane.add(setHTEDeathLabel,0,4);
+        settingsGridPane.add(setHTEDeathInput,1,4);
 
         // actions for save button
         saveButton.setOnAction((ActionEvent event) -> {
-            System.out.println("Saving data...");
-            //Todo save all data
+            int setHTETime = Integer.parseInt(setHTETimeInput.getText());
+            int setHTEStairs = Integer.parseInt(setHTEStairsInput.getText());
+            int setHTEClean = Integer.parseInt(setHTECleanInput.getText());
+            int setHTEDeath = Integer.parseInt(setHTEDeathInput.getText());
+
+            settings.setSettings(setHTETime, setHTEStairs, setHTEClean, setHTEDeath);
         });
 
         // Panes adding to hsPane
-        settingsPane.getChildren().addAll(header,settings,ExplainHTE,saveButton);
+        settingsPane.getChildren().addAll(header,settingsGridPane,ExplainHTE,saveButton);
         base.setCenter(settingsPane);
 
         // Primary scene show
