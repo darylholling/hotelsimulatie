@@ -14,14 +14,16 @@ public class Layout {
         this.data = data;
     }
 
-    //because variables are private:
+    //because variables are private
     public Position getPosition() {
         return this.position;
     }
     public Dimensions getDimensions() {return this.dimensions; }
+
     public String getType() {
         return type;
     }
+
     public Data getData() {
         return data;
     }

@@ -23,8 +23,8 @@ public class JsonReader{
 
         Gson gson = new GsonBuilder().create();
 
-        String fileName = "src/com/company/layout.json";
-        Path path = new File(fileName).toPath();
+//        String fileName = "json/layout.json";
+        Path path = new File("json/layout.json").toPath();
 
         try (Reader reader = Files.newBufferedReader(path, StandardCharsets.UTF_8)) {
 
@@ -40,8 +40,7 @@ public class JsonReader{
             });
         }
     }
-
     public void readJson(){
-
+        
     }
 }
