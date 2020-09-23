@@ -3,102 +3,106 @@ package com.company;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import javafx.application.Application;
-import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Arrays;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class HotelBuilder extends Application {
+    int maxWidth = 0;
+    int maxHeight = 0;
 
-    private Parent createContent() {
+    private Parent createContent() throws IOException {
 
         // size of window
         Pane root = new Pane();
-        root.setPrefSize(600, 600);
-
-        //import json
-        AtomicInteger numberOfRows = new AtomicInteger();
-        AtomicInteger numberOfColumns = new AtomicInteger();
+        GridPane gridPane = new GridPane();
 
         Gson gson = new GsonBuilder().create();
-        Path path = new File("json/layout.json").toPath();
+        Path path = new File("json/2roomlayout.json").toPath();
+//        Path path = new File("json/layout.json").toPath();
 
+        Reader reader = Files.newBufferedReader(path, StandardCharsets.UTF_8);
+        Layout[] layouts = gson.fromJson(reader, Layout[].class);
 
-        try (Reader reader = Files.newBufferedReader(path, StandardCharsets.UTF_8)) {
-            Layout[] layouts = gson.fromJson(reader, Layout[].class);
-
-            // every object in json file
-            Arrays.stream(layouts).forEach(e -> {
-
-
-                System.out.println(e.getPosition());
-                System.out.println(e.getDimensions());
-
-                if (e.getPosition().getX() > numberOfRows.get()) {
-                    numberOfRows.set(e.getPosition().getX());
-                }
-                if (e.getPosition().getY() > numberOfRows.get()) {
-                    numberOfColumns.set(e.getPosition().getY());
-                }
-                System.out.println("X = " + e.getPosition().getX() + " Y = " + e.getPosition().getY());
-                System.out.println("rows = " + (1 + numberOfRows.intValue()) + "  columns = " + (1 + numberOfColumns.intValue()));
-
-
-            });
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        //Building the Area's
-        for(int i = 0; i < numberOfRows.intValue(); i++){
-            for(int j = 0; j < numberOfColumns.intValue(); j++){
-                Rectangle area = new Rectangle(10, 10);
-                area.setFill(null);
-                area.setStroke(Color.BLACK);
-                area.setTranslateX(10);
-                area.setTranslateY(10);
-
-                root.getChildren().addAll(area);
+        // every object in json file
+        for (Layout e : layouts) {
+            int layoutHeight = e.getPosition().getY() + (e.getDimensions().getHeight() - 1);
+            if (maxHeight < layoutHeight) {
+                maxHeight = layoutHeight;
+            }
+            int layoutWidth = e.getPosition().getX() + (e.getDimensions().getWidth() - 1);
+            if (maxWidth < layoutWidth) {
+                maxWidth = layoutWidth;
             }
         }
 
-        return root;
+        System.out.println("Max X: " + maxWidth + " & Max Y: " + maxHeight);
+
+        //Building the Area's
+        for (int i = 0; i <= maxWidth; i++) {
+            for (int j = 0; j <= maxHeight; j++) {
+//                Rectangle rectangle = new Rectangle(50, 50);
+//                rectangle.setFill(Color.LIGHTBLUE);
+//                rectangle.setStroke(Color.BLACK);
+//                gridPane.add(rectangle, i, j);
+
+                Hallway hallway = new Hallway(new Position(i, j), new Dimensions(1, 1));
+                gridPane.add(hallway, hallway.getPosition().getX(), hallway.getPosition().getY());
+            }
+        }
+
+        this.createAreas(gridPane, layouts);
+//        this.createHallway(gridPane);
+
+
+        for (Node node : gridPane.getChildren()) {
+            System.out.println(node.getClass());
+        }
+
+        return gridPane;
+    }
+
+    private void createHallway(GridPane gridPane) {
+        System.out.println(maxHeight);
+        System.out.println(maxWidth);
+    }
+
+    private void createAreas(GridPane gridPane, Layout[] layouts) {
+        for (Layout layout : layouts) {
+            Area area = null;
+
+            switch (layout.getType()) {
+                case "room":
+                    area = new GuestRoom(layout.getPosition(), layout.getDimensions(), layout.getData().getStars());
+                    break;
+                case "diner":
+//                    area = new Diner(layout.getPosition(), layout.getDimensions(), layout.getData().getStars());
+                    break;
+                default:
+                    System.out.println("invalid type");
+            }
+
+            if (area != null) {
+                gridPane.add(area, area.getPosition().getX(), area.getPosition().getY());
+            }
+        }
     }
 
     @Override
     public void start(Stage stage) throws Exception {
         stage.setScene(new Scene(createContent()));
         stage.show();
-    }
-
-    private class Area extends StackPane {
-        public Area() {
-            Rectangle border = new Rectangle(10, 10);
-            border.setFill(null);
-            border.setStroke(Color.BLACK);
-
-            setAlignment(Pos.CENTER);
-            getChildren().addAll(border);
-        }
-    }
-
-    public static void main(String[] args) {
-        HotelBuilder hotelBuilder = new HotelBuilder();
-        hotelBuilder.createContent();
-
-        launch(args);
     }
 }
