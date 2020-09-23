@@ -1,14 +1,13 @@
 package com.company;
 
-import java.io.File;
 import java.util.ArrayList;
 
 public class Diner extends Area {
 
     private ArrayList<Person> dinerGuests;
 
-    public Diner (Position position, Person persons, File imageFile, Dimensions dimensions, String areaType) {
-        super(position, persons, imageFile, dimensions, areaType);
+    public Diner (Position position, Dimensions dimensions) {
+        super(position, dimensions);
         dinerGuests = new ArrayList<Person>();
 
     }
@@ -18,5 +17,3 @@ public class Diner extends Area {
     }
 
 }
-
-
