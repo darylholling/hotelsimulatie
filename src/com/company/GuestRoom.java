@@ -6,7 +6,7 @@ import javafx.scene.image.ImageView;
 public class GuestRoom extends Area{
     private int stars;
 
-    public GuestRoom (Position position, Person persons, Dimensions dimensions, int stars) {
+    public GuestRoom (Position position, Dimensions dimensions, int stars) {
         super(position, dimensions);
 
         this.stars = stars;
@@ -52,25 +52,25 @@ public class GuestRoom extends Area{
                 throw new RuntimeException("no image defined");
         }
 
-        return new Image(imageName);
+        return new Image("/" + imageName);
     }
 
     public void configureSize(ImageView imageView) {
         switch (this.getDimensions().getWidth()) {
             case 1:
-                imageView.setLayoutX(50);
+                imageView.setFitWidth(50);
                 break;
             case 2:
-                imageView.setLayoutX(100);
+                imageView.setFitWidth(100);
                 break;
         }
 
         switch (this.getDimensions().getHeight()) {
             case 1:
-                imageView.setLayoutY(50);
+                imageView.setFitHeight(50);
                 break;
             case 2:
-                imageView.setLayoutY(100);
+                imageView.setFitHeight(100);
                 break;
         }
     }

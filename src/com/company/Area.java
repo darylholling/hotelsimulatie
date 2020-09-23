@@ -14,6 +14,8 @@ public abstract class Area extends Pane {
     private ArrayList<Person> persons = new ArrayList<>();
 
     public Area(Position position, Dimensions dimensions) {
+        this.position = position;
+        this.dimensions = dimensions;
     }
 
     public Position getPosition() {
@@ -52,5 +54,6 @@ public abstract class Area extends Pane {
 
     public void setImageFile(ImageView imageFile) {
         this.imageFile = imageFile;
+        getChildren().add(this.imageFile);
     }
 }
