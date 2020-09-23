@@ -30,8 +30,8 @@ public class HotelBuilder extends Application {
         GridPane gridPane = new GridPane();
 
         Gson gson = new GsonBuilder().create();
-        Path path = new File("json/2roomlayout.json").toPath();
-//        Path path = new File("json/layout.json").toPath();
+//        Path path = new File("json/2roomlayout.json").toPath();
+        Path path = new File("json/layout.json").toPath();
 
         Reader reader = Files.newBufferedReader(path, StandardCharsets.UTF_8);
         Layout[] layouts = gson.fromJson(reader, Layout[].class);
