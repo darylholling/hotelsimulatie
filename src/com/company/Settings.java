@@ -1,16 +1,31 @@
 package com.company;
 
 public class Settings {
-    private int hteInSeconds;
-    private int roomCleanTime;
-    private int moveFloorTime;
+    private int HTETime;
+    private int StairsHTE;
+    private int CleanHTE;
+    private int ElevatorDeathHTE;
 
-    public Settings (int hteInSeconds, int roomCleanTime, int moveFloorTime) {
-        this.hteInSeconds = hteInSeconds;
-        this.roomCleanTime = roomCleanTime;
-        this.moveFloorTime = moveFloorTime;
-
+    public void setSettings(int hteTime, int stairsHTE, int cleanHTE, int elevatorDeathHTE){
+        this.HTETime = hteTime;
+        this.StairsHTE = stairsHTE;
+        this.CleanHTE = cleanHTE;
+        this.ElevatorDeathHTE = elevatorDeathHTE;
     }
 
+    public int getHTETime() {
+        return HTETime;
+    }
 
+    public int getStairsHTE() {
+        return StairsHTE;
+    }
+
+    public int getCleanHTE() {
+        return CleanHTE;
+    }
+
+    public int getElevatorDeathHTE() {
+        return ElevatorDeathHTE;
+    }
 }
