@@ -3,6 +3,7 @@ package com.company;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import javafx.application.Application;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
@@ -28,10 +29,6 @@ public class HotelBuilder extends Application {
         Pane root = new Pane();
         GridPane gridPane = new GridPane();
 
-        //import json
-//        AtomicInteger numberOfRows = new AtomicInteger();
-//        AtomicInteger numberOfColumns = new AtomicInteger();
-
         Gson gson = new GsonBuilder().create();
         Path path = new File("json/2roomlayout.json").toPath();
 //        Path path = new File("json/layout.json").toPath();
@@ -56,16 +53,23 @@ public class HotelBuilder extends Application {
         //Building the Area's
         for (int i = 0; i <= maxWidth; i++) {
             for (int j = 0; j <= maxHeight; j++) {
-                Rectangle rectangle = new Rectangle(50, 50);
-                rectangle.setFill(Color.LIGHTBLUE);
-                rectangle.setStroke(Color.BLACK);
+//                Rectangle rectangle = new Rectangle(50, 50);
+//                rectangle.setFill(Color.LIGHTBLUE);
+//                rectangle.setStroke(Color.BLACK);
+//                gridPane.add(rectangle, i, j);
 
-                gridPane.add(rectangle, i, j);
+                Hallway hallway = new Hallway(new Position(i, j), new Dimensions(1, 1));
+                gridPane.add(hallway, hallway.getPosition().getX(), hallway.getPosition().getY());
             }
         }
 
         this.createAreas(gridPane, layouts);
-        this.createHallway(gridPane);
+//        this.createHallway(gridPane);
+
+
+        for (Node node : gridPane.getChildren()) {
+            System.out.println(node.getClass());
+        }
 
         return gridPane;
     }
@@ -76,7 +80,6 @@ public class HotelBuilder extends Application {
     }
 
     private void createAreas(GridPane gridPane, Layout[] layouts) {
-
         for (Layout layout : layouts) {
             Area area = null;
 
@@ -92,8 +95,7 @@ public class HotelBuilder extends Application {
             }
 
             if (area != null) {
-                gridPane.getChildren().remove(1,1);
-//                gridPane.add(area, area.getPosition().getX(), area.getPosition().getY());
+                gridPane.add(area, area.getPosition().getX(), area.getPosition().getY());
             }
         }
     }
