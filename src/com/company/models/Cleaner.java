@@ -1,4 +1,6 @@
-package com.company;
+package com.company.models;
+
+import com.company.services.Move;
 
 public class Cleaner implements Person {
     public Cleaner () {

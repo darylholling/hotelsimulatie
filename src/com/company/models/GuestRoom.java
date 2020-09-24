@@ -1,9 +1,9 @@
-package com.company;
+package com.company.models;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class GuestRoom extends Area{
+public class GuestRoom extends Area {
     private int stars;
 
     public GuestRoom (Position position, Dimensions dimensions, int stars) {

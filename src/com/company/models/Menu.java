@@ -1,4 +1,4 @@
-package com.company;
+package com.company.models;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -11,17 +11,21 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
+import java.io.File;
 
 public class Menu extends Application {
     private Stage primaryStage;
-    Settings settings = new Settings();
+    private Settings settings;
 
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.primaryStage.setScene(mainMenu());
         this.primaryStage.setTitle("Hotel Simulation");
         this.primaryStage.show();
+        settings = Settings.createSetttings(1,1,1,1);
         Image gameIcon = new Image("com/company/images/HotelIcon.png");
         primaryStage.getIcons().add(gameIcon);
     }
@@ -29,14 +33,14 @@ public class Menu extends Application {
     public void changeScene(String newScene) {
         Scene scene = mainMenu();
         switch (newScene) {
-            case "STARTHOTEL":
+            case "loadFilePage":
 //                scene = startGame();
                 break;
             case "SETTINGS":
                 scene = settings();
                 break;
             case "LOADPAGE":
-//                scene = filePage();
+                scene = filePage();
                 break;
         }
         primaryStage.setScene(scene);
@@ -50,10 +54,10 @@ public class Menu extends Application {
         // Centered box
         VBox baseMenu = new VBox();
         baseMenu.setStyle(
-//                "-fx-background-color: whitesmoke;"
-                "-fx-background-image:url(/images/background.jpg);"
+               "-fx-background-color: whitesmoke;"
                 +"-fx-border-color: black;"
                 +"-fx-border-width: 3 3 3 3;"
+                +"-fx-border-radius: 50px;"
                 +"-fx-spacing: 1;"
                 +"-fx-opacity: 80"
         );
@@ -70,10 +74,10 @@ public class Menu extends Application {
 
         // Buttons
         Button settingsMenu = new Button("Settings");
-        Button startHotel = new Button("Start the hotel");
+        Button loadFilePage = new Button("Start the hotel");
 
         settingsMenu.setMaxWidth(Double.MAX_VALUE);
-        startHotel.setMaxWidth(Double.MAX_VALUE);
+        loadFilePage.setMaxWidth(Double.MAX_VALUE);
 
         // Button positions in main menu
         GridPane mainMenuButtons = new GridPane();
@@ -82,16 +86,12 @@ public class Menu extends Application {
         mainMenuButtons.setVgap(15);
         mainMenuButtons.setAlignment(Pos.CENTER);
 
-        mainMenuButtons.add(startHotel, 0, 0);
+        mainMenuButtons.add(loadFilePage, 0, 0);
         mainMenuButtons.add(settingsMenu, 1, 0);
 
-        startHotel.setOnAction((ActionEvent event) -> {
-            changeScene("STARTHOTEL");
-        });
+        loadFilePage.setOnAction((ActionEvent event) -> changeScene("LOADPAGE"));
 
-        settingsMenu.setOnAction((ActionEvent event) -> {
-            changeScene("SETTINGS");
-        });
+        settingsMenu.setOnAction((ActionEvent event) -> changeScene("SETTINGS"));
 
         // Add everyting to menupane
         baseMenu.getChildren().addAll(instructionMenu, mainMenuButtons);
@@ -193,6 +193,74 @@ public class Menu extends Application {
         base.setCenter(settingsPane);
 
         // Primary scene show
+        return new Scene(base);
+    }
+
+    public Scene filePage() {
+        // Main Pane
+        BorderPane base = base();
+
+        // Centered box
+        VBox filePage = new VBox();
+        filePage.setStyle(
+                "-fx-background-color: whitesmoke;"
+                +"-fx-border-color: black;"
+                +"-fx-border-width: 3 3 3 3;"
+                +"-fx-border-radius: 50px;"
+                +"-fx-spacing: 1;"
+                +"-fx-opacity: 80"
+        );
+
+        filePage.setPadding(new Insets(10));
+        filePage.setAlignment(Pos.CENTER);
+        filePage.setMaxWidth(400);
+        filePage.setMaxHeight(400);
+
+        // Initialise labels for menu
+        Label filePageTitle = new Label("Please select the files you want to use to run the hotel");
+        filePageTitle.setStyle("-fx-padding:10;");
+        filePageTitle.relocate(5, 5);
+
+        // filesChoosers
+        FileChooser eventsChooser = new FileChooser();
+        FileChooser layoutChooser = new FileChooser();
+
+        // Buttons
+        Button eventButton = new Button("Select the event json");
+        Button layoutButton = new Button("Select the layout json");
+
+        //open file chooser with buttons
+        eventButton.setOnAction(e -> {
+            File eventFile = eventsChooser.showOpenDialog(primaryStage);
+        });
+        layoutButton.setOnAction(e -> {
+            File layoutFile = layoutChooser.showOpenDialog(primaryStage);
+        });
+
+//        eventsChooser.setTitle("Events.json");
+//        layoutChooser.setTitle("Layouts.json");
+//
+//        eventsChooser.setInitialDirectory(
+//                new File(System.getProperty("user.home"))
+//        );
+
+        eventButton.setMaxWidth(Double.MAX_VALUE);
+        layoutButton.setMaxWidth(Double.MAX_VALUE);
+
+        // Button positions in main menu
+        GridPane mainMenuButtons = new GridPane();
+
+        mainMenuButtons.setHgap(15);
+        mainMenuButtons.setVgap(15);
+        mainMenuButtons.setAlignment(Pos.CENTER);
+
+        mainMenuButtons.add(eventButton, 0, 0);
+        mainMenuButtons.add(layoutButton, 1, 0);
+
+        // Add everyting to menupane
+        filePage.getChildren().addAll(filePageTitle, mainMenuButtons);
+        base.setCenter(filePage);
+
         return new Scene(base);
     }
 
