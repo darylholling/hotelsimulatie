@@ -1,4 +1,3 @@
-
 package com.company;
 
 import javafx.scene.image.Image;
