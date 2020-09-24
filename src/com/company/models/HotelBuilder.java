@@ -1,7 +1,6 @@
 package com.company.models;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.company.services.JsonReader;
 import javafx.application.Application;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -10,12 +9,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.Reader;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
 
 public class HotelBuilder extends Application {
     int maxWidth = 0;
@@ -27,8 +21,8 @@ public class HotelBuilder extends Application {
         Pane root = new Pane();
         GridPane gridPane = new GridPane();
 
-    JsonReader jsonReader = new JsonReader();
-    Layout [] layouts = jsonReader.readJson( "json/2roomlayout.json");
+        JsonReader jsonReader = new JsonReader();
+        Layout[] layouts = jsonReader.readJson("json/2roomlayout.json");
 
 
         // every object in json file
@@ -93,7 +87,7 @@ public class HotelBuilder extends Application {
                 Node child = this.getChildAtRowCol(gridPane, area.getPosition().getX(), area.getPosition().getY());
 
                 if (child != null) {
-                   gridPane.getChildren().remove(child);
+                    gridPane.getChildren().remove(child);
                 }
 
                 gridPane.add(area, area.getPosition().getX(), area.getPosition().getY());
