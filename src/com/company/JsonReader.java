@@ -10,19 +10,25 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
+import java.util.concurrent.atomic.AtomicInteger;
+
 
 public class JsonReader{
 
     public static void main(String[] args) throws IOException {
+
+
         Gson gson = new GsonBuilder().create();
 
-        String fileName = "src/com/company/layout.json";
-        Path path = new File(fileName).toPath();
+        Path path = new File("json/layout.json").toPath();
 
         try (Reader reader = Files.newBufferedReader(path, StandardCharsets.UTF_8)) {
 
             Layout[] layouts = gson.fromJson(reader, Layout[].class);
             Arrays.stream(layouts).forEach(System.out::println);
         }
+    }
+    public void readJson(){
+        
     }
 }
