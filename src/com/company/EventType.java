@@ -2,5 +2,9 @@ package com.company;
 
 public class EventType {
 
-    String name;
+    private String name;
+
+    public EventType (String name) {
+        this.name = name;
+    }
 }

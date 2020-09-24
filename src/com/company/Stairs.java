@@ -7,6 +7,10 @@ public class Stairs extends Area {
         super(position, dimensions);
 
 
+
+
+
+
     }
 
 }

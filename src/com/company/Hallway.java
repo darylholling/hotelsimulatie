@@ -5,5 +5,6 @@ public class Hallway extends Area {
         super(position, dimensions);
 
 //        this.setImageFile();
+
     }
 }
