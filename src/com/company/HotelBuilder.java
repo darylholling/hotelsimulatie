@@ -21,7 +21,7 @@ public class HotelBuilder extends Application {
         GridPane gridPane = new GridPane();
 
         JsonReader jsonReader = new JsonReader();
-        Layout[] layouts = jsonReader.readJson("json/2roomlayout.json");
+        Layout[] layouts = jsonReader.readJson("json/layout.json");
 
 
         // every object in json file
@@ -76,20 +76,26 @@ public class HotelBuilder extends Application {
                     area = new GuestRoom(layout.getPosition(), layout.getDimensions(), layout.getData().getStars());
                     break;
                 case "diner":
-//                    area = new Diner(layout.getPosition(), layout.getDimensions(), layout.getData().getStars());
+                    area = new Diner(layout.getPosition(), layout.getDimensions(), layout.getData().getMax());
+                    break;
+                case "fitness":
+                    area = new Fitness(layout.getPosition(), layout.getDimensions());
+                    break;
+                case "movie":
+                    area = new Cinema(layout.getPosition(), layout.getDimensions());
                     break;
                 default:
                     System.out.println("invalid type");
             }
 
             if (area != null) {
-                Node child = this.getChildAtRowCol(gridPane, area.getPosition().getX(), area.getPosition().getY());
+                Node child = this.getChildAtRowCol(gridPane, area.getPosition().getY(), area.getPosition().getX());
 
                 if (child != null) {
                     gridPane.getChildren().remove(child);
                 }
 
-                gridPane.add(area, area.getPosition().getX(), area.getPosition().getY());
+                gridPane.add(area, area.getPosition().getX(), area.getPosition().getY(), area.getDimensions().width, area.getDimensions().height);
             }
         }
     }
