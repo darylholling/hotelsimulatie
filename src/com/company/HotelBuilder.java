@@ -8,6 +8,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class HotelBuilder extends Application {
@@ -67,7 +68,7 @@ public class HotelBuilder extends Application {
         return null;
     }
 
-    private void createAreas(GridPane gridPane, Layout[] layouts) {
+    private void createAreas(GridPane gridPane, Layout[] layouts) throws FileNotFoundException {
         for (Layout layout : layouts) {
             Area area = null;
 
