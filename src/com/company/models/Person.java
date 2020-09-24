@@ -4,5 +4,5 @@ import com.company.services.Move;
 
 public interface Person {
 
-    void person (Position position, Event events, Move move);
+         void person (Area area, Event events, Move move);
 }
