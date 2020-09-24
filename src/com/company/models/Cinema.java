@@ -7,8 +7,9 @@ import java.util.ArrayList;
 public class Cinema extends Area {
     private ArrayList<Person> cinemaGuests;
 
-    public Cinema (Position position, Person persons, File imageFile, Dimensions dimensions, String areaType) {
-        super(position, persons, imageFile, dimensions, areaType);
+    public Cinema (Position position, Dimensions dimensions) {
+        super(position, dimensions);
+
         cinemaGuests = new ArrayList<Person>();
 
     }

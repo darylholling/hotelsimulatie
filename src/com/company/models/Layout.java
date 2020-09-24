@@ -20,8 +20,7 @@ public class Layout {
     }
     public Dimensions getDimensions() {return this.dimensions; }
 
-    public String getType() {
-        return type;
+    public String getType() { return type;
     }
 
     public Data getData() {
