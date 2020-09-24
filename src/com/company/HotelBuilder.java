@@ -62,8 +62,10 @@ public class HotelBuilder extends Application {
         }
 
         //Building the Area's
-        for(int i = 0; i < maxWidth; i++){
-            for(int j = 0; j < maxHeight; j++){
+        int totalMaxHeight= maxHeight + 1; //total height incl lobby
+        int totalMaxWidth = maxWidth + 2; // total width incl elevator + stairs
+        for(int i = 0; i < totalMaxWidth; i++){
+            for(int j = 0; j < totalMaxHeight; j++){
                 Rectangle area = new Rectangle(50, 50);
                 area.setFill(Color.LIGHTBLUE);
                 area.setStroke(Color.BLACK);
