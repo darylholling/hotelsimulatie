@@ -1,6 +1,4 @@
-package com.company.models;
-
-import com.company.services.Move;
+package com.company;
 
 public interface Person {
 

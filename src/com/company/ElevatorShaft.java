@@ -1,11 +1,16 @@
-package com.company.models;
+package com.company;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class Hallway extends Area {
-    public Hallway(Position position, Dimensions dimensions) {
+public class ElevatorShaft extends Area {
+
+    private Elevator elevator;
+
+    public ElevatorShaft(Position position, Dimensions dimensions, Elevator elevator) {
         super(position, dimensions);
+
+        this.elevator = elevator;
 
         ImageView imageView = new ImageView(new Image("/hallway.jpg"));
         imageView.setFitHeight(50);
@@ -14,5 +19,3 @@ public class Hallway extends Area {
         this.setImageFile(imageView);
     }
 }
-
-

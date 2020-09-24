@@ -1,9 +1,8 @@
-package com.company.models;
+package com.company;
 
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
-import java.io.File;
 import java.util.ArrayList;
 
 public abstract class Area extends Pane {

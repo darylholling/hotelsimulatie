@@ -1,6 +1,6 @@
-package com.company.services;
+package com.company;
 
-import com.company.models.Area;
+import com.company.Area;
 
 public class Move {
     private Area startArea;

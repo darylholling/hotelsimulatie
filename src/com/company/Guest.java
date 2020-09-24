@@ -1,6 +1,4 @@
-package com.company.models;
-
-import com.company.services.Move;
+package com.company;
 
 public class Guest implements Person {
     private int preferredStars;

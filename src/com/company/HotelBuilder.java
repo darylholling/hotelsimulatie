@@ -1,6 +1,5 @@
-package com.company.models;
+package com.company;
 
-import com.company.services.JsonReader;
 import javafx.application.Application;
 import javafx.scene.Node;
 import javafx.scene.Parent;

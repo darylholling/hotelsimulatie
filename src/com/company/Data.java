@@ -1,4 +1,4 @@
-package com.company.models;
+package com.company;
 
 public class Data {
     Integer stars;

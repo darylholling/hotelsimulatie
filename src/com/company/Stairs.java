@@ -1,5 +1,5 @@
 
-package com.company.models;
+package com.company;
 
 public class Stairs extends Area {
 
