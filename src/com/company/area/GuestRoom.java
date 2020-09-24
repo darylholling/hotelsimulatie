@@ -1,8 +1,11 @@
-package com.company;
+package com.company.area;
+
+import com.company.person.Person;
+import com.company.hotel.Position;
 
 import java.io.File;
 
-public class GuestRoom extends Area{
+public class GuestRoom extends Area {
     private int stars;
 
     public GuestRoom (Position position, Person persons, File imageFile, Dimensions dimensions, String areaType) {

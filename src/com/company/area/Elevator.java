@@ -1,4 +1,4 @@
-package com.company;
+package com.company.area;
 
 import java.util.Scanner;
 import java.util.ArrayList;

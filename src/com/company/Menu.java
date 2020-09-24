@@ -12,16 +12,17 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-
+   
 public class Menu extends Application {
     private Stage primaryStage;
-    Settings settings = new Settings();
+    private Settings settings;
 
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.primaryStage.setScene(mainMenu());
         this.primaryStage.setTitle("Hotel Simulation");
         this.primaryStage.show();
+        settings = Settings.createSetttings(1,1,1,1);
         Image gameIcon = new Image("com/company/images/HotelIcon.png");
         primaryStage.getIcons().add(gameIcon);
     }
@@ -50,10 +51,10 @@ public class Menu extends Application {
         // Centered box
         VBox baseMenu = new VBox();
         baseMenu.setStyle(
-//                "-fx-background-color: whitesmoke;"
-                "-fx-background-image:url(/images/background.jpg);"
+               "-fx-background-color: whitesmoke;"
                 +"-fx-border-color: black;"
                 +"-fx-border-width: 3 3 3 3;"
+                +"-fx-border-radius: 50px;"
                 +"-fx-spacing: 1;"
                 +"-fx-opacity: 80"
         );

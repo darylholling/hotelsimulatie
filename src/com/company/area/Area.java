@@ -1,5 +1,7 @@
-package com.company;
+package com.company.area;
 
+import com.company.person.Person;
+import com.company.hotel.Position;
 import javafx.scene.layout.Pane;
 
 import java.io.File;

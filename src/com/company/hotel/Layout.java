@@ -1,4 +1,7 @@
-package com.company;
+package com.company.hotel;
+
+import com.company.area.Data;
+import com.company.area.Dimensions;
 
 public class Layout {
 

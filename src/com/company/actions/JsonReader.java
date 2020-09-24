@@ -1,5 +1,6 @@
-package com.company;
+package com.company.actions;
 
+import com.company.hotel.Layout;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

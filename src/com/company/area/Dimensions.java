@@ -1,4 +1,4 @@
-package com.company;
+package com.company.area;
 
 public class Dimensions {
     Integer width;
