@@ -8,8 +8,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -30,8 +28,8 @@ public class HotelBuilder extends Application {
         GridPane gridPane = new GridPane();
 
         Gson gson = new GsonBuilder().create();
-//        Path path = new File("json/2roomlayout.json").toPath();
-        Path path = new File("json/layout.json").toPath();
+        Path path = new File("json/2roomlayout.json").toPath();
+//        Path path = new File("json/layout.json").toPath();
 
         Reader reader = Files.newBufferedReader(path, StandardCharsets.UTF_8);
         Layout[] layouts = gson.fromJson(reader, Layout[].class);
@@ -43,6 +41,7 @@ public class HotelBuilder extends Application {
                 maxHeight = layoutHeight;
             }
             int layoutWidth = e.getPosition().getX() + (e.getDimensions().getWidth() - 1);
+            System.out.println(layoutWidth);
             if (maxWidth < layoutWidth) {
                 maxWidth = layoutWidth;
             }
@@ -53,30 +52,28 @@ public class HotelBuilder extends Application {
         //Building the Area's
         for (int i = 0; i <= maxWidth; i++) {
             for (int j = 0; j <= maxHeight; j++) {
-//                Rectangle rectangle = new Rectangle(50, 50);
-//                rectangle.setFill(Color.LIGHTBLUE);
-//                rectangle.setStroke(Color.BLACK);
-//                gridPane.add(rectangle, i, j);
-
                 Hallway hallway = new Hallway(new Position(i, j), new Dimensions(1, 1));
                 gridPane.add(hallway, hallway.getPosition().getX(), hallway.getPosition().getY());
             }
         }
 
         this.createAreas(gridPane, layouts);
-//        this.createHallway(gridPane);
 
-
-        for (Node node : gridPane.getChildren()) {
-            System.out.println(node.getClass());
+        for (Node child : gridPane.getChildren()) {
+            System.out.println(child.getClass());
         }
 
         return gridPane;
     }
 
-    private void createHallway(GridPane gridPane) {
-        System.out.println(maxHeight);
-        System.out.println(maxWidth);
+    private Node getChildAtRowCol(GridPane gridPane, int row, int col) {
+        for (Node child : gridPane.getChildren()) {
+            if (GridPane.getColumnIndex(child) == col && GridPane.getRowIndex(child) == row) {
+                return child;
+            }
+        }
+
+        return null;
     }
 
     private void createAreas(GridPane gridPane, Layout[] layouts) {
@@ -95,6 +92,12 @@ public class HotelBuilder extends Application {
             }
 
             if (area != null) {
+                Node child = this.getChildAtRowCol(gridPane, area.getPosition().getX(), area.getPosition().getY());
+
+                if (child != null) {
+                   gridPane.getChildren().remove(child);
+                }
+
                 gridPane.add(area, area.getPosition().getX(), area.getPosition().getY());
             }
         }
