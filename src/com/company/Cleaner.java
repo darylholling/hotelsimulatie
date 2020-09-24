@@ -5,8 +5,10 @@ public class Cleaner implements Person {
 
     }
 
+
     @Override
-    public void person(Position position, Event events, Move move) {
+    public void person(Area area, Event events, Move move) {
 
     }
 }
+

@@ -1,22 +1,20 @@
 package com.company;
 
 
-import java.io.File;
-import java.util.ArrayList;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class Cinema extends Area {
-    private ArrayList<Person> cinemaGuests;
 
-    public Cinema (Position position, Person persons, File imageFile, Dimensions dimensions, String areaType) {
-        super(position, persons, imageFile, dimensions, areaType);
-        cinemaGuests = new ArrayList<Person>();
+    public Cinema (Position position, Dimensions dimensions) {
+        super(position, dimensions);
+
+//        this.setImageFile();
+        ImageView imageView = new ImageView(new Image("/cinema.jpg"));
+        imageView.setFitHeight(100);
+        imageView.setFitWidth(100);
+
+        this.setImageFile(imageView);
 
     }
-
-    public void addGuest(Person person) {
-        cinemaGuests.add(person);
-    }
-
 }
-
-

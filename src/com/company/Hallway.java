@@ -3,14 +3,9 @@ package com.company;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class ElevatorShaft extends Area {
-
-    private Elevator elevator;
-
-    public ElevatorShaft(Position position, Dimensions dimensions, Elevator elevator) {
+public class Hallway extends Area {
+    public Hallway(Position position, Dimensions dimensions) {
         super(position, dimensions);
-
-        this.elevator = elevator;
 
         ImageView imageView = new ImageView(new Image("/hallway.jpg"));
         imageView.setFitHeight(50);
@@ -19,3 +14,5 @@ public class ElevatorShaft extends Area {
         this.setImageFile(imageView);
     }
 }
+
+

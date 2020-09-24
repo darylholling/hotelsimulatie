@@ -1,14 +1,19 @@
 package com.company;
 
-import java.io.File;
-import java.util.ArrayList;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class Fitness extends Area {
 
-    private ArrayList<Person> fitnessGuests;
+      public Fitness (Position position, Dimensions dimensions) {
+        super(position, dimensions);
 
-    public Fitness (Position position, Person persons, File imageFile, Dimensions dimensions, String areaType) {
-        super(position, persons, imageFile, dimensions, areaType);
+          //        this.setImageFile();
+          ImageView imageView = new ImageView(new Image("/fitness.jpg"));
+          imageView.setFitHeight(100);
+          imageView.setFitWidth(100);
+
+          this.setImageFile(imageView);
 
     }
 

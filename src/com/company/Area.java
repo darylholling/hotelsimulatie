@@ -1,5 +1,6 @@
 package com.company;
 
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
 import java.io.File;
@@ -7,14 +8,14 @@ import java.util.ArrayList;
 
 public abstract class Area extends Pane {
     private Position position;
-    private Person persons;
-    private File imageFile;
+    private ImageView imageFile;
     private Dimensions dimensions;
-    private String areaType;
 
-    private ArrayList<Person> personArrayList = new ArrayList<>();
+    private ArrayList<Person> persons = new ArrayList<>();
 
-    public Area(Position position, Person persons, File imageFile, Dimensions dimensions, String areaType) {
+    public Area(Position position, Dimensions dimensions) {
+        this.position = position;
+        this.dimensions = dimensions;
     }
 
     public Position getPosition() {
@@ -25,12 +26,18 @@ public abstract class Area extends Pane {
         this.position = position;
     }
 
-    public Person getPersons() {
+    public ArrayList<Person> getPersons() {
         return persons;
     }
 
-    public void setPersons(Person persons) {
-        this.persons = persons;
+    public void addPerson(Person person) {
+        if (!this.persons.contains(person)) {
+            this.persons.add(person);
+        }
+    }
+
+    public void removePerson(Person person) {
+        this.persons.remove(person);
     }
 
     public Dimensions getDimensions() {
@@ -39,5 +46,14 @@ public abstract class Area extends Pane {
 
     public void setDimensions(Dimensions dimensions) {
         this.dimensions = dimensions;
+    }
+
+    public ImageView getImageFile() {
+        return imageFile;
+    }
+
+    public void setImageFile(ImageView imageFile) {
+        this.imageFile = imageFile;
+        getChildren().add(this.imageFile);
     }
 }

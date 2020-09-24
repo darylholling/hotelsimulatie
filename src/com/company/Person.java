@@ -2,5 +2,5 @@ package com.company;
 
 public interface Person {
 
-    void person (Position position, Event events, Move move);
+         void person (Area area, Event events, Move move);
 }
