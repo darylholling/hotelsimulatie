@@ -1,4 +1,4 @@
-package com.company.actions;
+package com.company.models;
 
 public class EventType {
 

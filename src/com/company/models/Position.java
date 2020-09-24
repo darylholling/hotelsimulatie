@@ -1,4 +1,4 @@
-package com.company.hotel;
+package com.company.models;
 
 public class Position {
     private Integer x;

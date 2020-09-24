@@ -1,7 +1,4 @@
-package com.company.area;
-
-import com.company.person.Person;
-import com.company.hotel.Position;
+package com.company.models;
 
 import java.io.File;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.company;
+package com.company.models;
 
 public class Settings {
     private int HTETime;
