@@ -1,22 +1,31 @@
 package com.company;
 
-import java.io.File;
-import java.util.ArrayList;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class Diner extends Area {
 
-    private ArrayList<Person> dinerGuests;
+    private int capacity;
 
-    public Diner (Position position, Dimensions dimensions) {
+    public Diner (Position position, Dimensions dimensions, int capacity) {
         super(position, dimensions);
-        dinerGuests = new ArrayList<Person>();
 
+        this.capacity = capacity;
+
+        //        this.setImageFile();
+        ImageView imageView = new ImageView(new Image("/diner.jpg"));
+        imageView.setFitHeight(50);
+        imageView.setFitWidth(100);
+
+        this.setImageFile(imageView);
     }
 
-    public void addGuest(Person person) {
-        dinerGuests.add(person);
+    public int getCapacity() {
+        return capacity;
     }
 
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+
+    }
 }
-
-

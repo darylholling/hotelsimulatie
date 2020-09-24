@@ -2,6 +2,19 @@ package com.company;
 
 public class Event {
 
-    EventType type = new EventType();
-    Integer time;
-}
+    private EventType type;
+    private Integer time;
+    private Data data;
+
+    public Event(EventType type, Integer time, Data data) {
+        this.type = type;
+        this.time = time;
+        this.data = data;
+    }
+
+    }
+
+
+
+
+
