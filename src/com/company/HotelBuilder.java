@@ -27,14 +27,12 @@ public class HotelBuilder extends Application {
         Pane root = new Pane();
         GridPane gridPane = new GridPane();
 
-        Gson gson = new GsonBuilder().create();
-        Path path = new File("json/2roomlayout.json").toPath();
-//        Path path = new File("json/layout.json").toPath();
+    JsonReader jsonReader = new JsonReader();
+    Layout [] layouts = jsonReader.readJson( "json/2roomlayout.json");
 
-        Reader reader = Files.newBufferedReader(path, StandardCharsets.UTF_8);
-        Layout[] layouts = gson.fromJson(reader, Layout[].class);
 
         // every object in json file
+        // Kan dit in JsonReader worden verwerkt?
         for (Layout e : layouts) {
             int layoutHeight = e.getPosition().getY() + (e.getDimensions().getHeight() - 1);
             if (maxHeight < layoutHeight) {
