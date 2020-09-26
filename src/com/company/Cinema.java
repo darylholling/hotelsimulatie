@@ -14,8 +14,8 @@ public class Cinema extends Area {
 
 //        this.setImageFile();
         ImageView imageView = new ImageView(new Image(new FileInputStream("src/com/company/images/cinema.jpg")));
-        imageView.setFitHeight(100);
-        imageView.setFitWidth(100);
+        imageView.setFitHeight(160);
+        imageView.setFitWidth(160);
 
         this.setImageFile(imageView);
 

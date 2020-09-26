@@ -13,8 +13,8 @@ public class Fitness extends Area {
 
           //        this.setImageFile();
           ImageView imageView = new ImageView(new Image(new FileInputStream("src/com/company/images/fitness.jpg")));
-          imageView.setFitHeight(50);
-          imageView.setFitWidth(100);
+          imageView.setFitHeight(80);
+          imageView.setFitWidth(160);
 
           this.setImageFile(imageView);
 

@@ -60,8 +60,19 @@ public class HotelBuilder extends Application {
         //Building the Area's
         for (int i = 0; i <= totalMaxWidth; i++) {
             for (int j = 0; j <= totalMaxHeight; j++) {
-                Hallway hallway = new Hallway(new Position(i, j), new Dimensions(1, 1));
-                gridPane.add(hallway, i, j);
+                Area area;
+
+                if (i == 0) {
+                    area = new ElevatorShaft(new Position(i, j), new Dimensions(1, 1));
+                } else if (j == totalMaxHeight && i != totalMaxWidth && totalMaxWidth != 0) {
+                    area = new Lobby(new Position(i, j), new Dimensions(1, 1));
+                } else if (i == totalMaxWidth) {
+                    area = new Stairs(new Position(i, j), new Dimensions(1, 1));
+                } else {
+                    area = new Hallway(new Position(i, j), new Dimensions(1, 1));
+                }
+
+                gridPane.add(area, i, j);
             }
         }
 

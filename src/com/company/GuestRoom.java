@@ -61,19 +61,19 @@ public class GuestRoom extends Area {
     public void configureSize(ImageView imageView) {
         switch (this.getDimensions().getWidth()) {
             case 1:
-                imageView.setFitWidth(50);
+                imageView.setFitWidth(80);
                 break;
             case 2:
-                imageView.setFitWidth(100);
+                imageView.setFitWidth(160);
                 break;
         }
 
         switch (this.getDimensions().getHeight()) {
             case 1:
-                imageView.setFitHeight(50);
+                imageView.setFitHeight(80);
                 break;
             case 2:
-                imageView.setFitHeight(100);
+                imageView.setFitHeight(160);
                 break;
         }
     }

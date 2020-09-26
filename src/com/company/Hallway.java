@@ -11,8 +11,8 @@ public class Hallway extends Area {
         super(position, dimensions);
 
         ImageView imageView = new ImageView(new Image(new FileInputStream("src/com/company/images/hallway.jpg")));
-        imageView.setFitHeight(50);
-        imageView.setFitWidth(50);
+        imageView.setFitHeight(80);
+        imageView.setFitWidth(80);
 
         this.setImageFile(imageView);
     }
