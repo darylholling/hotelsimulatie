@@ -7,12 +7,13 @@ import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-
+import java.io.File;
 import java.io.IOException;
 
 public class HotelBuilder extends Application {
     int maxWidth = 0;
     int maxHeight = 0;
+    private File layoutFile;
 
     private Parent createContent() throws IOException {
 
@@ -20,8 +21,11 @@ public class HotelBuilder extends Application {
         Pane root = new Pane();
         GridPane gridPane = new GridPane();
 
+//        set layout file to run Hotelbuilder
+//        File layoutFile = new File("json/2roomlayout.json");
+
         JsonReader jsonReader = new JsonReader();
-        Layout[] layouts = jsonReader.readJson("json/2roomlayout.json");
+        Layout[] layouts = jsonReader.readJson(layoutFile);
 
 
         // every object in json file
@@ -92,6 +96,10 @@ public class HotelBuilder extends Application {
                 gridPane.add(area, area.getPosition().getX(), area.getPosition().getY());
             }
         }
+    }
+
+    public void setFiles(File file){
+        this.layoutFile = file;
     }
 
     @Override

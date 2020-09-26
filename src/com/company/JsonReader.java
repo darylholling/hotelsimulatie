@@ -14,9 +14,9 @@ import java.nio.file.Path;
 
 public class JsonReader {
 
-    public Layout[] readJson(String filename) throws IOException {
+    public Layout[] readJson(File filename) throws IOException {
         Gson gson = new GsonBuilder().create();
-        Path path = new File(filename).toPath();
+        Path path = new File(String.valueOf(filename)).toPath();
         Reader reader = Files.newBufferedReader(path, StandardCharsets.UTF_8);
         return gson.fromJson(reader, Layout[].class);
     }
