@@ -1,13 +1,11 @@
 package com.company;
 
 import javafx.application.Application;
-import javafx.beans.binding.Bindings;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
@@ -64,15 +62,21 @@ public class HotelBuilder extends Application {
 
                 if (i == 0) {
                     area = new ElevatorShaft(new Position(i, j), new Dimensions(1, 1));
-                } else if (j == totalMaxHeight && i != totalMaxWidth && totalMaxWidth != 0) {
+                }
+                else if (j == totalMaxHeight && i == 1) {
                     area = new Lobby(new Position(i, j), new Dimensions(1, 1));
-                } else if (i == totalMaxWidth) {
+                }
+                else if (i == totalMaxWidth) {
                     area = new Stairs(new Position(i, j), new Dimensions(1, 1));
                 } else {
                     area = new Hallway(new Position(i, j), new Dimensions(1, 1));
                 }
-
-                gridPane.add(area, i, j);
+                if (area instanceof Lobby){
+                    gridPane.add(area, i,j, totalMaxWidth, 1);
+                }
+                else if (!(area instanceof Hallway)) {
+                    gridPane.add(area, i, j);
+                }
             }
         }
 
@@ -148,6 +152,7 @@ public class HotelBuilder extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         stage.setScene(new Scene(createContent()));
+        stage.setResizable(false);
         stage.show();
     }
 }

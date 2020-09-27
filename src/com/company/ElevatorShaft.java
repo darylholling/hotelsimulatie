@@ -14,8 +14,8 @@ public class ElevatorShaft extends Area {
         super(position, dimensions);
 
         ImageView imageView = new ImageView(new Image(new FileInputStream("src/com/company/images/elevatorShaftClosed.jpg")));
-        imageView.setFitHeight(80);
-        imageView.setFitWidth(80);
+        imageView.setFitHeight(50);
+        imageView.setFitWidth(50);
 
         this.setImageFile(imageView);
     }

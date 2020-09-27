@@ -17,8 +17,8 @@ public class Diner extends Area {
 
         //        this.setImageFile();
         ImageView imageView = new ImageView(new Image(new FileInputStream("src/com/company/images/diner.jpg")));
-        imageView.setFitHeight(80);
-        imageView.setFitWidth(160);
+        imageView.setFitHeight(50);
+        imageView.setFitWidth(100);
 
         this.setImageFile(imageView);
     }
