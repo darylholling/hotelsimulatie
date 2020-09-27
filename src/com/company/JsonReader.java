@@ -20,4 +20,10 @@ public class JsonReader {
         Reader reader = Files.newBufferedReader(path, StandardCharsets.UTF_8);
         return gson.fromJson(reader, Layout[].class);
     }
+//    public Event[] readEventJson(String filename) throws IOException {
+//        Gson gson = new GsonBuilder().create();
+//        Path path = new File(filename).toPath();
+//        Reader reader = Files.newBufferedReader(path, StandardCharsets.UTF_8);
+//        return gson.fromJson(reader, Event[].class);
+//    }
 }

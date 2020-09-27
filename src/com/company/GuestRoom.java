@@ -3,10 +3,13 @@ package com.company;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
 public class GuestRoom extends Area {
     private int stars;
 
-    public GuestRoom (Position position, Dimensions dimensions, int stars) {
+    public GuestRoom (Position position, Dimensions dimensions, int stars) throws FileNotFoundException {
         super(position, dimensions);
 
         this.stars = stars;
@@ -21,7 +24,7 @@ public class GuestRoom extends Area {
         this.stars = stars;
     }
 
-    public ImageView determineImageFile() {
+    public ImageView determineImageFile() throws FileNotFoundException {
         ImageView imageView = new ImageView(this.getImage());
 
         this.configureSize(imageView);
@@ -29,7 +32,7 @@ public class GuestRoom extends Area {
         return imageView;
     }
 
-    public Image getImage() {
+    public Image getImage() throws FileNotFoundException {
         String imageName;
 
         switch (this.getStars()) {
@@ -52,7 +55,7 @@ public class GuestRoom extends Area {
                 throw new RuntimeException("no image defined");
         }
 
-        return new Image("/" + imageName);
+        return new Image(new FileInputStream("src/com/company/images/" + imageName));
     }
 
     public void configureSize(ImageView imageView) {
