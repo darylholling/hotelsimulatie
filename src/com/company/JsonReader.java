@@ -14,10 +14,16 @@ import java.nio.file.Path;
 
 public class JsonReader {
 
-    public Layout[] readJson(String filename) throws IOException {
+    public Layout[] readJson(String fileName) throws IOException {
         Gson gson = new GsonBuilder().create();
-        Path path = new File(filename).toPath();
+        Path path = new File(fileName).toPath();
         Reader reader = Files.newBufferedReader(path, StandardCharsets.UTF_8);
         return gson.fromJson(reader, Layout[].class);
     }
+//    public Event[] readEventJson(String filename) throws IOException {
+//        Gson gson = new GsonBuilder().create();
+//        Path path = new File(filename).toPath();
+//        Reader reader = Files.newBufferedReader(path, StandardCharsets.UTF_8);
+//        return gson.fromJson(reader, Event[].class);
+//    }
 }
