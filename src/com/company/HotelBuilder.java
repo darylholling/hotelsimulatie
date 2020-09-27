@@ -7,7 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -16,12 +16,19 @@ public class HotelBuilder extends Application {
     int maxHeight = 0;
     int totalMaxHeight = 0;
     int totalMaxWidth = 0;
+    private File layoutFile;
 
     private Parent createContent() throws IOException {
 
         // size of window
         Pane root = new Pane();
         GridPane gridPane = new GridPane();
+
+//        set layout file to run Hotelbuilder
+//        File layoutFile = new File("json/2roomlayout.json");
+
+        JsonReader jsonReader = new JsonReader();
+        Layout[] layouts = jsonReader.readJson(layoutFile);
 
         //to start from bottom left
 //        Scale scale = new Scale();
@@ -32,11 +39,6 @@ public class HotelBuilder extends Application {
 //                        gridPane.getBoundsInLocal().getMinY() + gridPane.getBoundsInLocal().getHeight() /2,
 //                    gridPane.boundsInLocalProperty()));
 //            gridPane.getTransforms().add(scale);
-
-
-        JsonReader jsonReader = new JsonReader();
-        Layout[] layouts = jsonReader.readJson("json/layout.json");
-
 
         // every object in json file
         // Kan dit in JsonReader worden verwerkt?
@@ -83,7 +85,6 @@ public class HotelBuilder extends Application {
         }
 
         this.createAreas(gridPane, layouts);
-//        this.createBorderAreas(gridPane); // part of the sad lobby attempt.
 
         for (Node child : gridPane.getChildren()) {
             System.out.println(child.getClass());
@@ -98,7 +99,6 @@ public class HotelBuilder extends Application {
                 return child;
             }
         }
-
         return null;
     }
 
@@ -136,20 +136,9 @@ public class HotelBuilder extends Application {
         System.out.println("Width of hotel: "+ totalMaxWidth + " and Height: " +  totalMaxHeight);
     }
 
-    //Verline's sad attempt to place the lobby on the ground floor
-
-//    private void createBorderAreas(GridPane gridPane) throws FileNotFoundException {
-//        for (int i = 0; i <= totalMaxHeight; i++) {
-//            Node child = this.getChildAtRowCol(gridPane, 0, i);
-//            System.out.println(child.getClass());
-//            if (child !=null) {
-//                gridPane.getChildren().remove(child);
-//            }
-//        }
-//        Area lobby = new Lobby(new Position(0,totalMaxHeight),new Dimensions(totalMaxWidth, 1));
-//        gridPane.getChildren().add(lobby);
-//        gridPane.add(lobby, 0, totalMaxHeight, totalMaxWidth, 1);
-//    }
+    public void setFiles(File file){
+        this.layoutFile = file;
+    }
 
     @Override
     public void start(Stage stage) throws Exception {

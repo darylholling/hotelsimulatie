@@ -14,11 +14,14 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.io.File;
+import java.io.IOException;
 
 public class Menu extends Application {
     private Stage primaryStage;
     private Settings settings;
+    private HotelBuilder hotelbuilder;
 
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -57,7 +60,6 @@ public class Menu extends Application {
                "-fx-background-color: whitesmoke;"
                 +"-fx-border-color: black;"
                 +"-fx-border-width: 3 3 3 3;"
-                +"-fx-border-radius: 50px;"
                 +"-fx-spacing: 1;"
                 +"-fx-opacity: 80"
         );
@@ -136,10 +138,11 @@ public class Menu extends Application {
         Label title = new Label("Settings");
         title.setStyle("-fx-font-size: 170%");
         title.setTextFill(Color.BLACK);
-        title.relocate(200, 5);
+        title.relocate(255, 5);
 
         // Settings
         Label introSetttings = new Label("This is where you can edit the settings");
+        introSetttings.setAlignment(Pos.CENTER);
         Label ExplainHTE = new Label("HTE is the the unit for time in the hotel");
         Button saveButton = new Button("Save settings");
 
@@ -197,6 +200,7 @@ public class Menu extends Application {
     }
 
     public Scene filePage() {
+        HotelBuilder hotelbuilder = new HotelBuilder();
         // Main Pane
         BorderPane base = base();
 
@@ -206,7 +210,6 @@ public class Menu extends Application {
                 "-fx-background-color: whitesmoke;"
                 +"-fx-border-color: black;"
                 +"-fx-border-width: 3 3 3 3;"
-                +"-fx-border-radius: 50px;"
                 +"-fx-spacing: 1;"
                 +"-fx-opacity: 80"
         );
@@ -221,6 +224,10 @@ public class Menu extends Application {
         filePageTitle.setStyle("-fx-padding:10;");
         filePageTitle.relocate(5, 5);
 
+        // text about files
+        Label eventStatus = new Label();
+        Label layoutStatus = new Label();
+
         // filesChoosers
         FileChooser eventsChooser = new FileChooser();
         FileChooser layoutChooser = new FileChooser();
@@ -228,37 +235,76 @@ public class Menu extends Application {
         // Buttons
         Button eventButton = new Button("Select the event json");
         Button layoutButton = new Button("Select the layout json");
+        Button startHotelButton = new Button("Start up hotel");
+        startHotelButton.relocate(0, 5);
+
+        // Name Window
+        eventsChooser.setTitle("Choose the event file");
+        layoutChooser.setTitle("Choose the layout file");
+
+        // Default file names and extentions
+        eventsChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Json file", "*.json"));
+        layoutChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Json file", "*.json"));
 
         //open file chooser with buttons
         eventButton.setOnAction(e -> {
             File eventFile = eventsChooser.showOpenDialog(primaryStage);
+            if (eventFile != null) {
+                eventStatus.setText("Event file selected: " + eventFile.getName());
+                eventStatus.setTextFill(Color.BLACK);
+            }
+            else {
+                eventStatus.setText("Event file selection cancelled.");
+                eventStatus.setTextFill(Color.RED);
+            }
         });
         layoutButton.setOnAction(e -> {
             File layoutFile = layoutChooser.showOpenDialog(primaryStage);
+            hotelbuilder.setFiles(layoutFile);
+            if (layoutFile != null) {
+                layoutStatus.setText("Layout file selected: " + layoutFile.getName());
+                layoutStatus.setTextFill(Color.BLACK);
+            }
+            else {
+                layoutStatus.setText("Layout file selection cancelled.");
+                layoutStatus.setTextFill(Color.RED);
+            }
+        });
+        startHotelButton.setOnAction(e -> {
+            try {
+                hotelbuilder.start(primaryStage);
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
         });
 
-//        eventsChooser.setTitle("Events.json");
-//        layoutChooser.setTitle("Layouts.json");
-//
+        // set directory to start up
+        //TODO remove before finish
 //        eventsChooser.setInitialDirectory(
-//                new File(System.getProperty("user.home"))
+//                new File("C:/Users/MisterPierre/Documents/School/files")
+//        );
+//        layoutChooser.setInitialDirectory(
+//                new File("C:/Users/MisterPierre/Documents/School/files")
 //        );
 
         eventButton.setMaxWidth(Double.MAX_VALUE);
         layoutButton.setMaxWidth(Double.MAX_VALUE);
 
         // Button positions in main menu
-        GridPane mainMenuButtons = new GridPane();
+        GridPane fileChooserArea = new GridPane();
 
-        mainMenuButtons.setHgap(15);
-        mainMenuButtons.setVgap(15);
-        mainMenuButtons.setAlignment(Pos.CENTER);
+        fileChooserArea.setHgap(15);
+        fileChooserArea.setVgap(15);
+        fileChooserArea.setAlignment(Pos.CENTER);
 
-        mainMenuButtons.add(eventButton, 0, 0);
-        mainMenuButtons.add(layoutButton, 1, 0);
+        fileChooserArea.add(eventButton, 0, 0);
+        fileChooserArea.add(layoutButton, 1, 0);
+        fileChooserArea.add(eventStatus, 0, 1);
+        fileChooserArea.add(layoutStatus, 0, 2);
+        fileChooserArea.add(startHotelButton, 0, 3);
 
         // Add everyting to menupane
-        filePage.getChildren().addAll(filePageTitle, mainMenuButtons);
+        filePage.getChildren().addAll(filePageTitle, fileChooserArea);
         base.setCenter(filePage);
 
         return new Scene(base);
