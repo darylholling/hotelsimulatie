@@ -44,10 +44,12 @@ public class HotelBuilder extends Application {
             int layoutHeight = e.getPosition().getY() + (e.getDimensions().getHeight() - 1);
             if (maxHeight < layoutHeight) {
                 maxHeight = layoutHeight;
+                System.out.println("layoutheight: "+layoutHeight);
             }
             int layoutWidth = e.getPosition().getX() + (e.getDimensions().getWidth() - 1);
             if (maxWidth < layoutWidth) {
                 maxWidth = layoutWidth;
+                System.out.println("layoutW: "+layoutWidth);
             }
         }
 
@@ -64,7 +66,7 @@ public class HotelBuilder extends Application {
                     area = new ElevatorShaft(new Position(i, j), new Dimensions(1, 1));
                 }
                 else if (j == totalMaxHeight && i == 1) {
-                    area = new Lobby(new Position(i, j), new Dimensions(1, 1));
+                    area = new Lobby(new Position(i, j), new Dimensions(maxWidth+1, 1));
                 }
                 else if (i == totalMaxWidth) {
                     area = new Stairs(new Position(i, j), new Dimensions(1, 1));
@@ -72,7 +74,7 @@ public class HotelBuilder extends Application {
                     area = new Hallway(new Position(i, j), new Dimensions(1, 1));
                 }
                 if (area instanceof Lobby){
-                    gridPane.add(area, i,j, totalMaxWidth, 1);
+                    gridPane.add(area, i,j, maxWidth+1, 1);
                 }
                 else if (!(area instanceof Hallway)) {
                     gridPane.add(area, i, j);
