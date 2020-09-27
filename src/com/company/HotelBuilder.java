@@ -1,6 +1,7 @@
 package com.company;
 
 import javafx.application.Application;
+import javafx.geometry.HPos;
 import javafx.geometry.NodeOrientation;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
@@ -43,12 +44,12 @@ public class HotelBuilder extends Application {
             int layoutHeight = e.getPosition().getY() + (e.getDimensions().getHeight() - 1);
             if (maxY <= layoutHeight) {
                 maxY = layoutHeight;
-                System.out.println("layoutheight: "+layoutHeight);
+//                System.out.println("layoutheight: "+layoutHeight);
             }
             int layoutWidth = e.getPosition().getX() + (e.getDimensions().getWidth() - 1);
             if (maxX <= layoutWidth) {
                 maxX = layoutWidth;
-                System.out.println("layoutW: "+layoutWidth);
+//                System.out.println("layoutW: "+layoutWidth);
             }
         }
 
@@ -82,7 +83,7 @@ public class HotelBuilder extends Application {
         }
 
         this.createAreas(gridPane, layouts);
-//
+
 //        for (Node child : gridPane.getChildren()) {
 //            System.out.println(child.getClass());
 //        }
@@ -126,12 +127,14 @@ public class HotelBuilder extends Application {
                 if (child != null) {
                     gridPane.getChildren().remove(child);
                 }
-
-                gridPane.add(area, area.getPosition().getX()+1, (totalMaxY - area.getPosition().getY())-1, area.getDimensions().width, 1);
-
+                if (area.getDimensions().getHeight()>1){
+                    gridPane.add(area, area.getPosition().getX()+1, (totalMaxY - area.getPosition().getY())-area.getDimensions().getHeight(), area.getDimensions().width, area.getDimensions().height);
+                } else {
+                    gridPane.add(area, area.getPosition().getX() + 1, (totalMaxY - area.getPosition().getY()) - 1, area.getDimensions().width, area.getDimensions().height);
+                }
             }
         }
-        System.out.println("Biggest value of X "+ totalMaxX + " and highest value of Y: " + totalMaxY);
+//        System.out.println("Biggest value of X "+ totalMaxX + " and highest value of Y: " + totalMaxY);
     }
 
     public void setFiles(File file){
