@@ -16,6 +16,8 @@ import javafx.stage.Stage;
 
 import java.awt.*;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class Menu extends Application {
@@ -23,13 +25,13 @@ public class Menu extends Application {
     private Settings settings;
     private HotelBuilder hotelbuilder;
 
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws FileNotFoundException {
         this.primaryStage = primaryStage;
         this.primaryStage.setScene(mainMenu());
         this.primaryStage.setTitle("Hotel Simulation");
         this.primaryStage.show();
         settings = Settings.createSetttings(1,1,1,1);
-        Image gameIcon = new Image("com/company/images/HotelIcon.png");
+        Image gameIcon = new Image(new FileInputStream("src/com/company/images/HotelIcon.png"));
         primaryStage.getIcons().add(gameIcon);
     }
 
@@ -314,7 +316,7 @@ public class Menu extends Application {
         BorderPane base = new BorderPane();
         base.setPrefSize(1000, 1000);
         base.setStyle(
-                "-fx-background-image:url(images/background.jpg);"
+                "-fx-background-image:url(/com/company/images/background.jpg);"
                 +"-fx-background-size: cover, auto;"
         );
         return base;

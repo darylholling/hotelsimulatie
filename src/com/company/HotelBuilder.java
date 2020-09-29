@@ -12,10 +12,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class HotelBuilder extends Application {
-    int maxWidth = 0;
-    int maxHeight = 0;
-    int totalMaxHeight = 0;
-    int totalMaxWidth = 0;
+    int maxX = 0;
+    int maxY = 0;
+    int totalMaxY = 0;
+    int totalMaxX = 0;
     private File layoutFile;
 
     private Parent createContent() throws IOException {
@@ -25,58 +25,50 @@ public class HotelBuilder extends Application {
         GridPane gridPane = new GridPane();
 
 //        set layout file to run Hotelbuilder
-//        File layoutFile = new File("json/2roomlayout.json");
+//        File layoutFile = new File("json/layout.json");
 
-        JsonReader jsonReader = new JsonReader();
-        Layout[] layouts = jsonReader.readJson(layoutFile);
+        JsonFactory layoutFactory = new JsonFactory();
+        Parser layoutInfo = layoutFactory.getParser(layoutFile.toString());
+        JsonInfo[] layouts = layoutInfo.readJson(layoutFile);
 
-        //to start from bottom left
-//        Scale scale = new Scale();
-//        scale.setX(1);
-//        scale.setY(-1);
-//
-//        scale.pivotYProperty().bind(Bindings.createDoubleBinding(() ->
-//                        gridPane.getBoundsInLocal().getMinY() + gridPane.getBoundsInLocal().getHeight() /2,
-//                    gridPane.boundsInLocalProperty()));
-//            gridPane.getTransforms().add(scale);
 
         // every object in json file
         // Kan dit in JsonReader worden verwerkt?
-        for (Layout e : layouts) {
+        for (JsonInfo e : layouts) {
             int layoutHeight = e.getPosition().getY() + (e.getDimensions().getHeight() - 1);
-            if (maxHeight < layoutHeight) {
-                maxHeight = layoutHeight;
-                System.out.println("layoutheight: "+layoutHeight);
+            if (maxY <= layoutHeight) {
+                maxY = layoutHeight;
+//                System.out.println("layoutheight: "+layoutHeight);
             }
             int layoutWidth = e.getPosition().getX() + (e.getDimensions().getWidth() - 1);
-            if (maxWidth < layoutWidth) {
-                maxWidth = layoutWidth;
-                System.out.println("layoutW: "+layoutWidth);
+            if (maxX <= layoutWidth) {
+                maxX = layoutWidth;
+//                System.out.println("layoutW: "+layoutWidth);
             }
         }
 
-        System.out.println("Max X: " + maxWidth + " & Max Y: " + maxHeight);
-        totalMaxHeight = (maxHeight + 1);
-        totalMaxWidth = (maxWidth + 2);
+//        System.out.println("Max X: " + maxX + " & Max Y: " + maxY);
+        totalMaxY = (maxY + 1);
+        totalMaxX = (maxX + 2);
 
         //Building the Area's
-        for (int i = 0; i <= totalMaxWidth; i++) {
-            for (int j = 0; j <= totalMaxHeight; j++) {
+        for (int i = 0; i <= totalMaxX; i++) {
+            for (int j = 0; j <= totalMaxY; j++) {
                 Area area;
 
                 if (i == 0) {
                     area = new ElevatorShaft(new Position(i, j), new Dimensions(1, 1));
                 }
-                else if (j == totalMaxHeight && i == 1) {
-                    area = new Lobby(new Position(i, j), new Dimensions(maxWidth+1, 1));
+                else if (j == totalMaxY && i == 1) {
+                    area = new Lobby(new Position(i, j), new Dimensions(maxX +1, 1));
                 }
-                else if (i == totalMaxWidth) {
+                else if (i == totalMaxX) {
                     area = new Stairs(new Position(i, j), new Dimensions(1, 1));
                 } else {
                     area = new Hallway(new Position(i, j), new Dimensions(1, 1));
                 }
                 if (area instanceof Lobby){
-                    gridPane.add(area, i,j, maxWidth+1, 1);
+                    gridPane.add(area, i,j, maxX +1, 1);
                 }
                 else if (!(area instanceof Hallway)) {
                     gridPane.add(area, i, j);
@@ -86,9 +78,10 @@ public class HotelBuilder extends Application {
 
         this.createAreas(gridPane, layouts);
 
-        for (Node child : gridPane.getChildren()) {
-            System.out.println(child.getClass());
-        }
+//        for (Node child : gridPane.getChildren()) {
+//            System.out.println(child.getClass());
+//
+//        }
 
         return gridPane;
     }
@@ -102,8 +95,8 @@ public class HotelBuilder extends Application {
         return null;
     }
 
-    private void createAreas(GridPane gridPane, Layout[] layouts) throws FileNotFoundException {
-        for (Layout layout : layouts) {
+    private void createAreas(GridPane gridPane, JsonInfo[] layouts) throws FileNotFoundException {
+        for (JsonInfo layout : layouts) {
             Area area = null;
 
             switch (layout.getType()) {
@@ -122,18 +115,21 @@ public class HotelBuilder extends Application {
                 default:
                     System.out.println("invalid type");
             }
-
+            //to start from bottom left
             if (area != null) {
-                Node child = this.getChildAtRowCol(gridPane, area.getPosition().getY()+1, area.getPosition().getX()+1);
+                Node child = this.getChildAtRowCol(gridPane, (totalMaxY - area.getPosition().getY())-1, area.getPosition().getX()+1);
 
                 if (child != null) {
                     gridPane.getChildren().remove(child);
                 }
-
-                gridPane.add(area, area.getPosition().getX()+1, area.getPosition().getY(), area.getDimensions().width, area.getDimensions().height);
+                if (area.getDimensions().getHeight()>1){
+                    gridPane.add(area, area.getPosition().getX()+1, (totalMaxY - area.getPosition().getY())-area.getDimensions().getHeight(), area.getDimensions().width, area.getDimensions().height);
+                } else {
+                    gridPane.add(area, area.getPosition().getX() + 1, (totalMaxY - area.getPosition().getY()) - 1, area.getDimensions().width, area.getDimensions().height);
+                }
             }
         }
-        System.out.println("Width of hotel: "+ totalMaxWidth + " and Height: " +  totalMaxHeight);
+//        System.out.println("Biggest value of X "+ totalMaxX + " and highest value of Y: " + totalMaxY);
     }
 
     public void setFiles(File file){
