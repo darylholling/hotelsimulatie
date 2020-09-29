@@ -1,10 +1,6 @@
 package com.company;
 
 import javafx.application.Application;
-import javafx.geometry.HPos;
-import javafx.geometry.NodeOrientation;
-import javafx.geometry.Pos;
-import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -29,13 +25,11 @@ public class HotelBuilder extends Application {
         GridPane gridPane = new GridPane();
 
 //        set layout file to run Hotelbuilder
-        File layoutFile = new File("json/layout.json");
+//        File layoutFile = new File("json/layout.json");
 
         JsonFactory layoutFactory = new JsonFactory();
         Parser layoutInfo = layoutFactory.getParser(layoutFile.toString());
         JsonInfo[] layouts = layoutInfo.readJson(layoutFile);
-
-        //to start from bottom left
 
 
         // every object in json file
@@ -53,7 +47,7 @@ public class HotelBuilder extends Application {
             }
         }
 
-        System.out.println("Max X: " + maxX + " & Max Y: " + maxY);
+//        System.out.println("Max X: " + maxX + " & Max Y: " + maxY);
         totalMaxY = (maxY + 1);
         totalMaxX = (maxX + 2);
 
@@ -86,6 +80,7 @@ public class HotelBuilder extends Application {
 
 //        for (Node child : gridPane.getChildren()) {
 //            System.out.println(child.getClass());
+//
 //        }
 
         return gridPane;
@@ -120,7 +115,7 @@ public class HotelBuilder extends Application {
                 default:
                     System.out.println("invalid type");
             }
-
+            //to start from bottom left
             if (area != null) {
                 Node child = this.getChildAtRowCol(gridPane, (totalMaxY - area.getPosition().getY())-1, area.getPosition().getX()+1);
 
