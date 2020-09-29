@@ -6,23 +6,19 @@ import javafx.scene.layout.Pane;
 import java.util.ArrayList;
 
 public abstract class Area extends Pane {
-    private Position position;
     private ImageView imageFile;
-    private Dimensions dimensions;
+    private int x;
+    private int y;
+    private int areaWidth;
+    private int areaHeight;
 
     private ArrayList<Person> persons = new ArrayList<>();
 
-    public Area(Position position, Dimensions dimensions) {
-        this.position = position;
-        this.dimensions = dimensions;
-    }
-
-    public Position getPosition() {
-        return position;
-    }
-
-    public void setPosition(Position position) {
-        this.position = position;
+    public Area(int x, int y, int areaWidth, int areaHeight) {
+        this.x = x;
+        this.y = y;
+        this.areaWidth = areaWidth;
+        this.areaHeight = areaHeight;
     }
 
     public ArrayList<Person> getPersons() {
@@ -39,14 +35,6 @@ public abstract class Area extends Pane {
         this.persons.remove(person);
     }
 
-    public Dimensions getDimensions() {
-        return dimensions;
-    }
-
-    public void setDimensions(Dimensions dimensions) {
-        this.dimensions = dimensions;
-    }
-
     public ImageView getImageFile() {
         return imageFile;
     }
@@ -54,5 +42,37 @@ public abstract class Area extends Pane {
     public void setImageFile(ImageView imageFile) {
         this.imageFile = imageFile;
         getChildren().add(this.imageFile);
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public int getAreaWidth() {
+        return areaWidth;
+    }
+
+    public void setAreaWidth(int areaWidth) {
+        this.areaWidth = areaWidth;
+    }
+
+    public int getAreaHeight() {
+        return areaHeight;
+    }
+
+    public void setAreaHeight(int areaHeight) {
+        this.areaHeight = areaHeight;
     }
 }

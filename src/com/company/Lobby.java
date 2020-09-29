@@ -7,13 +7,12 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 public class Lobby extends Area {
+    public Lobby(int x, int y, int areaWidth, int areaHeight) throws FileNotFoundException {
+        super(x, y, areaWidth, areaHeight);
 
-
-    public Lobby (Position position, Dimensions dimensions) throws FileNotFoundException {
-        super(position, dimensions);
         ImageView imageView = new ImageView(new Image(new FileInputStream("src/com/company/images/lobby.jpg")));
         imageView.setFitHeight(50);
-        imageView.setFitWidth(50*(dimensions.getWidth()));
+        imageView.setFitWidth(50 * (areaWidth));
         this.setImageFile(imageView);
     }
 }

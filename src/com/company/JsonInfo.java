@@ -3,24 +3,22 @@ package com.company;
 class JsonInfo {
 
     private final String type;
-    private final Position position;
-    private final Dimensions dimensions;
+    private final int x;
+    private final int y;
+    private final int areaWidth;
+    private final int areaHeight;
     private final Data data;
     private final Integer time;
 
-    public JsonInfo(String type, Integer time, Position position, Dimensions dimensions, Data data) {
+    public JsonInfo(String type, Integer time, int x, int y, int areaWidth, int areaHeight, Data data) {
         this.type = type;
-        this.position = position;
-        this.dimensions = dimensions;
         this.data = data;
         this.time = time;
+        this.x = x;
+        this.y = y;
+        this.areaWidth = areaWidth;
+        this.areaHeight = areaHeight;
     }
-
-    //because variables are private
-    public Position getPosition() {
-        return this.position;
-    }
-    public Dimensions getDimensions() {return this.dimensions; }
 
     public String getType() { return type;
     }
@@ -30,14 +28,20 @@ class JsonInfo {
         return data;
     }
 
-    @Override
-    public String toString() {
-        return "Layout{" +
-                "type='" + type + '\'' +
-                ", position=" + position +
-                ", dimensions=" + dimensions +
-                ", data=" + data +
-                '}';
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public int getAreaWidth() {
+        return areaWidth;
+    }
+
+    public int getAreaHeight() {
+        return areaHeight;
     }
 }
 

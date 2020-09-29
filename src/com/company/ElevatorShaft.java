@@ -7,11 +7,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 public class ElevatorShaft extends Area {
-
     private Elevator elevator;
 
-    public ElevatorShaft(Position position, Dimensions dimensions) throws FileNotFoundException {
-        super(position, dimensions);
+    public ElevatorShaft(int x, int y, int areaWidth, int areaHeight) throws FileNotFoundException {
+        super(x, y, areaWidth, areaHeight);
+
 
         ImageView imageView = new ImageView(new Image(new FileInputStream("src/com/company/images/elevatorShaftClosed.jpg")));
         imageView.setFitHeight(50);

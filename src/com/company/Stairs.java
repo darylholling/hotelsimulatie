@@ -8,8 +8,8 @@ import java.io.FileNotFoundException;
 
 public class Stairs extends Area {
 
-    public Stairs (Position position, Dimensions dimensions) throws FileNotFoundException {
-        super(position, dimensions);
+    public Stairs (int x, int y, int areaWidth, int areaHeight) throws FileNotFoundException {
+        super(x, y, areaWidth, areaHeight);
 
         ImageView imageView = new ImageView(new Image(new FileInputStream("src/com/company/images/stairs.jpg")));
         imageView.setFitHeight(50);

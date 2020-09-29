@@ -15,14 +15,8 @@ public class ParserFactoryPattern {
         JsonInfo[] layouts = json1.readJson(new File("src/layout.json"));
         JsonInfo[] events = json2.readJson(new File("src/events1.json"));
         for (JsonInfo e : layouts) {
-            System.out.println(e.getType());
-            System.out.println(e.getPosition());
-            System.out.println(e.getData());
         }
         for (JsonInfo e : events) {
-            System.out.println(e.getTime());
-            System.out.println(e.getType());
-            System.out.println(e.getData());
         }
 
 

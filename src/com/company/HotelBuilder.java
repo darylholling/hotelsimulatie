@@ -1,5 +1,6 @@
 package com.company;
 
+import com.google.gson.*;
 import javafx.application.Application;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -7,8 +8,10 @@ import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 
 public class HotelBuilder extends Application {
@@ -19,71 +22,78 @@ public class HotelBuilder extends Application {
     private File layoutFile;
 
     private Parent createContent() throws IOException {
-
         // size of window
         Pane root = new Pane();
         GridPane gridPane = new GridPane();
 
 //        set layout file to run Hotelbuilder
-//        File layoutFile = new File("json/layout.json");
+        File layoutFile = new File("json/2roomlayout.json");
 
-        JsonFactory layoutFactory = new JsonFactory();
-        Parser layoutInfo = layoutFactory.getParser(layoutFile.toString());
-        JsonInfo[] layouts = layoutInfo.readJson(layoutFile);
+        Gson gson = new GsonBuilder().create();
+        JsonArray jsonArrays = gson.fromJson(new FileReader("json/2roomlayout.json"), JsonArray.class);
 
+//        JsonFactory layoutFactory = new JsonFactory();
+//        Parser layoutInfo = layoutFactory.getParser(layoutFile.toString());
+//        JsonInfo[] layouts = layoutInfo.readJson(layoutFile);
 
-        // every object in json file
-        // Kan dit in JsonReader worden verwerkt?
-        for (JsonInfo e : layouts) {
-            int layoutHeight = e.getPosition().getY() + (e.getDimensions().getHeight() - 1);
+        for (JsonElement jsonElement : jsonArrays) {
+            JsonObject jsonObject = jsonElement.getAsJsonObject();
+            JsonObject position = jsonObject.get("position").getAsJsonObject();
+            JsonObject dimensions = jsonObject.get("dimensions").getAsJsonObject();
+
+            int layoutHeight = Integer.parseInt(position.get("y").getAsString()) + (Integer.parseInt(dimensions.get("height").getAsString()) - 1);
             if (maxY <= layoutHeight) {
                 maxY = layoutHeight;
-//                System.out.println("layoutheight: "+layoutHeight);
             }
-            int layoutWidth = e.getPosition().getX() + (e.getDimensions().getWidth() - 1);
+
+            int layoutWidth = Integer.parseInt(position.get("x").getAsString()) + (Integer.parseInt(dimensions.get("width").getAsString()) - 1);
             if (maxX <= layoutWidth) {
                 maxX = layoutWidth;
-//                System.out.println("layoutW: "+layoutWidth);
             }
         }
 
-//        System.out.println("Max X: " + maxX + " & Max Y: " + maxY);
         totalMaxY = (maxY + 1);
         totalMaxX = (maxX + 2);
 
         //Building the Area's
+        System.out.println(totalMaxX);
+        System.out.println(totalMaxY);
+
+        //TODO dimensionale array voor area waardes.
+        Area[][] areas;
+
         for (int i = 0; i <= totalMaxX; i++) {
             for (int j = 0; j <= totalMaxY; j++) {
-                Area area;
-
-                if (i == 0) {
-                    area = new ElevatorShaft(new Position(i, j), new Dimensions(1, 1));
-                }
-                else if (j == totalMaxY && i == 1) {
-                    area = new Lobby(new Position(i, j), new Dimensions(maxX +1, 1));
-                }
-                else if (i == totalMaxX) {
-                    area = new Stairs(new Position(i, j), new Dimensions(1, 1));
-                } else {
-                    area = new Hallway(new Position(i, j), new Dimensions(1, 1));
-                }
-                if (area instanceof Lobby){
-                    gridPane.add(area, i,j, maxX +1, 1);
-                }
-                else if (!(area instanceof Hallway)) {
-                    gridPane.add(area, i, j);
-                }
+                this.createDefaultAreas(gridPane, i, j);
             }
         }
 
-        this.createAreas(gridPane, layouts);
+        this.createAreas(gridPane, jsonArrays);
 
-//        for (Node child : gridPane.getChildren()) {
-//            System.out.println(child.getClass());
-//
-//        }
+        for (Node node : gridPane.getChildren()) {
+            System.out.println(node.getClass());
+        }
 
         return gridPane;
+    }
+
+    private void createDefaultAreas(GridPane gridPane, int i, int j) throws FileNotFoundException {
+        Area area;
+
+        if (i == 0) {
+            area = new ElevatorShaft(i, j, 1, 1);
+        } else if (j == totalMaxY && i == 1) {
+            area = new Lobby(i, j, (maxX + 1), 1);
+        } else if (i == totalMaxX) {
+            area = new Stairs(i, j, 1, 1);
+        } else {
+            area = new Hallway(i, j, 1, 1);
+        }
+        if (area instanceof Lobby) {
+            gridPane.add(area, i, j, maxX + 1, 1);
+        } else if (!(area instanceof Hallway)) {
+            gridPane.add(area, i, j);
+        }
     }
 
     private Node getChildAtRowCol(GridPane gridPane, int row, int col) {
@@ -95,44 +105,85 @@ public class HotelBuilder extends Application {
         return null;
     }
 
-    private void createAreas(GridPane gridPane, JsonInfo[] layouts) throws FileNotFoundException {
-        for (JsonInfo layout : layouts) {
-            Area area = null;
+    //TODO function validate file
 
-            switch (layout.getType()) {
+
+    private void createAreas(GridPane gridPane, JsonArray jsonArrays) throws FileNotFoundException {
+
+        for (JsonElement jsonElement : jsonArrays) {
+            Area area = null;
+            JsonObject jsonObject = jsonElement.getAsJsonObject();
+
+            JsonObject position = jsonObject.get("position").getAsJsonObject();
+            int x = Integer.parseInt(position.get("x").getAsString());
+            int y = Integer.parseInt(position.get("y").getAsString());
+
+            JsonObject dimensions = jsonObject.get("dimensions").getAsJsonObject();
+            int height = Integer.parseInt(dimensions.get("height").getAsString());
+            int width = Integer.parseInt(dimensions.get("width").getAsString());
+
+            JsonObject data = jsonObject.get("data").getAsJsonObject();
+
+            int stars = 0;
+            if (data.has("stars")) {
+                stars = Integer.parseInt(data.get("stars").getAsString());
+            }
+
+            int capacity = 0;
+            if (data.has("max")) {
+                capacity = Integer.parseInt(data.get("max").getAsString());
+            }
+
+            switch (jsonObject.get("type").getAsString()) {
                 case "room":
-                    area = new GuestRoom(layout.getPosition(), layout.getDimensions(), layout.getData().getStars());
+                    if (stars == 0) {
+                        return;
+                    }
+
+                    System.out.println(x);
+                    System.out.println(y);
+                    System.out.println(width);
+                    System.out.println(height);
+                    System.out.println(stars);
+                    area = new GuestRoom(x, y, width, height, stars);
                     break;
                 case "diner":
-                    area = new Diner(layout.getPosition(), layout.getDimensions(), layout.getData().getMax());
+                    if (capacity == 0) {
+                        return;
+                    }
+
+                    area = new Diner(x, y, width, height, capacity);
                     break;
                 case "fitness":
-                    area = new Fitness(layout.getPosition(), layout.getDimensions());
+                    area = new Fitness(x, y, width, height);
                     break;
                 case "movie":
-                    area = new Cinema(layout.getPosition(), layout.getDimensions());
+                    area = new Cinema(x, y, width, height);
                     break;
                 default:
                     System.out.println("invalid type");
             }
             //to start from bottom left
             if (area != null) {
-                Node child = this.getChildAtRowCol(gridPane, (totalMaxY - area.getPosition().getY())-1, area.getPosition().getX()+1);
+                Node child = this.getChildAtRowCol(gridPane, (totalMaxY - area.getY()) - 1, area.getX() + 1);
+//                Node child = this.getChildAtRowCol(gridPane, (totalMaxY - area.getPosition().getY())-1, area.getPosition().getX()+1);
 
                 if (child != null) {
                     gridPane.getChildren().remove(child);
                 }
-                if (area.getDimensions().getHeight()>1){
-                    gridPane.add(area, area.getPosition().getX()+1, (totalMaxY - area.getPosition().getY())-area.getDimensions().getHeight(), area.getDimensions().width, area.getDimensions().height);
-                } else {
-                    gridPane.add(area, area.getPosition().getX() + 1, (totalMaxY - area.getPosition().getY()) - 1, area.getDimensions().width, area.getDimensions().height);
-                }
+
+                gridPane.add(area, area.getX() + 1, area.getY());
+
+//                if (area.getDimensions().getHeight()>1){
+//                    gridPane.add(area, area.getPosition().getX()+1, (totalMaxY - area.getPosition().getY())-area.getDimensions().getHeight(), area.getDimensions().width, area.getDimensions().height);
+//                } else {
+//                    gridPane.add(area, area.getPosition().getX() + 1, (totalMaxY - area.getPosition().getY()) - 1, area.getDimensions().width, area.getDimensions().height);
+//                }
             }
         }
-//        System.out.println("Biggest value of X "+ totalMaxX + " and highest value of Y: " + totalMaxY);
     }
 
-    public void setFiles(File file){
+    public void setFiles(File file) {
         this.layoutFile = file;
     }
 

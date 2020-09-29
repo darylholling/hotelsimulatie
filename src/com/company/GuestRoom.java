@@ -9,8 +9,8 @@ import java.io.FileNotFoundException;
 public class GuestRoom extends Area {
     private int stars;
 
-    public GuestRoom (Position position, Dimensions dimensions, int stars) throws FileNotFoundException {
-        super(position, dimensions);
+    public GuestRoom(int x, int y, int areaWidth, int areaHeight, int stars) throws FileNotFoundException {
+        super(x, y, areaWidth, areaHeight);
 
         this.stars = stars;
         this.setImageFile(this.determineImageFile());
@@ -59,7 +59,7 @@ public class GuestRoom extends Area {
     }
 
     public void configureSize(ImageView imageView) {
-        switch (this.getDimensions().getWidth()) {
+        switch (this.getAreaWidth()) {
             case 1:
                 imageView.setFitWidth(50);
                 break;
@@ -68,7 +68,7 @@ public class GuestRoom extends Area {
                 break;
         }
 
-        switch (this.getDimensions().getHeight()) {
+        switch (this.getAreaHeight()) {
             case 1:
                 imageView.setFitHeight(50);
                 break;
