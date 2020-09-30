@@ -13,6 +13,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 
 public class HotelBuilder extends Application {
     int maxX = 0;
@@ -20,21 +22,20 @@ public class HotelBuilder extends Application {
     int totalMaxY = 0;
     int totalMaxX = 0;
     private File layoutFile;
+    JsonArray jsonArrays;
+    GridPane gridPane;
 
     private Parent createContent() throws IOException {
         // size of window
         Pane root = new Pane();
-        GridPane gridPane = new GridPane();
+        gridPane = new GridPane();
 
 //        set layout file to run Hotelbuilder
-        File layoutFile = new File("json/2roomlayout.json");
+//        File layoutFile = new File("src/com/company/files/layout.json");
+//        File layoutFile = new File("json/2roomlayout.json");
 
         Gson gson = new GsonBuilder().create();
-        JsonArray jsonArrays = gson.fromJson(new FileReader("json/2roomlayout.json"), JsonArray.class);
-
-//        JsonFactory layoutFactory = new JsonFactory();
-//        Parser layoutInfo = layoutFactory.getParser(layoutFile.toString());
-//        JsonInfo[] layouts = layoutInfo.readJson(layoutFile);
+        jsonArrays = gson.fromJson(Files.newBufferedReader(new File(String.valueOf(layoutFile)).toPath(), StandardCharsets.UTF_8), JsonArray.class);
 
         for (JsonElement jsonElement : jsonArrays) {
             JsonObject jsonObject = jsonElement.getAsJsonObject();
@@ -59,8 +60,6 @@ public class HotelBuilder extends Application {
         System.out.println(totalMaxX);
         System.out.println(totalMaxY);
 
-        //TODO dimensionale array voor area waardes.
-        Area[][] areas;
 
         for (int i = 0; i <= totalMaxX; i++) {
             for (int j = 0; j <= totalMaxY; j++) {
@@ -105,13 +104,19 @@ public class HotelBuilder extends Application {
         return null;
     }
 
-    //TODO function validate file
-
 
     private void createAreas(GridPane gridPane, JsonArray jsonArrays) throws FileNotFoundException {
+        //ADD HALLWAY WHEN THERE'S AN EMPTY SPACE
+        for (int i = 1; i < totalMaxX;i++){
+            for (int j = 0; j < totalMaxY; j++){
+                    Area area = new Hallway(i,j, 1, 1);
+                    gridPane.add(area, i, j, 1, 1);
+            }
+        }
 
         for (JsonElement jsonElement : jsonArrays) {
             Area area = null;
+            Area areaBackground = null;
             JsonObject jsonObject = jsonElement.getAsJsonObject();
 
             JsonObject position = jsonObject.get("position").getAsJsonObject();
@@ -123,7 +128,6 @@ public class HotelBuilder extends Application {
             int width = Integer.parseInt(dimensions.get("width").getAsString());
 
             JsonObject data = jsonObject.get("data").getAsJsonObject();
-
             int stars = 0;
             if (data.has("stars")) {
                 stars = Integer.parseInt(data.get("stars").getAsString());
@@ -136,22 +140,12 @@ public class HotelBuilder extends Application {
 
             switch (jsonObject.get("type").getAsString()) {
                 case "room":
-                    if (stars == 0) {
-                        return;
-                    }
-
-                    System.out.println(x);
-                    System.out.println(y);
-                    System.out.println(width);
-                    System.out.println(height);
-                    System.out.println(stars);
                     area = new GuestRoom(x, y, width, height, stars);
+                    if(height > 1) {
+                        areaBackground = new GuestRoomBackground(x, y, width, height, stars);
+                    }
                     break;
                 case "diner":
-                    if (capacity == 0) {
-                        return;
-                    }
-
                     area = new Diner(x, y, width, height, capacity);
                     break;
                 case "fitness":
@@ -159,33 +153,34 @@ public class HotelBuilder extends Application {
                     break;
                 case "movie":
                     area = new Cinema(x, y, width, height);
+                    if(height > 1) {
+                        areaBackground = new CinemaBackground(x, y, width, height);
+                    }
                     break;
                 default:
                     System.out.println("invalid type");
             }
-            //to start from bottom left
             if (area != null) {
-                Node child = this.getChildAtRowCol(gridPane, (totalMaxY - area.getY()) - 1, area.getX() + 1);
-//                Node child = this.getChildAtRowCol(gridPane, (totalMaxY - area.getPosition().getY())-1, area.getPosition().getX()+1);
+                // fixedY to take into account an area with a height > 1
+                int defaultY = (totalMaxY - area.getY()) - 1;
+                int fixedY = area.getAreaHeight()>1 ? ((totalMaxY - area.getY()) - area.getAreaHeight()) : defaultY;
 
+                Node child = this.getChildAtRowCol(gridPane, defaultY, area.getX()+1);
                 if (child != null) {
                     gridPane.getChildren().remove(child);
                 }
 
-                gridPane.add(area, area.getX() + 1, area.getY());
-
-//                if (area.getDimensions().getHeight()>1){
-//                    gridPane.add(area, area.getPosition().getX()+1, (totalMaxY - area.getPosition().getY())-area.getDimensions().getHeight(), area.getDimensions().width, area.getDimensions().height);
-//                } else {
-//                    gridPane.add(area, area.getPosition().getX() + 1, (totalMaxY - area.getPosition().getY()) - 1, area.getDimensions().width, area.getDimensions().height);
-//                }
+                if(areaBackground != null) {
+                    gridPane.add(areaBackground, areaBackground.getX() +1, fixedY, areaBackground.getAreaWidth(), areaBackground.getAreaHeight());
+                }
+                gridPane.add(area, area.getX() +1, defaultY, area.getAreaWidth(), area.getAreaHeight());
             }
         }
     }
-
     public void setFiles(File file) {
         this.layoutFile = file;
     }
+
 
     @Override
     public void start(Stage stage) throws Exception {

@@ -6,17 +6,13 @@ import javafx.scene.image.ImageView;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class GuestRoom extends Area {
+public class GuestRoomBackground extends Area {
     private int stars;
 
-    public GuestRoom(int x, int y, int areaWidth, int areaHeight, int stars) throws FileNotFoundException {
+    public GuestRoomBackground(int x, int y, int areaWidth, int areaHeight, int stars) throws FileNotFoundException {
         super(x, y, areaWidth, areaHeight);
 
         this.stars = stars;
-
-        if(areaHeight > 1) { // any rooms with a height > 1 will have a separate background via GuestRoomBackground
-            return;
-        }
         this.setImageFile(this.determineImageFile());
     }
 
