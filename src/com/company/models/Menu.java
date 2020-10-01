@@ -1,5 +1,6 @@
 package com.company.models;
 
+import com.company.actions.HotelBuilder;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.scene.control.TextField;

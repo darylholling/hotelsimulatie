@@ -1,5 +1,6 @@
-package com.company.models;
+package com.company.actions;
 
+import com.company.models.*;
 import com.google.gson.*;
 import javafx.application.Application;
 import javafx.scene.Node;
