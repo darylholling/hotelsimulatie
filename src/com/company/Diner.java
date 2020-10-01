@@ -7,7 +7,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 public class Diner extends Area {
-
     private int capacity;
 
     public Diner(int x, int y, int areaWidth, int areaHeight, int capacity) throws FileNotFoundException {
@@ -29,6 +28,5 @@ public class Diner extends Area {
 
     public void setCapacity(int capacity) {
         this.capacity = capacity;
-
     }
 }

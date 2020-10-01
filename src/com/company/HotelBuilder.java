@@ -176,10 +176,10 @@ public class HotelBuilder extends Application {
             }
         }
     }
+
     public void setFiles(File file) {
         this.layoutFile = file;
     }
-
 
     @Override
     public void start(Stage stage) throws Exception {
