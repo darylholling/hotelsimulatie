@@ -13,13 +13,13 @@ public class Time {
     }
 
     public static void main(String[] args) throws InterruptedException {
-        startTimer();
-        Thread.sleep(5000);
-        stopTimer();
-        System.out.println("paused");
-        Thread.sleep(6000);
-        resumeTimer();
-        System.out.println("resumed");
+//        startTimer();
+//        Thread.sleep(5000);
+//        stopTimer();
+//        System.out.println("paused");
+//        Thread.sleep(6000);
+//        resumeTimer();
+//        System.out.println("resumed");
     }
 
     public boolean isRunning() {
@@ -30,7 +30,7 @@ public class Time {
         timer = new Timer();
         running = true;
         HteCounter htecounter = new HteCounter();
-        timer.scheduleAtFixedRate(htecounter, 1000, 1000);
+        timer.scheduleAtFixedRate(htecounter, Settings.getSettings().getHTETime(),Settings.getSettings().getHTETime());
     }
 
     public static void stopTimer() {

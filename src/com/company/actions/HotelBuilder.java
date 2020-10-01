@@ -24,6 +24,7 @@ public class HotelBuilder extends Application {
     private File layoutFile;
     JsonArray jsonArrays;
     GridPane gridPane;
+    private Time time;
 
     private Parent createContent() throws IOException {
         // size of window
@@ -187,5 +188,6 @@ public class HotelBuilder extends Application {
         stage.setScene(new Scene(createContent()));
         stage.setResizable(false);
         stage.show();
+        time.startTimer();
     }
 }
