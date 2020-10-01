@@ -1,4 +1,7 @@
-package com.company;
+package com.company.models;
+
+import com.company.actions.Event;
+import com.company.actions.Move;
 
 public class Cleaner implements Person {
     public Cleaner () {

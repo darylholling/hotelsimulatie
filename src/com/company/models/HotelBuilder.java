@@ -1,4 +1,4 @@
-package com.company;
+package com.company.models;
 
 import com.google.gson.*;
 import javafx.application.Application;

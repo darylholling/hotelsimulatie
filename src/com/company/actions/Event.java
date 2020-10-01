@@ -1,4 +1,7 @@
-package com.company;
+package com.company.actions;
+
+import com.company.models.Data;
+import com.company.models.EventType;
 
 public class Event {
 

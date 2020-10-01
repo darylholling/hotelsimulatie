@@ -1,6 +1,7 @@
-package com.company;
+package com.company.models;
 
 
+import com.company.models.Area;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 

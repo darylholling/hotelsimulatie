@@ -1,4 +1,4 @@
-package com.company;
+package com.company.models;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -14,11 +14,9 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 
 public class Menu extends Application {
     private Stage primaryStage;

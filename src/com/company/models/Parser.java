@@ -1,4 +1,4 @@
-package com.company;
+package com.company.models;
 
 import java.io.File;
 import java.io.IOException;

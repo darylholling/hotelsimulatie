@@ -1,13 +1,16 @@
-package com.company;
+package com.company.models;
 
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class Time {
-    static Timer timer;
-
+    private static Timer timer;
     static boolean running;
+
+    public static synchronized Timer getTimer() {
+        return timer;
+    }
 
     public static void main(String[] args) throws InterruptedException {
         startTimer();

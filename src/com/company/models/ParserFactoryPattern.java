@@ -1,9 +1,7 @@
-package com.company;
+package com.company.models;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.lang.reflect.Type;
 
 public class ParserFactoryPattern {
     public static void main(String[] args) throws IOException {
