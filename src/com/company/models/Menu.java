@@ -280,12 +280,12 @@ public class Menu extends Application {
 
         // set directory to start up
         //TODO remove before finish
-//        eventsChooser.setInitialDirectory(
-//                new File("C:/Users/MisterPierre/Documents/School/files")
-//        );
-//        layoutChooser.setInitialDirectory(
-//                new File("C:/Users/MisterPierre/Documents/School/files")
-//        );
+        eventsChooser.setInitialDirectory(
+                new File("C:/Users/vlins/IdeaProjects/hotelsimulatie/src/com/company/files")
+        );
+        layoutChooser.setInitialDirectory(
+                new File("C:/Users/vlins/IdeaProjects/hotelsimulatie/src/com/company/files")
+        );
 
         eventButton.setMaxWidth(Double.MAX_VALUE);
         layoutButton.setMaxWidth(Double.MAX_VALUE);

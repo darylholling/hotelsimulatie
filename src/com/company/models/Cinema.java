@@ -18,7 +18,7 @@ public class Cinema extends Area {
         imageView.setFitHeight(100);
         imageView.setFitWidth(100);
 
-        this.setImageFile(imageView);
+        //this.setImageFile(imageView);
 
     }
 }

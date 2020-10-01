@@ -14,10 +14,12 @@ public class Time {
 
     public static void main(String[] args) throws InterruptedException {
         startTimer();
-        Thread.sleep(6000);
+        Thread.sleep(5000);
         stopTimer();
-        Thread.sleep(1000);
+        System.out.println("paused");
+        Thread.sleep(6000);
         resumeTimer();
+        System.out.println("resumed");
     }
 
     public boolean isRunning() {
@@ -28,7 +30,7 @@ public class Time {
         timer = new Timer();
         running = true;
         HteCounter htecounter = new HteCounter();
-        timer.scheduleAtFixedRate(htecounter, 2000, 2000);
+        timer.scheduleAtFixedRate(htecounter, 1000, 1000);
     }
 
     public static void stopTimer() {
