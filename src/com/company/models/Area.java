@@ -1,9 +1,11 @@
 package com.company.models;
 
+import com.company.actions.Point;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public abstract class Area extends Pane {
     private ImageView imageFile;
@@ -11,7 +13,6 @@ public abstract class Area extends Pane {
     private int y;
     private int areaWidth;
     private int areaHeight;
-
     private ArrayList<Person> persons = new ArrayList<>();
 
     public Area(int x, int y, int areaWidth, int areaHeight) {

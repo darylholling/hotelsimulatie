@@ -13,8 +13,8 @@ public class Stairs extends Area {
         super(x, y, areaWidth, areaHeight);
 
         ImageView imageView = new ImageView(new Image(new FileInputStream("src/com/company/images/stairs.jpg")));
-        imageView.setFitHeight(50);
-        imageView.setFitWidth(50);
+        imageView.setFitHeight(50*areaHeight);
+        imageView.setFitWidth(50*areaWidth);
 
         this.setImageFile(imageView);
     }
