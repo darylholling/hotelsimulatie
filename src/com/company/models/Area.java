@@ -1,6 +1,5 @@
 package com.company.models;
 
-import com.company.actions.Point;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
@@ -15,11 +14,25 @@ public abstract class Area extends Pane {
     private int areaHeight;
     private ArrayList<Person> persons = new ArrayList<>();
 
+    //    The nodes neighbours with the distance to each one
+    private HashMap<Area, Integer> neighbours;
+
+    //     Data for pathfinder, keeps the current distance
+    private int distance;
+
+    //    Remembers the previous node
+    private Area latest;
+
     public Area(int x, int y, int areaWidth, int areaHeight) {
         this.x = x;
         this.y = y;
         this.areaWidth = areaWidth;
         this.areaHeight = areaHeight;
+
+
+        this.neighbours = new HashMap<>();
+        this.distance = Integer.MAX_VALUE;
+        this.latest = null;
     }
 
     public ArrayList<Person> getPersons() {
@@ -75,5 +88,33 @@ public abstract class Area extends Pane {
 
     public void setAreaHeight(int areaHeight) {
         this.areaHeight = areaHeight;
+    }
+
+    public HashMap<Area, Integer> getNeighbours() {
+        return neighbours;
+    }
+
+    public void addNeighbour(Area area, Integer distance) {
+        this.neighbours.put(area, distance);
+    }
+
+    public void setNeighbours(HashMap<Area, Integer> neighbours) {
+        this.neighbours = neighbours;
+    }
+
+    public int getDistance() {
+        return distance;
+    }
+
+    public void setDistance(int distance) {
+        this.distance = distance;
+    }
+
+    public Area getLatest() {
+        return latest;
+    }
+
+    public void setLatest(Area latest) {
+        this.latest = latest;
     }
 }
