@@ -2,6 +2,7 @@ package com.company.actions;
 
 
 import com.company.models.Area;
+import com.sun.prism.shader.Solid_TextureYV12_AlphaTest_Loader;
 
 import java.util.Arrays;
 
@@ -24,7 +25,9 @@ public class DijkstraTest {
             for(int j = 0; j <= maxNumOfArrayElements-(maxNumOfArrayElements-(hotelHeight)); j++) // row
             {
                 System.out.println("x: "+ i);
+                System.out.println(areas[i][j].getX());
                 System.out.println("Y: "+ j);
+                System.out.println(areas[i][j].getY());
                 System.out.println("Y: "+ areas[i][j].getClass());
             }
             System.out.println();
@@ -36,7 +39,9 @@ public class DijkstraTest {
                 for(int j = 0; j < maxNumOfArrayElements-(maxNumOfArrayElements-(hotelWidth)); j++) // row
                 {
                     System.out.println("x: "+ i);
+                    System.out.println(areas[i][j].getX());
                     System.out.println("Y: "+ j);
+                    System.out.println(areas[i][j].getY());
                     System.out.println("Y: "+ areas[i][j].getClass());
                 }
                 System.out.println();
@@ -47,7 +52,9 @@ public class DijkstraTest {
                 for(int j = 0; j < maxNumOfArrayElements; j++) // row
                 {
                     System.out.println("x: "+ i);
+                    System.out.println(areas[i][j].getX());
                     System.out.println("Y: "+ j);
+                    System.out.println(areas[i][j].getY());
                     System.out.println("Y: "+ areas[i][j].getClass());
                 }
                 System.out.println();
