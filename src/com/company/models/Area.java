@@ -1,9 +1,11 @@
 package com.company.models;
 
-import com.company.actions.Point;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -15,11 +17,25 @@ public abstract class Area extends Pane {
     private int areaHeight;
     private ArrayList<Person> persons = new ArrayList<>();
 
+    //    The nodes neighbours with the distance to each one
+    private HashMap<Area, Integer> neighbours;
+
+    //     Data for pathfinder, keeps the current distance
+    private int distance;
+
+    //    Remembers the previous node
+    private Area latest;
+
     public Area(int x, int y, int areaWidth, int areaHeight) {
         this.x = x;
         this.y = y;
         this.areaWidth = areaWidth;
         this.areaHeight = areaHeight;
+
+
+        this.neighbours = new HashMap<>();
+        this.distance = Integer.MAX_VALUE;
+        this.latest = null;
     }
 
     public ArrayList<Person> getPersons() {
@@ -75,5 +91,44 @@ public abstract class Area extends Pane {
 
     public void setAreaHeight(int areaHeight) {
         this.areaHeight = areaHeight;
+    }
+
+    public HashMap<Area, Integer> getNeighbours() {
+        return neighbours;
+    }
+
+    public void addNeighbour(Area area, Integer distance) {
+        this.neighbours.put(area, distance);
+    }
+
+    public void setNeighbours(HashMap<Area, Integer> neighbours) {
+        this.neighbours = neighbours;
+    }
+
+    public int getDistance() {
+        return distance;
+    }
+
+    public void setDistance(int distance) {
+        this.distance = distance;
+    }
+
+    public Area getLatest() {
+        return latest;
+    }
+
+    public void setLatest(Area latest) {
+        this.latest = latest;
+    }
+
+    public AreaBackground createAreaBackground(int defaultX, int defaultY, int width, int height, ImageView classname) throws FileNotFoundException {
+        return new AreaBackground(defaultX, defaultY, width, height, classname);
+    }
+
+    public void setDefaultImage(Area area, String image, int areaWidth) throws FileNotFoundException {
+        ImageView imageView = new ImageView(new Image(new FileInputStream("src/com/company/images/" + image)));
+        imageView.setFitHeight(50);
+        imageView.setFitWidth(50 * areaWidth);
+        area.setImageFile(imageView);
     }
 }

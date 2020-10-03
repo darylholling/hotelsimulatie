@@ -21,11 +21,11 @@ public class HotelBuilder extends Application {
     int maxYInJson = 0;
     int hotelHeight = 0;
     int hotelWidth = 0;
-    private File layoutFile;
     JsonArray jsonArrays;
     GridPane gridPane;
-    private Time time;
     Area[][] areas;
+    private File layoutFile;
+    private Time time;
 
     private Parent createContent() throws IOException {
         // size of window
@@ -33,8 +33,8 @@ public class HotelBuilder extends Application {
         gridPane = new GridPane();
 
 //        set layout file to run Hotelbuilder
-//        File layoutFile = new File("src/com/company/files/layout.json");
-        File layoutFile = new File("json/2roomlayout.json");
+        File layoutFile = new File("src/com/company/files/layout.json");
+//        File layoutFile = new File("json/2roomlayout.json");
 
         Gson gson = new GsonBuilder().create();
         jsonArrays = gson.fromJson(Files.newBufferedReader(new File(String.valueOf(layoutFile)).toPath(), StandardCharsets.UTF_8), JsonArray.class);
@@ -68,6 +68,40 @@ public class HotelBuilder extends Application {
 
         this.createAreas(gridPane, jsonArrays, areas);
 
+//        for (Area[] areaArray : this.areas) {
+//            for (Area area : areaArray) {
+//                System.out.println(area);
+//            }
+//        }
+
+        for (int x = 1; x <= hotelWidth; x++) {
+            for (int y = 0; y <= hotelHeight; y++) {
+                Area currentArea = areas[x][y];
+
+                if (x == 1) {
+                    currentArea.addNeighbour(areas[currentArea.getX() + 1][currentArea.getY()], 1);
+
+                    continue;
+                }
+
+                if (x == hotelWidth) {
+                    currentArea.addNeighbour(areas[currentArea.getX() -1][currentArea.getY()], 1);
+
+                    if (y != hotelHeight) {
+                        currentArea.addNeighbour(areas[currentArea.getX()][currentArea.getY() + 1], 1);
+                    }
+                    if (y != 0) {
+                        currentArea.addNeighbour(areas[currentArea.getX()][currentArea.getY() - 1], 1);
+                    }
+
+                    continue;
+                }
+
+                currentArea.addNeighbour(areas[currentArea.getX() - 1][currentArea.getY()], 1);
+                currentArea.addNeighbour(areas[currentArea.getX() + 1][currentArea.getY()], 1);
+            }
+        }
+
         return gridPane;
     }
 
@@ -90,7 +124,6 @@ public class HotelBuilder extends Application {
             gridPane.add(area, i, j);
         }
 
-//        System.out.println("I:" + i + "- Y:" + j);
         areas[i][j] = area;
     }
 
@@ -106,11 +139,11 @@ public class HotelBuilder extends Application {
 
     private void createAreas(GridPane gridPane, JsonArray jsonArrays, Area[][] areas) throws FileNotFoundException {
         //ADD HALLWAY WHEN THERE'S AN EMPTY SPACE
-        for (int i = 1; i < hotelWidth; i++){
-            for (int j = 0; j < hotelHeight; j++){
-                    Area area = new Hallway(i,j, 1, 1);
-                    gridPane.add(area, i, j);
-                    areas[i][j]=area;
+        for (int i = 1; i < hotelWidth; i++) {
+            for (int j = 0; j < hotelHeight; j++) {
+                Area area = new Hallway(i, j, 1, 1);
+                gridPane.add(area, i, j);
+                areas[i][j] = area;
             }
         }
 
@@ -188,7 +221,11 @@ public class HotelBuilder extends Application {
         stage.setScene(new Scene(createContent()));
         stage.setResizable(false);
         stage.show();
-        new DijkstraTest(areas, hotelWidth, hotelHeight);
+
+        Dijkstra ds = new Dijkstra();
+        areas[1][0].setDistance(0);
+        System.out.println(ds.findPath(areas[1][0],areas[3][2]));
+//        new DijkstraTest(areas, hotelWidth, hotelHeight);
 //        time.startTimer();
     }
 }

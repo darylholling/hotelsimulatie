@@ -2,9 +2,6 @@ package com.company.actions;
 
 
 import com.company.models.Area;
-import com.sun.prism.shader.Solid_TextureYV12_AlphaTest_Loader;
-
-import java.util.Arrays;
 
 public class DijkstraTest {
     Area[][] areas;
@@ -93,8 +90,7 @@ public class DijkstraTest {
         F.neighbours.put(G,3);
         G.neighbours.put(end, 4);
 
-
-        Dijkstra ds = new Dijkstra();
+        DijkstraTestAction ds = new DijkstraTestAction();
         System.out.println(ds.findPath(start,end));
         System.out.println("From start to A: "+A.distance);
         System.out.println("From start to B: "+B.distance);
