@@ -1,6 +1,5 @@
 package com.company.models;
 
-import com.company.models.Area;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -12,13 +11,31 @@ public class GuestRoom extends Area {
 
     public GuestRoom(int x, int y, int areaWidth, int areaHeight, int stars) throws FileNotFoundException {
         super(x, y, areaWidth, areaHeight);
-
-        this.stars = stars;
-
-        if(areaHeight > 1) { // any rooms with a height > 1 will have a separate background via GuestRoomBackground
-            return;
+        String filePath;
+        switch (stars) {
+            case 1:
+                filePath = "1star.jpg";
+                break;
+            case 2:
+                filePath = "2star.jpg";
+                break;
+            case 3:
+                filePath = "3star.jpg";
+                break;
+            case 4:
+                filePath = "4star.jpg";
+                break;
+            case 5:
+                filePath = "5star.jpg";
+                break;
+            default:
+                throw new RuntimeException("no image defined");
         }
-        this.setImageFile(this.determineImageFile());
+        if (areaHeight == 1) {
+            super.setDefaultImage(this, filePath, areaWidth);
+        } else {
+            super.setImageFile(new ImageView(new Image(new FileInputStream("src/com/company/images/" + filePath))));
+        }
     }
 
     public int getStars() {
@@ -27,40 +44,5 @@ public class GuestRoom extends Area {
 
     public void setStars(int stars) {
         this.stars = stars;
-    }
-
-    public ImageView determineImageFile() throws FileNotFoundException {
-        ImageView imageView = new ImageView(this.getImage());
-
-        imageView.setFitHeight(50*getAreaHeight());
-        imageView.setFitWidth(50*getAreaWidth());
-
-        return imageView;
-    }
-
-    public Image getImage() throws FileNotFoundException {
-        String imageName;
-
-        switch (this.getStars()) {
-            case 1:
-                imageName = "1star.jpg";
-                break;
-            case 2:
-                imageName = "2star.jpg";
-                break;
-            case 3:
-                imageName = "3star.jpg";
-                break;
-            case 4:
-                imageName = "4star.jpg";
-                break;
-            case 5:
-                imageName = "5star.jpg";
-                break;
-            default:
-                throw new RuntimeException("no image defined");
-        }
-
-        return new Image(new FileInputStream("src/com/company/images/" + imageName));
     }
 }

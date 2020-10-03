@@ -139,15 +139,11 @@ public class HotelBuilder extends Application {
             }
 
             int defaultY = (hotelHeight - y) - 1;
-            int backgroundY = height > 1 ? ((hotelHeight - y) - height) : defaultY;
             int defaultX = x + 1;
 
             switch (jsonObject.get("type").getAsString()) {
                 case "room":
                     area = new GuestRoom(defaultX, defaultY, width, height, stars);
-                    if(height > 1) {
-                        areaBackground = new GuestRoomBackground(defaultX, backgroundY, width, height, stars);
-                    }
                     break;
                 case "diner":
                     area = new Diner(defaultX, defaultY, width, height, capacity);
@@ -157,22 +153,24 @@ public class HotelBuilder extends Application {
                     break;
                 case "movie":
                     area = new Cinema(defaultX, defaultY, width, height);
-                    if(height > 1) {
-                        areaBackground = new CinemaBackground(defaultX, backgroundY, width, height);
-                    }
                     break;
                 default:
                     System.out.println("invalid type");
             }
+
             if (area != null) {
+                if (area.getAreaHeight() > 1) {
+                    int backgroundY = height > 1 ? ((hotelHeight - y) - height) : defaultY;
+                    System.out.println("name"+ area.getClass().getSimpleName());
+                    areaBackground = area.createAreaBackground(defaultX, backgroundY, width, height, area.getImageFile());
+
+                    gridPane.add(areaBackground, areaBackground.getX(), areaBackground.getY(), areaBackground.getAreaWidth(), areaBackground.getAreaHeight());
+                    areas[areaBackground.getX()][areaBackground.getY()] = areaBackground;
+                }
+
                 Node child = this.getChildAtRowCol(gridPane, defaultY, defaultX);
                 if (child != null) {
                     gridPane.getChildren().remove(child);
-                }
-
-                if(areaBackground != null) {
-                    gridPane.add(areaBackground, defaultX, backgroundY, areaBackground.getAreaWidth(), areaBackground.getAreaHeight());
-                    areas[defaultX][backgroundY] = areaBackground;
                 }
 
                 gridPane.add(area, defaultX, defaultY, area.getAreaWidth(), area.getAreaHeight());

@@ -108,5 +108,19 @@
     "data": {
       "max": 2
     }
+  },
+  {
+    "type": "fitness",
+    "position": {
+      "x": 9,
+      "y": 9
+    },
+    "dimensions": {
+      "width": 6,
+      "height": 5
+    },
+    "data": {
+      "max": 200
+    }
   }
 ]
