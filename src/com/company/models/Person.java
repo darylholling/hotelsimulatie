@@ -1,9 +1,17 @@
 package com.company.models;
 
-import com.company.actions.Event;
-import com.company.actions.Move;
+abstract class Person {
+    private Area area;
 
-public interface Person {
+//    public Person(Area area) {
+//        this.area = area;
+//    }
 
-         void person (Area area, Event events, Move move);
+    public Area getArea() {
+        return area;
+    }
+
+    public void setArea(Area area) {
+        this.area = area;
+    }
 }
