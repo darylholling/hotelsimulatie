@@ -1,7 +1,6 @@
 package com.company.models;
 
 import com.company.actions.HotelBuilder;
-import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -19,19 +18,27 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class Menu extends Application {
-    private Stage primaryStage;
+public class Menu {
+    private Stage stage;
     private Settings settings;
-    private HotelBuilder hotelbuilder;
 
-    public void start(Stage primaryStage) throws FileNotFoundException {
-        this.primaryStage = primaryStage;
-        this.primaryStage.setScene(mainMenu());
-        this.primaryStage.setTitle("Hotel Simulation");
-        this.primaryStage.show();
-        settings = Settings.createSetttings(1,1,1,1);
-        Image gameIcon = new Image(new FileInputStream("src/com/company/images/HotelIcon.png"));
-        primaryStage.getIcons().add(gameIcon);
+    public Menu(Stage stage, Settings settings) {
+        this.stage = stage;
+        this.settings = settings;
+        this.stage.setScene(mainMenu());
+        this.stage.setTitle("Hotel Simulation");
+
+        try {
+            Image gameIcon = new Image(new FileInputStream("src/com/company/images/HotelIcon.png"));
+            this.stage.getIcons().add(gameIcon);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            System.out.println("application will run without hotel icon");
+        }
+    }
+
+    public void run() {
+        this.stage.show();
     }
 
     public void changeScene(String newScene) {
@@ -41,14 +48,14 @@ public class Menu extends Application {
 //                scene = startGame();
                 break;
             case "SETTINGS":
-                scene = settings();
+                scene = settingsForm();
                 break;
             case "LOADPAGE":
                 scene = filePage();
                 break;
         }
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        stage.setScene(scene);
+        stage.show();
     }
 
     public Scene mainMenu() {
@@ -58,11 +65,11 @@ public class Menu extends Application {
         // Centered box
         VBox baseMenu = new VBox();
         baseMenu.setStyle(
-               "-fx-background-color: whitesmoke;"
-                +"-fx-border-color: black;"
-                +"-fx-border-width: 3 3 3 3;"
-                +"-fx-spacing: 1;"
-                +"-fx-opacity: 80"
+                "-fx-background-color: whitesmoke;"
+                        +"-fx-border-color: black;"
+                        +"-fx-border-width: 3 3 3 3;"
+                        +"-fx-spacing: 1;"
+                        +"-fx-opacity: 80"
         );
 
         baseMenu.setPadding(new Insets(10));
@@ -104,7 +111,7 @@ public class Menu extends Application {
     }
 
     // Scene for settings pane
-    public Scene settings() {
+    public Scene settingsForm() {
         BorderPane base = base();
 
         // Creating all Panes
@@ -119,11 +126,11 @@ public class Menu extends Application {
         settingsPane.setSpacing(10);
 
         settingsGridPane.setStyle(
-            "-fx-background-color: whitesmoke;"
-            +"-fx-border-color: black;"
-            +"-fx-border-width: 3 3 3 3;"
-            +"-fx-spacing: 1;"
-            +"-fx-opacity: 80"
+                "-fx-background-color: whitesmoke;"
+                        +"-fx-border-color: black;"
+                        +"-fx-border-width: 3 3 3 3;"
+                        +"-fx-spacing: 1;"
+                        +"-fx-opacity: 80"
         );
         settingsGridPane.setAlignment(Pos.CENTER);
         settingsGridPane.setHgap(10);
@@ -201,7 +208,6 @@ public class Menu extends Application {
     }
 
     public Scene filePage() {
-        HotelBuilder hotelbuilder = new HotelBuilder();
         // Main Pane
         BorderPane base = base();
 
@@ -209,10 +215,10 @@ public class Menu extends Application {
         VBox filePage = new VBox();
         filePage.setStyle(
                 "-fx-background-color: whitesmoke;"
-                +"-fx-border-color: black;"
-                +"-fx-border-width: 3 3 3 3;"
-                +"-fx-spacing: 1;"
-                +"-fx-opacity: 80"
+                        +"-fx-border-color: black;"
+                        +"-fx-border-width: 3 3 3 3;"
+                        +"-fx-spacing: 1;"
+                        +"-fx-opacity: 80"
         );
 
         filePage.setPadding(new Insets(10));
@@ -249,7 +255,7 @@ public class Menu extends Application {
 
         //open file chooser with buttons
         eventButton.setOnAction(e -> {
-            File eventFile = eventsChooser.showOpenDialog(primaryStage);
+            File eventFile = eventsChooser.showOpenDialog(this.stage);
             if (eventFile != null) {
                 eventStatus.setText("Event file selected: " + eventFile.getName());
                 eventStatus.setTextFill(Color.BLACK);
@@ -260,8 +266,8 @@ public class Menu extends Application {
             }
         });
         layoutButton.setOnAction(e -> {
-            File layoutFile = layoutChooser.showOpenDialog(primaryStage);
-            hotelbuilder.setFiles(layoutFile);
+            File layoutFile = layoutChooser.showOpenDialog(this.stage);
+            settings.setLayoutFile(layoutFile);
             if (layoutFile != null) {
                 layoutStatus.setText("Layout file selected: " + layoutFile.getName());
                 layoutStatus.setTextFill(Color.BLACK);
@@ -273,20 +279,12 @@ public class Menu extends Application {
         });
         startHotelButton.setOnAction(e -> {
             try {
-                hotelbuilder.start(primaryStage);
+                //TODO fix start method.
+//                hotelbuilder.start(stage);
             } catch (Exception exception) {
                 exception.printStackTrace();
             }
         });
-
-        // set directory to start up
-        //TODO remove before finish
-        eventsChooser.setInitialDirectory(
-                new File("C:/Users/vlins/IdeaProjects/hotelsimulatie/src/com/company/files")
-        );
-        layoutChooser.setInitialDirectory(
-                new File("C:/Users/vlins/IdeaProjects/hotelsimulatie/src/com/company/files")
-        );
 
         eventButton.setMaxWidth(Double.MAX_VALUE);
         layoutButton.setMaxWidth(Double.MAX_VALUE);
@@ -316,7 +314,7 @@ public class Menu extends Application {
         base.setPrefSize(1000, 1000);
         base.setStyle(
                 "-fx-background-image:url(/com/company/images/background.jpg);"
-                +"-fx-background-size: cover, auto;"
+                        +"-fx-background-size: cover, auto;"
         );
         return base;
     }

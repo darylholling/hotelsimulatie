@@ -153,22 +153,22 @@ public class HotelBuilder extends Application {
             JsonObject jsonObject = jsonElement.getAsJsonObject();
 
             JsonObject position = jsonObject.get("position").getAsJsonObject();
-            int x = Integer.parseInt(position.get("x").getAsString());
-            int y = Integer.parseInt(position.get("y").getAsString());
+            int x = position.get("x").getAsInt();
+            int y = position.get("y").getAsInt();
 
             JsonObject dimensions = jsonObject.get("dimensions").getAsJsonObject();
-            int height = Integer.parseInt(dimensions.get("height").getAsString());
-            int width = Integer.parseInt(dimensions.get("width").getAsString());
+            int height = dimensions.get("height").getAsInt();
+            int width = dimensions.get("width").getAsInt();
 
             JsonObject data = jsonObject.get("data").getAsJsonObject();
             int stars = 0;
             if (data.has("stars")) {
-                stars = Integer.parseInt(data.get("stars").getAsString());
+                stars = data.get("stars").getAsInt();
             }
 
             int capacity = 0;
             if (data.has("max")) {
-                capacity = Integer.parseInt(data.get("max").getAsString());
+                capacity = data.get("max").getAsInt();
             }
 
             int defaultY = (hotelHeight - y) - 1;
@@ -194,7 +194,6 @@ public class HotelBuilder extends Application {
             if (area != null) {
                 if (area.getAreaHeight() > 1) {
                     int backgroundY = height > 1 ? ((hotelHeight - y) - height) : defaultY;
-                    System.out.println("name"+ area.getClass().getSimpleName());
                     areaBackground = area.createAreaBackground(defaultX, backgroundY, width, height, area.getImageFile());
 
                     gridPane.add(areaBackground, areaBackground.getX(), areaBackground.getY(), areaBackground.getAreaWidth(), areaBackground.getAreaHeight());
