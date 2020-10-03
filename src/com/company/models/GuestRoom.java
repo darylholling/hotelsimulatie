@@ -32,7 +32,8 @@ public class GuestRoom extends Area {
     public ImageView determineImageFile() throws FileNotFoundException {
         ImageView imageView = new ImageView(this.getImage());
 
-        this.configureSize(imageView);
+        imageView.setFitHeight(50*getAreaHeight());
+        imageView.setFitWidth(50*getAreaWidth());
 
         return imageView;
     }
@@ -61,25 +62,5 @@ public class GuestRoom extends Area {
         }
 
         return new Image(new FileInputStream("src/com/company/images/" + imageName));
-    }
-
-    public void configureSize(ImageView imageView) {
-        switch (this.getAreaWidth()) {
-            case 1:
-                imageView.setFitWidth(50);
-                break;
-            case 2:
-                imageView.setFitWidth(100);
-                break;
-        }
-
-        switch (this.getAreaHeight()) {
-            case 1:
-                imageView.setFitHeight(50);
-                break;
-            case 2:
-                imageView.setFitHeight(100);
-                break;
-        }
     }
 }

@@ -13,7 +13,7 @@ public class Lobby extends Area {
 
         ImageView imageView = new ImageView(new Image(new FileInputStream("src/com/company/images/lobby.jpg")));
         imageView.setFitHeight(50);
-        imageView.setFitWidth(50 * (areaWidth));
+        imageView.setFitWidth(50 * areaWidth);
         this.setImageFile(imageView);
     }
 }
