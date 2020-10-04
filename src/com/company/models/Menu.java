@@ -2,14 +2,17 @@ package com.company.models;
 
 import com.company.actions.HotelBuilder;
 import javafx.event.ActionEvent;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.*;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -17,14 +20,17 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
 public class Menu {
     private Stage stage;
     private Settings settings;
+    private ArrayList<StartListener> startListeners;
 
-    public Menu(Stage stage, Settings settings) {
+    public Menu(Stage stage, Settings settings, ArrayList<StartListener> startListeners) {
         this.stage = stage;
         this.settings = settings;
+        this.startListeners = startListeners;
         this.stage.setScene(mainMenu());
         this.stage.setTitle("Hotel Simulation");
 
@@ -58,27 +64,34 @@ public class Menu {
         stage.show();
     }
 
-    public Scene mainMenu() {
-        // Main Pane
-        BorderPane base = base();
-
+    private VBox createVbox() {
         // Centered box
-        VBox baseMenu = new VBox();
-        baseMenu.setStyle(
+        VBox vbox = new VBox();
+        vbox.setStyle(
                 "-fx-background-color: whitesmoke;"
-                        +"-fx-border-color: black;"
-                        +"-fx-border-width: 3 3 3 3;"
-                        +"-fx-spacing: 1;"
-                        +"-fx-opacity: 80"
+                        + "-fx-border-color: black;"
+                        + "-fx-border-width: 3 3 3 3;"
+                        + "-fx-spacing: 1;"
+                        + "-fx-opacity: 80"
         );
 
-        baseMenu.setPadding(new Insets(10));
-        baseMenu.setAlignment(Pos.CENTER);
-        baseMenu.setMaxWidth(400);
-        baseMenu.setMaxHeight(400);
+        vbox.setPadding(new Insets(10));
+        vbox.setAlignment(Pos.CENTER);
+        vbox.setMaxWidth(400);
+        vbox.setMaxHeight(400);
+
+        return vbox;
+    }
+
+    public Scene mainMenu() {
+        // Main Pane
+        BorderPane base = createBorderPane();
+
+        // Centered box
+        VBox baseMenu = this.createVbox();
 
         // Initialise labels for menu
-        Label instructionMenu = new Label("Welcome to the BEST hotel simulation \nGo to settings to adjust the hotel to your liking \n\tThe settings consist of: \n\t How fast time passes in the hotel. \n\t How long it take for certain actions by guests \n\t And how long it takes for guests to die ofcours");
+        Label instructionMenu = new Label("Welcome to the BEST hotel simulation \nGo to settings to adjust the hotel to your liking \n\tThe settings consist of: \n\t How fast time passes in the hotel. \n\t How long it take for certain actions by guests \n\t And how long it takes for guests to die ofcourse");
         instructionMenu.setStyle("-fx-padding:10;");
         instructionMenu.relocate(5, 5);
 
@@ -112,7 +125,7 @@ public class Menu {
 
     // Scene for settings pane
     public Scene settingsForm() {
-        BorderPane base = base();
+        BorderPane base = createBorderPane();
 
         // Creating all Panes
         VBox settingsPane = new VBox();
@@ -127,10 +140,10 @@ public class Menu {
 
         settingsGridPane.setStyle(
                 "-fx-background-color: whitesmoke;"
-                        +"-fx-border-color: black;"
-                        +"-fx-border-width: 3 3 3 3;"
-                        +"-fx-spacing: 1;"
-                        +"-fx-opacity: 80"
+                        + "-fx-border-color: black;"
+                        + "-fx-border-width: 3 3 3 3;"
+                        + "-fx-spacing: 1;"
+                        + "-fx-opacity: 80"
         );
         settingsGridPane.setAlignment(Pos.CENTER);
         settingsGridPane.setHgap(10);
@@ -179,15 +192,15 @@ public class Menu {
         header.getChildren().add(returnButton);
 
         // Add everything to settings
-        settingsGridPane.add(introSetttings,0,0);
-        settingsGridPane.add(setHTETimeLabel,0,1);
-        settingsGridPane.add(setHTETimeInput,1,1);
-        settingsGridPane.add(setHTEStairsLabel,0,2);
-        settingsGridPane.add(setHTEStairsInput,1,2);
-        settingsGridPane.add(setHTECleanLabel,0,3);
-        settingsGridPane.add(setHTECleanInput,1,3);
-        settingsGridPane.add(setHTEDeathLabel,0,4);
-        settingsGridPane.add(setHTEDeathInput,1,4);
+        settingsGridPane.add(introSetttings, 0, 0);
+        settingsGridPane.add(setHTETimeLabel, 0, 1);
+        settingsGridPane.add(setHTETimeInput, 1, 1);
+        settingsGridPane.add(setHTEStairsLabel, 0, 2);
+        settingsGridPane.add(setHTEStairsInput, 1, 2);
+        settingsGridPane.add(setHTECleanLabel, 0, 3);
+        settingsGridPane.add(setHTECleanInput, 1, 3);
+        settingsGridPane.add(setHTEDeathLabel, 0, 4);
+        settingsGridPane.add(setHTEDeathInput, 1, 4);
 
         // actions for save button
         saveButton.setOnAction((ActionEvent event) -> {
@@ -200,7 +213,7 @@ public class Menu {
         });
 
         // Panes adding to hsPane
-        settingsPane.getChildren().addAll(header,settingsGridPane,ExplainHTE,saveButton);
+        settingsPane.getChildren().addAll(header, settingsGridPane, ExplainHTE, saveButton);
         base.setCenter(settingsPane);
 
         // Primary scene show
@@ -209,22 +222,9 @@ public class Menu {
 
     public Scene filePage() {
         // Main Pane
-        BorderPane base = base();
+        BorderPane base = createBorderPane();
 
-        // Centered box
-        VBox filePage = new VBox();
-        filePage.setStyle(
-                "-fx-background-color: whitesmoke;"
-                        +"-fx-border-color: black;"
-                        +"-fx-border-width: 3 3 3 3;"
-                        +"-fx-spacing: 1;"
-                        +"-fx-opacity: 80"
-        );
-
-        filePage.setPadding(new Insets(10));
-        filePage.setAlignment(Pos.CENTER);
-        filePage.setMaxWidth(400);
-        filePage.setMaxHeight(400);
+        VBox filePage = this.createVbox();
 
         // Initialise labels for menu
         Label filePageTitle = new Label("Please select the files you want to use to run the hotel");
@@ -259,8 +259,7 @@ public class Menu {
             if (eventFile != null) {
                 eventStatus.setText("Event file selected: " + eventFile.getName());
                 eventStatus.setTextFill(Color.BLACK);
-            }
-            else {
+            } else {
                 eventStatus.setText("Event file selection cancelled.");
                 eventStatus.setTextFill(Color.RED);
             }
@@ -271,23 +270,15 @@ public class Menu {
             if (layoutFile != null) {
                 layoutStatus.setText("Layout file selected: " + layoutFile.getName());
                 layoutStatus.setTextFill(Color.BLACK);
-            }
-            else {
+            } else {
                 layoutStatus.setText("Layout file selection cancelled.");
                 layoutStatus.setTextFill(Color.RED);
             }
         });
-        startHotelButton.setOnAction(e -> {
-            try {
-                //TODO fix start method.
-//                hotelbuilder.start(stage);
-            } catch (Exception exception) {
-                exception.printStackTrace();
-            }
-        });
 
-        eventButton.setMaxWidth(Double.MAX_VALUE);
-        layoutButton.setMaxWidth(Double.MAX_VALUE);
+        double maxWidth = Double.MAX_VALUE;
+        eventButton.setMaxWidth(maxWidth);
+        layoutButton.setMaxWidth(maxWidth);
 
         // Button positions in main menu
         GridPane fileChooserArea = new GridPane();
@@ -305,17 +296,33 @@ public class Menu {
         // Add everyting to menupane
         filePage.getChildren().addAll(filePageTitle, fileChooserArea);
         base.setCenter(filePage);
+        Scene scene = new Scene(base);
 
-        return new Scene(base);
+        startHotelButton.setOnAction(e -> {
+            try {
+                this.notifyStart(this.stage);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        });
+
+        return scene;
     }
 
-    public BorderPane base() {
-        BorderPane base = new BorderPane();
-        base.setPrefSize(1000, 1000);
-        base.setStyle(
+    private void notifyStart(Stage stage) throws Exception {
+        for (StartListener startListener : startListeners) {
+            startListener.handleStart(stage);
+        }
+    }
+
+    public BorderPane createBorderPane() {
+        BorderPane borderPane = new BorderPane();
+        borderPane.setPrefSize(1000, 1000);
+        borderPane.setStyle(
                 "-fx-background-image:url(/com/company/images/background.jpg);"
-                        +"-fx-background-size: cover, auto;"
+                        + "-fx-background-size: cover, auto;"
         );
-        return base;
+
+        return borderPane;
     }
 }

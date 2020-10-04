@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 
-public class HotelBuilder extends Application {
+public class HotelBuilder implements StartListener {
     int maxXInJson = 0;
     int maxYInJson = 0;
     int hotelHeight = 0;
@@ -24,10 +24,9 @@ public class HotelBuilder extends Application {
     JsonArray jsonArrays;
     GridPane gridPane;
     Area[][] areas;
-    private File layoutFile;
     private Time time;
 
-    private Parent createContent() throws IOException {
+    public Parent createContent() throws IOException {
         // size of window
         Pane root = new Pane();
         gridPane = new GridPane();
@@ -211,11 +210,6 @@ public class HotelBuilder extends Application {
         }
     }
 
-    public void setFiles(File file) {
-        this.layoutFile = file;
-    }
-
-    @Override
     public void start(Stage stage) throws Exception {
         stage.setScene(new Scene(createContent()));
         stage.setResizable(false);
@@ -226,5 +220,9 @@ public class HotelBuilder extends Application {
         System.out.println(ds.findPath(areas[1][0],areas[3][2]));
 //        new DijkstraTest(areas, hotelWidth, hotelHeight);
 //        time.startTimer();
+    }
+
+    public void handleStart(Stage stage) throws Exception {
+        this.start(stage);
     }
 }
