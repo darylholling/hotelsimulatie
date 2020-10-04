@@ -48,8 +48,8 @@ public class Event {
     }
 
     public Event(String eventType, Integer eventTime) {
-this.eventType = eventType;
-this.eventTime = eventTime;
+        this.eventType = eventType;
+        this.eventTime = eventTime;
 
     }
 
