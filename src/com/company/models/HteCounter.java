@@ -22,8 +22,8 @@ public class HteCounter extends TimerTask {
     }
 
     public void handleEvent() throws Exception {
-        for (EventListener eventListener : eventListeners) {
-            eventListener.handleEvent();
+                for (EventListener eventListener : eventListeners) {
+                    eventListener.handleEvent();
         }
     }
 

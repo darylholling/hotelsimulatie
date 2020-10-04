@@ -7,6 +7,17 @@ public class Guest extends Person implements EventListener {
     private int preferredStars;
     Event event;
 
+    public int getIdGuest() {
+        return idGuest;
+    }
+
+    public void setIdGuest(int idGuest) {
+        this.idGuest = idGuest;
+    }
+
+    int idGuest;
+
+
     public Guest() {
         super();
     }
@@ -27,7 +38,13 @@ public class Guest extends Person implements EventListener {
         switch (event.getEventType()) {
 
             case "CHECK_IN":
+                Guest guest = new Guest();
+                guest.setPreferredStars(event.getStars());
+                guest.setIdGuest(event.getGuest());
+                System.out.println("guest" + idGuest);
             case "CHECK_OUT":
+                guest.getIdGuest(event.getGuest());
+
             case "EVACUATE":
             case "GO_TO_CINEMA":
             case "GO_TO_DINER":
@@ -40,32 +57,25 @@ public class Guest extends Person implements EventListener {
 
     }
 
-    public void checkIn(Event event){
 
-    }
-
-    public void checkOut(Event event){
-
-    }
-
-    public void evacuate(Event event){
-
-    }
-
-    public void goToCinema(Event event){
-
-    }
-
-    public void goToDiner(Event event){
-
-    }
-    public void goToFitness(Event event){
-
-    }
-
-    public void godzilla(Event event) {
-
-    }
-
-
+//    public void checkIn(Event eventType, Event eventTime, Event guestNumber, Event stars) {
+//    }
+//
+//    public void checkOut(Event event) {
+//    }
+//
+//    public void evacuate(Event event) {
+//    }
+//
+//    public void goToCinema(Event event) {
+//    }
+//
+//    public void goToDiner(Event event) {
+//    }
+//
+//    public void goToFitness(Event event) {
+//    }
+//
+//    public void godzilla(Event event) {
+//    }
 }

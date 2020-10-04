@@ -3,8 +3,6 @@ package com.company.actions;
 import com.company.models.Settings;
 import com.company.models.StartListener;
 import com.google.gson.*;
-import javafx.stage.Stage;
-
 
 import java.io.File;
 import java.io.IOException;
@@ -15,7 +13,7 @@ public class EventBuilder implements StartListener {
     private static File eventsFile;
     private static JsonArray eventJsonArray;
     private static int eventTime;
-    private static String eventType;
+    public static String eventType;
     private static Event event;
 
     private Settings settings;

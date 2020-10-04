@@ -14,13 +14,11 @@ public class Cinema extends Area implements EventListener {
 
     @Override
     public void handleEvent() {
-        switch (event.getEventType()) {
-            case "START_CINEMA":
+        this.startCinema();
 
         }
-    }
-    public void startCinema (Event event){
 
+    public void startCinema (){
 
     }
 }
