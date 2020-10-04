@@ -3,10 +3,11 @@ package com.company.models;
 import com.company.actions.Event;
 import com.company.actions.Move;
 
-public class Guest extends Person implements EventListener{
+public class Guest extends Person implements EventListener {
     private int preferredStars;
+    Event event;
 
-    public Guest () {
+    public Guest() {
         super();
     }
 
@@ -22,8 +23,49 @@ public class Guest extends Person implements EventListener{
         this.preferredStars = preferredStars;
     }
 
-    @Override
     public void handleEvent() {
+        switch (event.getEventType()) {
+
+            case "CHECK_IN":
+            case "CHECK_OUT":
+            case "EVACUATE":
+            case "GO_TO_CINEMA":
+            case "GO_TO_DINER":
+            case "GO_TO_FITNESS":
+            case "GODZILLA":
+
+            default:
+                System.out.println("No event");
+        }
 
     }
+
+    public void checkIn(Event event){
+
+    }
+
+    public void checkOut(Event event){
+
+    }
+
+    public void evacuate(Event event){
+
+    }
+
+    public void goToCinema(Event event){
+
+    }
+
+    public void goToDiner(Event event){
+
+    }
+    public void goToFitness(Event event){
+
+    }
+
+    public void godzilla(Event event) {
+
+    }
+
+
 }
