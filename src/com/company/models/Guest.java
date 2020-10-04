@@ -35,16 +35,21 @@ public class Guest extends Person implements EventListener {
     }
 
     public void handleEvent() {
+        Guest guest;
+
         switch (event.getEventType()) {
 
             case "CHECK_IN":
-                Guest guest = new Guest();
+                guest = new Guest();
                 guest.setPreferredStars(event.getStars());
                 guest.setIdGuest(event.getGuest());
                 System.out.println("guest" + idGuest);
             case "CHECK_OUT":
-                guest.getIdGuest(event.getGuest());
-
+//                if (guest != null) {
+//                    guest.getIdGuest(event.getGuest());
+//
+//
+//                }
             case "EVACUATE":
             case "GO_TO_CINEMA":
             case "GO_TO_DINER":

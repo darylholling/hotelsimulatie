@@ -14,6 +14,7 @@ public class Hotel extends Application {
         HotelBuilder hotelBuilder = new HotelBuilder(stage);
         EventBuilder eventBuilder = new EventBuilder(settings);
         Time timer = new Time();
+        ArrayList<Guest> guests = new ArrayList<>();
 
         Menu menu = new Menu(stage, settings, new ArrayList<>() {
             {

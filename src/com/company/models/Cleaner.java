@@ -15,6 +15,7 @@ public class Cleaner extends Person implements EventListener {
             case "CHECK_OUT":
             case "EVACUATE":
             case "GODZILLA":
+
             default:
                 System.out.println("No event");
 
