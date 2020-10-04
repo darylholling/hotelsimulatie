@@ -3,7 +3,7 @@ package com.company.models;
 import com.company.actions.Event;
 import com.company.actions.Move;
 
-public class Guest extends Person {
+public class Guest extends Person implements EventListener{
     private int preferredStars;
 
     public Guest () {
@@ -20,5 +20,10 @@ public class Guest extends Person {
 
     public void setPreferredStars(int preferredStars) {
         this.preferredStars = preferredStars;
+    }
+
+    @Override
+    public void handleEvent() {
+
     }
 }

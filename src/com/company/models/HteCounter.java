@@ -7,8 +7,7 @@ public class HteCounter extends TimerTask {
     private ArrayList<EventListener> eventListeners;
 
     public HteCounter() {
-//        parameters meegeven in de constructor?
-        this.eventListeners = eventListeners;
+        eventListeners = new ArrayList<EventListener>();
     }
 
     public static int hte;
@@ -22,7 +21,7 @@ public class HteCounter extends TimerTask {
         return hte;
     }
 
-    private void handleEvent() throws Exception {
+    public void handleEvent() throws Exception {
         for (EventListener eventListener : eventListeners) {
             eventListener.handleEvent();
         }
