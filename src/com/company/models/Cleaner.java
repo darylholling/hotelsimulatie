@@ -7,5 +7,10 @@ public class Cleaner extends Person {
     public Cleaner () {
 
     }
+
+    @Override
+    public void execute(Event event) {
+
+    }
 }
 

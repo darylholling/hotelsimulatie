@@ -2,7 +2,6 @@ package com.company.actions;
 
 import com.google.gson.*;
 
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -15,17 +14,14 @@ class EventBuilder {
     private static String eventType;
     private static Event event;
 
-
     public static void main(String[] args) throws IOException {
-        eventsFile = new File ("src/com/company/files/events3.json");
+        eventsFile = new File("src/com/company/files/events3.json");
         Gson gson = new GsonBuilder().create();
         eventJsonArray = gson.fromJson(Files.newBufferedReader(new File(String.valueOf(eventsFile)).toPath(), StandardCharsets.UTF_8), JsonArray.class);
         readJson(eventsFile);
-
     }
 
     public static void readJson(File fileName) {
-
         for (JsonElement jsonElement : eventJsonArray) {
             JsonObject jsonObject = jsonElement.getAsJsonObject();
 
@@ -35,18 +31,17 @@ class EventBuilder {
 
             JsonObject data = jsonObject.get("data").getAsJsonObject();
             if (data.has("guest")) {
-                event.setGuest(  data.get("guest").getAsInt());
+                event.setGuest(data.get("guest").getAsInt());
             }
             if (data.has("stars")) {
-                event.setStars(  data.get("stars").getAsInt());
+                event.setStars(data.get("stars").getAsInt());
             }
             if (data.has("duration")) {
-                event.setDuration(  data.get("duration").getAsInt());
+                event.setDuration(data.get("duration").getAsInt());
             }
-            System.out.println("Type: "+ event.getEventType()+" | Time: "+ event.getEventTime()+" | Guest: "+event.getGuest()+" | Stars: "+event.getStars()+" | Duration: "+event.getDuration());
+            System.out.println("Type: " + event.getEventType() + " | Time: " + event.getEventTime() + " | Guest: " + event.getGuest() + " | Stars: " + event.getStars() + " | Duration: " + event.getDuration());
         }
     }
-
 }
 
 

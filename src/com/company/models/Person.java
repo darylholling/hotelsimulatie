@@ -1,11 +1,9 @@
 package com.company.models;
 
-abstract class Person {
+abstract class Person implements EventListener{
     private Area area;
 
-//    public Person(Area area) {
-//        this.area = area;
-//    }
+    public Person() {}
 
     public Area getArea() {
         return area;

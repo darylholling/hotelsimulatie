@@ -7,6 +7,11 @@ public class Event {
     private String eventType;
     private Integer eventTime;
 
+    public Event(String eventType, Integer eventTime) {
+        this.eventType = eventType;
+        this.eventTime = eventTime;
+    }
+
     public int getEventTime() {
         return eventTime;
     }
@@ -45,12 +50,6 @@ public class Event {
 
     public void setStars(Integer stars) {
         this.stars = stars;
-    }
-
-    public Event(String eventType, Integer eventTime) {
-this.eventType = eventType;
-this.eventTime = eventTime;
-
     }
 
 }

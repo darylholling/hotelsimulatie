@@ -16,6 +16,7 @@ public class Dijkstra {
 
     public String findPath(Area start, Area end) {
         Area toCheck = start;
+
         while (!Visit(toCheck, end)) {
             toCheck = unvisiteAreas.stream().min(Comparator.comparingInt(n -> n.getDistance())).get();
         }

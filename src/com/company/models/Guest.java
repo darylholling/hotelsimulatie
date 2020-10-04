@@ -21,4 +21,9 @@ public class Guest extends Person {
     public void setPreferredStars(int preferredStars) {
         this.preferredStars = preferredStars;
     }
+
+    @Override
+    public void execute(Event event) {
+
+    }
 }
