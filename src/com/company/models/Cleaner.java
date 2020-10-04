@@ -10,7 +10,7 @@ public class Cleaner extends Person implements EventListener {
     }
 
     @Override
-    public void handleEvent() {
+    public void handleEvent(Event event) {
         switch (event.getEventType()) {
             case "CHECK_OUT":
             case "EVACUATE":

@@ -6,6 +6,7 @@ import com.company.actions.Move;
 public class Guest extends Person implements EventListener {
     private int preferredStars;
     Event event;
+    int idGuest;
 
     public int getIdGuest() {
         return idGuest;
@@ -14,8 +15,6 @@ public class Guest extends Person implements EventListener {
     public void setIdGuest(int idGuest) {
         this.idGuest = idGuest;
     }
-
-    int idGuest;
 
 
     public Guest() {
@@ -34,8 +33,8 @@ public class Guest extends Person implements EventListener {
         this.preferredStars = preferredStars;
     }
 
-    public void handleEvent() {
-        Guest guest;
+    public void handleEvent(Event event) {
+        Guest guest = null;
 
         switch (event.getEventType()) {
 
@@ -43,18 +42,43 @@ public class Guest extends Person implements EventListener {
                 guest = new Guest();
                 guest.setPreferredStars(event.getStars());
                 guest.setIdGuest(event.getGuest());
-                System.out.println("guest" + idGuest);
+                Hotel.guestsArrayList.add(guest);
+                //TODO add guest to AREA array
+                System.out.println("guest" + idGuest + "stars: "+ preferredStars);
             case "CHECK_OUT":
-//                if (guest != null) {
-//                    guest.getIdGuest(event.getGuest());
-//
-//
-//                }
+                if (event.getGuest() == guest.getIdGuest()) {
+                    Hotel.guestsArrayList.remove(guest);
+                }
             case "EVACUATE":
+                if (event.getGuest() == guest.getIdGuest()) {
+                    Hotel.guestsArrayList.remove(guest);
+                }
             case "GO_TO_CINEMA":
+                if (event.getGuest() == guest.getIdGuest()) {
+                    //TODO HAAL AREA OP VAN AREA array --> dijkstra
+                    //ds.findPath(areas[x][Y],areas[x][y](closest cinema))
+                    //set area van deze guest op de closest cinema
+                }
+
             case "GO_TO_DINER":
+                if (event.getGuest() == guest.getIdGuest())    {
+                        //TODO HAAL AREA OP VAN AREA array --> dijkstra
+                        //ds.findPath(areas[x][Y],areas[x][y](closest diner))
+                        //set area van deze guest op de closest diner
+                    }
+
             case "GO_TO_FITNESS":
+                if (event.getGuest() == guest.getIdGuest())  {
+                        //TODO HAAL AREA OP VAN AREA array --> dijkstra
+                        //ds.findPath(areas[x][Y],areas[x][y](closest fitness))
+                        //set area van deze guest op de closest fitness
+                    }
+
             case "GODZILLA":
+                if (event.getGuest() == guest.getIdGuest()) {
+                    //TODO nog iets bedenken....
+                }
+
 
             default:
                 System.out.println("No event");

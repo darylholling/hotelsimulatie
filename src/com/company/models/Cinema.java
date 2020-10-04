@@ -13,7 +13,7 @@ public class Cinema extends Area implements EventListener {
     }
 
     @Override
-    public void handleEvent() {
+    public void handleEvent(Event event) {
         this.startCinema();
 
         }

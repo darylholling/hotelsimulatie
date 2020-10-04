@@ -1,5 +1,7 @@
 package com.company.models;
 
+import com.company.actions.Event;
+
 import java.util.ArrayList;
 import java.util.TimerTask;
 
@@ -21,9 +23,9 @@ public class HteCounter extends TimerTask {
         return hte;
     }
 
-    public void handleEvent() throws Exception {
+    public void handleEvent(Event event) throws Exception {
                 for (EventListener eventListener : eventListeners) {
-                    eventListener.handleEvent();
+                    eventListener.handleEvent(event);
         }
     }
 

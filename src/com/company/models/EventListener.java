@@ -1,5 +1,7 @@
 package com.company.models;
 
-public interface EventListener {
-    public void handleEvent ();
+import com.company.actions.Event;
+
+    public interface EventListener {
+        public void handleEvent (Event event);
 }
