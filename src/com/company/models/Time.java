@@ -1,6 +1,5 @@
 package com.company.models;
 
-
 import java.util.Timer;
 import java.util.TimerTask;
 

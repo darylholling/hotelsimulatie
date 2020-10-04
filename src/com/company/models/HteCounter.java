@@ -4,8 +4,8 @@ import java.util.TimerTask;
 
 public class HteCounter extends TimerTask
 {
-
     public static int hte;
+
     public void run()
     {
         hte++;

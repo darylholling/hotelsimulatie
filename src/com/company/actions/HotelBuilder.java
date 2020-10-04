@@ -2,7 +2,6 @@ package com.company.actions;
 
 import com.company.models.*;
 import com.google.gson.*;
-import javafx.application.Application;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -30,6 +29,10 @@ public class HotelBuilder implements StartListener {
         this.stage = stage;
     }
 
+    public Area[][] getAreas() {
+        return this.areas;
+    }
+
     public Parent createContent() throws IOException {
         // size of window
         Pane root = new Pane();
@@ -42,6 +45,7 @@ public class HotelBuilder implements StartListener {
         Gson gson = new GsonBuilder().create();
         jsonArrays = gson.fromJson(Files.newBufferedReader(new File(String.valueOf(layoutFile)).toPath(), StandardCharsets.UTF_8), JsonArray.class);
 
+        //TODO replace by function => preferebly class reading json.
         for (JsonElement jsonElement : jsonArrays) {
             JsonObject jsonObject = jsonElement.getAsJsonObject();
             JsonObject position = jsonObject.get("position").getAsJsonObject();
@@ -61,22 +65,16 @@ public class HotelBuilder implements StartListener {
         hotelHeight = (maxYInJson + 1);
         hotelWidth = (maxXInJson + 2);
 
+        this.areas = new Area[hotelWidth + 1][hotelHeight + 1];
 
-        areas = new Area[hotelWidth + 1][hotelHeight + 1];
-        for (int x = 0; x <= hotelWidth; x++) {
-            for (int y = 0; y <= hotelHeight; y++) {
-                this.createDefaultAreas(gridPane, x, y, areas);
-            }
-        }
+        this.createDefaultAreas(areas, gridPane, hotelWidth, hotelHeight);
+        this.createAreas(areas, gridPane, jsonArrays);
+        this.addNeighbours();
 
-        this.createAreas(gridPane, jsonArrays, areas);
+        return gridPane;
+    }
 
-//        for (Area[] areaArray : this.areas) {
-//            for (Area area : areaArray) {
-//                System.out.println(area);
-//            }
-//        }
-
+    private void addNeighbours() {
         for (int x = 1; x <= hotelWidth; x++) {
             for (int y = 0; y <= hotelHeight; y++) {
                 Area currentArea = areas[x][y];
@@ -88,7 +86,7 @@ public class HotelBuilder implements StartListener {
                 }
 
                 if (x == hotelWidth) {
-                    currentArea.addNeighbour(areas[currentArea.getX() -1][currentArea.getY()], 1);
+                    currentArea.addNeighbour(areas[currentArea.getX() - 1][currentArea.getY()], 1);
 
                     if (y != hotelHeight) {
                         currentArea.addNeighbour(areas[currentArea.getX()][currentArea.getY() + 1], 1);
@@ -104,11 +102,17 @@ public class HotelBuilder implements StartListener {
                 currentArea.addNeighbour(areas[currentArea.getX() + 1][currentArea.getY()], 1);
             }
         }
-
-        return gridPane;
     }
 
-    private void createDefaultAreas(GridPane gridPane, int i, int j, Area[][] areas) throws FileNotFoundException {
+    private void createDefaultAreas(Area[][] areas, GridPane gridPane, int hotelWidth, int hotelHeight) throws FileNotFoundException {
+        for (int x = 0; x <= hotelWidth; x++) {
+            for (int y = 0; y <= hotelHeight; y++) {
+                this.createDefaultArea(areas, gridPane, x, y);
+            }
+        }
+    }
+
+    private void createDefaultArea(Area[][] areas, GridPane gridPane, int i, int j) throws FileNotFoundException {
         Area area;
 
         int dimensionWidth = maxXInJson + 1;
@@ -139,8 +143,7 @@ public class HotelBuilder implements StartListener {
         return null;
     }
 
-
-    private void createAreas(GridPane gridPane, JsonArray jsonArrays, Area[][] areas) throws FileNotFoundException {
+    private void createAreas(Area[][] areas, GridPane gridPane, JsonArray jsonArrays) throws FileNotFoundException {
         //ADD HALLWAY WHEN THERE'S AN EMPTY SPACE
         for (int i = 1; i < hotelWidth; i++) {
             for (int j = 0; j < hotelHeight; j++) {

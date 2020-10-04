@@ -1,5 +1,6 @@
 package com.company.models;
 
+import com.company.actions.CreateCleaners;
 import com.company.actions.EventBuilder;
 import com.company.actions.EventHandler;
 import com.company.actions.HotelBuilder;
@@ -12,7 +13,9 @@ public class Hotel extends Application {
     @Override
     public void start(Stage stage) {
         Settings settings = new Settings();
+
         HotelBuilder hotelBuilder = new HotelBuilder(stage);
+        CreateCleaners createCleaners = new CreateCleaners(hotelBuilder.getAreas());
         EventHandler eventHandler = new EventHandler(settings);
         Time timer = new Time();
 
@@ -21,8 +24,10 @@ public class Hotel extends Application {
                 add(hotelBuilder);
                 add(eventHandler);
                 add(timer);
+                add(createCleaners);
             }
         });
+
         menu.run();
     }
 }
