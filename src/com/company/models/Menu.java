@@ -1,6 +1,5 @@
 package com.company.models;
 
-import com.company.actions.HotelBuilder;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -300,7 +299,7 @@ public class Menu {
 
         startHotelButton.setOnAction(e -> {
             try {
-                this.notifyStart(this.stage);
+                this.notifyStart();
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
@@ -309,9 +308,9 @@ public class Menu {
         return scene;
     }
 
-    private void notifyStart(Stage stage) throws Exception {
+    private void notifyStart() throws Exception {
         for (StartListener startListener : startListeners) {
-            startListener.handleStart(stage);
+            startListener.handleStart();
         }
     }
 

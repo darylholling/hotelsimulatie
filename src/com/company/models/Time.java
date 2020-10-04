@@ -4,7 +4,7 @@ package com.company.models;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Time {
+public class Time implements StartListener{
     private static Timer timer;
     static boolean running;
 
@@ -26,7 +26,7 @@ public class Time {
         return running;
     }
 
-    public static void startTimer() {
+    public void startTimer() {
         timer = new Timer();
         running = true;
         HteCounter htecounter = new HteCounter();
@@ -34,13 +34,18 @@ public class Time {
         timer.scheduleAtFixedRate(htecounter, 1000,1000);
     }
 
-    public static void stopTimer() {
+    public void stopTimer() {
         running = false;
         timer.cancel();
     }
 
-    public static void resumeTimer(){
-        startTimer();
+    public void resumeTimer(){
+        this.startTimer();
+    }
+
+    @Override
+    public void handleStart() throws Exception {
+        this.startTimer();
     }
 }
 

@@ -24,7 +24,11 @@ public class HotelBuilder implements StartListener {
     JsonArray jsonArrays;
     GridPane gridPane;
     Area[][] areas;
-    private Time time;
+    private Stage stage;
+
+    public HotelBuilder(Stage stage) {
+        this.stage = stage;
+    }
 
     public Parent createContent() throws IOException {
         // size of window
@@ -215,14 +219,18 @@ public class HotelBuilder implements StartListener {
         stage.setResizable(false);
         stage.show();
 
-        Dijkstra ds = new Dijkstra();
-        areas[1][0].setDistance(0);
-        System.out.println(ds.findPath(areas[1][0],areas[3][2]));
+//        Dijkstra ds = new Dijkstra();
+//        areas[1][0].setDistance(0);
+//        System.out.println(ds.findPath(areas[1][0],areas[3][2]));
 //        new DijkstraTest(areas, hotelWidth, hotelHeight);
 //        time.startTimer();
     }
 
-    public void handleStart(Stage stage) throws Exception {
-        this.start(stage);
+    public Stage getStage() {
+        return stage;
+    }
+
+    public void handleStart() throws Exception {
+        this.start(this.getStage());
     }
 }

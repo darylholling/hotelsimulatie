@@ -10,10 +10,13 @@ public class Hotel extends Application {
     @Override
     public void start(Stage stage) {
         Settings settings = new Settings();
-        HotelBuilder hotelBuilder = new HotelBuilder();
+        HotelBuilder hotelBuilder = new HotelBuilder(stage);
+        Time timer = new Time();
+
         Menu menu = new Menu(stage, settings, new ArrayList<>() {
             {
                 add(hotelBuilder);
+                add(timer);
             }
         });
         menu.run();
