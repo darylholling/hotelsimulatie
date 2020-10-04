@@ -216,11 +216,11 @@ public class HotelBuilder implements StartListener {
         stage.setResizable(false);
         stage.show();
 
-        Dijkstra ds = new Dijkstra();
-        areas[1][0].setDistance(0);
-        System.out.println(ds.findPath(areas[1][0],areas[3][2]));
+//        Dijkstra ds = new Dijkstra();
+//        areas[1][0].setDistance(0);
+//        System.out.println(ds.findPath(areas[1][0],areas[3][2]));
 //        new DijkstraTest(areas, hotelWidth, hotelHeight);
-//        time.startTimer();
+        time.startTimer();
     }
 
     public void handleStart(Stage stage) throws Exception {
