@@ -3,7 +3,7 @@ package com.company.models;
 import java.io.File;
 
 public class Settings {
-    private int HTETime = 1;
+    private int HTETime = 1000;
     private int StairsHTE = 1;
     private int CleanHTE = 1;
     private int ElevatorDeathHTE = 1;

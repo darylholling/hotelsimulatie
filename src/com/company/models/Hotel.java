@@ -4,11 +4,18 @@ import com.company.actions.HotelBuilder;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+
 public class Hotel extends Application {
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) {
         Settings settings = new Settings();
-        Menu menu = new Menu(stage, settings);
+        HotelBuilder hotelBuilder = new HotelBuilder();
+        Menu menu = new Menu(stage, settings, new ArrayList<>() {
+            {
+                add(hotelBuilder);
+            }
+        });
         menu.run();
     }
 }
