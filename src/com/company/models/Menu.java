@@ -256,6 +256,7 @@ public class Menu {
         eventButton.setOnAction(e -> {
             File eventFile = eventsChooser.showOpenDialog(this.stage);
             if (eventFile != null) {
+                settings.setEventsFile(eventFile);
                 eventStatus.setText("Event file selected: " + eventFile.getName());
                 eventStatus.setTextFill(Color.BLACK);
             } else {
@@ -265,8 +266,8 @@ public class Menu {
         });
         layoutButton.setOnAction(e -> {
             File layoutFile = layoutChooser.showOpenDialog(this.stage);
-            settings.setLayoutFile(layoutFile);
             if (layoutFile != null) {
+                settings.setLayoutFile(layoutFile);
                 layoutStatus.setText("Layout file selected: " + layoutFile.getName());
                 layoutStatus.setTextFill(Color.BLACK);
             } else {

@@ -8,6 +8,7 @@ public class Settings {
     private int CleanHTE = 1;
     private int ElevatorDeathHTE = 1;
     private File layoutFile;
+    private File eventsFile;
     private static Settings settings;
 
     public static synchronized Settings getSettings() {
@@ -45,4 +46,11 @@ public class Settings {
         this.layoutFile = layoutFile;
     }
 
+    public File getEventsFile() {
+        return eventsFile;
+    }
+
+    public void setEventsFile(File eventsFile) {
+        this.eventsFile = eventsFile;
+    }
 }
