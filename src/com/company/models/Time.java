@@ -30,7 +30,8 @@ public class Time {
         timer = new Timer();
         running = true;
         HteCounter htecounter = new HteCounter();
-        timer.scheduleAtFixedRate(htecounter, Settings.getSettings().getHTETime(),Settings.getSettings().getHTETime());
+//        timer.scheduleAtFixedRate(htecounter, Settings.getSettings().getHTETime(),Settings.getSettings().getHTETime());
+        timer.scheduleAtFixedRate(htecounter, 1000,1000);
     }
 
     public static void stopTimer() {
@@ -42,15 +43,8 @@ public class Time {
         startTimer();
     }
 }
-class HteCounter extends TimerTask
-{   public static int hte;
-    public void run()
-    {
-        hte++;
-        System.out.println("HTE: " + hte);
-    }
 
-}
+
 
 
 
