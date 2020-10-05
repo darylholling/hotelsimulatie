@@ -1,6 +1,6 @@
 package com.company.models;
 
-import com.company.actions.Event;
+import com.company.events.Event;
 
 public class Cleaner extends Person implements EventListener {
     Event event;
@@ -11,16 +11,9 @@ public class Cleaner extends Person implements EventListener {
 
     @Override
     public void handleEvent(Event event) {
-        switch (event.getEventType()) {
-            case "CHECK_OUT":
-            case "EVACUATE":
-            case "GODZILLA":
-
-            default:
                 System.out.println("No event");
 
         }
     }
-}
 
 

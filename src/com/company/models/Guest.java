@@ -1,6 +1,6 @@
 package com.company.models;
 
-import com.company.actions.Event;
+import com.company.events.Event;
 import com.company.actions.Move;
 
 public class Guest extends Person implements EventListener {
@@ -36,55 +36,55 @@ public class Guest extends Person implements EventListener {
     public void handleEvent(Event event) {
         Guest guest = null;
 
-        switch (event.getEventType()) {
-
-            case "CHECK_IN":
-                guest = new Guest();
-                guest.setPreferredStars(event.getStars());
-                guest.setIdGuest(event.getGuest());
-                Hotel.guestsArrayList.add(guest);
-                //TODO add guest to AREA array
-                System.out.println("guest" + idGuest + "stars: "+ preferredStars);
-            case "CHECK_OUT":
-                if (event.getGuest() == guest.getIdGuest()) {
-                    Hotel.guestsArrayList.remove(guest);
-                }
-            case "EVACUATE":
-                if (event.getGuest() == guest.getIdGuest()) {
-                    Hotel.guestsArrayList.remove(guest);
-                }
-            case "GO_TO_CINEMA":
-                if (event.getGuest() == guest.getIdGuest()) {
-                    //TODO HAAL AREA OP VAN AREA array --> dijkstra
-                    //ds.findPath(areas[x][Y],areas[x][y](closest cinema))
-                    //set area van deze guest op de closest cinema
-                }
-
-            case "GO_TO_DINER":
-                if (event.getGuest() == guest.getIdGuest())    {
-                        //TODO HAAL AREA OP VAN AREA array --> dijkstra
-                        //ds.findPath(areas[x][Y],areas[x][y](closest diner))
-                        //set area van deze guest op de closest diner
-                    }
-
-            case "GO_TO_FITNESS":
-                if (event.getGuest() == guest.getIdGuest())  {
-                        //TODO HAAL AREA OP VAN AREA array --> dijkstra
-                        //ds.findPath(areas[x][Y],areas[x][y](closest fitness))
-                        //set area van deze guest op de closest fitness
-                    }
-
-            case "GODZILLA":
-                if (event.getGuest() == guest.getIdGuest()) {
-                    //TODO nog iets bedenken....
-                }
-
-
-            default:
-                System.out.println("No event");
-        }
-
-    }
+//        switch (event.getEventType()) {
+//
+//            case "CHECK_IN":
+//                guest = new Guest();
+//                guest.setPreferredStars(event.getStars());
+//                guest.setIdGuest(event.getGuest());
+//                Hotel.guestsArrayList.add(guest);
+//                //TODO add guest to AREA array
+//                System.out.println("guest" + idGuest + "stars: "+ preferredStars);
+//            case "CHECK_OUT":
+//                if (event.getGuest() == guest.getIdGuest()) {
+//                    Hotel.guestsArrayList.remove(guest);
+//                }
+//            case "EVACUATE":
+//                if (event.getGuest() == guest.getIdGuest()) {
+//                    Hotel.guestsArrayList.remove(guest);
+//                }
+//            case "GO_TO_CINEMA":
+//                if (event.getGuest() == guest.getIdGuest()) {
+//                    //TODO HAAL AREA OP VAN AREA array --> dijkstra
+//                    //ds.findPath(areas[x][Y],areas[x][y](closest cinema))
+//                    //set area van deze guest op de closest cinema
+//                }
+//
+//            case "GO_TO_DINER":
+//                if (event.getGuest() == guest.getIdGuest())    {
+//                        //TODO HAAL AREA OP VAN AREA array --> dijkstra
+//                        //ds.findPath(areas[x][Y],areas[x][y](closest diner))
+//                        //set area van deze guest op de closest diner
+//                    }
+//
+//            case "GO_TO_FITNESS":
+//                if (event.getGuest() == guest.getIdGuest())  {
+//                        //TODO HAAL AREA OP VAN AREA array --> dijkstra
+//                        //ds.findPath(areas[x][Y],areas[x][y](closest fitness))
+//                        //set area van deze guest op de closest fitness
+//                    }
+//
+//            case "GODZILLA":
+//                if (event.getGuest() == guest.getIdGuest()) {
+//                    //TODO nog iets bedenken....
+//                }
+//
+//
+//            default:
+//                System.out.println("No event");
+//        }
+//
+//    }
 
 
 //    public void checkIn(Event eventType, Event eventTime, Event guestNumber, Event stars) {
@@ -107,4 +107,4 @@ public class Guest extends Person implements EventListener {
 //
 //    public void godzilla(Event event) {
 //    }
-}
+    }}

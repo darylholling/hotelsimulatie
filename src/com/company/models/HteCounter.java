@@ -1,6 +1,6 @@
 package com.company.models;
 
-import com.company.actions.Event;
+import com.company.events.Event;
 
 import java.util.ArrayList;
 import java.util.TimerTask;
