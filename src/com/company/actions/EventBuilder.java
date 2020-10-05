@@ -8,6 +8,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 public class EventBuilder {
     private File eventsFile;
@@ -28,7 +30,8 @@ public class EventBuilder {
 //        readJson(eventsFile);
     }
 
-    public ArrayList<Event> readJson() throws IOException {
+    public Queue<Event> readJson() throws IOException {
+        eventsFile = new File ("src/com/company/files/events3.json");
         Gson gson = new GsonBuilder().create();
         eventJsonArray = gson.fromJson(Files.newBufferedReader(new File(String.valueOf(eventsFile)).toPath(), StandardCharsets.UTF_8), JsonArray.class);
         event = new Event(eventType, eventTime);
@@ -43,16 +46,6 @@ public class EventBuilder {
             eventType = jsonObject.get("type").getAsString();
             event = new Event(eventType, eventTime);
 
-            JsonObject data = jsonObject.get("data").getAsJsonObject();
-            if (data.has("guest")) {
-                event.setGuest(data.get("guest").getAsInt());
-            }
-            if (data.has("stars")) {
-                event.setStars(data.get("stars").getAsInt());
-            }
-            if (data.has("duration")) {
-                event.setDuration(data.get("duration").getAsInt());
-            }
             eventsArray.add(event);
 //            System.out.println("Type: "+ event.getEventType()+" | Time: "+ event.getEventTime()+" | Guest: "+event.getGuest()+" | Stars: "+event.getStars()+" | Duration: "+event.getDuration());
         }
@@ -60,7 +53,8 @@ public class EventBuilder {
         // Sort array
         eventsArray.sort(new SortEventsByTime());
 
-        return eventsArray;
+        // Create queue
+        return new PriorityQueue<>(eventsArray);
     }
 
     static class SortEventsByTime implements Comparator<Event> {
