@@ -3,11 +3,15 @@ package com.company.actions;
 import com.company.models.*;
 import com.google.gson.*;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -16,7 +20,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 
-public class HotelBuilder implements StartListener {
+public class HotelBuilder implements StartListener, HTEListener {
     int maxXInJson = 0;
     int maxYInJson = 0;
     int hotelHeight = 0;
@@ -25,6 +29,7 @@ public class HotelBuilder implements StartListener {
     GridPane gridPane;
     Area[][] areas;
     private Stage stage;
+    private Label hteInfoBoard;
 
     public HotelBuilder(Stage stage) {
         this.stage = stage;
@@ -104,8 +109,21 @@ public class HotelBuilder implements StartListener {
                 currentArea.addNeighbour(areas[currentArea.getX() + 1][currentArea.getY()], 1);
             }
         }
+        // Adding the HTE information board
+        Pane header = new Pane();
+        VBox hotelPane = new VBox();
 
-        return gridPane;
+        this.hteInfoBoard = new Label("HTE : " + HteCounter.getHte());
+        hteInfoBoard.setStyle("-fx-font-size: 170%");
+        hteInfoBoard.setTextFill(Color.BLACK);
+        hteInfoBoard.relocate(255, 5);
+
+        header.getChildren().add(hteInfoBoard);
+
+        hotelPane.getChildren().addAll(header, gridPane);
+        return hotelPane;
+
+//        return gridPane;
     }
 
     private void createDefaultAreas(GridPane gridPane, int i, int j, Area[][] areas) throws FileNotFoundException {
@@ -232,5 +250,13 @@ public class HotelBuilder implements StartListener {
 
     public void handleStart() throws Exception {
         this.start(this.getStage());
+    }
+
+    public void hteLabelUpdate(){
+        Platform.runLater(() -> hteInfoBoard.setText("HTE: " + String.valueOf(HteCounter.getHte())));
+    }
+    @Override
+    public void updatedHTE(int HTE) {
+        this.hteLabelUpdate();
     }
 }

@@ -16,7 +16,7 @@ public class Hotel extends Application {
         Time timer = new Time(new ArrayList<>(){
             {
                 add(eventHandler);
-//                add(hotelBuilder);
+                add(hotelBuilder);
             }
         });
 
