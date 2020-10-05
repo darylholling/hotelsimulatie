@@ -1,5 +1,6 @@
 package com.company.events;
 
+import com.company.actions.Event;
 import com.company.models.Guest;
 
 public class StartCinemaEvent extends Event {

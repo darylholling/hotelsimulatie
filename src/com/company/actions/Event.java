@@ -1,4 +1,4 @@
-package com.company.events;
+package com.company.actions;
 
 abstract public class Event {
     private Integer eventTime;

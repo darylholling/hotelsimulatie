@@ -1,5 +1,7 @@
 package com.company.events;
 
+import com.company.actions.Event;
+
 public class CleaningEmergencyEvent extends Event {
     private int idGuest;
 

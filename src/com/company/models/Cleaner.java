@@ -1,6 +1,6 @@
 package com.company.models;
 
-import com.company.events.Event;
+import com.company.actions.Event;
 
 public class Cleaner extends Person implements EventListener {
     Event event;

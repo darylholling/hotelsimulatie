@@ -1,6 +1,6 @@
 package com.company.models;
 
-import com.company.events.Event;
+import com.company.actions.Event;
 import com.company.actions.Move;
 
 public class Guest extends Person implements EventListener {

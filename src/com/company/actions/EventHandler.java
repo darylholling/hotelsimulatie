@@ -1,6 +1,5 @@
 package com.company.actions;
 
-import com.company.events.Event;
 import com.company.models.Settings;
 import com.company.models.StartListener;
 
