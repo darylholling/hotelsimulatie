@@ -1,7 +1,7 @@
 package com.company.actions;
 
 abstract public class Event implements Comparable<Event>{
-    private  String eventType;
+    private String eventType;
     private Integer eventTime;
 
     public Event(String eventType, Integer eventTime) {
