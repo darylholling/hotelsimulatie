@@ -9,12 +9,14 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 public class EventBuilder {
     private File eventsFile;
     private static JsonArray eventJsonArray;
     private static int eventTime;
-    public static String eventType;
+    private static String eventType;
     private static Event event;
 
     public EventBuilder(File eventFile) {
@@ -22,13 +24,14 @@ public class EventBuilder {
     }
 
     public void main(String[] args) throws IOException {
-        eventsFile = new File("src/com/company/files/events3.json");
+        eventsFile = new File ("src/com/company/files/events3.json");
         Gson gson = new GsonBuilder().create();
         eventJsonArray = gson.fromJson(Files.newBufferedReader(new File(String.valueOf(eventsFile)).toPath(), StandardCharsets.UTF_8), JsonArray.class);
 //        readJson(eventsFile);
     }
 
-    public ArrayList<Event> readJson() throws IOException {
+    public Queue<Event> readJson() throws IOException {
+        eventsFile = new File ("src/com/company/files/events3.json");
         Gson gson = new GsonBuilder().create();
         eventJsonArray = gson.fromJson(Files.newBufferedReader(new File(String.valueOf(eventsFile)).toPath(), StandardCharsets.UTF_8), JsonArray.class);
 //        event = new Event(eventType, eventTime);
@@ -95,7 +98,8 @@ public class EventBuilder {
         // Sort array
         eventsArray.sort(new SortEventsByTime());
 
-        return eventsArray;
+        // Create queue
+        return new PriorityQueue<>(eventsArray);
     }
 
     static class SortEventsByTime implements Comparator<Event> {
