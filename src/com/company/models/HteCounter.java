@@ -11,6 +11,13 @@ public class HteCounter extends TimerTask
         this.HTElisteners = HTElisteners;
     }
 
+//    public class HteCounter extends TimerTask {
+//        private ArrayList<EventListener> eventListeners;
+//
+//        public HteCounter() {
+//            eventListeners = new ArrayList<EventListener>();
+//        }
+
     public static int hte;
     public void run()
     {
@@ -26,5 +33,11 @@ public class HteCounter extends TimerTask
     public static int getHte() {
         return hte;
     }
+
+//    public void handleEvent(Event event) throws Exception {
+//                for (EventListener eventListener : eventListeners) {
+//                    eventListener.handleEvent(event);
+//        }
+//    }
 
 }

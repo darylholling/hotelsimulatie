@@ -30,7 +30,7 @@
 			"guest": 2,
 			"duration": 10
 		}
-	}, 
+	},
 	{
 		"type": "CHECK_OUT",
 		"time": 50,
@@ -546,7 +546,7 @@
 			"guest": 18
 		}
 	},
-	
+
 	{
 		"type": "CHECK_IN",
 		"time": 40,
@@ -794,7 +794,7 @@
 			"guest": 28
 		}
 	},
-	
+
 	{
 		"type": "CHECK_IN",
 		"time": 69,
@@ -847,9 +847,9 @@
 			"guest": 30
 		}
 	},
-	
-	
-	
+
+
+
 	{
 		"type": "START_CINEMA",
 		"time": 41,

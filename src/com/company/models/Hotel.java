@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 public class Hotel extends Application {
+    public static ArrayList<Guest> guestsArrayList = new ArrayList<>();
     @Override
     public void start(Stage stage) {
         Settings settings = new Settings();
@@ -29,4 +30,5 @@ public class Hotel extends Application {
         });
         menu.run();
     }
+
 }

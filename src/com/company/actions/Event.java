@@ -1,16 +1,14 @@
 package com.company.actions;
 
-public class Event implements Comparable<Event>{
-    private  String eventType;
+abstract public class Event implements Comparable<Event>{
     private Integer eventTime;
+
+    public Event(Integer eventTime) {
+       this.eventTime = eventTime;
+    }
 
     public int getEventTime() {
         return eventTime;
-    }
-
-    public Event(String eventType, Integer eventTime) {
-        this.eventType = eventType;
-        this.eventTime = eventTime;
     }
 
     public void setEventTime(int eventTime) {
