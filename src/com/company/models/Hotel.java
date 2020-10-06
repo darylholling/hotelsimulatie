@@ -22,9 +22,6 @@ public class Hotel extends Application implements HTEListener {
 
     @Override
     public void start(Stage stage) {
-        Guest guest = new Guest();
-        guest.setId(2);
-        guestList.add(0,guest);
         Settings settings = new Settings();
         HotelBuilder hotelBuilder = new HotelBuilder(stage, hotel);
         CreateCleaners createCleaners = new CreateCleaners(hotel);

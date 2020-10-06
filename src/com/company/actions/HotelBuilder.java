@@ -4,6 +4,7 @@ import com.company.models.*;
 import com.company.models.areas.*;
 import com.google.gson.*;
 import javafx.application.Platform;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -14,6 +15,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -260,13 +262,10 @@ public class HotelBuilder implements StartListener, HTEListener {
 //        areas[1][0].setDistance(0);
 //        System.out.println(ds.findPath(areas[1][0],areas[3][2]));
 //        new DijkstraTest(areas, hotelWidth, hotelHeight);
-//        time.startTimer();
     }
     // Create pause scene
         public Scene createPauseScreen(){
         Scene pauseScene = new Scene(createPausePane());
-//        stage.setScene(pauseScene);
-//        stage.show();
         return pauseScene;
     }
 
@@ -278,14 +277,18 @@ public class HotelBuilder implements StartListener, HTEListener {
             stage.setScene(mainScene);
             hotel.timer.resumeTimer();
         });
-        resumeButton.relocate(150,150);
+        resumeButton.relocate(150,400);
         pausePane.getChildren().add(resumeButton);
         pausePane.setPrefHeight((hotelHeight+1)*50);
         pausePane.setPrefWidth((hotelWidth+1)*50);
         Label label = new Label();
+        label.setMaxWidth(hotelWidth*50);
+        label.setWrapText(true);
+        label.setAlignment(Pos.CENTER);
+        label.setTextAlignment(TextAlignment.JUSTIFY);
         String myString = new String();
         for (Guest guest : hotel.guestList) {
-            myString += guest.getId()+ " & ";  //need to fix to get guest ID after merging mirjam's code
+            myString += "Guest "+guest.getId()+" is at " +guest.getArea()+"\n";
         }
         label.setText(myString);
         pausePane.getChildren().add(label);

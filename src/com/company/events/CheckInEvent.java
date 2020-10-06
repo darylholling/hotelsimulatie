@@ -18,9 +18,9 @@ public class CheckInEvent extends Event {
     @Override
     public void fire() {
         //TODO check if room with stars is available, otherwise upgrade. If upgrade not possible create checkout event.
-        if (false == false) {
-            return;
-        }
+//        if (false == false) {
+//            return;
+//        }
 
         Guest guest = new Guest();
         guest.setId(id);
