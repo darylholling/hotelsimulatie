@@ -96,10 +96,19 @@ public class HotelBuilder implements StartListener, HTEListener {
         lobbyButton.setHeight(50);
         lobbyButton.setWidth(50*(hotelWidth-1));
         lobbyButton.setFill(Color.TRANSPARENT);
-        lobbyButton.setOnMouseClicked(mouseEvent -> stage.setScene(createPauseScreen()));
-//        lobbyButton.setOnMouseClicked(mouseEvent ->); add a way to stop HTE
+        lobbyButton.setOnMouseClicked(mouseEvent -> {
+            stage.setScene(createPauseScreen());
+            hotel.timer.stopTimer();
+        });
         gridPane.add(lobbyButton, 1, hotelHeight, hotelWidth-1, 1);
         hotelPane.getChildren().addAll(header, gridPane);
+        for (Area[] areaList : areas) {
+            hotel.areas.addAll(Arrays.asList(areaList));
+//            for (Area area : areaList) {
+//                System.out.println(area.getClass());
+//            }
+        }
+
         return hotelPane;
 
 //        return gridPane;
@@ -265,7 +274,10 @@ public class HotelBuilder implements StartListener, HTEListener {
         Pane pausePane = new Pane();
         Button resumeButton = new Button();
         resumeButton.setText("Resume Game");
-        resumeButton.setOnMouseClicked(mouseEvent -> stage.setScene(mainScene));
+        resumeButton.setOnMouseClicked(mouseEvent -> {
+            stage.setScene(mainScene);
+            hotel.timer.resumeTimer();
+        });
         resumeButton.relocate(150,150);
         pausePane.getChildren().add(resumeButton);
         pausePane.setPrefHeight((hotelHeight+1)*50);

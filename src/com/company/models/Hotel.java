@@ -17,10 +17,14 @@ public class Hotel extends Application implements HTEListener {
     public ArrayList<Area> areas = new ArrayList<>();
     public ArrayList<Cleaner> cleaners = new ArrayList<>();
     public Hotel hotel = this;
+    public Time timer;
     private int currentHTE;
 
     @Override
     public void start(Stage stage) {
+        Guest guest = new Guest();
+        guest.setId(2);
+        guestList.add(0,guest);
         Settings settings = new Settings();
         HotelBuilder hotelBuilder = new HotelBuilder(stage, hotel);
         CreateCleaners createCleaners = new CreateCleaners(hotel);
@@ -31,8 +35,8 @@ public class Hotel extends Application implements HTEListener {
                 add(hotelBuilder);
                 add(hotel);
             }
-        });
-
+        }, settings);
+    this.timer = timer;
         Menu menu = new Menu(stage, settings, new ArrayList<>() {
             {
                 add(hotelBuilder);
