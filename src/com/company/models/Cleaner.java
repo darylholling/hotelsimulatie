@@ -1,12 +1,13 @@
 package com.company.models;
 
 import com.company.events.Event;
+import com.company.models.areas.Area;
 
 public class Cleaner extends Person implements EventListener {
-    Event event;
+    private Event event;
 
-    public Cleaner() {
-
+    public Cleaner(Area area) {
+        super.setArea(area);
     }
 
     @Override

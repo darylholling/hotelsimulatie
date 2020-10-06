@@ -1,11 +1,16 @@
 package com.company.events;
 
+import com.company.models.Guest;
+import com.company.models.Hotel;
+
+import java.util.ArrayList;
+
 public class GoToFitnessEvent extends Event {
     private int idGuest;
     private int duration;
 
-    public GoToFitnessEvent(Integer eventTime, int idGuest, int duration) {
-        super(eventTime);
+    public GoToFitnessEvent(Integer eventTime, Hotel hotel, int idGuest, int duration) {
+        super(eventTime, hotel);
         this.idGuest = idGuest;
         this.duration = duration;
     }
@@ -24,5 +29,10 @@ public class GoToFitnessEvent extends Event {
 
     public void setDuration(int duration) {
         this.duration = duration;
+    }
+
+    @Override
+    public void fire() {
+
     }
 }

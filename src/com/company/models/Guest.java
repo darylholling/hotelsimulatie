@@ -7,19 +7,19 @@ import com.company.models.areas.Area;
 public class Guest extends Person implements EventListener {
     private int preferredStars;
     Event event;
-    int idGuest;
+    int id;
 
-    public int getIdGuest() {
-        return idGuest;
+    public int getId() {
+        return id;
     }
 
-    public void setIdGuest(int idGuest) {
-        this.idGuest = idGuest;
+    public void setId(int id) {
+        this.id = id;
     }
 
 
     public Guest() {
-        super();
+//        super();
     }
 
     public void person(Area area, Event events, Move move) {

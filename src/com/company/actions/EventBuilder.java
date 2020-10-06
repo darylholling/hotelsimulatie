@@ -1,6 +1,8 @@
 package com.company.actions;
 
-import com.company.events.*;
+import com.company.events.CheckInEvent;
+import com.company.events.Event;
+import com.company.models.Hotel;
 import com.google.gson.*;
 
 import java.io.File;
@@ -21,7 +23,7 @@ public class EventBuilder {
         this.eventsFile = eventFile;
     }
 
-    public Queue<Event> readJson() throws IOException {
+    public Queue<Event> readJson(Hotel hotel) throws IOException {
         eventsFile = new File("src/com/company/files/events3.json");
         Gson gson = new GsonBuilder().create();
         eventJsonArray = gson.fromJson(Files.newBufferedReader(new File(String.valueOf(eventsFile)).toPath(), StandardCharsets.UTF_8), JsonArray.class);
@@ -51,25 +53,26 @@ public class EventBuilder {
             Event event = null;
             switch (eventType) {
                 case "CHECK_IN":
-                    event = new CheckInEvent(eventTime, guest, stars);
-                case "CHECK_OUT":
-                    event = new CheckOutEvent(eventTime, guest);
-                    event = new CleaningEvent(eventTime, guest);
-                case "GO_TO_CINEMA":
-                    event = new GoToCinemaEvent(eventTime, guest);
-                case "GO_TO_DINER":
-                    event = new GoToDinerEvent(eventTime, guest);
-                case "GO_TO_FITNESS":
-                    event = new GoToFitnessEvent(eventTime, guest, duration);
-                case "CLEANING_EMERGENCY":
-                    event = new CleaningEmergencyEvent(eventTime, guest);
-//                case "CLEANING_EVENT":
-//                    event = new CleaningEvent(eventTime);
-                case "GODZILLA":
-                    event = new GodzillaEvent(eventTime);
-                    //todo set alles wat je wilt setten
-                case "EVACUATE":
-                    event = new EvacuateEvent(eventTime);
+                    System.out.println("case check in");
+                    event = new CheckInEvent(hotel, eventTime, guest, stars);
+//                case "CHECK_OUT":
+//                    event = new CheckOutEvent(guestList, eventTime, guest);
+//                    event = new CleaningEvent(guestList, eventTime, guest);
+//                case "GO_TO_CINEMA":
+//                    event = new GoToCinemaEvent(guestList, eventTime, guest);
+//                case "GO_TO_DINER":
+//                    event = new GoToDinerEvent(guestList, eventTime, guest);
+//                case "GO_TO_FITNESS":
+//                    event = new GoToFitnessEvent(guestList, eventTime, guest, duration);
+//                case "CLEANING_EMERGENCY":
+//                    event = new CleaningEmergencyEvent(guestList, eventTime, guest);
+////                case "CLEANING_EVENT":
+////                    event = new CleaningEvent(eventTime);
+//                case "GODZILLA":
+////                    event = new GodzillaEvent(guestList, eventTime);
+//                    //todo set alles wat je wilt setten
+//                case "EVACUATE":
+//                    event = new EvacuateEvent(guestList, eventTime);
                 default:
                     System.out.println("No event");
             }

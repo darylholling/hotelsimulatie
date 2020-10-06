@@ -1,6 +1,7 @@
 package com.company.actions;
 
 import com.company.models.HTEListener;
+import com.company.models.Hotel;
 import com.company.models.HteCounter;
 import com.company.models.StartListener;
 import com.company.models.areas.*;
@@ -21,6 +22,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.util.Arrays;
 
 public class HotelBuilder implements StartListener, HTEListener {
     int maxXInJson = 0;
@@ -32,9 +34,11 @@ public class HotelBuilder implements StartListener, HTEListener {
     Area[][] areas;
     private Stage stage;
     private Label hteInfoBoard;
+    private Hotel hotel;
 
-    public HotelBuilder(Stage stage) {
+    public HotelBuilder(Stage stage, Hotel hotel) {
         this.stage = stage;
+        this.hotel = hotel;
     }
 
     public Parent createContent() throws IOException {
@@ -68,7 +72,6 @@ public class HotelBuilder implements StartListener, HTEListener {
         hotelHeight = (maxYInJson + 1);
         hotelWidth = (maxXInJson + 2);
 
-
         areas = new Area[hotelWidth + 1][hotelHeight + 1];
         for (int x = 0; x <= hotelWidth; x++) {
             for (int y = 0; y <= hotelHeight; y++) {
@@ -77,13 +80,32 @@ public class HotelBuilder implements StartListener, HTEListener {
         }
 
         this.createAreas(gridPane, jsonArrays, areas);
+        this.createNeighbours(areas, hotelWidth, hotelHeight);
 
-//        for (Area[] areaArray : this.areas) {
-//            for (Area area : areaArray) {
-//                System.out.println(area);
+        // Adding the HTE information board
+        Pane header = new Pane();
+        VBox hotelPane = new VBox();
+
+        this.hteInfoBoard = new Label("HTE : " + HteCounter.getHte());
+        hteInfoBoard.setStyle("-fx-font-size: 170%");
+        hteInfoBoard.setTextFill(Color.BLACK);
+        hteInfoBoard.relocate(255, 5);
+
+        header.getChildren().add(hteInfoBoard);
+
+        hotelPane.getChildren().addAll(header, gridPane);
+
+        for (Area[] areaList : areas) {
+            hotel.areas.addAll(Arrays.asList(areaList));
+//            for (Area area : areaList) {
+//                System.out.println(area.getClass());
 //            }
-//        }
+        }
 
+        return hotelPane;
+    }
+
+    private void createNeighbours(Area[][] areas, int hotelWidth, int hotelHeight) {
         for (int x = 1; x <= hotelWidth; x++) {
             for (int y = 0; y <= hotelHeight; y++) {
                 Area currentArea = areas[x][y];
@@ -111,21 +133,6 @@ public class HotelBuilder implements StartListener, HTEListener {
                 currentArea.addNeighbour(areas[currentArea.getX() + 1][currentArea.getY()], 1);
             }
         }
-        // Adding the HTE information board
-        Pane header = new Pane();
-        VBox hotelPane = new VBox();
-
-        this.hteInfoBoard = new Label("HTE : " + HteCounter.getHte());
-        hteInfoBoard.setStyle("-fx-font-size: 170%");
-        hteInfoBoard.setTextFill(Color.BLACK);
-        hteInfoBoard.relocate(255, 5);
-
-        header.getChildren().add(hteInfoBoard);
-
-        hotelPane.getChildren().addAll(header, gridPane);
-        return hotelPane;
-
-//        return gridPane;
     }
 
     private void createDefaultAreas(GridPane gridPane, int i, int j, Area[][] areas) throws FileNotFoundException {

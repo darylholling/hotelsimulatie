@@ -7,6 +7,7 @@ public class HteCounter extends TimerTask
 {
     public static int hte;
     private ArrayList<HTEListener> HTElisteners;
+    private Hotel hotel;
 
     public HteCounter(ArrayList<HTEListener> HTElisteners) {
         this.HTElisteners = HTElisteners;
@@ -19,8 +20,6 @@ public class HteCounter extends TimerTask
         for (HTEListener HTElistener : HTElisteners) {
             HTElistener.updatedHTE(hte);
         }
-
-        System.out.println("HTE: " + hte);
     }
 
     public static int getHte() {

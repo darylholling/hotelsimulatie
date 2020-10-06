@@ -1,10 +1,15 @@
 package com.company.events;
 
-abstract public class Event implements Comparable<Event>{
-    private Integer eventTime;
+import com.company.models.FireableListener;
+import com.company.models.Hotel;
 
-    public Event(Integer eventTime) {
-       this.eventTime = eventTime;
+abstract public class Event implements Comparable<Event>, FireableListener {
+    private Integer eventTime;
+    private Hotel hotel;
+
+    public Event(Integer eventTime, Hotel hotel) {
+        this.eventTime = eventTime;
+        this.hotel = hotel;
     }
 
     public int getEventTime() {
@@ -20,8 +25,5 @@ abstract public class Event implements Comparable<Event>{
         return Integer.compare(this.getEventTime(), event.getEventTime());
     }
 }
-
-
-
 
 

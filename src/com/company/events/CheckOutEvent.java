@@ -1,13 +1,16 @@
 package com.company.events;
 
 import com.company.models.Guest;
+import com.company.models.Hotel;
+
+import java.util.ArrayList;
 
 public class CheckOutEvent extends Event {
     private int idGuest;
     Guest guest;
 
-    public CheckOutEvent(Integer eventTime, int idGuest) {
-        super(eventTime);
+    public CheckOutEvent(Integer eventTime, Hotel hotel, int idGuest) {
+        super(eventTime, hotel);
         this.idGuest = idGuest;
 
 //        if (guest.getIdGuest()== idGuest) {
@@ -21,6 +24,11 @@ public class CheckOutEvent extends Event {
 
     public void setIdGuest(int idGuest) {
         this.idGuest = idGuest;
+    }
+
+    @Override
+    public void fire() {
+
     }
 
 }
