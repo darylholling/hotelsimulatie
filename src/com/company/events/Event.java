@@ -1,4 +1,4 @@
-package com.company.actions;
+package com.company.events;
 
 abstract public class Event implements Comparable<Event>{
     private Integer eventTime;

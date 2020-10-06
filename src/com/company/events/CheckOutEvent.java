@@ -1,6 +1,5 @@
 package com.company.events;
 
-import com.company.actions.Event;
 import com.company.models.Guest;
 
 public class CheckOutEvent extends Event {
@@ -11,9 +10,9 @@ public class CheckOutEvent extends Event {
         super(eventTime);
         this.idGuest = idGuest;
 
-        if (guest.getIdGuest()== idGuest) {
-//        remove idGuest van arraylist
-        }
+//        if (guest.getIdGuest()== idGuest) {
+////        remove idGuest van arraylist
+//        }
     }
 
     public int getIdGuest() {

@@ -1,4 +1,4 @@
-package com.company.models;
+package com.company.models.areas;
 
 import java.util.Scanner;
 import java.util.ArrayList;

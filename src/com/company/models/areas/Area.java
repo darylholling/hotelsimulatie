@@ -1,5 +1,6 @@
-package com.company.models;
+package com.company.models.areas;
 
+import com.company.models.Person;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;

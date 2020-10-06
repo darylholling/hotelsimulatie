@@ -1,5 +1,6 @@
 package com.company.models;
 
+import com.company.actions.CreateCleaners;
 import com.company.actions.EventHandler;
 import com.company.actions.HotelBuilder;
 import javafx.application.Application;
@@ -13,6 +14,7 @@ public class Hotel extends Application {
     public void start(Stage stage) {
         Settings settings = new Settings();
         HotelBuilder hotelBuilder = new HotelBuilder(stage);
+//        CreateCleaners createCleaners = new CreateCleaners();
         EventHandler eventHandler = new EventHandler(settings);
         Time timer = new Time(new ArrayList<>(){
             {
@@ -25,10 +27,10 @@ public class Hotel extends Application {
             {
                 add(hotelBuilder);
                 add(eventHandler);
+//                add(createCleaners);
                 add(timer);
             }
         });
         menu.run();
     }
-
 }

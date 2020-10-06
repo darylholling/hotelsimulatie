@@ -14,40 +14,39 @@ import java.util.Queue;
 
 public class EventBuilder {
     private File eventsFile;
-    private static JsonArray eventJsonArray;
-    private static int eventTime;
-    private static String eventType;
-    private static Event event;
+    private JsonArray eventJsonArray;
+    private int eventTime;
 
     public EventBuilder(File eventFile) {
         this.eventsFile = eventFile;
     }
 
-    public void main(String[] args) throws IOException {
-        eventsFile = new File ("src/com/company/files/events3.json");
-        Gson gson = new GsonBuilder().create();
-        eventJsonArray = gson.fromJson(Files.newBufferedReader(new File(String.valueOf(eventsFile)).toPath(), StandardCharsets.UTF_8), JsonArray.class);
-//        readJson(eventsFile);
-    }
-
     public Queue<Event> readJson() throws IOException {
-        eventsFile = new File ("src/com/company/files/events3.json");
+        eventsFile = new File("src/com/company/files/events3.json");
         Gson gson = new GsonBuilder().create();
         eventJsonArray = gson.fromJson(Files.newBufferedReader(new File(String.valueOf(eventsFile)).toPath(), StandardCharsets.UTF_8), JsonArray.class);
-//        event = new Event(eventType, eventTime);
 
-        // initiate array
-        ArrayList<Event> eventsArray = new ArrayList<Event>();
+        ArrayList<Event> eventsArray = new ArrayList<>();
 
         for (JsonElement jsonElement : eventJsonArray) {
             JsonObject jsonObject = jsonElement.getAsJsonObject();
             String eventType = jsonObject.get("type").getAsString();
             eventTime = jsonObject.get("time").getAsInt();
             JsonObject data = jsonObject.get("data").getAsJsonObject();
-            int guest = data.get("guest").getAsInt();
-            int stars = data.get("stars").getAsInt();
-            int duration = data.get("duration").getAsInt();
 
+            int guest = 0;
+            int stars = 0;
+            int duration = 0;
+
+            if (data.has("guest")) {
+                guest = data.get("guest").getAsInt();
+            }
+            if (data.has("stars")) {
+                stars = data.get("stars").getAsInt();
+            }
+            if (data.has("duration")) {
+                duration = data.get("duration").getAsInt();
+            }
 
             Event event = null;
             switch (eventType) {
@@ -78,21 +77,6 @@ public class EventBuilder {
             if (event != null) {
                 eventsArray.add(event);
             }
-
-//
-//            event = new Event(eventType, eventTime);
-//
-//            JsonObject data = jsonObject.get("data").getAsJsonObject();
-//            if (data.has("guest")) {
-//                event.setGuest(data.get("guest").getAsInt());
-//            }
-//            if (data.has("stars")) {
-//                event.setStars(data.get("stars").getAsInt());
-//            }
-//            if (data.has("duration")) {
-//                event.setDuration(data.get("duration").getAsInt());
-//            }
-//            System.out.println("Type: "+ event.getEventType()+" | Time: "+ event.getEventTime()+" | Guest: "+event.getGuest()+" | Stars: "+event.getStars()+" | Duration: "+event.getDuration());
         }
 
         // Sort array

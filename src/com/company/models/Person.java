@@ -1,6 +1,8 @@
 package com.company.models;
 
-abstract class Person {
+import com.company.models.areas.Area;
+
+abstract public class Person {
     private Area area;
 
 //    public Person(Area area) {

@@ -1,6 +1,6 @@
 package com.company.actions;
 
-import com.company.models.Area;
+import com.company.models.areas.Area;
 
 import java.util.ArrayList;
 import java.util.Comparator;

@@ -1,8 +1,10 @@
 package com.company.actions;
 
-import com.company.models.*;
+import com.company.models.HTEListener;
+import com.company.models.HteCounter;
+import com.company.models.StartListener;
+import com.company.models.areas.*;
 import com.google.gson.*;
-import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -93,7 +95,7 @@ public class HotelBuilder implements StartListener, HTEListener {
                 }
 
                 if (x == hotelWidth) {
-                    currentArea.addNeighbour(areas[currentArea.getX() -1][currentArea.getY()], 1);
+                    currentArea.addNeighbour(areas[currentArea.getX() - 1][currentArea.getY()], 1);
 
                     if (y != hotelHeight) {
                         currentArea.addNeighbour(areas[currentArea.getX()][currentArea.getY() + 1], 1);
@@ -252,9 +254,10 @@ public class HotelBuilder implements StartListener, HTEListener {
         this.start(this.getStage());
     }
 
-    public void hteLabelUpdate(){
+    public void hteLabelUpdate() {
         Platform.runLater(() -> hteInfoBoard.setText("HTE: " + String.valueOf(HteCounter.getHte())));
     }
+
     @Override
     public void updatedHTE(int HTE) {
         this.hteLabelUpdate();

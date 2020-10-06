@@ -1,7 +1,6 @@
 package com.company.events;
 
-import com.company.actions.Event;
-import com.company.models.Area;
+import com.company.models.areas.Area;
 
 public class CleaningEvent extends Event {
     private int idGuest;

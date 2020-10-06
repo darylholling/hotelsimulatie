@@ -1,6 +1,7 @@
-package com.company.models;
+package com.company.models.areas;
 
-import com.company.actions.Event;
+import com.company.events.Event;
+import com.company.models.EventListener;
 
 import java.io.FileNotFoundException;
 

@@ -1,6 +1,5 @@
 package com.company.events;
 
-import com.company.actions.Event;
 import com.company.models.Guest;
 
 import java.util.ArrayList;

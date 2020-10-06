@@ -5,20 +5,13 @@ import java.util.TimerTask;
 
 public class HteCounter extends TimerTask
 {
+    public static int hte;
     private ArrayList<HTEListener> HTElisteners;
 
     public HteCounter(ArrayList<HTEListener> HTElisteners) {
         this.HTElisteners = HTElisteners;
     }
 
-//    public class HteCounter extends TimerTask {
-//        private ArrayList<EventListener> eventListeners;
-//
-//        public HteCounter() {
-//            eventListeners = new ArrayList<EventListener>();
-//        }
-
-    public static int hte;
     public void run()
     {
         hte++;
@@ -39,5 +32,4 @@ public class HteCounter extends TimerTask
 //                    eventListener.handleEvent(event);
 //        }
 //    }
-
 }

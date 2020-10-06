@@ -1,7 +1,5 @@
 package com.company.events;
 
-import com.company.actions.Event;
-
 public class GoToFitnessEvent extends Event {
     private int idGuest;
     private int duration;

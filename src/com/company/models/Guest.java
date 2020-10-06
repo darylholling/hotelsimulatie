@@ -1,7 +1,8 @@
 package com.company.models;
 
-import com.company.actions.Event;
+import com.company.events.Event;
 import com.company.actions.Move;
+import com.company.models.areas.Area;
 
 public class Guest extends Person implements EventListener {
     private int preferredStars;

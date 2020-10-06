@@ -1,7 +1,7 @@
-package com.company.actions;
+package com.company.test;
 
 
-import com.company.models.Area;
+import com.company.models.areas.Area;
 
 public class DijkstraTest {
     Area[][] areas;

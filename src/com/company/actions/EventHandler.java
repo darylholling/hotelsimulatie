@@ -1,5 +1,6 @@
 package com.company.actions;
 
+import com.company.events.Event;
 import com.company.models.HTEListener;
 import com.company.models.Settings;
 import com.company.models.StartListener;
@@ -25,6 +26,7 @@ public class EventHandler implements StartListener, HTEListener {
 
         for (Event event : events) {
             // todo insert mirjams code here
+
         }
     }
 
