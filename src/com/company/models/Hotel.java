@@ -52,4 +52,8 @@ public class Hotel extends Application implements HTEListener {
     public Area getLobby() {
         return this.areas.stream().filter(area -> area instanceof Lobby).findFirst().orElse(null);
     }
+
+    public Guest getGuestById(int id) {
+        return this.guestList.stream().filter(guest -> guest.getId() == id).findFirst().orElse(null);
+    }
 }

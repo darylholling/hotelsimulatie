@@ -14,6 +14,8 @@ public class EvacuateEvent extends Event {
 
     @Override
     public void fire() {
-
+        for (Guest guest : guests) {
+            //Todo move to lobby
+        }
     }
 }
