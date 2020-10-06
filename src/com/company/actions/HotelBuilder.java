@@ -93,7 +93,7 @@ public class HotelBuilder implements StartListener, HTEListener {
                 }
 
                 if (x == hotelWidth) {
-                    currentArea.addNeighbour(areas[currentArea.getX() -1][currentArea.getY()], 1);
+                    currentArea.addNeighbour(areas[currentArea.getX() - 1][currentArea.getY()], 1);
 
                     if (y != hotelHeight) {
                         currentArea.addNeighbour(areas[currentArea.getX()][currentArea.getY() + 1], 1);
@@ -113,10 +113,12 @@ public class HotelBuilder implements StartListener, HTEListener {
         Pane header = new Pane();
         VBox hotelPane = new VBox();
 
-        this.hteInfoBoard = new Label("HTE : " + HteCounter.getHte());
+        this.hteInfoBoard = new Label("HTE : " + HteCounter.getHte()
+                +  System.lineSeparator() +
+                "Simulation stops at HTE: " + EventBuilder.highestHteInJsonFile);
         hteInfoBoard.setStyle("-fx-font-size: 170%");
         hteInfoBoard.setTextFill(Color.BLACK);
-        hteInfoBoard.relocate(255, 5);
+        hteInfoBoard.relocate(5, 5);
 
         header.getChildren().add(hteInfoBoard);
 
@@ -252,9 +254,12 @@ public class HotelBuilder implements StartListener, HTEListener {
         this.start(this.getStage());
     }
 
-    public void hteLabelUpdate(){
-        Platform.runLater(() -> hteInfoBoard.setText("HTE: " + String.valueOf(HteCounter.getHte())));
+    public void hteLabelUpdate() {
+        Platform.runLater(() -> hteInfoBoard.setText("HTE: " + String.valueOf(HteCounter.getHte()
+                + System.lineSeparator() +
+                "Simulation stops at HTE: " + EventBuilder.highestHteInJsonFile)));
     }
+
     @Override
     public void updatedHTE(int HTE) {
         this.hteLabelUpdate();
