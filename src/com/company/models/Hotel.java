@@ -1,6 +1,5 @@
 package com.company.models;
 
-import com.company.actions.EventBuilder;
 import com.company.actions.EventHandler;
 import com.company.actions.HotelBuilder;
 import javafx.application.Application;
@@ -14,7 +13,12 @@ public class Hotel extends Application {
         Settings settings = new Settings();
         HotelBuilder hotelBuilder = new HotelBuilder(stage);
         EventHandler eventHandler = new EventHandler(settings);
-        Time timer = new Time();
+        Time timer = new Time(new ArrayList<>(){
+            {
+                add(eventHandler);
+                add(hotelBuilder);
+            }
+        });
 
         Menu menu = new Menu(stage, settings, new ArrayList<>() {
             {
