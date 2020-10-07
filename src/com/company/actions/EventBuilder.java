@@ -20,6 +20,7 @@ public class EventBuilder {
     private File eventsFile;
     private JsonArray eventJsonArray;
     private int eventTime;
+    public static int highestHteInJsonFile;
 
     public EventBuilder(File eventFile) {
         this.eventsFile = eventFile;
@@ -37,6 +38,11 @@ public class EventBuilder {
             String eventType = jsonObject.get("type").getAsString();
             eventTime = jsonObject.get("time").getAsInt();
             JsonObject data = jsonObject.get("data").getAsJsonObject();
+
+            if (eventTime > highestHteInJsonFile){
+                highestHteInJsonFile = eventTime;
+                System.out.println("Highest is  " + highestHteInJsonFile);
+            }
 
             int guest = 0;
             int stars = 0;
