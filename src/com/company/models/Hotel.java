@@ -4,16 +4,12 @@ import com.company.actions.CreateCleaners;
 import com.company.actions.Dijkstra;
 import com.company.actions.EventHandler;
 import com.company.actions.HotelBuilder;
-import com.company.events.CleaningEmergencyEvent;
-import com.company.events.CleaningEvent;
 import com.company.models.areas.Area;
-import com.company.models.areas.GuestRoom;
 import com.company.models.areas.Lobby;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
-import java.util.Queue;
 
 public class Hotel extends Application implements HTEListener {
     public ArrayList<Guest> guestList = new ArrayList<>();
@@ -55,7 +51,6 @@ public class Hotel extends Application implements HTEListener {
         });
         menu.run();
     }
-
 
     @Override
     public void updatedHTE(int HTE) {
