@@ -14,6 +14,11 @@ public class Cleaner extends Person implements EventListener {
     public void handleEvent(Event event) {
                 System.out.println("No event");
     }
+
+    @Override
+    public void move(Area startArea, Area endArea) {
+
+    }
 }
 
 

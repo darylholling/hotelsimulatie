@@ -42,4 +42,9 @@ public class Guest extends Person {
     public void setGuestRoom(GuestRoom guestRoom) {
         this.guestRoom = guestRoom;
     }
+
+    @Override
+    public void move(Area startArea, Area endArea) {
+
+    }
 }
