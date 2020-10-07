@@ -1,21 +1,23 @@
 package com.company.events;
 
+import com.company.actions.HotelBuilder;
 import com.company.models.Guest;
 import com.company.models.Hotel;
 import com.company.models.areas.GuestRoom;
+import javafx.scene.Node;
+import javafx.scene.layout.GridPane;
 
+import java.io.FileNotFoundException;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 public class CheckInEvent extends Event {
-    private int id;
+    private int guestNumber;
     private int stars;
 
-    public CheckInEvent(Hotel hotel, Integer eventTime, int idGuest, int stars) {
+    public CheckInEvent(Hotel hotel, Integer eventTime, int guestNumber, int stars) {
         super(eventTime, hotel);
-        this.id = idGuest;
+        this.guestNumber = guestNumber;
         this.stars = stars;
         this.hotel = hotel;
     }
@@ -30,9 +32,10 @@ public class CheckInEvent extends Event {
 
         //TODO upgrade if no results
         GuestRoom selectedGuestRoom = availableByStars[new Random().nextInt(availableByStars.length)];
+        System.out.println("Room Rating: "+selectedGuestRoom.getStars()+ " Location: X : "+selectedGuestRoom.getX()+" Y: " + selectedGuestRoom.getY());
 
         Guest guest = new Guest();
-        guest.setId(id);
+        guest.setGuestNumber(guestNumber);
         guest.setPreferredStars(stars);
         guest.setGuestRoom(selectedGuestRoom);
         guest.setArea(this.hotel.getLobby());

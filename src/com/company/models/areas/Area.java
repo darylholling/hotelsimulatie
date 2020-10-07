@@ -22,7 +22,7 @@ public abstract class Area extends Pane {
     private HashMap<Area, Integer> neighbours;
 
     //     Data for pathfinder, keeps the current distance
-    private int distance;
+    private int distance = 0;
 
     //    Remembers the previous node
     private Area latest;

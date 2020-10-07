@@ -7,6 +7,7 @@ import com.company.actions.HotelBuilder;
 import com.company.models.areas.Area;
 import com.company.models.areas.Lobby;
 import javafx.application.Application;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -61,7 +62,7 @@ public class Hotel extends Application implements HTEListener {
         return this.areas.stream().filter(area -> area instanceof Lobby).findFirst().orElse(null);
     }
 
-    public Guest getGuestById(int id) {
-        return this.guestList.stream().filter(guest -> guest.getId() == id).findFirst().orElse(null);
+    public Guest getGuestByNumber(int number) {
+        return this.guestList.stream().filter(guest -> guest.getGuestNumber() == number).findFirst().orElse(null);
     }
 }
