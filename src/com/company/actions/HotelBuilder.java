@@ -4,14 +4,18 @@ import com.company.models.*;
 import com.company.models.areas.*;
 import com.google.gson.*;
 import javafx.application.Platform;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -31,6 +35,7 @@ public class HotelBuilder implements StartListener, HTEListener {
     Area[][] areas;
     private Label hteInfoBoard;
     private Hotel hotel;
+    Scene mainScene;
 
     public HotelBuilder(Hotel hotel) {
         this.hotel = hotel;
@@ -87,9 +92,16 @@ public class HotelBuilder implements StartListener, HTEListener {
         hteInfoBoard.relocate(255, 5);
 
         header.getChildren().add(hteInfoBoard);
-
+        Rectangle lobbyButton = new Rectangle();
+        lobbyButton.setHeight(50);
+        lobbyButton.setWidth(50*(hotelWidth-1));
+        lobbyButton.setFill(Color.TRANSPARENT);
+        lobbyButton.setOnMouseClicked(mouseEvent -> {
+            stage.setScene(createPauseScreen());
+            hotel.timer.stopTimer();
+        });
+        gridPane.add(lobbyButton, 1, hotelHeight, hotelWidth-1, 1);
         hotelPane.getChildren().addAll(header, gridPane);
-
         for (Area[] areaList : areas) {
             hotel.areas.addAll(Arrays.asList(areaList));
         }
@@ -234,7 +246,8 @@ public class HotelBuilder implements StartListener, HTEListener {
     }
 
     public void start(Stage stage) throws Exception {
-        stage.setScene(new Scene(createContent()));
+        mainScene = new Scene(createContent());
+        stage.setScene(mainScene);
         stage.setResizable(false);
         stage.show();
 
@@ -242,8 +255,39 @@ public class HotelBuilder implements StartListener, HTEListener {
 //        areas[1][0].setDistance(0);
 //        System.out.println(ds.findPath(areas[1][0],areas[3][2]));
 //        new DijkstraTest(areas, hotelWidth, hotelHeight);
-//        time.startTimer();
     }
+    // Create pause scene
+        public Scene createPauseScreen(){
+        Scene pauseScene = new Scene(createPausePane());
+        return pauseScene;
+    }
+
+    public Pane createPausePane(){
+        Pane pausePane = new Pane();
+        Button resumeButton = new Button();
+        resumeButton.setText("Resume Game");
+        resumeButton.setOnMouseClicked(mouseEvent -> {
+            stage.setScene(mainScene);
+            hotel.timer.resumeTimer();
+        });
+        resumeButton.relocate(150,400);
+        pausePane.getChildren().add(resumeButton);
+        pausePane.setPrefHeight((hotelHeight+1)*50);
+        pausePane.setPrefWidth((hotelWidth+1)*50);
+        Label label = new Label();
+        label.setMaxWidth(hotelWidth*50);
+        label.setWrapText(true);
+        label.setAlignment(Pos.CENTER);
+        label.setTextAlignment(TextAlignment.JUSTIFY);
+        String myString = new String();
+        for (Guest guest : hotel.guestList) {
+            myString += "Guest "+guest.getId()+" is at " +guest.getArea()+"\n";
+        }
+        label.setText(myString);
+        pausePane.getChildren().add(label);
+        return pausePane;
+    }
+
 
     public Stage getStage() {
         return this.hotel.stage;

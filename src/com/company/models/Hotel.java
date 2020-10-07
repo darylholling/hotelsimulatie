@@ -23,6 +23,7 @@ public class Hotel extends Application implements HTEListener {
     public Stage stage;
     public Hotel hotel = this;
     public Dijkstra dijkstra = new Dijkstra();
+    public Time timer;
     private int currentHTE;
 
 //    public Queue<CleaningEmergencyEvent> cleaningEmergencyEvents;
@@ -40,7 +41,9 @@ public class Hotel extends Application implements HTEListener {
                 add(hotelBuilder);
                 add(hotel);
             }
-        });
+        }, this.settings);
+
+        this.timer = timer;
 
         Menu menu = new Menu(stage, this.settings, new ArrayList<>() {
             {
@@ -52,6 +55,7 @@ public class Hotel extends Application implements HTEListener {
         });
         menu.run();
     }
+
 
     @Override
     public void updatedHTE(int HTE) {
