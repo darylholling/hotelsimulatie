@@ -41,12 +41,11 @@ public class Hotel extends Application implements HTEListener {
                 add(hotelBuilder);
                 add(hotel);
             }
-        });
+        }, this.settings);
+
+        this.timer = timer;
 
         Menu menu = new Menu(stage, this.settings, new ArrayList<>() {
-        }, settings);
-    this.timer = timer;
-        Menu menu = new Menu(stage, settings, new ArrayList<>() {
             {
                 add(hotelBuilder);
                 add(eventHandler);
@@ -56,6 +55,7 @@ public class Hotel extends Application implements HTEListener {
         });
         menu.run();
     }
+
 
     @Override
     public void updatedHTE(int HTE) {
