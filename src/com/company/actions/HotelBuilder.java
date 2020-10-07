@@ -33,20 +33,18 @@ public class HotelBuilder implements StartListener, HTEListener {
     JsonArray jsonArrays;
     GridPane gridPane;
     Area[][] areas;
-    private Stage stage;
     private Label hteInfoBoard;
     private Hotel hotel;
     Scene mainScene;
 
-    public HotelBuilder(Stage stage, Hotel hotel) {
-        this.stage = stage;
+    public HotelBuilder(Hotel hotel) {
         this.hotel = hotel;
     }
 
     public Parent createContent() throws IOException {
         // size of window
         Pane root = new Pane();
-        gridPane = new GridPane();
+        this.gridPane = new GridPane();
 
 //        set layout file to run Hotelbuilder
         File layoutFile = new File("src/com/company/files/layout.json");
@@ -106,9 +104,6 @@ public class HotelBuilder implements StartListener, HTEListener {
         hotelPane.getChildren().addAll(header, gridPane);
         for (Area[] areaList : areas) {
             hotel.areas.addAll(Arrays.asList(areaList));
-//            for (Area area : areaList) {
-//                System.out.println(area.getClass());
-//            }
         }
 
         return hotelPane;
@@ -297,7 +292,7 @@ public class HotelBuilder implements StartListener, HTEListener {
 
 
     public Stage getStage() {
-        return stage;
+        return this.hotel.stage;
     }
 
     public void handleStart() throws Exception {

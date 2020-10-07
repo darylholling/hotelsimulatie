@@ -8,11 +8,13 @@ import java.util.ArrayList;
 public class GoToFitnessEvent extends Event {
     private int idGuest;
     private int duration;
+    private Hotel hotel;
 
     public GoToFitnessEvent(Integer eventTime, Hotel hotel, int idGuest, int duration) {
         super(eventTime, hotel);
         this.idGuest = idGuest;
         this.duration = duration;
+        this.hotel = hotel;
     }
 
     public int getIdGuest() {
@@ -33,6 +35,7 @@ public class GoToFitnessEvent extends Event {
 
     @Override
     public void fire() {
-
+        this.hotel.guestList.remove(hotel.getGuestById(idGuest));
+        //todo lopen naar cinema
     }
 }

@@ -4,22 +4,29 @@ import com.company.events.Event;
 import com.company.models.*;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Queue;
 
 public class EventHandler implements StartListener, HTEListener {
-    private Settings settings;
     private Queue<Event> eventQueue;
     private Hotel hotel;
 
-    public EventHandler(Settings settings, Hotel hotel) {
-        this.settings = settings;
+    public EventHandler(Hotel hotel) {
         this.hotel = hotel;
     }
 
+    @Override
+    public void handleStart() throws Exception {
+        this.initializeEvents();
+    }
+
     private void initializeEvents() throws IOException {
-        EventBuilder eventBuilder = new EventBuilder(settings.getEventsFile());
+        EventBuilder eventBuilder = new EventBuilder(hotel.settings.getEventsFile());
         this.eventQueue = eventBuilder.readJson(this.hotel);
+    }
+
+    @Override
+    public void updatedHTE(int HTE) {
+        this.handleEvents(HTE);
     }
 
     private void handleEvents(int HTE) {
@@ -28,15 +35,5 @@ public class EventHandler implements StartListener, HTEListener {
         for (Event event : events) {
             event.fire();
         }
-    }
-
-    @Override
-    public void handleStart() throws Exception {
-        this.initializeEvents();
-    }
-
-    @Override
-    public void updatedHTE(int HTE) {
-        this.handleEvents(HTE);
     }
 }

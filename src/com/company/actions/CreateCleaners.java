@@ -4,7 +4,6 @@ import com.company.models.Cleaner;
 import com.company.models.Hotel;
 import com.company.models.StartListener;
 import com.company.models.areas.Area;
-import com.company.models.areas.Lobby;
 
 import java.util.ArrayList;
 
@@ -20,7 +19,6 @@ public class CreateCleaners implements StartListener {
     public void create() {
         for (int i = 0; i < cleanerCount; i++) {
             Area lobby = hotel.getLobby();
-            System.out.println(lobby);
             if (lobby != null) {
                 Cleaner cleaner = new Cleaner(lobby);
                 this.cleaners.add(cleaner);
