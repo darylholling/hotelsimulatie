@@ -25,14 +25,14 @@ public class EventBuilder {
     }
 
     public void main(String[] args) throws IOException {
-        eventsFile = new File ("src/com/company/files/events3.json");
+        eventsFile = new File("src/com/company/files/events3.json");
         Gson gson = new GsonBuilder().create();
         eventJsonArray = gson.fromJson(Files.newBufferedReader(new File(String.valueOf(eventsFile)).toPath(), StandardCharsets.UTF_8), JsonArray.class);
 //        readJson(eventsFile);
     }
 
     public Queue<Event> readJson() throws IOException {
-        eventsFile = new File ("src/com/company/files/events3.json");
+        eventsFile = new File("src/com/company/files/events3.json");
         Gson gson = new GsonBuilder().create();
         eventJsonArray = gson.fromJson(Files.newBufferedReader(new File(String.valueOf(eventsFile)).toPath(), StandardCharsets.UTF_8), JsonArray.class);
         event = new Event(eventType, eventTime);
@@ -47,25 +47,21 @@ public class EventBuilder {
             eventType = jsonObject.get("type").getAsString();
             event = new Event(eventType, eventTime);
 
-            if (eventTime > highestHteInJsonFile){
-                highestHteInJsonFile = eventTime;
-                System.out.println("Highest is  " + highestHteInJsonFile);
-            }
-
             eventsArray.add(event);
-//            System.out.println("Type: "+ event.getEventType()+" | Time: "+ event.getEventTime()+" | Guest: "+event.getGuest()+" | Stars: "+event.getStars()+" | Duration: "+event.getDuration());
         }
 
         // Sort array
         eventsArray.sort(new SortEventsByTime());
+
+        // Determine the highest HTE
+        highestHteInJsonFile = eventsArray.stream().reduce((first, second) -> second).orElse(null).getEventTime();
 
         // Create queue
         return new PriorityQueue<>(eventsArray);
     }
 
     static class SortEventsByTime implements Comparator<Event> {
-        public int compare(Event a, Event b)
-        {
+        public int compare(Event a, Event b) {
             return a.getEventTime() - b.getEventTime();
         }
     }
