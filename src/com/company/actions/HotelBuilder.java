@@ -107,8 +107,6 @@ public class HotelBuilder implements StartListener, HTEListener {
         }
 
         return hotelPane;
-
-//        return gridPane;
     }
 
     private void createNeighbours(Area[][] areas, int hotelWidth, int hotelHeight) {
