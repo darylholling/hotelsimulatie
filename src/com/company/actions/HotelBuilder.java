@@ -282,7 +282,7 @@ public class HotelBuilder implements StartListener, HTEListener {
         label.setTextAlignment(TextAlignment.JUSTIFY);
         String myString = "";
         for (Guest guest : hotel.guestList) {
-            myString += "Guest " + guest.getId() + " is at " + guest.getArea() + "\n";
+            myString += "Guest " + guest.getGuestNumber() + " is at " + guest.getArea() + "\n";
         }
         label.setText(myString);
         pausePane.getChildren().add(label);
