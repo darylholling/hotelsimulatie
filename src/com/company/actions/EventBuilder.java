@@ -1,7 +1,9 @@
 package com.company.actions;
 
 import com.company.events.CheckInEvent;
+import com.company.events.CheckOutEvent;
 import com.company.events.Event;
+import com.company.models.BuilderInterface;
 import com.company.models.Hotel;
 import com.google.gson.*;
 
@@ -53,11 +55,9 @@ public class EventBuilder {
             Event event = null;
             switch (eventType) {
                 case "CHECK_IN":
-                    System.out.println("case check in");
                     event = new CheckInEvent(hotel, eventTime, guest, stars);
 //                case "CHECK_OUT":
-//                    event = new CheckOutEvent(guestList, eventTime, guest);
-//                    event = new CleaningEvent(guestList, eventTime, guest);
+//                    event = new CheckOutEvent(hotel, eventTime, guest);
 //                case "GO_TO_CINEMA":
 //                    event = new GoToCinemaEvent(guestList, eventTime, guest);
 //                case "GO_TO_DINER":
