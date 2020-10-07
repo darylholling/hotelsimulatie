@@ -1,10 +1,5 @@
-package com.company.models;
+package com.company.models.areas;
 
-import com.company.models.Area;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 public class Lobby extends Area {

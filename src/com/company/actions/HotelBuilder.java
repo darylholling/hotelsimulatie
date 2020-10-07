@@ -1,17 +1,21 @@
 package com.company.actions;
 
 import com.company.models.*;
+import com.company.models.areas.*;
 import com.google.gson.*;
-import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -19,6 +23,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.util.Arrays;
 
 public class HotelBuilder implements StartListener, HTEListener {
     int maxXInJson = 0;
@@ -28,17 +33,18 @@ public class HotelBuilder implements StartListener, HTEListener {
     JsonArray jsonArrays;
     GridPane gridPane;
     Area[][] areas;
-    private Stage stage;
     private Label hteInfoBoard;
+    private Hotel hotel;
+    Scene mainScene;
 
-    public HotelBuilder(Stage stage) {
-        this.stage = stage;
+    public HotelBuilder(Hotel hotel) {
+        this.hotel = hotel;
     }
 
     public Parent createContent() throws IOException {
         // size of window
         Pane root = new Pane();
-        gridPane = new GridPane();
+        this.gridPane = new GridPane();
 
 //        set layout file to run Hotelbuilder
         File layoutFile = new File("src/com/company/files/layout.json");
@@ -66,7 +72,6 @@ public class HotelBuilder implements StartListener, HTEListener {
         hotelHeight = (maxYInJson + 1);
         hotelWidth = (maxXInJson + 2);
 
-
         areas = new Area[hotelWidth + 1][hotelHeight + 1];
         for (int x = 0; x <= hotelWidth; x++) {
             for (int y = 0; y <= hotelHeight; y++) {
@@ -75,13 +80,36 @@ public class HotelBuilder implements StartListener, HTEListener {
         }
 
         this.createAreas(gridPane, jsonArrays, areas);
+        this.createNeighbours(areas, hotelWidth, hotelHeight);
 
-//        for (Area[] areaArray : this.areas) {
-//            for (Area area : areaArray) {
-//                System.out.println(area);
-//            }
-//        }
+        // Adding the HTE information board
+        Pane header = new Pane();
+        VBox hotelPane = new VBox();
 
+        this.hteInfoBoard = new Label("HTE : " + HteCounter.getHte());
+        hteInfoBoard.setStyle("-fx-font-size: 170%");
+        hteInfoBoard.setTextFill(Color.BLACK);
+        hteInfoBoard.relocate(255, 5);
+
+        header.getChildren().add(hteInfoBoard);
+        Rectangle lobbyButton = new Rectangle();
+        lobbyButton.setHeight(50);
+        lobbyButton.setWidth(50*(hotelWidth-1));
+        lobbyButton.setFill(Color.TRANSPARENT);
+        lobbyButton.setOnMouseClicked(mouseEvent -> {
+            stage.setScene(createPauseScreen());
+            hotel.timer.stopTimer();
+        });
+        gridPane.add(lobbyButton, 1, hotelHeight, hotelWidth-1, 1);
+        hotelPane.getChildren().addAll(header, gridPane);
+        for (Area[] areaList : areas) {
+            hotel.areas.addAll(Arrays.asList(areaList));
+        }
+
+        return hotelPane;
+    }
+
+    private void createNeighbours(Area[][] areas, int hotelWidth, int hotelHeight) {
         for (int x = 1; x <= hotelWidth; x++) {
             for (int y = 0; y <= hotelHeight; y++) {
                 Area currentArea = areas[x][y];
@@ -93,7 +121,7 @@ public class HotelBuilder implements StartListener, HTEListener {
                 }
 
                 if (x == hotelWidth) {
-                    currentArea.addNeighbour(areas[currentArea.getX() - 1][currentArea.getY()], 1);
+                    currentArea.addNeighbour(areas[currentArea.getX() -1][currentArea.getY()], 1);
 
                     if (y != hotelHeight) {
                         currentArea.addNeighbour(areas[currentArea.getX()][currentArea.getY() + 1], 1);
@@ -113,12 +141,10 @@ public class HotelBuilder implements StartListener, HTEListener {
         Pane header = new Pane();
         VBox hotelPane = new VBox();
 
-        this.hteInfoBoard = new Label("HTE : " + HteCounter.getHte()
-                +  System.lineSeparator() +
-                "Simulation stops at HTE: " + EventBuilder.highestHteInJsonFile);
+        this.hteInfoBoard = new Label("HTE : " + HteCounter.getHte());
         hteInfoBoard.setStyle("-fx-font-size: 170%");
         hteInfoBoard.setTextFill(Color.BLACK);
-        hteInfoBoard.relocate(5, 5);
+        hteInfoBoard.relocate(255, 5);
 
         header.getChildren().add(hteInfoBoard);
 
@@ -235,7 +261,8 @@ public class HotelBuilder implements StartListener, HTEListener {
     }
 
     public void start(Stage stage) throws Exception {
-        stage.setScene(new Scene(createContent()));
+        mainScene = new Scene(createContent());
+        stage.setScene(mainScene);
         stage.setResizable(false);
         stage.show();
 
@@ -243,11 +270,42 @@ public class HotelBuilder implements StartListener, HTEListener {
 //        areas[1][0].setDistance(0);
 //        System.out.println(ds.findPath(areas[1][0],areas[3][2]));
 //        new DijkstraTest(areas, hotelWidth, hotelHeight);
-//        time.startTimer();
+    }
+    // Create pause scene
+        public Scene createPauseScreen(){
+        Scene pauseScene = new Scene(createPausePane());
+        return pauseScene;
     }
 
+    public Pane createPausePane(){
+        Pane pausePane = new Pane();
+        Button resumeButton = new Button();
+        resumeButton.setText("Resume Game");
+        resumeButton.setOnMouseClicked(mouseEvent -> {
+            stage.setScene(mainScene);
+            hotel.timer.resumeTimer();
+        });
+        resumeButton.relocate(150,400);
+        pausePane.getChildren().add(resumeButton);
+        pausePane.setPrefHeight((hotelHeight+1)*50);
+        pausePane.setPrefWidth((hotelWidth+1)*50);
+        Label label = new Label();
+        label.setMaxWidth(hotelWidth*50);
+        label.setWrapText(true);
+        label.setAlignment(Pos.CENTER);
+        label.setTextAlignment(TextAlignment.JUSTIFY);
+        String myString = new String();
+        for (Guest guest : hotel.guestList) {
+            myString += "Guest "+guest.getId()+" is at " +guest.getArea()+"\n";
+        }
+        label.setText(myString);
+        pausePane.getChildren().add(label);
+        return pausePane;
+    }
+
+
     public Stage getStage() {
-        return stage;
+        return this.hotel.stage;
     }
 
     public void handleStart() throws Exception {
@@ -258,8 +316,9 @@ public class HotelBuilder implements StartListener, HTEListener {
         Platform.runLater(() -> hteInfoBoard.setText("HTE: " + String.valueOf(HteCounter.getHte()
                 + System.lineSeparator() +
                 "Simulation stops at HTE: " + EventBuilder.highestHteInJsonFile)));
+    public void hteLabelUpdate() {
+        Platform.runLater(() -> hteInfoBoard.setText("HTE: " + String.valueOf(HteCounter.getHte())));
     }
-
     @Override
     public void updatedHTE(int HTE) {
         this.hteLabelUpdate();

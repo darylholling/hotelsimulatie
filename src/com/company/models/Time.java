@@ -7,21 +7,24 @@ public class Time implements StartListener{
     private static Timer timer;
     static boolean running;
     private ArrayList<HTEListener> HTElisteners;
+    private Settings settings;
 
     public boolean isRunning() {
         return running;
     }
 
-    public Time(ArrayList<HTEListener> HTElisteners) {
+    public Time(ArrayList<HTEListener> HTElisteners, Settings settings) {
         this.HTElisteners = HTElisteners;
+        this.settings = settings;
     }
 
     public void startTimer() {
+        int hteTime = settings.getHTETime();
         timer = new Timer();
         running = true;
         HteCounter htecounter = new HteCounter(this.HTElisteners);
-//        timer.scheduleAtFixedRate(htecounter, Settings.getSettings().getHTETime(),Settings.getSettings().getHTETime());
-        timer.scheduleAtFixedRate(htecounter, 1000,1000);
+        timer.scheduleAtFixedRate(htecounter, hteTime, hteTime);
+//        timer.scheduleAtFixedRate(htecounter, 5000,5000);
     }
 
     public void stopTimer() {

@@ -1,11 +1,9 @@
 package com.company.models;
 
-abstract class Person {
-    private Area area;
+import com.company.models.areas.Area;
 
-//    public Person(Area area) {
-//        this.area = area;
-//    }
+abstract public class Person implements MoveInterface{
+    private Area area;
 
     public Area getArea() {
         return area;

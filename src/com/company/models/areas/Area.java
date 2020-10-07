@@ -1,5 +1,6 @@
-package com.company.models;
+package com.company.models.areas;
 
+import com.company.models.Person;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -10,12 +11,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public abstract class Area extends Pane {
-    private ImageView imageFile;
-    private int x;
-    private int y;
-    private int areaWidth;
-    private int areaHeight;
-    private ArrayList<Person> persons = new ArrayList<>();
+    protected ImageView imageFile;
+    protected int x;
+    protected int y;
+    protected int areaWidth;
+    protected int areaHeight;
+    protected ArrayList<Person> persons = new ArrayList<>();
 
     //    The nodes neighbours with the distance to each one
     private HashMap<Area, Integer> neighbours;

@@ -1,5 +1,6 @@
-package com.company.models;
+package com.company.models.areas;
 
+import com.company.models.Guest;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -8,10 +9,14 @@ import java.io.FileNotFoundException;
 
 public class GuestRoom extends Area {
     private int stars;
+    private boolean isClean = true;
 
     public GuestRoom(int x, int y, int areaWidth, int areaHeight, int stars) throws FileNotFoundException {
         super(x, y, areaWidth, areaHeight);
+        this.stars = stars;
+
         String filePath;
+        System.out.println("Stars:" + stars);
         switch (stars) {
             case 1:
                 filePath = "1star.jpg";
@@ -36,6 +41,22 @@ public class GuestRoom extends Area {
         } else {
             super.setImageFile(new ImageView(new Image(new FileInputStream("src/com/company/images/" + filePath))));
         }
+    }
+
+    public boolean needsCleaning() {
+        return !isClean;
+    }
+
+    public boolean isClean() {
+        return isClean;
+    }
+
+    public void setClean(boolean clean) {
+        isClean = clean;
+    }
+
+    public boolean isOccupied() {
+        return this.persons.stream().anyMatch(i -> i instanceof Guest);
     }
 
     public int getStars() {
