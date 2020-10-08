@@ -41,6 +41,12 @@ public class Time implements StartListener{
         this.startTimer();
     }
 
+    public void addHTEListener(HTEListener hteListener) {
+        this.HTElisteners.add(hteListener);
+        ArrayList<HTEListener> newList = this.HTElisteners;
+        new HteCounter(newList);
+    }
+
     public HteCounter getHteCounter() {
         return hteCounter;
     }

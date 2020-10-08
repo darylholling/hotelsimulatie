@@ -47,7 +47,10 @@ public class CheckInEvent extends Event {
         selectedGuestRoom.addPerson(guest);
         //TODO add guest as HTEListener.
 
+//        hotel.timer.stopTimer();
         hotel.timer.getHteCounter().addHTEListener(guest);
+//        hotel.timer.startTimer();
+
         System.out.println(hotel.timer.getHteCounter().getHTElisteners().size());
 
 
