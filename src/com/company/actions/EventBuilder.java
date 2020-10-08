@@ -27,7 +27,8 @@ public class EventBuilder {
     }
 
     public Queue<Event> readJson(Hotel hotel) throws IOException {
-        eventsFile = new File("src/com/company/files/events3.json");
+//        eventsFile = new File("src/com/company/files/events3.json");
+        eventsFile = new File("src/com/company/files/dijkstratesting.json");
         Gson gson = new GsonBuilder().create();
         eventJsonArray = gson.fromJson(Files.newBufferedReader(new File(String.valueOf(eventsFile)).toPath(), StandardCharsets.UTF_8), JsonArray.class);
 
