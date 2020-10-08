@@ -1,5 +1,6 @@
 package com.company.models;
 
+import com.company.actions.HotelBuilder;
 import com.company.models.areas.Area;
 import com.company.models.areas.GuestRoom;
 
@@ -9,7 +10,7 @@ public class Guest extends Person {
     private int preferredStars;
     private GuestRoom guestRoom;
     private int guestNumber;
-    private boolean shown = false;
+    private boolean shown = true;
 
     public int getGuestNumber() {
         return guestNumber;
@@ -37,6 +38,8 @@ public class Guest extends Person {
     public void Guest() throws FileNotFoundException {
         if(shown = true) {
             super.setPersonImage(this, "theguest.gif");
+            HotelBuilder.gridPane.add(this, this.getArea().getX(), this.getArea().getY());
+//            System.out.println(HotelBuilder.gridPane.getChildren().getClass().getSimpleName());
         }
     }
 
