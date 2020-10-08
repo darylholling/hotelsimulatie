@@ -31,7 +31,7 @@ public class HotelBuilder implements StartListener, HTEListener {
     int hotelHeight = 0;
     int hotelWidth = 0;
     JsonArray jsonArrays;
-    GridPane gridPane;
+    public static GridPane gridPane;
     Area[][] areas;
     Scene mainScene;
     private Label hteInfoBoard;
@@ -111,6 +111,41 @@ public class HotelBuilder implements StartListener, HTEListener {
     }
 
     private void createNeighbours(Area[][] areas, int hotelWidth, int hotelHeight) {
+
+        // if we want elevator
+//        for (int x = 0; x <= hotelWidth; x++) {
+//            for (int y = 0; y <= hotelHeight; y++) {
+//                Area currentArea = areas[x][y];
+//
+//                if (x == 0) {
+//                    currentArea.addNeighbour(areas[currentArea.getX() + 1][currentArea.getY()], 1);
+//                    if (y != hotelHeight) {
+//                        currentArea.addNeighbour(areas[currentArea.getX()][currentArea.getY() + 1], 1);
+//                    }
+//                    if (y != 0) {
+//                        currentArea.addNeighbour(areas[currentArea.getX()][currentArea.getY() - 1], 1);
+//                    }
+//
+//                    continue;
+//                }
+//
+//                if (x == hotelWidth) {
+//                    currentArea.addNeighbour(areas[currentArea.getX() - 1][currentArea.getY()], 1);
+//
+//                    if (y != hotelHeight) {
+//                        currentArea.addNeighbour(areas[currentArea.getX()][currentArea.getY() + 1], 1);
+//                    }
+//                    if (y != 0) {
+//                        currentArea.addNeighbour(areas[currentArea.getX()][currentArea.getY() - 1], 1);
+//                    }
+//
+//                    continue;
+//                }
+//
+//                currentArea.addNeighbour(areas[currentArea.getX() - 1][currentArea.getY()], 1);
+//                currentArea.addNeighbour(areas[currentArea.getX() + 1][currentArea.getY()], 1);
+//            }
+//        }
         for (int x = 1; x <= hotelWidth; x++) {
             for (int y = 0; y <= hotelHeight; y++) {
                 Area currentArea = areas[x][y];
@@ -282,7 +317,7 @@ public class HotelBuilder implements StartListener, HTEListener {
         label.setTextAlignment(TextAlignment.JUSTIFY);
         String myString = "";
         for (Guest guest : hotel.guestList) {
-            myString += "Guest " + guest.getGuestNumber() + " is at " + guest.getArea() + "\n";
+            myString += "Guest " + guest.getGuestNumber() + " is at " + guest.getArea() + " @ " + guest.getArea().getX() + "/" + guest.getArea().getY() +"\n";
         }
         label.setText(myString);
         pausePane.getChildren().add(label);
@@ -293,6 +328,9 @@ public class HotelBuilder implements StartListener, HTEListener {
         return this.hotel.stage;
     }
 
+    public GridPane getGridPane() {
+        return this.gridPane;
+    }
     public void handleStart() throws Exception {
         this.start(this.getStage());
     }
