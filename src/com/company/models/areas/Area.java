@@ -53,14 +53,6 @@ public abstract class Area extends Pane {
         this.persons.remove(person);
     }
 
-    public ImageView getImageFile() {
-        return imageFile;
-    }
-
-    public void setImageFile(ImageView imageFile) {
-        this.imageFile = imageFile;
-        getChildren().add(this.imageFile);
-    }
 
     public int getX() {
         return x;
@@ -131,5 +123,13 @@ public abstract class Area extends Pane {
         imageView.setFitHeight(50);
         imageView.setFitWidth(50 * areaWidth);
         area.setImageFile(imageView);
+    }
+    public ImageView getImageFile() {
+        return imageFile;
+    }
+
+    public void setImageFile(ImageView imageFile) {
+        this.imageFile = imageFile;
+        getChildren().add(this.imageFile);
     }
 }

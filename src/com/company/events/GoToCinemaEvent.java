@@ -1,9 +1,6 @@
 package com.company.events;
 
-import com.company.models.Guest;
 import com.company.models.Hotel;
-
-import java.util.ArrayList;
 
 public class GoToCinemaEvent extends Event {
     private int idGuest;
@@ -17,7 +14,7 @@ public class GoToCinemaEvent extends Event {
 
     @Override
     public void fire() {
-        this.hotel.guestList.remove(hotel.getGuestById(idGuest));
+        this.hotel.guestList.remove(hotel.getGuestByNumber(idGuest));
         //todo lopen naar cinema
     }
 }

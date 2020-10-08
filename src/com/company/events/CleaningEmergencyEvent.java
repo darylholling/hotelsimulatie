@@ -1,24 +1,21 @@
 package com.company.events;
 
-import com.company.models.Guest;
 import com.company.models.Hotel;
 
-import java.util.ArrayList;
-
 public class CleaningEmergencyEvent extends Event {
-    private int idGuest;
+    private int guestNumber;
 
-    public CleaningEmergencyEvent(Integer eventTime, Hotel hotel, int idGuest) {
+    public CleaningEmergencyEvent(Integer eventTime, Hotel hotel, int guestNumber) {
         super(eventTime, hotel);
-        this.idGuest = idGuest;
+        this.guestNumber = guestNumber;
     }
 
-    public int getIdGuest() {
-        return idGuest;
+    public int getGuestNumber() {
+        return guestNumber;
     }
 
-    public void setIdGuest(int idGuest) {
-        this.idGuest = idGuest;
+    public void setGuestNumber(int guestNumber) {
+        this.guestNumber = guestNumber;
     }
 
     @Override
