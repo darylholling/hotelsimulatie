@@ -19,6 +19,11 @@ public class Cleaner extends Person implements EventListener {
     public void move(Area startArea, Area endArea) {
 
     }
+
+    @Override
+    public void updatedHTE(int HTE) {
+
+    }
 }
 
 

@@ -16,7 +16,6 @@ public class GuestRoom extends Area {
         this.stars = stars;
 
         String filePath;
-        System.out.println("Stars:" + stars);
         switch (stars) {
             case 1:
                 filePath = "1star.jpg";
@@ -41,6 +40,10 @@ public class GuestRoom extends Area {
         } else {
             super.setImageFile(new ImageView(new Image(new FileInputStream("src/com/company/images/" + filePath))));
         }
+    }
+
+    public boolean isAvailable(){
+        return isClean && !isOccupied();
     }
 
     public boolean needsCleaning() {

@@ -17,7 +17,8 @@ public class HteCounter extends TimerTask
     {
         hte++;
 
-        for (HTEListener HTElistener : HTElisteners) {
+        System.out.println(this.HTElisteners.size());
+        for (HTEListener HTElistener : this.HTElisteners) {
             HTElistener.updatedHTE(hte);
         }
     }
@@ -31,4 +32,12 @@ public class HteCounter extends TimerTask
 //                    eventListener.handleEvent(event);
 //        }
 //    }
+
+    public ArrayList<HTEListener> getHTElisteners() {
+        return HTElisteners;
+    }
+
+    public void addHTEListener(HTEListener hteListener) {
+        this.HTElisteners.add(hteListener);
+    }
 }

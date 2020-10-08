@@ -27,7 +27,8 @@ public class EventBuilder {
     }
 
     public Queue<Event> readJson(Hotel hotel) throws IOException {
-        eventsFile = new File("src/com/company/files/events3.json");
+        eventsFile = new File("src/com/company/files/smallfile.json");
+//        eventsFile = new File("src/com/company/files/events3.json");
         Gson gson = new GsonBuilder().create();
         eventJsonArray = gson.fromJson(Files.newBufferedReader(new File(String.valueOf(eventsFile)).toPath(), StandardCharsets.UTF_8), JsonArray.class);
 
@@ -39,9 +40,9 @@ public class EventBuilder {
             eventTime = jsonObject.get("time").getAsInt();
             JsonObject data = jsonObject.get("data").getAsJsonObject();
 
+            //TODO tycho herschreven
             if (eventTime > highestHteInJsonFile){
                 highestHteInJsonFile = eventTime;
-                System.out.println("Highest is  " + highestHteInJsonFile);
             }
 
             int guest = 0;
@@ -62,23 +63,32 @@ public class EventBuilder {
             switch (eventType) {
                 case "CHECK_IN":
                     event = new CheckInEvent(hotel, eventTime, guest, stars);
+                    break;
 //                case "CHECK_OUT":
 //                    event = new CheckOutEvent(hotel, eventTime, guest);
+//                break;
 //                case "GO_TO_CINEMA":
 //                    event = new GoToCinemaEvent(guestList, eventTime, guest);
+//                break;
 //                case "GO_TO_DINER":
 //                    event = new GoToDinerEvent(guestList, eventTime, guest);
+//                break;
 //                case "GO_TO_FITNESS":
 //                    event = new GoToFitnessEvent(guestList, eventTime, guest, duration);
+//                break;
 //                case "CLEANING_EMERGENCY":
 //                    event = new CleaningEmergencyEvent(guestList, eventTime, guest);
+//                break;
 ////                case "CLEANING_EVENT":
 ////                    event = new CleaningEvent(eventTime);
+//                break;
 //                case "GODZILLA":
 ////                    event = new GodzillaEvent(guestList, eventTime);
 //                    //todo set alles wat je wilt setten
+//                break;
 //                case "EVACUATE":
 //                    event = new EvacuateEvent(guestList, eventTime);
+//                break;
                 default:
                     System.out.println("No event");
             }
