@@ -18,10 +18,20 @@ public class Guest extends Person {
     private GuestRoom guestRoom;
     private int guestNumber;
     private boolean shown = true;
+    private int checkInTIme;
 
-    public void setGuestImage(){
-        super.setPersonImage("guest.jpg");
+    public void setGuestImage() {
+        super.setPersonImage("guest.png");
     }
+
+    public int getCheckInTIme() {
+        return checkInTIme;
+    }
+
+    public void setCheckInTIme(int checkInTIme) {
+        this.checkInTIme = checkInTIme;
+    }
+
     public int getGuestNumber() {
         return guestNumber;
     }
@@ -42,7 +52,7 @@ public class Guest extends Person {
         return shown;
     }
 
-    public void setShown(boolean shown){
+    public void setShown(boolean shown) {
         this.shown = shown;
     }
 
@@ -57,19 +67,29 @@ public class Guest extends Person {
 
     @Override
     public void move(Area startArea, Area endArea) {
-//        this.shown = false;
+        //TODO zorg dat het plaatje niet zichtbaar is
+//        this.removeGuestImage();
+//        Platform.runLater(()->this.removePersonImageFile("guest.png"));
 
+        System.out.println("old location" + startArea.getX() + ":" + startArea.getY());
         this.getArea().removePerson(this);
         this.setArea(endArea);
         endArea.addPerson(this);
         this.movingQueue.remove(endArea);
-//        this.shown = true;
+        //TODO zorg dat het plaatje wel zichtbaar is
+        this.shown = true;
+        System.out.println("New location" + endArea.getX() + ":" + endArea.getY());
+
     }
 
     @Override
     public void updatedHTE(int HTE) {
-        if (movingQueue.size() != 0) {
+        if (movingQueue.size() != 0 && HTE != checkInTIme) {
             this.move(this.getArea(), this.movingQueue.getFirst());
+
+            if (this.movingQueue.size() == 0 ) {
+                Platform.runLater(() -> this.removePersonFromGrid());
+            }
         }
     }
 }

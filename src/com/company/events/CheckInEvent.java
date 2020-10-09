@@ -44,8 +44,11 @@ public class CheckInEvent extends Event {
         guest.setGuestNumber(guestNumber);
         guest.setPreferredStars(stars);
         guest.setGuestRoom(selectedGuestRoom);
+        Platform.runLater(()->guest.setGuestImage());
         guest.setArea(this.hotel.getLobby());
+        guest.setCheckInTIme(eventTime);
         selectedGuestRoom.addPerson(guest);
+        hotel.guestList.add(guest);
 
         hotel.lateComingHTEListeners.add(guest);
 
