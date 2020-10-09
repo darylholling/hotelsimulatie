@@ -1,9 +1,8 @@
 package com.company.actions;
 
-import com.company.events.CheckInEvent;
-import com.company.events.CheckOutEvent;
-import com.company.events.Event;
+import com.company.events.*;
 import com.company.models.BuilderInterface;
+import com.company.models.Guest;
 import com.company.models.Hotel;
 import com.google.gson.*;
 
@@ -41,15 +40,25 @@ public class EventBuilder {
 
             if (eventTime > highestHteInJsonFile){
                 highestHteInJsonFile = eventTime;
-                System.out.println("Highest is  " + highestHteInJsonFile);
+//                System.out.println("Highest is  " + highestHteInJsonFile);
             }
 
-            int guest = 0;
+            Guest guest = new Guest(); // @todo can we move this to the if data has guest statement?
+            int guestNumber = 0;
             int stars = 0;
             int duration = 0;
 
             if (data.has("guest")) {
-                guest = data.get("guest").getAsInt();
+                guestNumber = data.get("guest").getAsInt();
+
+                //Guest guest = new Guest();
+                guest.setGuestNumber(guestNumber);
+                guest.setPreferredStars(stars);
+
+                guest.setArea(hotel.getLobby());
+                guest.setGuestImage();
+                guest.setShown(false);
+
             }
             if (data.has("stars")) {
                 stars = data.get("stars").getAsInt();
@@ -62,23 +71,32 @@ public class EventBuilder {
             switch (eventType) {
                 case "CHECK_IN":
                     event = new CheckInEvent(hotel, eventTime, guest, stars);
-//                case "CHECK_OUT":
-//                    event = new CheckOutEvent(hotel, eventTime, guest);
+                    break;
+                case "CHECK_OUT":
+                    event = new CheckOutEvent(hotel, eventTime, guest, guestNumber);
+                break;
 //                case "GO_TO_CINEMA":
-//                    event = new GoToCinemaEvent(guestList, eventTime, guest);
+//                    event = new GoToCinemaEvent(eventTime, hotel, guest);
+//                    break;
 //                case "GO_TO_DINER":
-//                    event = new GoToDinerEvent(guestList, eventTime, guest);
+//                    event = new GoToDinerEvent(eventTime, hotel, guest);
+//                    break;
 //                case "GO_TO_FITNESS":
 //                    event = new GoToFitnessEvent(guestList, eventTime, guest, duration);
+//                break;
 //                case "CLEANING_EMERGENCY":
 //                    event = new CleaningEmergencyEvent(guestList, eventTime, guest);
+//                break;
 ////                case "CLEANING_EVENT":
 ////                    event = new CleaningEvent(eventTime);
+//                break;
 //                case "GODZILLA":
 ////                    event = new GodzillaEvent(guestList, eventTime);
+//                break;
 //                    //todo set alles wat je wilt setten
 //                case "EVACUATE":
 //                    event = new EvacuateEvent(guestList, eventTime);
+//                break;
                 default:
                     System.out.println("No event");
             }

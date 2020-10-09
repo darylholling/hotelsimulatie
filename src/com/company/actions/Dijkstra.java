@@ -1,7 +1,9 @@
 package com.company.actions;
 
 import com.company.models.Guest;
+import com.company.models.HteCounter;
 import com.company.models.areas.Area;
+import javafx.application.Platform;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -54,6 +56,7 @@ public class Dijkstra {
     }
 
     //make path
+    // @todo reverse this
     private String makePath(Guest guest, Area end) {
         boolean cont = true;
         boolean first = true;
@@ -63,10 +66,18 @@ public class Dijkstra {
         while (cont) {
             path += ("X" +  current.getX() + "Y" +  current.getY() + "=>");
             //short code to see if guest moved to destination room. NEED TO REMOVE
-            if(first) {
+//            if(first) {
                 guest.setArea(current);
-                first = false;
+                Platform.runLater(() -> guest.setGuestImage());
+
+            try {
+                Thread.sleep(200);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
+            //guest.setPerson();
+//                first = false;
+//            }
             //check if we reached the end
             if (current.getLatest() != null) {
                 current = current.getLatest();

@@ -4,13 +4,14 @@ import com.company.models.Person;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public abstract class Area extends Pane {
+public abstract class Area extends StackPane {
     protected ImageView imageFile;
     protected int x;
     protected int y;
