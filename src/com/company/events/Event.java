@@ -4,7 +4,7 @@ import com.company.models.FireableListener;
 import com.company.models.Hotel;
 
 abstract public class Event implements Comparable<Event>, FireableListener {
-    private Integer eventTime;
+    protected Integer eventTime;
     protected Hotel hotel;
 
     public Event(Integer eventTime, Hotel hotel) {

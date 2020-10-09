@@ -2,6 +2,8 @@ package com.company.models;
 
 import com.company.actions.HotelBuilder;
 import com.company.models.areas.Area;
+import javafx.application.Platform;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -17,10 +19,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.LinkedList;
 
-abstract public class Person extends StackPane implements MoveInterface, HTEListener {
+abstract public class Person extends Pane implements MoveInterface, LateComingHTEListener {
     protected ImageView personImageFile;
     private Area area;
     protected LinkedList<Area> movingQueue = new LinkedList<>();
+    protected int originalMovingQueueSize;
     private HBox imageBox;
 
     public Area getArea() {
@@ -28,17 +31,14 @@ abstract public class Person extends StackPane implements MoveInterface, HTEList
     }
 
     public void setArea(Area area) {
-        this.removePerson();
+        if (this.area != null) {
+            Platform.runLater(()->this.removePersonFromGrid());
+        }
+
+        System.out.println(area.getClass().getSimpleName());
+
         this.area = area;
-//        this.area.getImageFile();
-    }
-
-    public void removePerson(){
-        //TODO remove person from previous node
-//        if(imageBox != null) {
-//            HotelBuilder.gridPane.getChildren().remove(imageBox);
-//        }
-
+        Platform.runLater(()->this.addPersonToGrid());
     }
 
     public void setPersonImage(String image) {
@@ -82,12 +82,22 @@ abstract public class Person extends StackPane implements MoveInterface, HTEList
 //        System.out.println("Hi it's me 2");
 //    }
 
+
     public void setPersonImageFile(ImageView personImageFile) {
         this.personImageFile = personImageFile;
         getChildren().add(this.personImageFile);
         personImageFile.toFront();
+    }
+
+    public void addPersonToGrid() {
         HotelBuilder.gridPane.add(this, this.getArea().getX(), this.getArea().getY());
-        System.out.println("hi it's me 3");
+    }
+
+    public void removePersonFromGrid() {
+//        this.personImageFile = personImageFile;
+//        getChildren().remove(this.personImageFile);
+//        personImageFile.toFront();
+        HotelBuilder.gridPane.getChildren().remove(this);
     }
 
     public LinkedList<Area> getMovingQueue() {
@@ -96,5 +106,9 @@ abstract public class Person extends StackPane implements MoveInterface, HTEList
 
     public void setMovingQueue(LinkedList<Area> movingQueue) {
         this.movingQueue = movingQueue;
+    }
+
+    public int getOriginalMovingQueueSize() {
+        return originalMovingQueueSize;
     }
 }

@@ -18,10 +18,20 @@ public class Guest extends Person {
     private GuestRoom guestRoom;
     private int guestNumber;
     private boolean shown = true;
+    private int checkInTIme;
 
-    public void setGuestImage(){
-        super.setPersonImage("guest.jpg");
+    public void setGuestImage() {
+        super.setPersonImage("guest.png");
     }
+
+    public int getCheckInTIme() {
+        return checkInTIme;
+    }
+
+    public void setCheckInTIme(int checkInTIme) {
+        this.checkInTIme = checkInTIme;
+    }
+
     public int getGuestNumber() {
         return guestNumber;
     }
@@ -42,7 +52,7 @@ public class Guest extends Person {
         return shown;
     }
 
-    public void setShown(boolean shown){
+    public void setShown(boolean shown) {
         this.shown = shown;
     }
 
@@ -57,24 +67,29 @@ public class Guest extends Person {
 
     @Override
     public void move(Area startArea, Area endArea) {
-//        this.shown = false;
+        //TODO zorg dat het plaatje niet zichtbaar is
+//        this.removeGuestImage();
+//        Platform.runLater(()->this.removePersonImageFile("guest.png"));
 
-        System.out.println("old location X:" + this.getArea().getX() + "Y:" + this.getArea().getY());
+        System.out.println("old location" + startArea.getX() + ":" + startArea.getY());
         this.getArea().removePerson(this);
         this.setArea(endArea);
-        System.out.println("new location X:" + this.getArea().getX() + "Y:" + this.getArea().getY());
-
         endArea.addPerson(this);
-        //TODO remove endarea from moving queue
+        this.movingQueue.remove(endArea);
+        //TODO zorg dat het plaatje wel zichtbaar is
+        this.shown = true;
+        System.out.println("New location" + endArea.getX() + ":" + endArea.getY());
 
-//        this.shown = true;
     }
 
     @Override
     public void updatedHTE(int HTE) {
-        System.out.println("im listening");
-        //TODO remove startarea from moving queue
+        if (movingQueue.size() != 0 && HTE != checkInTIme) {
+            this.move(this.getArea(), this.movingQueue.getFirst());
 
-//        this.move(this.getArea(), this.movingQueue.getFirst());
+            if (this.movingQueue.size() == 0 ) {
+                Platform.runLater(() -> this.removePersonFromGrid());
+            }
+        }
     }
 }

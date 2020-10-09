@@ -44,20 +44,19 @@ public class CheckInEvent extends Event {
         guest.setGuestNumber(guestNumber);
         guest.setPreferredStars(stars);
         guest.setGuestRoom(selectedGuestRoom);
+        Platform.runLater(()->guest.setGuestImage());
         guest.setArea(this.hotel.getLobby());
+        guest.setCheckInTIme(eventTime);
         selectedGuestRoom.addPerson(guest);
+        hotel.guestList.add(guest);
 
-
-        //TODO add guest as HTEListener.
-//        Platform.runLater(() ->hotel.timer.getHteCounter().addHTEListener(guest));
-
-//        System.out.println(hotel.timer.getHteCounter().getHTElisteners().size());
-
+        hotel.lateComingHTEListeners.add(guest);
 
 //        //TODO dijkstra magic go to room with image visible.
         Dijkstra dijkstra = new Dijkstra();
         guest.getArea().setDistance(0);
         LinkedList<Area> path = dijkstra.findPath(guest.getArea(), guest.getGuestRoom());
+        System.out.println(path);
         guest.setMovingQueue(path);
     }
 }
