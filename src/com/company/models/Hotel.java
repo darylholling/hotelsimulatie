@@ -5,6 +5,8 @@ import com.company.actions.Dijkstra;
 import com.company.actions.EventHandler;
 import com.company.actions.HotelBuilder;
 import com.company.models.areas.Area;
+import com.company.models.areas.Cinema;
+import com.company.models.areas.Diner;
 import com.company.models.areas.Lobby;
 import javafx.application.Application;
 import javafx.scene.layout.GridPane;
@@ -19,7 +21,6 @@ public class Hotel extends Application implements HTEListener {
     public Settings settings = new Settings();
     public Stage stage;
     public Hotel hotel = this;
-    public Dijkstra dijkstra = new Dijkstra();
     public Time timer;
     private int currentHTE;
 
@@ -32,7 +33,7 @@ public class Hotel extends Application implements HTEListener {
         HotelBuilder hotelBuilder = new HotelBuilder(hotel);
         CreateCleaners createCleaners = new CreateCleaners(hotel);
         EventHandler eventHandler = new EventHandler(hotel);
-        Time timer = new Time(new ArrayList<>() {
+        this.timer = new Time(new ArrayList<>() {
             {
                 add(eventHandler);
                 add(hotelBuilder);
@@ -40,7 +41,7 @@ public class Hotel extends Application implements HTEListener {
             }
         }, this.settings);
 
-        this.timer = timer;
+//        this.timer = timer;
 
         Menu menu = new Menu(stage, this.settings, new ArrayList<>() {
             {
@@ -64,5 +65,11 @@ public class Hotel extends Application implements HTEListener {
 
     public Guest getGuestByNumber(int number) {
         return this.guestList.stream().filter(guest -> guest.getGuestNumber() == number).findFirst().orElse(null);
+    }
+    public Area getCinema() {
+        return this.areas.stream().filter(area -> area instanceof Cinema).findFirst().orElse(null);
+    }
+    public Area getDiner() {
+        return this.areas.stream().filter(area -> area instanceof Diner).findFirst().orElse(null);
     }
 }

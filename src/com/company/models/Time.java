@@ -8,6 +8,7 @@ public class Time implements StartListener{
     static boolean running;
     private ArrayList<HTEListener> HTElisteners;
     private Settings settings;
+    private HteCounter hteCounter;
 
     public boolean isRunning() {
         return running;
@@ -22,9 +23,8 @@ public class Time implements StartListener{
         int hteTime = settings.getHTETime();
         timer = new Timer();
         running = true;
-        HteCounter htecounter = new HteCounter(this.HTElisteners);
-        timer.scheduleAtFixedRate(htecounter, hteTime, hteTime);
-//        timer.scheduleAtFixedRate(htecounter, 5000,5000);
+        this.hteCounter = new HteCounter(this.HTElisteners);
+        timer.scheduleAtFixedRate(this.hteCounter, hteTime, hteTime);
     }
 
     public void stopTimer() {
@@ -39,6 +39,20 @@ public class Time implements StartListener{
     @Override
     public void handleStart() throws Exception {
         this.startTimer();
+    }
+
+    public void addHTEListener(HTEListener hteListener) {
+        this.HTElisteners.add(hteListener);
+        ArrayList<HTEListener> newList = this.HTElisteners;
+        new HteCounter(newList);
+    }
+
+    public HteCounter getHteCounter() {
+        return hteCounter;
+    }
+
+    public void setHteCounter(HteCounter hteCounter) {
+        this.hteCounter = hteCounter;
     }
 }
 

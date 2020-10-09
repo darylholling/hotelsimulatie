@@ -44,7 +44,7 @@ public class HotelBuilder implements StartListener, HTEListener {
     public Parent createContent() throws IOException {
         // size of window
         Pane root = new Pane();
-        this.gridPane = new GridPane();
+        gridPane = new GridPane();
 
 //        set layout file to run Hotelbuilder
         File layoutFile = new File("src/com/company/files/layout.json");
@@ -286,11 +286,6 @@ public class HotelBuilder implements StartListener, HTEListener {
         stage.setScene(mainScene);
         stage.setResizable(false);
         stage.show();
-
-//        Dijkstra ds = new Dijkstra();
-//        areas[1][0].setDistance(0);
-//        System.out.println(ds.findPath(areas[1][0],areas[3][2]));
-//        new DijkstraTest(areas, hotelWidth, hotelHeight);
     }
 
     // Create pause scene
@@ -306,7 +301,7 @@ public class HotelBuilder implements StartListener, HTEListener {
             this.hotel.stage.setScene(mainScene);
             hotel.timer.resumeTimer();
         });
-        resumeButton.relocate(150, 400);
+        resumeButton.relocate(150, 410);
         pausePane.getChildren().add(resumeButton);
         pausePane.setPrefHeight((hotelHeight + 1) * 50);
         pausePane.setPrefWidth((hotelWidth + 1) * 50);
@@ -328,9 +323,6 @@ public class HotelBuilder implements StartListener, HTEListener {
         return this.hotel.stage;
     }
 
-    public GridPane getGridPane() {
-        return this.gridPane;
-    }
     public void handleStart() throws Exception {
         this.start(this.getStage());
     }
