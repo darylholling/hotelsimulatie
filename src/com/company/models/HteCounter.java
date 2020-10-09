@@ -8,7 +8,6 @@ public class HteCounter extends TimerTask
     public static int hte;
     private static ArrayList<HTEListener> HTElisteners;
     private Hotel hotel;
-    private static int listenerQuantity = 0;
 
     public HteCounter(ArrayList<HTEListener> HTElisteners) {
        HteCounter.HTElisteners = HTElisteners;
@@ -16,7 +15,6 @@ public class HteCounter extends TimerTask
 
     public synchronized void run()
     {
-        System.out.println("in run");
         hte++;
 
         this.update();
@@ -25,7 +23,7 @@ public class HteCounter extends TimerTask
     private synchronized void update() {
         ArrayList<HTEListener> copyOfList = HTElisteners;
 
-        System.out.println("copyoflistsize" + copyOfList.size());
+//        System.out.println("copyoflistsize" + copyOfList.size());
         for (HTEListener HTElistener : copyOfList) {
             HTElistener.updatedHTE(hte);
         }

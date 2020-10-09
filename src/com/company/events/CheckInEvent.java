@@ -5,6 +5,7 @@ import com.company.models.Guest;
 import com.company.models.Hotel;
 import com.company.models.areas.Area;
 import com.company.models.areas.GuestRoom;
+import javafx.application.Platform;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -45,13 +46,12 @@ public class CheckInEvent extends Event {
         guest.setGuestRoom(selectedGuestRoom);
         guest.setArea(this.hotel.getLobby());
         selectedGuestRoom.addPerson(guest);
+
+
         //TODO add guest as HTEListener.
+//        Platform.runLater(() ->hotel.timer.getHteCounter().addHTEListener(guest));
 
-//        hotel.timer.stopTimer();
-        hotel.timer.getHteCounter().addHTEListener(guest);
-//        hotel.timer.startTimer();
-
-        System.out.println(hotel.timer.getHteCounter().getHTElisteners().size());
+//        System.out.println(hotel.timer.getHteCounter().getHTElisteners().size());
 
 
 //        //TODO dijkstra magic go to room with image visible.
