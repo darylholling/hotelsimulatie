@@ -13,6 +13,7 @@ class CheckInEventTest {
 
     @Test
     public void checkIfGuestIsAddedToHotelGuestList(){
+        //TODO not working yet
         checkInEvent.fire();
         System.out.println(hotel.guestList);
     }

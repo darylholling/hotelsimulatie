@@ -10,10 +10,8 @@ import java.util.Timer;
 import static org.junit.jupiter.api.Assertions.*;
 
 class TimeTest {
-    boolean running;
     ArrayList<HTEListener> HTElisteners;
     Settings settings = new Settings();
-    HteCounter hteCounter;
     Time time = new Time(HTElisteners,settings);
 
     @Test

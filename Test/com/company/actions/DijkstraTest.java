@@ -23,9 +23,8 @@ class DijkstraTest {
         GuestRoom guestRoomStart = new GuestRoom(1, 1, 1, 1, 1);
         guestRoomStart.setDistance(1);
         GuestRoom guestRoomInBetween = new GuestRoom(2, 1, 1, 1, 1);
-//        guestRoomInBetween.setDistance(1);
         GuestRoom guestRoomEnd = new GuestRoom(3, 1, 1, 1, 1);
-//        guestRoomEnd.setDistance(1);
+
 
         unvisitedAreas.addAll(Arrays.asList(guestRoomStart, guestRoomInBetween, guestRoomEnd));
         dijkstra.unvisitedAreas = unvisitedAreas;
