@@ -1,6 +1,7 @@
 package com.company.actions;
 
 import com.company.models.areas.Area;
+import com.company.models.areas.Lobby;
 import javafx.application.Platform;
 
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ public class Dijkstra {
             toCheck = unvisitedAreas.stream().min(Comparator.comparingInt(n -> n.getDistance())).get();
         }
 
-        return makePath(end);
+        return makePath(start, end);
     }
 
     boolean Visit(Area current, Area end) {
@@ -48,13 +49,15 @@ public class Dijkstra {
         return false;
     }
 
-    private LinkedList<Area> makePath(Area end) {
+    private LinkedList<Area> makePath(Area start, Area end) {
         boolean cont = true;
         Area current = end;
         LinkedList<Area> path = new LinkedList<>();
 
         while (cont) {
-            path.addFirst(current);
+            if (start != current) {
+                path.addFirst(current);
+            }
 
 
 //            Area finalCurrent = current;

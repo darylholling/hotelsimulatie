@@ -17,7 +17,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.LinkedList;
 
-abstract public class Person extends StackPane implements MoveInterface, HTEListener {
+abstract public class Person extends StackPane implements MoveInterface, LateComingHTEListener {
     protected ImageView personImageFile;
     private Area area;
     protected LinkedList<Area> movingQueue = new LinkedList<>();

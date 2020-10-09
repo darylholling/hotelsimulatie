@@ -1,5 +1,7 @@
 package com.company.models;
 
+import javafx.application.Platform;
+
 import java.util.ArrayList;
 import java.util.TimerTask;
 
@@ -13,17 +15,16 @@ public class HteCounter extends TimerTask
        HteCounter.HTElisteners = HTElisteners;
     }
 
-    public synchronized void run()
+    public void run()
     {
         hte++;
 
         this.update();
     }
 
-    private synchronized void update() {
+    private void update() {
         ArrayList<HTEListener> copyOfList = HTElisteners;
 
-//        System.out.println("copyoflistsize" + copyOfList.size());
         for (HTEListener HTElistener : copyOfList) {
             HTElistener.updatedHTE(hte);
         }

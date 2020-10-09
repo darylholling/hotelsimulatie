@@ -66,15 +66,14 @@ public class Guest extends Person {
 
         endArea.addPerson(this);
         //TODO remove endarea from moving queue
-
+        this.movingQueue.remove(endArea);
 //        this.shown = true;
     }
 
     @Override
     public void updatedHTE(int HTE) {
-        System.out.println("im listening");
-        //TODO remove startarea from moving queue
-
-//        this.move(this.getArea(), this.movingQueue.getFirst());
+        if (movingQueue.size() != 0) {
+            this.move(this.getArea(), this.movingQueue.getFirst());
+        }
     }
 }
