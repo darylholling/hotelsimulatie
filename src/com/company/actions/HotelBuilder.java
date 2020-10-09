@@ -286,11 +286,6 @@ public class HotelBuilder implements StartListener, HTEListener {
         stage.setScene(mainScene);
         stage.setResizable(false);
         stage.show();
-
-//        Dijkstra ds = new Dijkstra();
-//        areas[1][0].setDistance(0);
-//        System.out.println(ds.findPath(areas[1][0],areas[3][2]));
-//        new DijkstraTest(areas, hotelWidth, hotelHeight);
     }
 
     // Create pause scene

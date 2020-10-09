@@ -9,6 +9,9 @@ import javafx.scene.layout.HBox;
 
 import java.util.LinkedList;
 
+import java.io.FileNotFoundException;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class Guest extends Person {
     private int preferredStars;
@@ -17,7 +20,7 @@ public class Guest extends Person {
     private boolean shown = true;
 
     public void setGuestImage(){
-        super.setPerson("guest.jpg");
+        super.setPersonImage("guest.jpg");
     }
     public int getGuestNumber() {
         return guestNumber;
@@ -54,7 +57,24 @@ public class Guest extends Person {
 
     @Override
     public void move(Area startArea, Area endArea) {
+//        this.shown = false;
 
+        System.out.println("old location X:" + this.getArea().getX() + "Y:" + this.getArea().getY());
+        this.getArea().removePerson(this);
+        this.setArea(endArea);
+        System.out.println("new location X:" + this.getArea().getX() + "Y:" + this.getArea().getY());
+
+        endArea.addPerson(this);
+        //TODO remove endarea from moving queue
+
+//        this.shown = true;
+    }
+
+    @Override
+    public void updatedHTE(int HTE) {
+        System.out.println("im listening");
+        //TODO remove startarea from moving queue
+
+//        this.move(this.getArea(), this.movingQueue.getFirst());
     }
 }
-

@@ -1,59 +1,63 @@
 package com.company.events;
 
 import com.company.actions.Dijkstra;
-import com.company.actions.HotelBuilder;
 import com.company.models.Guest;
 import com.company.models.Hotel;
 import com.company.models.areas.Area;
 import com.company.models.areas.GuestRoom;
-import javafx.scene.Node;
-import javafx.scene.layout.GridPane;
+import javafx.application.Platform;
 
-import java.io.FileNotFoundException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Random;
 
 public class CheckInEvent extends Event {
     private int guestNumber;
     private int stars;
-    private Integer eventTime;
 
     public CheckInEvent(Hotel hotel, Integer eventTime, int guestNumber, int stars) {
         super(eventTime, hotel);
         this.guestNumber = guestNumber;
         this.stars = stars;
         this.hotel = hotel;
-        this.eventTime = eventTime;
     }
-    private LinkedList<Area> finalPath;
+
     @Override
     public void fire() {
         GuestRoom[] guestRooms = this.hotel.areas.stream().filter(area -> area instanceof GuestRoom).toArray(GuestRoom[]::new);
+        GuestRoom[] availableByStars = null;
 
-        GuestRoom[] availableByStars = Arrays.stream(guestRooms).filter(guestRoom -> guestRoom.getStars() == this.stars && !guestRoom.isOccupied() && !guestRoom.needsCleaning()).toArray(GuestRoom[]::new);
-        // upgrade when preferred stars not available
-
-        while (availableByStars.length == 0 && this.stars <5){
-            this.stars++;
+        while ((availableByStars != null ? availableByStars.length : 0) == 0 && this.stars < 5) {
             availableByStars = Arrays.stream(guestRooms).filter(guestRoom -> guestRoom.getStars() == this.stars && !guestRoom.isOccupied() && !guestRoom.needsCleaning()).toArray(GuestRoom[]::new);
+            this.stars++;
+        }
+
+        //guest will not check in because nothing is available.
+        if (availableByStars == null || availableByStars.length == 0) {
+            return;
         }
 
         GuestRoom selectedGuestRoom = availableByStars[new Random().nextInt(availableByStars.length)];
-        //System.out.println("Room Rating: "+selectedGuestRoom.getStars()+ " Location: X : "+selectedGuestRoom.getX()+" Y: " + selectedGuestRoom.getY());
-        Guest guest = new Guest();
-        guest.setGuestRoom(selectedGuestRoom);
-        selectedGuestRoom.addPerson(guest);
-        //System.out.println(selectedGuestRoom.isOccupied());
 
-        //TODO dijkstra magic go to room with image visible.
-        guest.setShown(true);
-//        Dijkstra ds = new Dijkstra();
-//        this.guest.getArea().setDistance(0);
-////        String path = this.hotel.dijkstra.findPath(guest, guest.getArea(), guest.getGuestRoom());
-//        String path = ds.findPath(this.guest, this.guest.getArea(), this.guest.getGuestRoom());
-//        System.out.println(path);
-            this.hotel.guestList.add(guest);
-//    TODO go to room
+        Guest guest = new Guest();
+        guest.setGuestNumber(guestNumber);
+        guest.setPreferredStars(stars);
+        guest.setGuestRoom(selectedGuestRoom);
+        guest.setArea(this.hotel.getLobby());
+        selectedGuestRoom.addPerson(guest);
+
+
+        //TODO add guest as HTEListener.
+//        Platform.runLater(() ->hotel.timer.getHteCounter().addHTEListener(guest));
+
+//        System.out.println(hotel.timer.getHteCounter().getHTElisteners().size());
+
+
+//        //TODO dijkstra magic go to room with image visible.
+        Dijkstra dijkstra = new Dijkstra();
+        guest.getArea().setDistance(0);
+        LinkedList<Area> path = dijkstra.findPath(guest.getArea(), guest.getGuestRoom());
+        guest.setMovingQueue(path);
     }
 }

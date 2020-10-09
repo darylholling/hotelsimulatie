@@ -15,10 +15,12 @@ import javafx.scene.text.TextAlignment;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.LinkedList;
 
-abstract public class Person extends StackPane implements MoveInterface{
-    private Area area;
+abstract public class Person extends StackPane implements MoveInterface, HTEListener {
     protected ImageView personImageFile;
+    private Area area;
+    protected LinkedList<Area> movingQueue = new LinkedList<>();
     private HBox imageBox;
 
     public Area getArea() {
@@ -38,7 +40,8 @@ abstract public class Person extends StackPane implements MoveInterface{
 //        }
 
     }
-    public void setPerson(String image){
+
+    public void setPersonImage(String image) {
         ImageView personImageView = null;
         try {
             personImageView = new ImageView(new Image(new FileInputStream("src/com/company/images/" + image)));
@@ -87,4 +90,11 @@ abstract public class Person extends StackPane implements MoveInterface{
         System.out.println("hi it's me 3");
     }
 
+    public LinkedList<Area> getMovingQueue() {
+        return movingQueue;
+    }
+
+    public void setMovingQueue(LinkedList<Area> movingQueue) {
+        this.movingQueue = movingQueue;
+    }
 }

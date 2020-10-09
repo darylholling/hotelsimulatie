@@ -38,7 +38,6 @@ public class Menu {
             this.stage.getIcons().add(gameIcon);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-            System.out.println("application will run without hotel icon");
         }
     }
 
