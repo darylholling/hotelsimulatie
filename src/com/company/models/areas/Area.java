@@ -11,7 +11,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public abstract class Area extends StackPane {
+public abstract class Area extends Pane {
     protected ImageView imageFile;
     protected int x;
     protected int y;

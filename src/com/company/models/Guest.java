@@ -1,9 +1,13 @@
 package com.company.models;
 
+import com.company.actions.Dijkstra;
 import com.company.actions.HotelBuilder;
 import com.company.models.areas.Area;
 import com.company.models.areas.GuestRoom;
+import javafx.application.Platform;
 import javafx.scene.layout.HBox;
+
+import java.util.LinkedList;
 
 
 public class Guest extends Person {
@@ -47,8 +51,10 @@ public class Guest extends Person {
         this.guestRoom = guestRoom;
     }
 
+
     @Override
     public void move(Area startArea, Area endArea) {
 
     }
 }
+

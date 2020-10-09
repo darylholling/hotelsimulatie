@@ -10,12 +10,10 @@ public class CheckOutEvent extends Event {
     private int guestNumber;
     private Guest guest;
 
-    public CheckOutEvent(Hotel hotel, Integer eventTime, Guest guest, int guestNumber) {
+    public CheckOutEvent(Hotel hotel, Integer eventTime, int guestNumber) {
         super(eventTime, hotel);
         this.guestNumber = guestNumber;
         this.hotel = hotel;
-        this.guest = guest;
-
     }
 
 

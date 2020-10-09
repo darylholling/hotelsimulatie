@@ -7,11 +7,14 @@ import javafx.application.Platform;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.Map;
 
 public class Dijkstra {
+    public Area current;
     //list of unvisited nodes
     private ArrayList<Area> unvisitedAreas;
+    public LinkedList<Area> finalPath;
 
     public Dijkstra() {
         unvisitedAreas = new ArrayList<>();
@@ -59,25 +62,15 @@ public class Dijkstra {
     // @todo reverse this
     private String makePath(Guest guest, Area end) {
         boolean cont = true;
-        boolean first = true;
-        Area current = end;
         String path = "";
+        current = end;
 
         while (cont) {
             path += ("X" +  current.getX() + "Y" +  current.getY() + "=>");
-            //short code to see if guest moved to destination room. NEED TO REMOVE
-//            if(first) {
-                guest.setArea(current);
-                Platform.runLater(() -> guest.setGuestImage());
 
-            try {
-                Thread.sleep(200);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            //guest.setPerson();
-//                first = false;
-//            }
+            Area finalCurrent = current;
+            Platform.runLater(() ->finalPath.add(finalCurrent));
+
             //check if we reached the end
             if (current.getLatest() != null) {
                 current = current.getLatest();
@@ -88,5 +81,4 @@ public class Dijkstra {
         }
         return path;
     }
-
 }

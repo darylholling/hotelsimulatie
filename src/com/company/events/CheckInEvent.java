@@ -11,23 +11,22 @@ import javafx.scene.layout.GridPane;
 
 import java.io.FileNotFoundException;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.Random;
 
 public class CheckInEvent extends Event {
     private int guestNumber;
     private int stars;
     private Integer eventTime;
-    private Guest guest;
 
-
-    public CheckInEvent(Hotel hotel, Integer eventTime, Guest guest, int stars) {
+    public CheckInEvent(Hotel hotel, Integer eventTime, int guestNumber, int stars) {
         super(eventTime, hotel);
-        this.guest = guest;
+        this.guestNumber = guestNumber;
         this.stars = stars;
         this.hotel = hotel;
         this.eventTime = eventTime;
     }
-
+    private LinkedList<Area> finalPath;
     @Override
     public void fire() {
         GuestRoom[] guestRooms = this.hotel.areas.stream().filter(area -> area instanceof GuestRoom).toArray(GuestRoom[]::new);
@@ -42,18 +41,19 @@ public class CheckInEvent extends Event {
 
         GuestRoom selectedGuestRoom = availableByStars[new Random().nextInt(availableByStars.length)];
         //System.out.println("Room Rating: "+selectedGuestRoom.getStars()+ " Location: X : "+selectedGuestRoom.getX()+" Y: " + selectedGuestRoom.getY());
-        this.guest.setGuestRoom(selectedGuestRoom);
-        selectedGuestRoom.addPerson(this.guest);
+        Guest guest = new Guest();
+        guest.setGuestRoom(selectedGuestRoom);
+        selectedGuestRoom.addPerson(guest);
         //System.out.println(selectedGuestRoom.isOccupied());
 
         //TODO dijkstra magic go to room with image visible.
-        this.guest.setShown(true);
-        Dijkstra ds = new Dijkstra();
-        this.guest.getArea().setDistance(0);
-//        String path = this.hotel.dijkstra.findPath(guest, guest.getArea(), guest.getGuestRoom());
-        String path = ds.findPath(this.guest, this.guest.getArea(), this.guest.getGuestRoom());
-        System.out.println(path);
-        this.hotel.guestList.add(this.guest);
+        guest.setShown(true);
+//        Dijkstra ds = new Dijkstra();
+//        this.guest.getArea().setDistance(0);
+////        String path = this.hotel.dijkstra.findPath(guest, guest.getArea(), guest.getGuestRoom());
+//        String path = ds.findPath(this.guest, this.guest.getArea(), this.guest.getGuestRoom());
+//        System.out.println(path);
+            this.hotel.guestList.add(guest);
 //    TODO go to room
     }
 }

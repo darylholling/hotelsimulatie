@@ -43,10 +43,6 @@ public class GuestRoom extends Area {
         }
     }
 
-    public boolean isAvailable() {
-        return this.persons.stream().anyMatch(i -> i instanceof Guest) && !isClean;
-    }
-
     public boolean needsCleaning() {
         return !isClean;
     }

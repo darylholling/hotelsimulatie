@@ -43,22 +43,12 @@ public class EventBuilder {
 //                System.out.println("Highest is  " + highestHteInJsonFile);
             }
 
-            Guest guest = new Guest(); // @todo can we move this to the if data has guest statement?
             int guestNumber = 0;
             int stars = 0;
             int duration = 0;
 
             if (data.has("guest")) {
                 guestNumber = data.get("guest").getAsInt();
-
-                //Guest guest = new Guest();
-                guest.setGuestNumber(guestNumber);
-                guest.setPreferredStars(stars);
-
-                guest.setArea(hotel.getLobby());
-                guest.setGuestImage();
-                guest.setShown(false);
-
             }
             if (data.has("stars")) {
                 stars = data.get("stars").getAsInt();
@@ -70,11 +60,11 @@ public class EventBuilder {
             Event event = null;
             switch (eventType) {
                 case "CHECK_IN":
-                    event = new CheckInEvent(hotel, eventTime, guest, stars);
+                    event = new CheckInEvent(hotel, eventTime, guestNumber, stars);
                     break;
-                case "CHECK_OUT":
-                    event = new CheckOutEvent(hotel, eventTime, guest, guestNumber);
-                break;
+//                case "CHECK_OUT":
+//                    event = new CheckOutEvent(hotel, eventTime, guestNumber, guestNumber);
+//                break;
 //                case "GO_TO_CINEMA":
 //                    event = new GoToCinemaEvent(eventTime, hotel, guest);
 //                    break;
