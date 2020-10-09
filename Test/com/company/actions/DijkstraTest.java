@@ -20,18 +20,17 @@ class DijkstraTest {
 
     @Test
     public void checkIfPathFindingRemovesAreasFromUnvisitedAndReachesEndArea() throws FileNotFoundException {
-        Guest guest1 = new Guest();
         GuestRoom guestRoomStart = new GuestRoom(1, 1, 1, 1, 1);
         guestRoomStart.setDistance(1);
         GuestRoom guestRoomInBetween = new GuestRoom(2, 1, 1, 1, 1);
-        guestRoomInBetween.setDistance(1);
+//        guestRoomInBetween.setDistance(1);
         GuestRoom guestRoomEnd = new GuestRoom(3, 1, 1, 1, 1);
-        guestRoomEnd.setDistance(1);
+//        guestRoomEnd.setDistance(1);
 
-        unvisitedAreas.addAll(Arrays.asList(guestRoomStart, guestRoomInBetween, guestRoomEnd));
-        dijkstra.unvisitedAreas = unvisitedAreas;
+       // unvisitedAreas.addAll(Arrays.asList(guestRoomStart, guestRoomInBetween, guestRoomEnd));
+//        dijkstra.unvisitedAreas = unvisitedAreas;
 
-        dijkstra.findPath(guest1,guestRoomStart,guestRoomEnd);
+        dijkstra.findPath(guestRoomStart, guestRoomEnd);
 
         Assert.assertEquals(unvisitedAreas.get(0), guestRoomEnd);
 

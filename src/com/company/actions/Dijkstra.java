@@ -9,7 +9,7 @@ import java.util.LinkedList;
 import java.util.Map;
 
 public class Dijkstra {
-    private ArrayList<Area> unvisitedAreas;
+    public ArrayList<Area> unvisitedAreas;
 
     public Dijkstra() {
         unvisitedAreas = new ArrayList<>();

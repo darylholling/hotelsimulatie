@@ -14,7 +14,7 @@ class HteCounterTest {
     @Test
     public void checkIfHteCounterStarts() {
         System.out.println(HteCounter.hte);
-       // hteCounter.run();
+        System.out.println(hteCounter.getHTElisteners());
 
     }
 
