@@ -5,6 +5,8 @@ import com.company.actions.Dijkstra;
 import com.company.actions.EventHandler;
 import com.company.actions.HotelBuilder;
 import com.company.models.areas.Area;
+import com.company.models.areas.Cinema;
+import com.company.models.areas.Diner;
 import com.company.models.areas.Lobby;
 import javafx.application.Application;
 import javafx.scene.layout.GridPane;
@@ -63,5 +65,11 @@ public class Hotel extends Application implements HTEListener {
 
     public Guest getGuestByNumber(int number) {
         return this.guestList.stream().filter(guest -> guest.getGuestNumber() == number).findFirst().orElse(null);
+    }
+    public Area getCinema() {
+        return this.areas.stream().filter(area -> area instanceof Cinema).findFirst().orElse(null);
+    }
+    public Area getDiner() {
+        return this.areas.stream().filter(area -> area instanceof Diner).findFirst().orElse(null);
     }
 }

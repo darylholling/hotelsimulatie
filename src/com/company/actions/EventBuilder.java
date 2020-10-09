@@ -45,12 +45,12 @@ public class EventBuilder {
                 highestHteInJsonFile = eventTime;
             }
 
-            int guest = 0;
+            int guestNumber = 0;
             int stars = 0;
             int duration = 0;
 
             if (data.has("guest")) {
-                guest = data.get("guest").getAsInt();
+                guestNumber = data.get("guest").getAsInt();
             }
             if (data.has("stars")) {
                 stars = data.get("stars").getAsInt();
@@ -62,10 +62,10 @@ public class EventBuilder {
             Event event = null;
             switch (eventType) {
                 case "CHECK_IN":
-                    event = new CheckInEvent(hotel, eventTime, guest, stars);
+                    event = new CheckInEvent(hotel, eventTime, guestNumber, stars);
                     break;
 //                case "CHECK_OUT":
-//                    event = new CheckOutEvent(hotel, eventTime, guest);
+//                    event = new CheckOutEvent(hotel, eventTime, guestNumber, guestNumber);
 //                break;
 //                case "GO_TO_CINEMA":
 //                    event = new GoToCinemaEvent(guestList, eventTime, guest);
@@ -84,7 +84,6 @@ public class EventBuilder {
 //                break;
 //                case "GODZILLA":
 ////                    event = new GodzillaEvent(guestList, eventTime);
-//                    //todo set alles wat je wilt setten
 //                break;
 //                case "EVACUATE":
 //                    event = new EvacuateEvent(guestList, eventTime);

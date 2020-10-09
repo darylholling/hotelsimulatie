@@ -4,6 +4,10 @@ import com.company.actions.Dijkstra;
 import com.company.actions.HotelBuilder;
 import com.company.models.areas.Area;
 import com.company.models.areas.GuestRoom;
+import javafx.application.Platform;
+import javafx.scene.layout.HBox;
+
+import java.util.LinkedList;
 
 import java.io.FileNotFoundException;
 import java.util.LinkedList;
@@ -15,6 +19,9 @@ public class Guest extends Person {
     private int guestNumber;
     private boolean shown = true;
 
+    public void setGuestImage(){
+        super.setPerson("guest.jpg");
+    }
     public int getGuestNumber() {
         return guestNumber;
     }
@@ -38,12 +45,6 @@ public class Guest extends Person {
     public void setShown(boolean shown){
         this.shown = shown;
     }
-    public void Guest() throws FileNotFoundException {
-        if(shown = true) {
-            super.setPersonImage(this, "theguest.gif");
-            HotelBuilder.gridPane.add(this, this.getArea().getX(), this.getArea().getY());
-        }
-    }
 
     public GuestRoom getGuestRoom() {
         return guestRoom;
@@ -52,6 +53,7 @@ public class Guest extends Person {
     public void setGuestRoom(GuestRoom guestRoom) {
         this.guestRoom = guestRoom;
     }
+
 
     @Override
     public void move(Area startArea, Area endArea) {

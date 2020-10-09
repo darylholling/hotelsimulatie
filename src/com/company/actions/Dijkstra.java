@@ -1,6 +1,7 @@
 package com.company.actions;
 
 import com.company.models.areas.Area;
+import javafx.application.Platform;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -55,6 +56,11 @@ public class Dijkstra {
         while (cont) {
             path.addFirst(current);
 
+
+//            Area finalCurrent = current;
+//            Platform.runLater(() ->finalPath.add(finalCurrent));
+
+            //check if we reached the end
             if (current.getLatest() != null) {
                 current = current.getLatest();
             } else {
