@@ -20,7 +20,7 @@ public class Guest extends Person {
     private boolean shown = true;
 
     public void setGuestImage(){
-        super.setPerson("guest.jpg");
+        super.setPersonImage("guest.jpg");
     }
     public int getGuestNumber() {
         return guestNumber;
@@ -65,6 +65,7 @@ public class Guest extends Person {
         System.out.println("new location X:" + this.getArea().getX() + "Y:" + this.getArea().getY());
 
         endArea.addPerson(this);
+        //TODO remove endarea from moving queue
 
 //        this.shown = true;
     }
@@ -72,6 +73,8 @@ public class Guest extends Person {
     @Override
     public void updatedHTE(int HTE) {
         System.out.println("im listening");
+        //TODO remove startarea from moving queue
+
 //        this.move(this.getArea(), this.movingQueue.getFirst());
     }
 }

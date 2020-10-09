@@ -5,6 +5,8 @@ import com.company.models.Guest;
 import com.company.models.Hotel;
 import com.company.models.areas.Area;
 
+import java.util.LinkedList;
+
 public class GoToCinemaEvent extends Event {
     private int guestNumber;
     private Hotel hotel;
@@ -30,7 +32,7 @@ public class GoToCinemaEvent extends Event {
 
         Dijkstra dijkstra = new Dijkstra();
         currentGuest.getArea().setDistance(0);
-        String path = dijkstra.findPath(currentGuest, currentGuest.getArea(), cinema);
+        LinkedList<Area> path = dijkstra.findPath(currentGuest.getArea(), cinema);
         System.out.println(path);
         System.out.println("Guest number: "+currentGuest.getGuestNumber()+  " is at cinema location X: "+currentGuest.getArea().getX()+" and Y: "+ currentGuest.getArea().getY());
         currentGuest.setArea(cinema);

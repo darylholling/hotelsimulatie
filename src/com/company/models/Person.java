@@ -40,8 +40,8 @@ abstract public class Person extends StackPane implements MoveInterface, HTEList
 //        }
 
     }
-    public void setPerson(String image){
-    public void setPersonImage(Guest guest, String image) {
+
+    public void setPersonImage(String image) {
         ImageView personImageView = null;
         try {
             personImageView = new ImageView(new Image(new FileInputStream("src/com/company/images/" + image)));
