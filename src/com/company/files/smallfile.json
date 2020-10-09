@@ -6,5 +6,10 @@
       "guest": 1,
       "stars": 1
     }
+  },
+  {
+    "type": "EVACUATE",
+    "time": 25,
+    "data": {}
   }
 ]

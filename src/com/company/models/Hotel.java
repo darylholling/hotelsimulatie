@@ -44,7 +44,7 @@ public class Hotel extends Application implements HTEListener {
             {
                 add(hotelBuilder);
                 add(eventHandler);
-//                add(createCleaners);
+                add(createCleaners);
                 add(timer);
             }
         });
