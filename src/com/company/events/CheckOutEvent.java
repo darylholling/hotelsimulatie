@@ -12,7 +12,6 @@ import java.util.LinkedList;
 public class CheckOutEvent extends Event {
     private int guestNumber;
     private Guest guest;
-
     public CheckOutEvent(Hotel hotel, Integer eventTime, int guestNumber) {
         super(eventTime, hotel);
         this.guestNumber = guestNumber;
@@ -22,17 +21,13 @@ public class CheckOutEvent extends Event {
 
     @Override
     public void fire() {
-        //TODO lopen naar lobby
-        if (guest.getGuestNumber() == guestNumber) {
-            System.out.println("Guest number:  "+ guestNumber+ "is checking out");
-            Dijkstra ds = new Dijkstra();
-            LinkedList<Area> path = ds.findPath(this.guest.getArea(), hotel.getLobby());
-            Platform.runLater(() -> hotel.guestList.remove(guestNumber));
-            Platform.runLater(() -> HotelBuilder.gridPane.getChildren().remove(this.guest.getArea().getX(), this.guest.getArea().getY()));
-            System.out.println("Checkout path"+ path);
-        }
-        this.hotel.guestList.remove(guest);
-        //TODO add cleaning to queue
+        guest = hotel.getGuestByNumber(guestNumber);
+        guest.getGuestRoom().removePerson(guest);
+        hotel.guestList.remove(guest);
+        Dijkstra dijkstra = new Dijkstra();
+        LinkedList<Area> path = dijkstra.findPath(guest.getArea(), hotel.getLobby());
+        System.out.println(path);
+        Platform.runLater(()->guest.setMovingQueue(path));
     }
 }
 

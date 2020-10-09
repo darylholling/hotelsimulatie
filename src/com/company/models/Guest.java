@@ -12,6 +12,7 @@ import java.util.LinkedList;
 import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Random;
 
 public class Guest extends Person {
     private int preferredStars;
@@ -21,7 +22,7 @@ public class Guest extends Person {
     private int checkInTIme;
 
     public void setGuestImage() {
-        super.setPersonImage("guest.png");
+        super.setPersonImage(randomSelect());
     }
 
     public int getCheckInTIme() {
@@ -64,6 +65,14 @@ public class Guest extends Person {
         this.guestRoom = guestRoom;
     }
 
+    // selects random picture
+    public String randomSelect (){
+
+        String [] arr = {"guest.png", "guest2.png"};
+        Random random = new Random();
+        int select = random.nextInt(arr.length);
+        return arr[select];
+    }
 
     @Override
     public void move(Area startArea, Area endArea) {

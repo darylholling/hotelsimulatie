@@ -1,9 +1,8 @@
 package com.company.actions;
 
-import com.company.events.CheckInEvent;
-import com.company.events.CheckOutEvent;
-import com.company.events.Event;
+import com.company.events.*;
 import com.company.models.BuilderInterface;
+import com.company.models.Guest;
 import com.company.models.Hotel;
 import com.google.gson.*;
 
@@ -58,21 +57,20 @@ public class EventBuilder {
             if (data.has("duration")) {
                 duration = data.get("duration").getAsInt();
             }
-
             Event event = null;
             switch (eventType) {
                 case "CHECK_IN":
                     event = new CheckInEvent(hotel, eventTime, guestNumber, stars);
                     break;
 //                case "CHECK_OUT":
-//                    event = new CheckOutEvent(hotel, eventTime, guestNumber, guestNumber);
+//                    event = new CheckOutEvent(hotel, eventTime, guestNumber);
 //                break;
 //                case "GO_TO_CINEMA":
-//                    event = new GoToCinemaEvent(guestList, eventTime, guest);
+//                    event = new GoToCinemaEvent(hotel, eventTime, guestNumber);
 //                break;
-//                case "GO_TO_DINER":
-//                    event = new GoToDinerEvent(guestList, eventTime, guest);
-//                break;
+                case "GO_TO_DINER":
+                    event = new GoToDinerEvent(eventTime, hotel, guestNumber);
+                break;
 //                case "GO_TO_FITNESS":
 //                    event = new GoToFitnessEvent(guestList, eventTime, guest, duration);
 //                break;

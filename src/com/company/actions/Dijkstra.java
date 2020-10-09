@@ -55,17 +55,16 @@ public class Dijkstra {
         LinkedList<Area> path = new LinkedList<>();
 
         while (cont) {
+            System.out.println("current"+current);
             if (start != current) {
                 path.addFirst(current);
+                System.out.println("kom je hier?");
             }
-
-
-//            Area finalCurrent = current;
-//            Platform.runLater(() ->finalPath.add(finalCurrent));
 
             //check if we reached the end
             if (current.getLatest() != null) {
                 current = current.getLatest();
+                System.out.println("en hier dan?");
             } else {
                 cont = false;
             }
