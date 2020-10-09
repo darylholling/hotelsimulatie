@@ -33,17 +33,17 @@ public class HotelTest {
     public void checkIfGuestStreamReturnsGuestByID() {
 
         Guest guest1 = new Guest();
-        guest1.setId(1);
+        guest1.setGuestNumber(1);
         Guest guest2 = new Guest();
-        guest2.setId(15);
+        guest2.setGuestNumber(15);
         Guest guest3 = new Guest();
-        guest3.setId(40);
+        guest3.setGuestNumber(40);
 
         guestList.addAll(Arrays.asList(guest1, guest2, guest3));
 
         hotel.guestList = guestList;
 
-        Assert.assertEquals(guestList.get(2), hotel.getGuestById(40));
+        Assert.assertEquals(guestList.get(2), hotel.getGuestByNumber(40));
     }
 
 }
