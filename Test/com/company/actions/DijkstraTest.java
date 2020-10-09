@@ -27,8 +27,8 @@ class DijkstraTest {
         GuestRoom guestRoomEnd = new GuestRoom(3, 1, 1, 1, 1);
 //        guestRoomEnd.setDistance(1);
 
-       // unvisitedAreas.addAll(Arrays.asList(guestRoomStart, guestRoomInBetween, guestRoomEnd));
-//        dijkstra.unvisitedAreas = unvisitedAreas;
+        unvisitedAreas.addAll(Arrays.asList(guestRoomStart, guestRoomInBetween, guestRoomEnd));
+        dijkstra.unvisitedAreas = unvisitedAreas;
 
         dijkstra.findPath(guestRoomStart, guestRoomEnd);
 

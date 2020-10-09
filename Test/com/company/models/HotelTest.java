@@ -1,11 +1,12 @@
 package com.company.models.areas;
 
 
-import com.company.models.Guest;
-import com.company.models.Hotel;
+import com.company.models.*;
 import com.company.models.areas.*;
+import javafx.stage.Stage;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
+
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,7 +22,7 @@ public class HotelTest {
         areas.add(new GuestRoom(0, 0, 1, 1, 1));
         areas.add(new Lobby(1, 1, 1, 1));
         areas.add(new Diner(2, 2, 1, 1, 1));
-        areas.add(new Cinema(3,3,1,1));
+        areas.add(new Cinema(3, 3, 1, 1));
 
         hotel.areas = areas;
 

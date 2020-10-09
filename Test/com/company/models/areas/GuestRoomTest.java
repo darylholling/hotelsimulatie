@@ -1,6 +1,7 @@
 package com.company.models.areas;
 
 import com.company.models.Guest;
+import javafx.scene.image.ImageView;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -32,6 +33,5 @@ class GuestRoomTest {
             }
             Assert.assertEquals(true, hasImage);
         }
-
     }
 }
