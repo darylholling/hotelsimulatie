@@ -59,13 +59,9 @@ public class Guest extends Person {
     public void move(Area startArea, Area endArea) {
 //        this.shown = false;
 
-        System.out.println("old location X:" + this.getArea().getX() + "Y:" + this.getArea().getY());
         this.getArea().removePerson(this);
         this.setArea(endArea);
-        System.out.println("new location X:" + this.getArea().getX() + "Y:" + this.getArea().getY());
-
         endArea.addPerson(this);
-        //TODO remove endarea from moving queue
         this.movingQueue.remove(endArea);
 //        this.shown = true;
     }
