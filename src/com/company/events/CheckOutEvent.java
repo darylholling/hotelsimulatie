@@ -2,21 +2,26 @@ package com.company.events;
 
 import com.company.actions.Dijkstra;
 import com.company.actions.HotelBuilder;
+import com.company.models.CleaningListener;
 import com.company.models.Guest;
 import com.company.models.Hotel;
 import com.company.models.areas.Area;
 import javafx.application.Platform;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class CheckOutEvent extends Event {
+    private ArrayList<CleaningListener> cleaningListeners;
     private int guestNumber;
     private Guest guest;
+    private Hotel hotel;
 
-    public CheckOutEvent(Hotel hotel, Integer eventTime, int guestNumber) {
+    public CheckOutEvent(Hotel hotel, Integer eventTime, int guestNumber, ArrayList<CleaningListener> CleaningListener) {
         super(eventTime, hotel);
         this.guestNumber = guestNumber;
         this.hotel = hotel;
+        this.cleaningListeners = CleaningListener;
     }
 
 
@@ -30,9 +35,14 @@ public class CheckOutEvent extends Event {
             Platform.runLater(() -> hotel.guestList.remove(guestNumber));
             Platform.runLater(() -> HotelBuilder.gridPane.getChildren().remove(this.guest.getArea().getX(), this.guest.getArea().getY()));
             System.out.println("Checkout path"+ path);
+
+
+        CleaningEvent cleaningEvent = new CleaningEvent(hotel.settings.getCleanHTE(), hotel, guestNumber, cleaningListeners);
+        hotel.cleaningEvents.add(cleaningEvent);
+        for (CleaningListener CleaningListener : cleaningListeners) {
+            CleaningListener.startCleaners();
         }
         this.hotel.guestList.remove(guest);
-        //TODO add cleaning to queue
     }
 }
 
