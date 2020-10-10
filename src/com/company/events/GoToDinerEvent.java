@@ -31,10 +31,14 @@ public class GoToDinerEvent extends Event {
 
     }
     public void movingPath(Area destination){
+        for (Area area : hotel.areas) {
+            area.setLatest(null);
+            area.setDistance(Integer.MAX_VALUE);
+        }
         Guest currentGuest = hotel.getGuestByNumber(guestNumber);
         Dijkstra ds = new Dijkstra();
         currentGuest.getArea().setDistance(0);
-//        System.out.println("Guest number: "+currentGuest.getGuestNumber()+ " is walking to Diner");
+        System.out.println("Guest number: "+currentGuest.getGuestNumber()+ " is walking to Diner");
         LinkedList<Area> path = ds.findPath(currentGuest.getArea(), destination);
         destination.addPerson(currentGuest);
         Platform.runLater(()->currentGuest.setMovingQueue(path));
