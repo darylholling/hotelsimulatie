@@ -50,8 +50,8 @@ public class CheckOutEvent extends Event {
         }
 
         Dijkstra dijkstra = new Dijkstra();
-        guest.getArea().setDistance(0);
-        LinkedList<Area> path = dijkstra.findPath(guest.getArea(), lobby);
+        guest.getArea().setDistanceForPerson(guest, 0);
+        LinkedList<Area> path = dijkstra.findPath(guest, guest.getArea(), lobby);
         guest.setMovingQueue(path);
         hotel.guestList.remove(guest);
 

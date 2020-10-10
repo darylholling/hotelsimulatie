@@ -27,7 +27,7 @@ abstract public class Person extends Pane implements MoveInterface, LateComingHT
             Platform.runLater(()->this.removePersonFromGrid());
         }
 
-        System.out.println(area.getClass().getSimpleName());
+//        System.out.println(area.getClass().getSimpleName());
 
         this.area = area;
         Platform.runLater(()->this.addPersonToGrid());

@@ -9,14 +9,14 @@
   },
   {
     "type": "GO_TO_DINER",
-    "time": 15,
+    "time": 30,
     "data": {
       "guest": 1
     }
   },
   {
     "type": "GO_TO_FITNESS",
-    "time": 30,
+    "time": 16,
     "data": {
       "guest": 1,
       "duration": 10

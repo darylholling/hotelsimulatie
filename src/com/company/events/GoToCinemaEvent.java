@@ -23,14 +23,13 @@ public class GoToCinemaEvent extends Event {
     }
     public void movingPath(Area destination){
         Guest currentGuest = hotel.getGuestByNumber(guestNumber);
-        for (Area area : hotel.areas) {
-            area.setLatest(null);
-            area.setDistance(Integer.MAX_VALUE);
+        if (currentGuest == null) {
+            return;
         }
         Dijkstra ds = new Dijkstra();
-        currentGuest.getArea().setDistance(0);
+        currentGuest.getArea().setDistanceForPerson(currentGuest, 0);
         System.out.println("Guest number: "+currentGuest.getGuestNumber()+ " is walking to Cinema");
-        LinkedList<Area> path = ds.findPath(currentGuest.getArea(), destination);
+        LinkedList<Area> path = ds.findPath(currentGuest, currentGuest.getArea(), destination);
         System.out.println(path);
         destination.addPerson(currentGuest);
         Platform.runLater(()->currentGuest.setMovingQueue(path));

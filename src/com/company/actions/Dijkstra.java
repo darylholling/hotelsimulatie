@@ -1,13 +1,11 @@
 package com.company.actions;
 
+import com.company.models.Person;
 import com.company.models.areas.Area;
 import com.company.models.areas.Lobby;
 import javafx.application.Platform;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.Map;
+import java.util.*;
 
 public class Dijkstra {
     private ArrayList<Area> unvisitedAreas;
@@ -16,17 +14,22 @@ public class Dijkstra {
         unvisitedAreas = new ArrayList<>();
     }
 
-    public LinkedList<Area> findPath(Area start, Area end) {
+    public LinkedList<Area> findPath(Person person, Area start, Area end) {
         Area toCheck = start;
 
-        while (!Visit(toCheck, end)) {
-            toCheck = unvisitedAreas.stream().min(Comparator.comparingInt(n -> n.getDistance())).get();
+        while (!Visit(person, toCheck, end)) {
+            try {
+                toCheck = unvisitedAreas.stream().min(Comparator.comparingInt(n -> n.getDistanceForPerson(person))).get();
+            } catch( NoSuchElementException ex) {
+//                System.out.println(unvisitedAreas);
+                break;
+            }
         }
 
-        return makePath(start, end);
+        return makePath(person, start, end);
     }
 
-    boolean Visit(Area current, Area end) {
+    boolean Visit(Person person, Area current, Area end) {
         if (current == end) {
             return true;
         }
@@ -35,10 +38,10 @@ public class Dijkstra {
 
         for (Map.Entry<Area, Integer> entry : current.getNeighbours().entrySet()) {
             Area compared = entry.getKey();
-            int newDistance = current.getDistance() + entry.getValue();
-            if (newDistance <= compared.getDistance()) {
-                compared.setDistance(newDistance);
-                compared.setLatest(current);
+            int newDistance = current.getDistanceForPerson(person) + entry.getValue();
+            if (newDistance <= compared.getDistanceForPerson(person)) {
+                compared.setDistanceForPerson(person, newDistance);
+                compared.setLatestForPerson(person, current);
 
                 if (!unvisitedAreas.contains(compared)) {
                     unvisitedAreas.add(compared);
@@ -48,7 +51,7 @@ public class Dijkstra {
         return false;
     }
 
-    private LinkedList<Area> makePath(Area start, Area end) {
+    private LinkedList<Area> makePath(Person person, Area start, Area end) {
         boolean cont = true;
         Area current = end;
         LinkedList<Area> path = new LinkedList<>();
@@ -57,15 +60,15 @@ public class Dijkstra {
             path.addFirst(current);
 
             //check if we reached the end
-            if (current.getLatest() != null) {
-                current = current.getLatest();
+            if (current.getLatestForPerson(person) != null) {
+                current = current.getLatestForPerson(person);
             } else {
                 cont = false;
             }
         }
         for (Area area : path) {
-            area.setLatest(null);
-            area.setDistance(Integer.MAX_VALUE);
+            area.setLatestForPerson(person, null);
+            area.setDistanceForPerson(person, Integer.MAX_VALUE);
         }
         return path;
     }

@@ -28,6 +28,14 @@ public abstract class Area extends Pane {
     //    Remembers the previous node
     private Area latest;
 
+    // Remember distance per person
+    protected HashMap<Person, Integer> distancesPerPerson = new HashMap<>();
+
+    // Remember latest per person
+    protected HashMap<Person, Area> latestPerPerson = new HashMap<>();
+
+    // [ {guestNumber} => 'Guest'
+
     public Area(int x, int y, int areaWidth, int areaHeight) {
         this.x = x;
         this.y = y;
@@ -125,6 +133,7 @@ public abstract class Area extends Pane {
         imageView.setFitWidth(50 * areaWidth);
         area.setImageFile(imageView);
     }
+
     public ImageView getImageFile() {
         return imageFile;
     }
@@ -137,4 +146,31 @@ public abstract class Area extends Pane {
     public String printCoordinates() {
         return "x:" + this.x + "-y:" + y;
     }
+
+    public void resetForPerson(Person person) {
+        this.distancesPerPerson = new HashMap<>();
+    }
+
+    public int getDistanceForPerson(Person person) {
+        if(this.distancesPerPerson.containsKey(person)) {
+            return this.distancesPerPerson.get(person);
+        }
+        return Integer.MAX_VALUE;
+}
+
+    public void setDistanceForPerson(Person person, int distance) {
+        this.distancesPerPerson.put(person, distance);
+    }
+
+    public Area getLatestForPerson(Person person) {
+        if(this.distancesPerPerson.containsKey(person)) {
+            return this.latestPerPerson.get(person);
+        }
+        return null;
+    }
+
+    public void setLatestForPerson(Person person, Area latest) {
+        this.latestPerPerson.put(person, latest);
+    }
+
 }

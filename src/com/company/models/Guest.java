@@ -79,19 +79,22 @@ public class Guest extends Person {
     public void move(Area startArea, Area endArea) {
         //TODO zorg dat het plaatje niet zichtbaar is
 
-        System.out.println("old location" + startArea.getX() + ":" + startArea.getY());
+//        System.out.println("old location" + startArea.getX() + ":" + startArea.getY());
         this.getArea().removePerson(this);
         this.setArea(endArea);
         endArea.addPerson(this);
         this.movingQueue.remove(startArea);
 
+        System.out.println(this.movingQueue.size());
+        System.out.println(endArea);
         if (this.movingQueue.size() == 1 && this.movingQueue.getFirst() == endArea){
+            System.out.println("removing end area");
             this.movingQueue.remove(endArea);
         }
 
         //TODO zorg dat het plaatje wel zichtbaar is
         this.shown = true;
-        System.out.println("New location" + endArea.getX() + ":" + endArea.getY());
+//        System.out.println("New location" + endArea.getX() + ":" + endArea.getY());
 
     }
 
@@ -99,6 +102,7 @@ public class Guest extends Person {
     public void updatedHTE(int HTE) {
         if (!movingQueue.isEmpty() && HTE != checkInTime) {
             System.out.println(this.movingQueue);
+            System.out.println("guest" + guestNumber);
             this.move(this.movingQueue.getFirst(), this.movingQueue.get(1));
 
             if (this.movingQueue.isEmpty()) {

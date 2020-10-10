@@ -53,9 +53,9 @@ public class CheckInEvent extends Event {
 
 //        //TODO dijkstra magic go to room with image visible.
         Dijkstra dijkstra = new Dijkstra();
-        guest.getArea().setDistance(0);
-        LinkedList<Area> path = dijkstra.findPath(guest.getArea(), guest.getGuestRoom());
-        System.out.println(path);
+        guest.getArea().setDistanceForPerson(guest, 0);
+        LinkedList<Area> path = dijkstra.findPath(guest, guest.getArea(), guest.getGuestRoom());
+//        System.out.println(path);
         guest.setMovingQueue(path);
     }
 }

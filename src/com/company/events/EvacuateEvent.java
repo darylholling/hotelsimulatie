@@ -30,9 +30,9 @@ public class EvacuateEvent extends Event {
         System.out.println(hotel.guestList.size());
         for (Guest guest : hotel.guestList) {
             Dijkstra dijkstra = new Dijkstra();
-            guest.getArea().setDistance(0);
-            LinkedList<Area> path = dijkstra.findPath(guest.getArea(), lobby);
-            System.out.println(path);
+            guest.getArea().setDistanceForPerson(guest, 0);
+            LinkedList<Area> path = dijkstra.findPath(guest, guest.getArea(), lobby);
+//            System.out.println(path);
             guest.setMovingQueue(path);
         }
     }
