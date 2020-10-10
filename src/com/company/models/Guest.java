@@ -10,7 +10,7 @@ public class Guest extends Person {
     private GuestRoom guestRoom;
     private int guestNumber;
     private boolean movingToCheckOut = false;
-    private int checkInTIme;
+    private int checkInTime;
 
     public boolean isMovingToCheckOut() {
         return movingToCheckOut;
@@ -24,12 +24,8 @@ public class Guest extends Person {
         super.setPersonImage("guest.png");
     }
 
-    public int getCheckInTIme() {
-        return checkInTIme;
-    }
-
-    public void setCheckInTIme(int checkInTIme) {
-        this.checkInTIme = checkInTIme;
+    public void setcheckInTime(int checkInTime) {
+        this.checkInTime = checkInTime;
     }
 
     public int getGuestNumber() {
@@ -38,10 +34,6 @@ public class Guest extends Person {
 
     public void setGuestNumber(int guestNumber) {
         this.guestNumber = guestNumber;
-    }
-
-    public int getPreferredStars() {
-        return preferredStars;
     }
 
     public void setPreferredStars(int preferredStars) {
@@ -56,7 +48,6 @@ public class Guest extends Person {
         this.guestRoom = guestRoom;
     }
 
-
     @Override
     public void move(Area startArea, Area endArea) {
         this.getArea().removePerson(this);
@@ -64,14 +55,14 @@ public class Guest extends Person {
         endArea.addPerson(this);
         this.movingQueue.remove(startArea);
 
-        if (this.movingQueue.size() == 1 && this.movingQueue.getFirst() == endArea){
+        if (this.movingQueue.size() == 1 && this.movingQueue.getFirst() == endArea) {
             this.movingQueue.remove(endArea);
         }
     }
 
     @Override
     public void updatedHTE(int HTE) {
-        if (!movingQueue.isEmpty() && HTE != checkInTIme) {
+        if (!movingQueue.isEmpty() && HTE != checkInTime) {
             this.move(this.movingQueue.getFirst(), this.movingQueue.get(1));
 
             if (this.movingQueue.isEmpty()) {

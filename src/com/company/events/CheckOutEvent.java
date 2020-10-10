@@ -1,14 +1,9 @@
 package com.company.events;
 
-import com.company.actions.Dijkstra;
 import com.company.models.CleaningListener;
-import com.company.models.Guest;
 import com.company.models.Hotel;
-import com.company.models.areas.Area;
-
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 public class CheckOutEvent extends Event {
     private ArrayList<CleaningListener> cleaningListeners;
@@ -56,10 +51,9 @@ public class CheckOutEvent extends Event {
         DefaultCleaningEvent defaultCleaningEvent = new DefaultCleaningEvent(hotel.settings.getCleanHTE(), hotel, guestNumber, cleaningListeners);
         hotel.defaultCleaningEvents.add(defaultCleaningEvent);
 
-        for (com.company.models.CleaningListener CleaningListener : cleaningListeners) {
+        for (CleaningListener CleaningListener : cleaningListeners) {
             CleaningListener.startCleaners();
         }
-
         //TODO deregister guest from latecominghtelisteners.
     }
 }

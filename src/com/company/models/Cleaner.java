@@ -10,9 +10,8 @@ import com.company.models.areas.Lobby;
 import javafx.application.Platform;
 
 import java.util.LinkedList;
-import java.util.Queue;
 
-public class Cleaner extends Person implements EventListener, CleaningListener {
+public class Cleaner extends Person implements CleaningListener {
     private final Hotel hotel;
     private boolean cleaning = false;
     private CleaningEvent currentCleanEvent;
@@ -57,7 +56,7 @@ public class Cleaner extends Person implements EventListener, CleaningListener {
     private void moveToCleaning(CleaningEvent event) {
         Dijkstra dijkstra = new Dijkstra();
         this.getArea().setDistance(0);
-        LinkedList<Area> path = dijkstra.findPath(this.getArea(), hotel.getGuestByNumber(event.getGuestNumber()).getGuestRoom());
+        LinkedList<Area> path = dijkstra.findPath(this.getArea(), hotel.getGuestByNumber(event.guestNumber).getGuestRoom());
         this.setMovingQueue(path);
     }
 
@@ -66,10 +65,6 @@ public class Cleaner extends Person implements EventListener, CleaningListener {
         endHTE = beginHTE + hotel.settings.getCleanHTE();
 
         cleaning = true;
-    }
-
-    @Override
-    public void handleEvent(Event event) {
     }
 
     @Override
@@ -106,5 +101,3 @@ public class Cleaner extends Person implements EventListener, CleaningListener {
         }
     }
 }
-
-

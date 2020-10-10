@@ -28,7 +28,7 @@ public class CheckInEvent extends Event {
         GuestRoom[] availableByStars = null;
 
         while ((availableByStars != null ? availableByStars.length : 0) == 0 && this.stars < 5) {
-            availableByStars = Arrays.stream(guestRooms).filter(guestRoom -> guestRoom.getStars() == this.stars && !guestRoom.isOccupied() && !guestRoom.needsCleaning()).toArray(GuestRoom[]::new);
+            availableByStars = Arrays.stream(guestRooms).filter(guestRoom -> guestRoom.getStars() == this.stars && guestRoom.isAvailable()).toArray(GuestRoom[]::new);
             this.stars++;
         }
 
@@ -43,15 +43,14 @@ public class CheckInEvent extends Event {
         guest.setGuestNumber(guestNumber);
         guest.setPreferredStars(stars);
         guest.setGuestRoom(selectedGuestRoom);
-        Platform.runLater(()->guest.setGuestImage());
+        Platform.runLater(() -> guest.setGuestImage());
         guest.setArea(this.hotel.getLobby());
-        guest.setCheckInTIme(eventTime);
+        guest.setcheckInTime(eventTime);
         selectedGuestRoom.addPerson(guest);
-        hotel.guestList.add(guest);
 
+        hotel.guestList.add(guest);
         hotel.lateComingHTEListeners.add(guest);
 
-//        //TODO dijkstra magic go to room with image visible.
         Dijkstra dijkstra = new Dijkstra();
         guest.getArea().setDistance(0);
         LinkedList<Area> path = dijkstra.findPath(guest.getArea(), guest.getGuestRoom());

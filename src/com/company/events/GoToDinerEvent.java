@@ -35,13 +35,13 @@ public class GoToDinerEvent extends Event {
         //todo lopen naar Diner
         //NOT TESTED
         Area diner = hotel.getDiner();
-        System.out.println("Guest number: "+currentGuest.getGuestNumber()+ " is walking to Diner");
+        System.out.println("Guest number: " + currentGuest.getGuestNumber() + " is walking to Diner");
         Dijkstra ds = new Dijkstra();
 //        currentGuest.getArea().setDistance(0);
         LinkedList<Area> path = ds.findPath(currentGuest.getArea(), diner);
         System.out.println(path);
 //        String path = this.hotel.dijkstra.findPath(currentGuest, currentGuest.getArea(), diner);
-        System.out.println("Guest number: "+currentGuest.getGuestNumber()+  " is at diner location X: "+currentGuest.getArea().getX()+" and Y: "+ currentGuest.getArea().getY());
+        System.out.println("Guest number: " + currentGuest.getGuestNumber() + " is at diner location X: " + currentGuest.getArea().getX() + " and Y: " + currentGuest.getArea().getY());
         currentGuest.setArea(diner);
         diner.addPerson(currentGuest);
     }

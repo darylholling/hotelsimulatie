@@ -3,8 +3,6 @@ package com.company.events;
 import com.company.models.Guest;
 import com.company.models.Hotel;
 
-import java.util.ArrayList;
-
 public class GodzillaEvent extends Event {
     private Guest guest;
 
