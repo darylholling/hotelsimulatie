@@ -3,10 +3,7 @@ package com.company.models;
 import com.company.actions.CreateCleaners;
 import com.company.actions.EventHandler;
 import com.company.actions.HotelBuilder;
-import com.company.models.areas.Area;
-import com.company.models.areas.Cinema;
-import com.company.models.areas.Diner;
-import com.company.models.areas.Lobby;
+import com.company.models.areas.*;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -74,5 +71,8 @@ public class Hotel extends Application implements HTEListener {
 
     public Area getDiner() {
         return this.areas.stream().filter(area -> area instanceof Diner).findFirst().orElse(null);
+    }
+    public Area getFitness() {
+        return this.areas.stream().filter(area -> area instanceof Fitness).findFirst().orElse(null);
     }
 }

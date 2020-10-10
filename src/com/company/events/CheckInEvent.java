@@ -8,7 +8,6 @@ import com.company.models.areas.GuestRoom;
 import javafx.application.Platform;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -46,7 +45,7 @@ public class CheckInEvent extends Event {
         guest.setGuestRoom(selectedGuestRoom);
         Platform.runLater(()->guest.setGuestImage());
         guest.setArea(this.hotel.getLobby());
-        guest.setCheckInTIme(eventTime);
+        guest.setCheckInTime(eventTime);
         selectedGuestRoom.addPerson(guest);
         hotel.guestList.add(guest);
 

@@ -1,17 +1,9 @@
 package com.company.models;
 
-import com.company.actions.Dijkstra;
-import com.company.actions.HotelBuilder;
 import com.company.models.areas.Area;
 import com.company.models.areas.GuestRoom;
 import javafx.application.Platform;
-import javafx.scene.layout.HBox;
 
-import java.util.LinkedList;
-
-import java.io.FileNotFoundException;
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.Random;
 
 public class Guest extends Person {
@@ -19,18 +11,18 @@ public class Guest extends Person {
     private GuestRoom guestRoom;
     private int guestNumber;
     private boolean shown = true;
-    private int checkInTIme;
+    private int checkInTime;
 
     public void setGuestImage() {
         super.setPersonImage(randomSelect());
     }
 
-    public int getCheckInTIme() {
-        return checkInTIme;
+    public int getCheckInTime() {
+        return checkInTime;
     }
 
-    public void setCheckInTIme(int checkInTIme) {
-        this.checkInTIme = checkInTIme;
+    public void setCheckInTime(int checkInTime) {
+        this.checkInTime = checkInTime;
     }
 
     public int getGuestNumber() {
@@ -66,9 +58,9 @@ public class Guest extends Person {
     }
 
     // selects random picture
-    public String randomSelect (){
+    public String randomSelect() {
 
-        String [] arr = {"guest.png", "guest2.png"};
+        String[] arr = {"guest.png", "guest2.png"};
         Random random = new Random();
         int select = random.nextInt(arr.length);
         return arr[select];
@@ -77,14 +69,17 @@ public class Guest extends Person {
     @Override
     public void move(Area startArea, Area endArea) {
         //TODO zorg dat het plaatje niet zichtbaar is
-//        this.removeGuestImage();
-//        Platform.runLater(()->this.removePersonImageFile("guest.png"));
 
         System.out.println("old location" + startArea.getX() + ":" + startArea.getY());
         this.getArea().removePerson(this);
         this.setArea(endArea);
         endArea.addPerson(this);
-        this.movingQueue.remove(endArea);
+        this.movingQueue.remove(startArea);
+
+        if (this.movingQueue.size() == 1 && this.movingQueue.getFirst() == endArea) {
+            this.movingQueue.remove(endArea);
+        }
+
         //TODO zorg dat het plaatje wel zichtbaar is
         this.shown = true;
         System.out.println("New location" + endArea.getX() + ":" + endArea.getY());
@@ -93,10 +88,10 @@ public class Guest extends Person {
 
     @Override
     public void updatedHTE(int HTE) {
-        if (movingQueue.size() != 0 && HTE != checkInTIme) {
-            this.move(this.getArea(), this.movingQueue.getFirst());
+        if (!movingQueue.isEmpty() && HTE != checkInTime) {
+            this.move(this.movingQueue.getFirst(), this.movingQueue.get(1));
 
-            if (this.movingQueue.size() == 0 ) {
+            if (this.movingQueue.isEmpty()) {
                 Platform.runLater(() -> this.removePersonFromGrid());
             }
         }

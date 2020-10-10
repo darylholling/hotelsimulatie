@@ -249,6 +249,7 @@ public class HotelBuilder implements StartListener, HTEListener {
                     area = new GuestRoom(defaultX, defaultY, width, height, stars);
                     break;
                 case "diner":
+                    //area = new GuestRoom(defaultX, defaultY, width, height, 1);
                     area = new Diner(defaultX, defaultY, width, height, capacity);
                     break;
                 case "fitness":

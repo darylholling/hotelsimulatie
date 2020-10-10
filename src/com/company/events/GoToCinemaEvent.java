@@ -20,21 +20,17 @@ public class GoToCinemaEvent extends Event {
 
     @Override
     public void fire() {
-        System.out.println("firing cinema");
+    movingPath(hotel.getCinema());
+    }
+    public void movingPath(Area destination){
         Guest currentGuest = hotel.getGuestByNumber(guestNumber);
-        System.out.println(guestNumber);
-        System.out.println(currentGuest.getArea().getX() + ":" + currentGuest.getArea().getY());
-//        hotel.guestList.remove(currentGuest);
-        //todo lopen naar cinema
-        //NOT TESTED
-        Area cinema = hotel.getCinema();
-        System.out.println("Guest number: "+currentGuest.getGuestNumber()+ " is walking to cinema");
-
-        Dijkstra dijkstra = new Dijkstra();
-        LinkedList<Area> path = dijkstra.findPath(currentGuest.getArea(), cinema);
+        Dijkstra ds = new Dijkstra();
+        currentGuest.getArea().setDistance(0);
+        System.out.println("Guest number: "+currentGuest.getGuestNumber()+ " is walking to Cinema");
+        LinkedList<Area> path = ds.findPath(currentGuest.getArea(), destination);
         System.out.println(path);
-        System.out.println("Guest number: "+currentGuest.getGuestNumber()+  " is at cinema location X: "+currentGuest.getArea().getX()+" and Y: "+ currentGuest.getArea().getY());
-        cinema.addPerson(currentGuest);
+        destination.addPerson(currentGuest);
         Platform.runLater(()->currentGuest.setMovingQueue(path));
+        System.out.println("Guest number: "+currentGuest.getGuestNumber()+  " is at cinema location X: "+currentGuest.getArea().getX()+" and Y: "+ currentGuest.getArea().getY());
     }
 }
