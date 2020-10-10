@@ -23,7 +23,7 @@ public class CleaningEmergencyEvent extends Event implements LateComingHTEListen
     public void startCleaningEmergency() {
         int beginHTE = hotel.currentHTE;
 
-        System.out.println("ik ga nu wachten: " + hotel.settings.getCleanHTE()*hotel.settings.getHTETime());
+//        System.out.println("ik ga nu wachten: " + hotel.settings.getCleanHTE()*hotel.settings.getHTETime());
         //Todo move to room
 
         endHTE = beginHTE + hotel.settings.getCleanHTE();

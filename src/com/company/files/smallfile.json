@@ -8,8 +8,10 @@
     }
   },
   {
-    "type": "EVACUATE",
-    "time": 25,
-    "data": {}
+    "type": "CHECK_OUT",
+    "time": 20,
+    "data": {
+      "guest": 1
+    }
   }
 ]

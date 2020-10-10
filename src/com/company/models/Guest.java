@@ -1,17 +1,8 @@
 package com.company.models;
 
-import com.company.actions.Dijkstra;
-import com.company.actions.HotelBuilder;
 import com.company.models.areas.Area;
 import com.company.models.areas.GuestRoom;
 import javafx.application.Platform;
-import javafx.scene.layout.HBox;
-
-import java.util.LinkedList;
-
-import java.io.FileNotFoundException;
-import java.util.LinkedList;
-import java.util.Queue;
 
 public class Guest extends Person {
     private int preferredStars;
@@ -19,6 +10,7 @@ public class Guest extends Person {
     private int guestNumber;
     private boolean shown = true;
     private boolean movingToCheckOut = false;
+    private int checkInTIme;
 
     public boolean isMovingToCheckOut() {
         return movingToCheckOut;
@@ -27,7 +19,6 @@ public class Guest extends Person {
     public void setMovingToCheckOut(boolean movingToCheckOut) {
         this.movingToCheckOut = movingToCheckOut;
     }
-    private int checkInTIme;
 
     public void setGuestImage() {
         super.setPersonImage("guest.png");
@@ -84,7 +75,12 @@ public class Guest extends Person {
         this.getArea().removePerson(this);
         this.setArea(endArea);
         endArea.addPerson(this);
-        this.movingQueue.remove(endArea);
+        this.movingQueue.remove(startArea);
+
+        if (this.movingQueue.size() == 1 && this.movingQueue.getFirst() == endArea){
+            this.movingQueue.remove(endArea);
+        }
+
         //TODO zorg dat het plaatje wel zichtbaar is
         this.shown = true;
         System.out.println("New location" + endArea.getX() + ":" + endArea.getY());
@@ -93,13 +89,12 @@ public class Guest extends Person {
 
     @Override
     public void updatedHTE(int HTE) {
-        if (movingQueue.size() != 0 && HTE != checkInTIme) {
-            this.move(this.getArea(), this.movingQueue.getFirst());
+        if (!movingQueue.isEmpty() && HTE != checkInTIme) {
+            System.out.println(this.movingQueue);
+            this.move(this.movingQueue.getFirst(), this.movingQueue.get(1));
 
-            if (this.movingQueue.size() == 0 ) {
+            if (this.movingQueue.isEmpty()) {
                 Platform.runLater(() -> this.removePersonFromGrid());
-                if (movingToCheckOut) {
-                }
             }
         }
     }
