@@ -1,7 +1,6 @@
 package com.company.actions;
 
 import com.company.events.*;
-import com.company.events.CleaningEmergencyEvent;
 import com.company.events.Event;
 import com.company.models.CleaningListener;
 import com.company.models.Hotel;
@@ -29,7 +28,7 @@ public class EventBuilder {
 
     public Queue<Event> readJson(Hotel hotel) throws IOException {
         this.hotel = hotel;
-        eventsFile = new File("src/com/company/files/events3.json");
+        eventsFile = new File("src/com/company/files/smallfile.json");
 //        eventsFile = new File("src/com/company/files/events3.json");
         Gson gson = new GsonBuilder().create();
         eventJsonArray = gson.fromJson(Files.newBufferedReader(new File(String.valueOf(eventsFile)).toPath(), StandardCharsets.UTF_8), JsonArray.class);
@@ -66,12 +65,13 @@ public class EventBuilder {
                 case "CHECK_IN":
                     event = new CheckInEvent(hotel, eventTime, guestNumber, stars);
                     break;
-//                case "CHECK_OUT":
-//                    event = new CheckOutEvent(hotel, eventTime, guestNumber, new ArrayList<>() {{
-//                        add(hotel.cleaners.get(0));
-//                        add(hotel.cleaners.get(1));
-//                    }});
-//                    break;
+               case "CHECK_OUT":
+                   event = new CheckOutEvent(hotel, eventTime, guestNumber, new ArrayList<>() {{
+                       add(hotel.cleaners.get(0));
+                       add(hotel.cleaners.get(1));
+                   }});
+                   break;
+
 //                case "GO_TO_CINEMA":
 //                    event = new GoToCinemaEvent(guestList, eventTime, guest);
 //                break;
@@ -93,9 +93,9 @@ public class EventBuilder {
 //                case "GODZILLA":
 ////                    event = new GodzillaEvent(guestList, eventTime);
 //                break;
-//                case "EVACUATE":
-//                    event = new EvacuateEvent(guestList, eventTime);
-//                break;
+                case "EVACUATE":
+                    event = new EvacuateEvent(hotel, eventTime);
+                break;
                 default:
                     System.out.println("No event");
             }

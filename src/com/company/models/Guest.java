@@ -18,6 +18,15 @@ public class Guest extends Person {
     private GuestRoom guestRoom;
     private int guestNumber;
     private boolean shown = true;
+    private boolean movingToCheckOut = false;
+
+    public boolean isMovingToCheckOut() {
+        return movingToCheckOut;
+    }
+
+    public void setMovingToCheckOut(boolean movingToCheckOut) {
+        this.movingToCheckOut = movingToCheckOut;
+    }
     private int checkInTIme;
 
     public void setGuestImage() {
@@ -89,6 +98,8 @@ public class Guest extends Person {
 
             if (this.movingQueue.size() == 0 ) {
                 Platform.runLater(() -> this.removePersonFromGrid());
+                if (movingToCheckOut) {
+                }
             }
         }
     }

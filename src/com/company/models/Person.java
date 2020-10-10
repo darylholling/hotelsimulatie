@@ -21,7 +21,7 @@ import java.util.LinkedList;
 
 abstract public class Person extends Pane implements MoveInterface, LateComingHTEListener {
     protected ImageView personImageFile;
-    private Area area;
+    protected Area area;
     protected LinkedList<Area> movingQueue = new LinkedList<>();
     protected int originalMovingQueueSize;
     private HBox imageBox;
