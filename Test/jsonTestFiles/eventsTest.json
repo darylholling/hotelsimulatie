@@ -1,34 +1,82 @@
 [
-	{
-		"type": "CHECK_IN",
-		"time": 1,
-		"data": {
-			"guest": 1,
-			"stars": 1
-		}
-	},
-	{
-		"type": "CHECK_OUT",
-		"time": 20,
-		"data": {
-			"guest": 1
-		}
-	},
-
-	{
-		"type": "CHECK_IN",
-		"time": 2,
-		"data": {
-			"guest": 2,
-			"stars": 3
-		}
-	},
-	{
-		"type": "GO_TO_FITNESS",
-		"time": 15,
-		"data": {
-			"guest": 2,
-			"time": 10
-		}
-	}
+  {
+    "type": "CHECK_IN",
+    "time": 1,
+    "data": {
+      "guest": 1,
+      "stars": 1
+    }
+  },
+  {
+    "type": "CHECK_OUT",
+    "time": 2,
+    "data": {
+      "guest": 1,
+      "stars": 1
+    }
+  },
+  {
+    "type": "GO_TO_CINEMA",
+    "time": 3,
+    "data": {
+      "guest": 1,
+      "stars": 1
+    }
+  },
+  {
+    "type": "GO_TO_DINER",
+    "time": 4,
+    "data": {
+      "guest": 1,
+      "stars": 1
+    }
+  },
+  {
+    "type": "GO_TO_FITNESS",
+    "time": 5,
+    "data": {
+      "guest": 1,
+      "stars": 1
+    }
+  },
+  {
+    "type": "CLEANING_EMERGENCY",
+    "time": 6,
+    "data": {
+      "guest": 1,
+      "stars": 1
+    }
+  },
+  {
+    "type": "CLEANING_EMERGENCY",
+    "time": 7,
+    "data": {
+      "guest": 1,
+      "stars": 1
+    }
+  },
+  {
+    "type": "CLEANING_EVENT",
+    "time": 8,
+    "data": {
+      "guest": 1,
+      "stars": 1
+    }
+  },
+  {
+    "type": "EVACUATE",
+    "time": 9,
+    "data": {
+      "guest": 1,
+      "stars": 1
+    }
+  },
+  {
+    "type": "GODZILLA",
+    "time": 10,
+    "data": {
+      "guest": 1,
+      "stars": 1
+    }
+  }
 ]
