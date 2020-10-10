@@ -42,16 +42,8 @@ public class GuestRoom extends Area {
         }
     }
 
-    public boolean isAvailable(){
+    public boolean isAvailable() {
         return isClean && !isOccupied();
-    }
-
-    public boolean needsCleaning() {
-        return !isClean;
-    }
-
-    public boolean isClean() {
-        return isClean;
     }
 
     public void setClean(boolean clean) {

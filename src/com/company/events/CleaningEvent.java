@@ -23,7 +23,7 @@ public class CleaningEvent extends Event implements LateComingHTEListener {
         //Todo move to room
 
         endHTE = beginHTE + hotel.settings.getCleanHTE();
-     }
+    }
 
     @Override
     public void updatedHTE(int HTE) {

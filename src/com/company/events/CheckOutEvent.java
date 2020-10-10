@@ -1,13 +1,10 @@
 package com.company.events;
 
 import com.company.actions.Dijkstra;
-import com.company.actions.HotelBuilder;
 import com.company.models.CleaningListener;
 import com.company.models.Guest;
 import com.company.models.Hotel;
 import com.company.models.areas.Area;
-import com.company.models.areas.Lobby;
-import javafx.application.Platform;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -45,10 +42,10 @@ public class CheckOutEvent extends Event {
         guest.setGuestRoom(null);
         guest.setMovingToCheckOut(true);
 
-        System.out.println("Q-size" + guest.getMovingQueue().size());
-        if (!guest.getMovingQueue().isEmpty()) {
-            guest.getMovingQueue().clear();
-        }
+//        System.out.println("Q-size" + guest.getMovingQueue().size());
+//        if (!guest.getMovingQueue().isEmpty()) {
+//            guest.getMovingQueue().clear();
+//        }
 
         Dijkstra dijkstra = new Dijkstra();
         guest.getArea().setDistance(0);

@@ -8,9 +8,8 @@ public class Guest extends Person {
     private int preferredStars;
     private GuestRoom guestRoom;
     private int guestNumber;
-    private boolean shown = true;
     private boolean movingToCheckOut = false;
-    private int checkInTIme;
+    private int checkinTime;
 
     public boolean isMovingToCheckOut() {
         return movingToCheckOut;
@@ -24,12 +23,8 @@ public class Guest extends Person {
         super.setPersonImage("guest.png");
     }
 
-    public int getCheckInTIme() {
-        return checkInTIme;
-    }
-
-    public void setCheckInTIme(int checkInTIme) {
-        this.checkInTIme = checkInTIme;
+    public void setCheckinTime(int checkinTime) {
+        this.checkinTime = checkinTime;
     }
 
     public int getGuestNumber() {
@@ -40,20 +35,8 @@ public class Guest extends Person {
         this.guestNumber = guestNumber;
     }
 
-    public int getPreferredStars() {
-        return preferredStars;
-    }
-
     public void setPreferredStars(int preferredStars) {
         this.preferredStars = preferredStars;
-    }
-
-    public boolean isShown() {
-        return shown;
-    }
-
-    public void setShown(boolean shown) {
-        this.shown = shown;
     }
 
     public GuestRoom getGuestRoom() {
@@ -67,29 +50,19 @@ public class Guest extends Person {
 
     @Override
     public void move(Area startArea, Area endArea) {
-        //TODO zorg dat het plaatje niet zichtbaar is
-//        this.removeGuestImage();
-//        Platform.runLater(()->this.removePersonImageFile("guest.png"));
-
-        System.out.println("old location" + startArea.getX() + ":" + startArea.getY());
         this.getArea().removePerson(this);
         this.setArea(endArea);
         endArea.addPerson(this);
         this.movingQueue.remove(startArea);
 
-        if (this.movingQueue.size() == 1 && this.movingQueue.getFirst() == endArea){
+        if (this.movingQueue.size() == 1 && this.movingQueue.getFirst() == endArea) {
             this.movingQueue.remove(endArea);
         }
-
-        //TODO zorg dat het plaatje wel zichtbaar is
-        this.shown = true;
-        System.out.println("New location" + endArea.getX() + ":" + endArea.getY());
-
     }
 
     @Override
     public void updatedHTE(int HTE) {
-        if (!movingQueue.isEmpty() && HTE != checkInTIme) {
+        if (!movingQueue.isEmpty() && HTE != checkinTime) {
             System.out.println(this.movingQueue);
             this.move(this.movingQueue.getFirst(), this.movingQueue.get(1));
 

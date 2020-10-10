@@ -5,10 +5,10 @@ import java.util.TimerTask;
 
 public class HteCounter extends TimerTask {
     public static int hte;
-    private static ArrayList<HTEListener> HTElisteners;
+    private ArrayList<HTEListener> HTElisteners;
 
     public HteCounter(ArrayList<HTEListener> HTElisteners) {
-        HteCounter.HTElisteners = HTElisteners;
+        this.HTElisteners = HTElisteners;
     }
 
     public static int getHte() {

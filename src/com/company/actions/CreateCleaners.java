@@ -8,8 +8,7 @@ import com.company.models.areas.Area;
 import java.util.ArrayList;
 
 public class CreateCleaners implements StartListener {
-    Hotel hotel;
-    int cleanerCount = 2;
+    private Hotel hotel;
     private ArrayList<Cleaner> cleaners = new ArrayList<>();
 
     public CreateCleaners(Hotel hotel) {
@@ -17,10 +16,12 @@ public class CreateCleaners implements StartListener {
     }
 
     public void create() {
+        int cleanerCount = 2;
+
         for (int i = 0; i < cleanerCount; i++) {
             Area lobby = hotel.getLobby();
             if (lobby != null) {
-                Cleaner cleaner = new Cleaner(hotel, lobby, hotel.cleaningEmergencyEvents, hotel.cleaningEvents);
+                Cleaner cleaner = new Cleaner(this.hotel, lobby, this.hotel.cleaningEmergencyEvents, this.hotel.cleaningEvents);
                 this.cleaners.add(cleaner);
             }
         }
@@ -31,9 +32,5 @@ public class CreateCleaners implements StartListener {
     @Override
     public void handleStart() throws Exception {
         this.create();
-    }
-
-    public ArrayList<Cleaner> getCleaners() {
-        return cleaners;
     }
 }
