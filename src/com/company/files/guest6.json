@@ -1,0 +1,39 @@
+[
+  {
+    "type": "CHECK_IN",
+    "time": 8,
+    "data": {
+      "guest": 6,
+      "stars": 3
+    }
+  },
+  {
+    "type": "GO_TO_FITNESS",
+    "time": 22,
+    "data": {
+      "guest": 6,
+      "duration": 10
+    }
+  },
+  {
+    "type": "GO_TO_DINER",
+    "time": 52,
+    "data": {
+      "guest": 6
+    }
+  },
+  {
+    "type": "GO_TO_DINER",
+    "time": 69,
+    "data": {
+      "guest": 6
+    }
+  },
+  {
+    "type": "CHECK_OUT",
+    "time": 108,
+    "data": {
+      "guest": 6
+    }
+  }
+]

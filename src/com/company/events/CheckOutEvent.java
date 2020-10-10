@@ -45,15 +45,20 @@ public class CheckOutEvent extends Event {
         guest.setGuestRoom(null);
         guest.setMovingToCheckOut(true);
 
+        System.out.println(guest.getMovingQueue());
         if (!guest.getMovingQueue().isEmpty()) {
             guest.getMovingQueue().clear();
         }
+        System.out.println(guest.getMovingQueue());
 
         Dijkstra dijkstra = new Dijkstra();
         guest.getArea().setDistanceForPerson(guest, 0);
+        System.out.println(guest.getArea());
         LinkedList<Area> path = dijkstra.findPath(guest, guest.getArea(), lobby);
-        guest.setMovingQueue(path);
+        Platform.runLater(()->guest.setMovingQueue(path));
+        System.out.println(path);
         hotel.guestList.remove(guest);
+        System.out.println(guest.getMovingQueue());
 
 //        CleaningEvent cleaningEvent = new CleaningEvent(hotel.settings.getCleanHTE(), hotel, guestNumber, cleaningListeners);
 //        hotel.cleaningEvents.add(cleaningEvent);

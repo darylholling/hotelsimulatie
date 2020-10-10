@@ -4,6 +4,7 @@ import com.company.models.areas.Area;
 import com.company.models.areas.GuestRoom;
 import javafx.application.Platform;
 
+import java.util.LinkedList;
 import java.util.Random;
 
 public class Guest extends Person {
@@ -85,11 +86,17 @@ public class Guest extends Person {
         endArea.addPerson(this);
         this.movingQueue.remove(startArea);
 
-        System.out.println(this.movingQueue.size());
-        System.out.println(endArea);
+        System.out.println("size"+ this.movingQueue.size());
+        System.out.println("endarea" + endArea);
+
+        System.out.println(this.movingQueue.size() == 1);
+        System.out.println(this.movingQueue.getFirst() == endArea);
         if (this.movingQueue.size() == 1 && this.movingQueue.getFirst() == endArea){
             System.out.println("removing end area");
-            this.movingQueue.remove(endArea);
+//            this.movingQueue.remove(endArea);
+//            this.movingQueue.clear();
+            this.movingQueue = new LinkedList<>();
+            System.out.println(movingQueue);
         }
 
         //TODO zorg dat het plaatje wel zichtbaar is
@@ -100,10 +107,12 @@ public class Guest extends Person {
 
     @Override
     public void updatedHTE(int HTE) {
-        if (!movingQueue.isEmpty() && HTE != checkInTime) {
+        if (this.movingQueue.size() > 1 && HTE != checkInTime) {
             System.out.println(this.movingQueue);
             System.out.println("guest" + guestNumber);
-            this.move(this.movingQueue.getFirst(), this.movingQueue.get(1));
+            if (this.movingQueue.size() > 1) {
+                this.move(this.movingQueue.getFirst(), this.movingQueue.get(1));
+            }
 
             if (this.movingQueue.isEmpty()) {
                 Platform.runLater(() -> this.removePersonFromGrid());
