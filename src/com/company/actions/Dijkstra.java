@@ -45,7 +45,6 @@ public class Dijkstra {
                 }
             }
         }
-
         return false;
     }
 
@@ -55,13 +54,7 @@ public class Dijkstra {
         LinkedList<Area> path = new LinkedList<>();
 
         while (cont) {
-            if (start != current) {
-                path.addFirst(current);
-            }
-
-
-//            Area finalCurrent = current;
-//            Platform.runLater(() ->finalPath.add(finalCurrent));
+            path.addFirst(current);
 
             //check if we reached the end
             if (current.getLatest() != null) {
@@ -71,6 +64,10 @@ public class Dijkstra {
             }
         }
 
+        for (Area area : path) {
+            area.setLatest(null);
+            area.setDistance(Integer.MAX_VALUE);
+        }
         return path;
     }
 }

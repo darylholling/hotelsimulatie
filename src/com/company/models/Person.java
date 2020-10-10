@@ -23,7 +23,6 @@ abstract public class Person extends Pane implements MoveInterface, LateComingHT
     protected ImageView personImageFile;
     protected Area area;
     protected LinkedList<Area> movingQueue = new LinkedList<>();
-    protected int originalMovingQueueSize;
     private HBox imageBox;
 
     public Area getArea() {
@@ -106,9 +105,5 @@ abstract public class Person extends Pane implements MoveInterface, LateComingHT
 
     public void setMovingQueue(LinkedList<Area> movingQueue) {
         this.movingQueue = movingQueue;
-    }
-
-    public int getOriginalMovingQueueSize() {
-        return originalMovingQueueSize;
     }
 }
