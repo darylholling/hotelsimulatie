@@ -32,7 +32,6 @@ public class EvacuateEvent extends Event {
             Dijkstra dijkstra = new Dijkstra();
             guest.getArea().setDistance(0);
             LinkedList<Area> path = dijkstra.findPath(guest.getArea(), lobby);
-            System.out.println(path);
             guest.setMovingQueue(path);
         }
     }

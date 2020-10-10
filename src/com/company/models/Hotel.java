@@ -4,7 +4,7 @@ import com.company.actions.CreateCleaners;
 import com.company.actions.EventHandler;
 import com.company.actions.HotelBuilder;
 import com.company.events.CleaningEmergencyEvent;
-import com.company.events.CleaningEvent;
+import com.company.events.DefaultCleaningEvent;
 import com.company.models.areas.Area;
 import com.company.models.areas.Cinema;
 import com.company.models.areas.Diner;
@@ -25,7 +25,7 @@ public class Hotel extends Application implements HTEListener {
     public Hotel hotel = this;
     public Time timer;
     public Queue<CleaningEmergencyEvent> cleaningEmergencyEvents = new LinkedList<CleaningEmergencyEvent>();
-    public Queue<CleaningEvent> cleaningEvents = new LinkedList<CleaningEvent>();
+    public Queue<DefaultCleaningEvent> defaultCleaningEvents = new LinkedList<DefaultCleaningEvent>();
     public int currentHTE;
     public ArrayList<LateComingHTEListener> lateComingHTEListeners = new ArrayList<>();
 

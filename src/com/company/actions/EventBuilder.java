@@ -81,12 +81,12 @@ public class EventBuilder {
 //                case "GO_TO_FITNESS":
 //                    event = new GoToFitnessEvent(guestList, eventTime, guest, duration);
 //                break;
-//                case "CLEANING_EMERGENCY":
-//                    event = new CleaningEmergencyEvent(hotel, eventTime, guestNumber, new ArrayList<>() {{
-//                        add(hotel.cleaners.get(0));
-//                        add(hotel.cleaners.get(1));
-//                    }});
-//                    break;
+                case "CLEANING_EMERGENCY":
+                    event = new CleaningEmergencyEvent(hotel, eventTime, guestNumber, new ArrayList<>() {{
+                        add(hotel.cleaners.get(0));
+                        add(hotel.cleaners.get(1));
+                    }});
+                    break;
 ////                case "CLEANING_EVENT":
 ////                    event = new CleaningEvent(eventTime);
 //                break;

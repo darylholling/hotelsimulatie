@@ -8,7 +8,6 @@ import com.company.models.areas.GuestRoom;
 import javafx.application.Platform;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -56,7 +55,6 @@ public class CheckInEvent extends Event {
         Dijkstra dijkstra = new Dijkstra();
         guest.getArea().setDistance(0);
         LinkedList<Area> path = dijkstra.findPath(guest.getArea(), guest.getGuestRoom());
-        System.out.println(path);
         guest.setMovingQueue(path);
     }
 }
