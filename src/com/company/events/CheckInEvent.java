@@ -45,7 +45,7 @@ public class CheckInEvent extends Event {
         guest.setGuestRoom(selectedGuestRoom);
         Platform.runLater(() -> guest.setGuestImage());
         guest.setArea(this.hotel.getLobby());
-        guest.setCheckinTime(eventTime);
+        guest.setcheckInTime(eventTime);
         selectedGuestRoom.addPerson(guest);
 
         hotel.guestList.add(guest);
@@ -54,7 +54,6 @@ public class CheckInEvent extends Event {
         Dijkstra dijkstra = new Dijkstra();
         guest.getArea().setDistance(0);
         LinkedList<Area> path = dijkstra.findPath(guest.getArea(), guest.getGuestRoom());
-        System.out.println(path);
         guest.setMovingQueue(path);
     }
 }

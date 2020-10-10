@@ -21,8 +21,10 @@ public class CreateCleaners implements StartListener {
         for (int i = 0; i < cleanerCount; i++) {
             Area lobby = hotel.getLobby();
             if (lobby != null) {
-                Cleaner cleaner = new Cleaner(this.hotel, lobby, this.hotel.cleaningEmergencyEvents, this.hotel.cleaningEvents);
+                Cleaner cleaner = new Cleaner(hotel, lobby);
+                cleaner.setCleanerImage();
                 this.cleaners.add(cleaner);
+                hotel.lateComingHTEListeners.add(cleaner);
             }
         }
 

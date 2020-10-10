@@ -1,5 +1,6 @@
 package com.company.models;
 
+import com.company.events.DefaultCleaningEvent;
 import com.company.models.areas.Area;
 import com.company.models.areas.GuestRoom;
 import javafx.application.Platform;
@@ -9,7 +10,7 @@ public class Guest extends Person {
     private GuestRoom guestRoom;
     private int guestNumber;
     private boolean movingToCheckOut = false;
-    private int checkinTime;
+    private int checkInTime;
 
     public boolean isMovingToCheckOut() {
         return movingToCheckOut;
@@ -23,8 +24,8 @@ public class Guest extends Person {
         super.setPersonImage("guest.png");
     }
 
-    public void setCheckinTime(int checkinTime) {
-        this.checkinTime = checkinTime;
+    public void setcheckInTime(int checkInTime) {
+        this.checkInTime = checkInTime;
     }
 
     public int getGuestNumber() {
@@ -47,7 +48,6 @@ public class Guest extends Person {
         this.guestRoom = guestRoom;
     }
 
-
     @Override
     public void move(Area startArea, Area endArea) {
         this.getArea().removePerson(this);
@@ -62,8 +62,7 @@ public class Guest extends Person {
 
     @Override
     public void updatedHTE(int HTE) {
-        if (!movingQueue.isEmpty() && HTE != checkinTime) {
-            System.out.println(this.movingQueue);
+        if (!movingQueue.isEmpty() && HTE != checkInTime) {
             this.move(this.movingQueue.getFirst(), this.movingQueue.get(1));
 
             if (this.movingQueue.isEmpty()) {
