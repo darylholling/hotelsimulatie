@@ -4,10 +4,18 @@ import com.company.actions.CreateCleaners;
 import com.company.actions.EventHandler;
 import com.company.actions.HotelBuilder;
 import com.company.models.areas.*;
+import com.company.events.CleaningEmergencyEvent;
+import com.company.events.CleaningEvent;
+import com.company.models.areas.Area;
+import com.company.models.areas.Cinema;
+import com.company.models.areas.Diner;
+import com.company.models.areas.Lobby;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class Hotel extends Application implements HTEListener {
     public ArrayList<Guest> guestList = new ArrayList<>();
@@ -17,11 +25,11 @@ public class Hotel extends Application implements HTEListener {
     public Stage stage;
     public Hotel hotel = this;
     public Time timer;
-    private int currentHTE;
+    public Queue<CleaningEmergencyEvent> cleaningEmergencyEvents = new LinkedList<CleaningEmergencyEvent>();
+    public Queue<CleaningEvent> cleaningEvents = new LinkedList<CleaningEvent>();
+    public int currentHTE;
     public ArrayList<LateComingHTEListener> lateComingHTEListeners = new ArrayList<>();
 
-//    public Queue<CleaningEmergencyEvent> cleaningEmergencyEvents;
-//    public Queue<CleaningEvent> cleaningEvents;
 
     @Override
     public void start(Stage stage) {
@@ -40,8 +48,8 @@ public class Hotel extends Application implements HTEListener {
         Menu menu = new Menu(stage, this.settings, new ArrayList<>() {
             {
                 add(hotelBuilder);
+                add(createCleaners);
                 add(eventHandler);
-//                add(createCleaners);
                 add(timer);
             }
         });
@@ -71,6 +79,10 @@ public class Hotel extends Application implements HTEListener {
 
     public Area getDiner() {
         return this.areas.stream().filter(area -> area instanceof Diner).findFirst().orElse(null);
+    }
+
+    public int getCurrentHTE() {
+        return this.currentHTE;
     }
     public Area getFitness() {
         return this.areas.stream().filter(area -> area instanceof Fitness).findFirst().orElse(null);

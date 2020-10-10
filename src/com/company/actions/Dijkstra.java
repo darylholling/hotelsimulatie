@@ -34,11 +34,7 @@ public class Dijkstra {
         unvisitedAreas.remove(current);
 
         for (Map.Entry<Area, Integer> entry : current.getNeighbours().entrySet()) {
-//            System.out.println("get neighbour entryset: "+ current.getNeighbours().entrySet());
             Area compared = entry.getKey();
-//            System.out.println("current" + current+ " x: "+current.getX()+ "Y: "+ current.getY());
-//            System.out.println("current" + compared+ " x: "+compared.getX()+ "Y: "+ compared.getY());
-//            System.out.println("distance to current: "+current.getDistance() + entry.getValue());
             int newDistance = current.getDistance() + entry.getValue();
             if (newDistance <= compared.getDistance()) {
                 compared.setDistance(newDistance);
@@ -49,7 +45,6 @@ public class Dijkstra {
                 }
             }
         }
-
         return false;
     }
 
@@ -59,21 +54,20 @@ public class Dijkstra {
         LinkedList<Area> path = new LinkedList<>();
 
         while (cont) {
-//            System.out.println("current: "+current);
-//            if (start != current) {
-                path.addFirst(current);
-////                System.out.println("kom je hier?");
-//            }
+            path.addFirst(current);
 
             //check if we reached the end
             if (current.getLatest() != null) {
                 current = current.getLatest();
-//                System.out.println("en hier dan?");
             } else {
                 cont = false;
             }
         }
 
+        for (Area area : path) {
+            area.setLatest(null);
+            area.setDistance(Integer.MAX_VALUE);
+        }
         return path;
     }
 }

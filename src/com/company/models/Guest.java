@@ -11,7 +11,16 @@ public class Guest extends Person {
     private GuestRoom guestRoom;
     private int guestNumber;
     private boolean shown = true;
+    private boolean movingToCheckOut = false;
     private int checkInTime;
+
+    public boolean isMovingToCheckOut() {
+        return movingToCheckOut;
+    }
+
+    public void setMovingToCheckOut(boolean movingToCheckOut) {
+        this.movingToCheckOut = movingToCheckOut;
+    }
 
     public void setGuestImage() {
         super.setPersonImage(randomSelect());
@@ -76,7 +85,7 @@ public class Guest extends Person {
         endArea.addPerson(this);
         this.movingQueue.remove(startArea);
 
-        if (this.movingQueue.size() == 1 && this.movingQueue.getFirst() == endArea) {
+        if (this.movingQueue.size() == 1 && this.movingQueue.getFirst() == endArea){
             this.movingQueue.remove(endArea);
         }
 
@@ -89,6 +98,7 @@ public class Guest extends Person {
     @Override
     public void updatedHTE(int HTE) {
         if (!movingQueue.isEmpty() && HTE != checkInTime) {
+            System.out.println(this.movingQueue);
             this.move(this.movingQueue.getFirst(), this.movingQueue.get(1));
 
             if (this.movingQueue.isEmpty()) {

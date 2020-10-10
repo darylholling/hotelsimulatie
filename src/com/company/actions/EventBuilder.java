@@ -1,6 +1,9 @@
 package com.company.actions;
 
 import com.company.events.*;
+import com.company.events.Event;
+import com.company.models.CleaningListener;
+import com.company.events.*;
 import com.company.models.BuilderInterface;
 import com.company.models.Guest;
 import com.company.models.Hotel;
@@ -19,6 +22,7 @@ public class EventBuilder {
     private File eventsFile;
     private JsonArray eventJsonArray;
     private int eventTime;
+    private Hotel hotel;
     public static int highestHteInJsonFile;
 
     public EventBuilder(File eventFile) {
@@ -26,6 +30,9 @@ public class EventBuilder {
     }
 
     public Queue<Event> readJson(Hotel hotel) throws IOException {
+        this.hotel = hotel;
+        eventsFile = new File("src/com/company/files/smallfile.json");
+//        eventsFile = new File("src/com/company/files/events3.json");
         eventsFile = new File("src/com/company/files/events3.json");
         Gson gson = new GsonBuilder().create();
         eventJsonArray = gson.fromJson(Files.newBufferedReader(new File(String.valueOf(eventsFile)).toPath(), StandardCharsets.UTF_8), JsonArray.class);
@@ -56,26 +63,34 @@ public class EventBuilder {
             if (data.has("duration")) {
                 duration = data.get("duration").getAsInt();
             }
+
             Event event = null;
             switch (eventType) {
                 case "CHECK_IN":
                     event = new CheckInEvent(hotel, eventTime, guestNumber, stars);
                     break;
-//                case "CHECK_OUT":
-//                    event = new CheckOutEvent(hotel, eventTime, guestNumber);
+               case "CHECK_OUT":
+                   event = new CheckOutEvent(hotel, eventTime, guestNumber, new ArrayList<>() {{
+                       add(hotel.cleaners.get(0));
+                       add(hotel.cleaners.get(1));
+                   }});
+                   break;
+
+//                case "GO_TO_CINEMA":
+//                    event = new GoToCinemaEvent(guestList, eventTime, guest);
 //                break;
-                case "GO_TO_CINEMA":
-                    event = new GoToCinemaEvent(hotel, eventTime, guestNumber);
-                break;
-                case "GO_TO_DINER":
-                    event = new GoToDinerEvent(eventTime, hotel, guestNumber);
-                break;
-                case "GO_TO_FITNESS":
-                    event = new GoToFitnessEvent(eventTime, hotel, guestNumber, duration);
-                break;
+//                case "GO_TO_DINER":
+//                    event = new GoToDinerEvent(guestList, eventTime, guest);
+//                break;
+//                case "GO_TO_FITNESS":
+//                    event = new GoToFitnessEvent(guestList, eventTime, guest, duration);
+//                break;
 //                case "CLEANING_EMERGENCY":
-//                    event = new CleaningEmergencyEvent(guestList, eventTime, guest);
-//                break;
+//                    event = new CleaningEmergencyEvent(hotel, eventTime, guestNumber, new ArrayList<>() {{
+//                        add(hotel.cleaners.get(0));
+//                        add(hotel.cleaners.get(1));
+//                    }});
+//                    break;
 ////                case "CLEANING_EVENT":
 ////                    event = new CleaningEvent(eventTime);
 //                break;
@@ -83,7 +98,7 @@ public class EventBuilder {
 ////                    event = new GodzillaEvent(guestList, eventTime);
 //                break;
 //                case "EVACUATE":
-//                    event = new EvacuateEvent(guestList, eventTime);
+//                    event = new EvacuateEvent(hotel, eventTime);
 //                break;
                 default:
                     System.out.println("No event");

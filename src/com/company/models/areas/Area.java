@@ -133,4 +133,8 @@ public abstract class Area extends Pane {
         this.imageFile = imageFile;
         getChildren().add(this.imageFile);
     }
+
+    public String printCoordinates() {
+        return "x:" + this.x + "-y:" + y;
+    }
 }
