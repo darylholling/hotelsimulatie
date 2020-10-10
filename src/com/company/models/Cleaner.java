@@ -7,7 +7,7 @@ import com.company.models.areas.Area;
 
 import java.util.Queue;
 
-public class Cleaner extends Person implements EventListener, CleaningListener {
+public class Cleaner extends Person implements CleaningListener {
     private Event event;
     private Hotel hotel;
     private Queue<CleaningEmergencyEvent> cleaningEmergencyEvents;
@@ -25,7 +25,7 @@ public class Cleaner extends Person implements EventListener, CleaningListener {
             CleaningEmergencyEvent cleanEvent = cleaningEmergencyEvents.poll();
             hotel.lateComingHTEListeners.add(cleanEvent);
             cleanEvent.startCleaningEmergency();
-        }else if (!cleaningEvents.isEmpty()) {
+        } else if (!cleaningEvents.isEmpty()) {
             CleaningEvent cleanEvent = cleaningEvents.poll();
             hotel.lateComingHTEListeners.add(cleanEvent);
             cleanEvent.startCleaningEmergency();
@@ -35,19 +35,15 @@ public class Cleaner extends Person implements EventListener, CleaningListener {
     }
 
     @Override
-    public void handleEvent(Event event) {
-                System.out.println("No event");
-    }
-
-    @Override
     public void move(Area startArea, Area endArea) {
 
     }
 
     @Override
-    public void updatedHTE(int HTE) {}
+    public void updatedHTE(int HTE) {
+    }
 
-    public void startCleaners(){
+    public void startCleaners() {
         checkQueue();
     }
 }

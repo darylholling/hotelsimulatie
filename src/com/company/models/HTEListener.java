@@ -1,6 +1,5 @@
 package com.company.models;
 
-
 public interface HTEListener {
-    public void updatedHTE(int HTE);
+    void updatedHTE(int HTE);
 }

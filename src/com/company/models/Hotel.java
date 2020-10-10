@@ -24,11 +24,10 @@ public class Hotel extends Application implements HTEListener {
     public Stage stage;
     public Hotel hotel = this;
     public Time timer;
-    public Queue<CleaningEmergencyEvent> cleaningEmergencyEvents = new LinkedList<CleaningEmergencyEvent>();
-    public Queue<CleaningEvent> cleaningEvents = new LinkedList<CleaningEvent>();
+    public Queue<CleaningEmergencyEvent> cleaningEmergencyEvents = new LinkedList<>();
+    public Queue<CleaningEvent> cleaningEvents = new LinkedList<>();
     public int currentHTE;
     public ArrayList<LateComingHTEListener> lateComingHTEListeners = new ArrayList<>();
-
 
     @Override
     public void start(Stage stage) {
