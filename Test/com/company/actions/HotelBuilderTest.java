@@ -1,6 +1,7 @@
 package com.company.actions;
 
 import com.company.models.Hotel;
+import com.company.models.HteCounter;
 import com.company.models.areas.Area;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.layout.GridPane;
@@ -27,21 +28,30 @@ class HotelBuilderTest {
 
     @Test
     public void checkIfAreasAreAddedToHotel() throws IOException {
-        ArrayList<Area> emptyAreaList = new ArrayList<>();
         boolean isArea = false;
 
-        Assert.assertEquals(emptyAreaList,hotel.areas);
-
-        hotelBuilder.createContent();
-
-        for (Area area : hotel.areas){
-            if(area instanceof Area){
+        //Without created content
+        for (int i = 0; i < hotel.areas.size(); i++) {
+            if (hotel.areas.get(i) instanceof Area) {
                 isArea = true;
             } else {
                 isArea = false;
             }
         }
-       Assert.assertTrue(isArea);
+        Assert.assertFalse(isArea);
+
+        //Create content
+        hotelBuilder.createContent();
+
+        //With created content
+        for (int i = 0; i < hotel.areas.size(); i++) {
+            if (hotel.areas.get(i) instanceof Area) {
+                isArea = true;
+            } else {
+                isArea = false;
+            }
+        }
+        Assert.assertTrue(isArea);
     }
 
     @Test

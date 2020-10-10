@@ -26,7 +26,7 @@ class EventHandlerTest {
         JFXPanel jfxPanel = new JFXPanel();
         boolean correctEventType = false;
 
-        //TODO Build check if all Events are Added
+        //TODO Build check if all Events are Added to Application
         for (Event element : eventBuilder.readJson(hotel)){
             if (element instanceof CheckInEvent){
                 correctEventType = true;
