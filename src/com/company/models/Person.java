@@ -58,9 +58,6 @@ abstract public class Person extends Pane implements MoveInterface, LateComingHT
     }
 
     public void removePersonFromGrid() {
-//        this.personImageFile = personImageFile;
-//        getChildren().remove(this.personImageFile);
-//        personImageFile.toFront();
         HotelBuilder.gridPane.getChildren().remove(this);
     }
 

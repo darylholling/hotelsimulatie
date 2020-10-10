@@ -45,7 +45,6 @@ public class CheckOutEvent extends Event {
         guest.setGuestRoom(null);
         guest.setMovingToCheckOut(true);
 
-        System.out.println("Q-size" + guest.getMovingQueue().size());
         if (!guest.getMovingQueue().isEmpty()) {
             guest.getMovingQueue().clear();
         }
@@ -54,6 +53,7 @@ public class CheckOutEvent extends Event {
         guest.getArea().setDistance(0);
         LinkedList<Area> path = dijkstra.findPath(guest.getArea(), lobby);
         guest.setMovingQueue(path);
+        hotel.guestList.remove(guest);
 
 //        CleaningEvent cleaningEvent = new CleaningEvent(hotel.settings.getCleanHTE(), hotel, guestNumber, cleaningListeners);
 //        hotel.cleaningEvents.add(cleaningEvent);

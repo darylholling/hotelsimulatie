@@ -34,9 +34,8 @@ public class GoToDinerEvent extends Event {
         Guest currentGuest = hotel.getGuestByNumber(guestNumber);
         Dijkstra ds = new Dijkstra();
         currentGuest.getArea().setDistance(0);
-        System.out.println("Guest number: "+currentGuest.getGuestNumber()+ " is walking to Diner");
+//        System.out.println("Guest number: "+currentGuest.getGuestNumber()+ " is walking to Diner");
         LinkedList<Area> path = ds.findPath(currentGuest.getArea(), destination);
-        System.out.println(path);
         destination.addPerson(currentGuest);
         Platform.runLater(()->currentGuest.setMovingQueue(path));
         System.out.println("Guest number: "+currentGuest.getGuestNumber()+  " is at diner location X: "+currentGuest.getArea().getX()+" and Y: "+ currentGuest.getArea().getY());

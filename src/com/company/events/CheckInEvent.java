@@ -49,7 +49,7 @@ public class CheckInEvent extends Event {
         selectedGuestRoom.addPerson(guest);
         hotel.guestList.add(guest);
 
-        hotel.lateComingHTEListeners.add(guest);
+        Platform.runLater(()->hotel.lateComingHTEListeners.add(guest));
 
 //        //TODO dijkstra magic go to room with image visible.
         Dijkstra dijkstra = new Dijkstra();

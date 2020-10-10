@@ -9,17 +9,24 @@
   },
   {
     "type": "GO_TO_DINER",
-    "time": 19,
+    "time": 15,
     "data": {
       "guest": 1
     }
   },
   {
     "type": "GO_TO_FITNESS",
-    "time": 10,
+    "time": 30,
     "data": {
       "guest": 1,
       "duration": 10
+    }
+  },
+  {
+    "type": "CHECK_OUT",
+    "time": 45,
+    "data": {
+      "guest": 1
     }
   }
 ]

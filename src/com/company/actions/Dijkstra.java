@@ -63,7 +63,6 @@ public class Dijkstra {
                 cont = false;
             }
         }
-
         for (Area area : path) {
             area.setLatest(null);
             area.setDistance(Integer.MAX_VALUE);

@@ -31,9 +31,7 @@ public class EventBuilder {
 
     public Queue<Event> readJson(Hotel hotel) throws IOException {
         this.hotel = hotel;
-        eventsFile = new File("src/com/company/files/smallfile.json");
-//        eventsFile = new File("src/com/company/files/events3.json");
-        eventsFile = new File("src/com/company/files/events3.json");
+        eventsFile = new File("src/com/company/files/testingtesting.json");
         Gson gson = new GsonBuilder().create();
         eventJsonArray = gson.fromJson(Files.newBufferedReader(new File(String.valueOf(eventsFile)).toPath(), StandardCharsets.UTF_8), JsonArray.class);
 
@@ -79,12 +77,12 @@ public class EventBuilder {
 //                case "GO_TO_CINEMA":
 //                    event = new GoToCinemaEvent(guestList, eventTime, guest);
 //                break;
-//                case "GO_TO_DINER":
-//                    event = new GoToDinerEvent(guestList, eventTime, guest);
-//                break;
-//                case "GO_TO_FITNESS":
-//                    event = new GoToFitnessEvent(guestList, eventTime, guest, duration);
-//                break;
+                case "GO_TO_DINER":
+                    event = new GoToDinerEvent(eventTime, hotel, guestNumber);
+                break;
+                case "GO_TO_FITNESS":
+                    event = new GoToFitnessEvent(eventTime, hotel, guestNumber, duration);
+                break;
 //                case "CLEANING_EMERGENCY":
 //                    event = new CleaningEmergencyEvent(hotel, eventTime, guestNumber, new ArrayList<>() {{
 //                        add(hotel.cleaners.get(0));
