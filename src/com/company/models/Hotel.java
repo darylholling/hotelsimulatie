@@ -30,6 +30,7 @@ public class Hotel extends Application implements HTEListener {
     public Queue<DefaultCleaningEvent> defaultCleaningEvents = new LinkedList<>();
     public int currentHTE;
     public ArrayList<LateComingHTEListener> lateComingHTEListeners = new ArrayList<>();
+    public Menu menu;
 
     @Override
     public void start(Stage stage) {
@@ -53,6 +54,7 @@ public class Hotel extends Application implements HTEListener {
                 add(timer);
             }
         });
+        this.menu = menu;
         menu.run();
     }
 

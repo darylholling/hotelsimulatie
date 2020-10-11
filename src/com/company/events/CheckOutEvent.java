@@ -20,7 +20,6 @@ public class CheckOutEvent extends Event {
         this.cleaningListeners = CleaningListener;
     }
 
-
     @Override
     public void fire() {
         Guest guest = this.hotel.getGuestByNumber(guestNumber);

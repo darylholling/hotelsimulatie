@@ -13,6 +13,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -323,5 +324,22 @@ public class Menu {
         );
 
         return borderPane;
+    }
+
+
+    //type = hier event of hotel file oid.
+    public VBox createErrorJsonScreen(String type) {
+        System.out.println(type);
+        //TODO deze wordt aangeroepen, zorgen dat er een display is dat file fout is + knop naar start menu, of files.
+        //TODO deze knop kan functie op onderstaande line misschien triggeren?
+//        hotel.menu.changeScene("loadFilePage");
+
+        Pane header = new Pane();
+        VBox errorJsonVBox = new VBox();
+
+//        gridPane.add(lobbyButton, 1, hotelHeight, hotelWidth - 1, 1);
+//        errorJsonVBox.getChildren().addAll(header, gridPane);
+
+        return errorJsonVBox;
     }
 }

@@ -17,11 +17,16 @@ public class EventBuilder {
     public EventBuilder() {
     }
 
-    public Queue<Event> readJson(Hotel hotel) throws IOException {
+    public Queue<Event> readJson(Hotel hotel)  {
         File eventsFile = new File("src/com/company/files/events3.json");
 //        File eventsFile = hotel.settings.getEventsFile();
         Gson gson = new GsonBuilder().create();
-        JsonArray eventJsonArray = gson.fromJson(Files.newBufferedReader(new File(String.valueOf(eventsFile)).toPath(), StandardCharsets.UTF_8), JsonArray.class);
+        JsonArray eventJsonArray = null;
+        try {
+            eventJsonArray = gson.fromJson(Files.newBufferedReader(new File(String.valueOf(eventsFile)).toPath(), StandardCharsets.UTF_8), JsonArray.class);
+        } catch (IOException | JsonParseException e) {
+            hotel.menu.changeScene("loadFilePage");
+        }
 
         ArrayList<Event> eventsArray = new ArrayList<>();
 

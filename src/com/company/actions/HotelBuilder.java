@@ -42,24 +42,29 @@ public class HotelBuilder implements StartListener, HTEListener {
         this.hotel = hotel;
     }
 
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) throws FileNotFoundException {
         mainScene = new Scene(createContent());
         stage.setScene(mainScene);
         stage.setResizable(false);
         stage.show();
     }
 
-    public Parent createContent() throws IOException {
+    public Parent createContent() throws FileNotFoundException {
         // size of window
         Pane root = new Pane();
         gridPane = new GridPane();
 
 //        set layout file to run Hotelbuilder
+//        File layoutFile = new File("src/com/company/files/errorhotel.json");
         File layoutFile = new File("src/com/company/files/layout.json");
 //        File layoutFile = new File("json/2roomlayout.json");
 
         Gson gson = new GsonBuilder().create();
-        jsonArrays = gson.fromJson(Files.newBufferedReader(new File(String.valueOf(layoutFile)).toPath(), StandardCharsets.UTF_8), JsonArray.class);
+        try {
+            jsonArrays = gson.fromJson(Files.newBufferedReader(new File(String.valueOf(layoutFile)).toPath(), StandardCharsets.UTF_8), JsonArray.class);
+        } catch (IOException | JsonParseException e) {
+            return this.hotel.menu.createErrorJsonScreen("hotelbuilder");
+        }
 
         for (JsonElement jsonElement : jsonArrays) {
             JsonObject jsonObject = jsonElement.getAsJsonObject();
@@ -340,6 +345,7 @@ public class HotelBuilder implements StartListener, HTEListener {
     }
 
     public void handleStart() throws Exception {
+//        this.mainScene = new Scene(createContent());
         this.start(this.getStage());
         Platform.runLater(() -> highestHTE.setText("Final event starts at HTE: " + hotel.settings.getHighestHteInJsonFile()));
     }
