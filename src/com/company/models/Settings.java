@@ -3,8 +3,8 @@ package com.company.models;
 import java.io.File;
 
 public class Settings {
-    private static Settings settings;
-    private int HTETime = 100;
+    private static Settings settings = null;
+    private int HTETime = 1000;
     private int StairsHTE = 1;
     private int CleanHTE = 5;
     private int ElevatorDeathHTE = 1;
@@ -13,11 +13,15 @@ public class Settings {
     private int highestHteInJsonFile;
 
     public static synchronized Settings getSettings() {
+        if (settings == null) {
+            settings = new Settings();
+        }
+
         return settings;
     }
 
-    public void setSettings(int hteTime, int stairsHTE, int cleanHTE, int elevatorDeathHTE) {
-        this.HTETime = hteTime;
+    public void setSettings(int HTETime, int stairsHTE, int cleanHTE, int elevatorDeathHTE) {
+        this.HTETime = HTETime;
         this.StairsHTE = stairsHTE;
         this.CleanHTE = cleanHTE;
         this.ElevatorDeathHTE = elevatorDeathHTE;

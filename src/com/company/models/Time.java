@@ -15,11 +15,11 @@ public class Time implements StartListener {
     }
 
     public void startTimer() {
-        int hteTime = settings.getHTETime();
+        int HTETime = settings.getHTETime();
         timer = new Timer();
         running = true;
-        HteCounter hteCounter = new HteCounter(this.HTElisteners);
-        timer.scheduleAtFixedRate(hteCounter, hteTime, hteTime);
+        HteCounter HTECounter = new HteCounter(this.HTElisteners);
+        timer.scheduleAtFixedRate(HTECounter, HTETime, HTETime);
     }
 
     public void stopTimer() {
@@ -32,14 +32,8 @@ public class Time implements StartListener {
     }
 
     @Override
-    public void handleStart() throws Exception {
+    public void handleStart() {
         this.startTimer();
-    }
-
-    public void addHTEListener(HTEListener hteListener) {
-        this.HTElisteners.add(hteListener);
-        ArrayList<HTEListener> newList = this.HTElisteners;
-        new HteCounter(newList);
     }
 }
 

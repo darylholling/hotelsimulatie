@@ -13,7 +13,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -26,6 +25,7 @@ public class Menu {
     private Stage stage;
     private Settings settings;
     private ArrayList<StartListener> startListeners;
+    private ArrayList<String> jsonErrors = new ArrayList<>();
 
     public Menu(Stage stage, Settings settings, ArrayList<StartListener> startListeners) {
         this.stage = stage;
@@ -46,6 +46,7 @@ public class Menu {
         this.stage.show();
     }
 
+    //function to change scenes based on stringnames
     public void changeScene(String newScene) {
         Scene scene = mainMenu();
         switch (newScene) {
@@ -82,7 +83,7 @@ public class Menu {
         return vbox;
     }
 
-    public Scene mainMenu() {
+    public BorderPane mainMenuContent() {
         // Main Pane
         BorderPane base = createBorderPane();
 
@@ -90,6 +91,18 @@ public class Menu {
         VBox baseMenu = this.createVbox();
 
         // Initialise labels for menu
+        if (!this.jsonErrors.isEmpty()) {
+            for (String errorName : this.jsonErrors) {
+                Label label = new Label("There was an error loading the " + errorName + ".");
+                label.setStyle("-fx-padding:10;");
+                label.setTextFill(Color.RED);
+                label.relocate(5, 0);
+                baseMenu.getChildren().add(label);
+                Settings.getSettings().setEventsFile(null);
+                Settings.getSettings().setLayoutFile(null);
+            }
+        }
+
         Label instructionMenu = new Label("Welcome to the BEST hotel simulation \nGo to settings to adjust the hotel to your liking \n\tThe settings consist of: \n\t How fast time passes in the hotel. \n\t How long it take for certain actions by guests \n\t And how long it takes for guests to die ofcourse");
         instructionMenu.setStyle("-fx-padding:10;");
         instructionMenu.relocate(5, 5);
@@ -119,7 +132,12 @@ public class Menu {
         baseMenu.getChildren().addAll(instructionMenu, mainMenuButtons);
         base.setCenter(baseMenu);
 
-        return new Scene(base);
+        return base;
+    }
+
+    //creation of main menu scene
+    public Scene mainMenu() {
+        return new Scene(this.mainMenuContent());
     }
 
     // Scene for settings pane
@@ -219,6 +237,7 @@ public class Menu {
         return new Scene(base);
     }
 
+    //creation of scene page for selecting files
     public Scene filePage() {
         // Main Pane
         BorderPane base = createBorderPane();
@@ -256,7 +275,7 @@ public class Menu {
         eventButton.setOnAction(e -> {
             File eventFile = eventsChooser.showOpenDialog(this.stage);
             if (eventFile != null) {
-                settings.setEventsFile(eventFile);
+                Settings.getSettings().setEventsFile(eventFile);
                 eventStatus.setText("Event file selected: " + eventFile.getName());
                 eventStatus.setTextFill(Color.BLACK);
             } else {
@@ -267,7 +286,8 @@ public class Menu {
         layoutButton.setOnAction(e -> {
             File layoutFile = layoutChooser.showOpenDialog(this.stage);
             if (layoutFile != null) {
-                settings.setLayoutFile(layoutFile);
+                Settings.getSettings().setLayoutFile(layoutFile);
+//                settings.setLayoutFile(layoutFile);
                 layoutStatus.setText("Layout file selected: " + layoutFile.getName());
                 layoutStatus.setTextFill(Color.BLACK);
             } else {
@@ -299,6 +319,7 @@ public class Menu {
         Scene scene = new Scene(base);
 
         startHotelButton.setOnAction(e -> {
+            this.jsonErrors.clear();
             try {
                 this.notifyStart();
             } catch (Exception ex) {
@@ -309,12 +330,14 @@ public class Menu {
         return scene;
     }
 
+    //sending notification to all startlisteners that the application has started.
     private void notifyStart() throws Exception {
         for (StartListener startListener : startListeners) {
             startListener.handleStart();
         }
     }
 
+    //pane with background for visual improvements.
     public BorderPane createBorderPane() {
         BorderPane borderPane = new BorderPane();
         borderPane.setPrefSize(600, 600);
@@ -327,11 +350,7 @@ public class Menu {
     }
 
     //type = hier event of hotel file oid.
-    public VBox createErrorJsonScreen(String type) {
-        System.out.println(type);
-        //TODO deze wordt aangeroepen, zorgen dat er een display is dat file fout is + knop naar start menu, of files.
-        //TODO deze knop kan functie op onderstaande line misschien triggeren?
-
+    public VBox createErrorJsonScreen() {
         VBox errorJsonVBox = new VBox();
 
         Label instructionMenu = new Label("The provided hotel file was incorrect, please provide a correctly written json");
@@ -345,5 +364,9 @@ public class Menu {
         errorJsonVBox.getChildren().addAll(instructionMenu, menuPage);
 
         return errorJsonVBox;
+    }
+
+    public void addJsonError(String string) {
+        this.jsonErrors.add(string);
     }
 }

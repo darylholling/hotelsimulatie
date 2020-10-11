@@ -2,7 +2,6 @@ package com.company.events;
 
 import com.company.models.FireableListener;
 import com.company.models.Hotel;
-import com.company.models.areas.GuestRoom;
 
 abstract public class Event implements Comparable<Event>, FireableListener {
     protected Integer eventTime;

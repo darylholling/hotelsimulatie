@@ -4,26 +4,26 @@ import java.util.ArrayList;
 import java.util.TimerTask;
 
 public class HteCounter extends TimerTask {
-    public static int hte;
+    public static int HTE;
     private ArrayList<HTEListener> HTElisteners;
 
     public HteCounter(ArrayList<HTEListener> HTElisteners) {
         this.HTElisteners = HTElisteners;
     }
 
-    public static int getHte() {
-        return hte;
+    public static int getHTE() {
+        return HTE;
     }
 
     public void run() {
-        hte++;
+        HTE++;
 
         this.update();
     }
 
     private void update() {
         for (HTEListener HTElistener : HTElisteners) {
-            HTElistener.updatedHTE(hte);
+            HTElistener.updatedHTE(HTE);
         }
     }
 }

@@ -18,12 +18,12 @@ public class Dijkstra {
         while (!Visit(person, toCheck, end)) {
             try {
                 toCheck = unvisitedAreas.stream().min(Comparator.comparingInt(n -> n.getDistanceForPerson(person))).get();
-            } catch( NoSuchElementException ex) {
+            } catch (NoSuchElementException ex) {
                 break;
             }
         }
 
-        return makePath(person, start, end);
+        return makePath(person, end);
     }
 
     boolean Visit(Person person, Area current, Area end) {
@@ -48,7 +48,8 @@ public class Dijkstra {
         return false;
     }
 
-    private LinkedList<Area> makePath(Person person, Area start, Area end) {
+    //making path to return being made of Areas
+    private LinkedList<Area> makePath(Person person, Area end) {
         boolean cont = true;
         Area current = end;
         LinkedList<Area> path = new LinkedList<>();

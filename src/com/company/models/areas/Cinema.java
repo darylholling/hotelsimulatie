@@ -7,6 +7,7 @@ import javafx.application.Platform;
 import java.io.FileNotFoundException;
 
 public class Cinema extends Area implements LateComingHTEListener {
+    //due to time shortage variables below are not used yet.
     private boolean isPlaying = false;
     private int endHTE;
     private StartCinemaEvent cinemaEvent;
@@ -15,13 +16,8 @@ public class Cinema extends Area implements LateComingHTEListener {
         super.setDefaultImage(this, "cinema.jpg", areaWidth);
     }
 
-
     public boolean isPlaying() {
         return isPlaying = true;
-    }
-
-    public void setPlaying(boolean playing) {
-        isPlaying = playing;
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.company.actions;
 
 import com.company.events.*;
 import com.company.models.Hotel;
+import com.company.models.Settings;
 import com.google.gson.*;
 
 import java.io.File;
@@ -14,17 +15,18 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 
 public class EventBuilder {
-    public EventBuilder() {
-    }
-
-    public Queue<Event> readJson(Hotel hotel)  {
-        File eventsFile = hotel.settings.getEventsFile();
+    //reading json file and creating event queue from it.
+    public Queue<Event> readJson(Hotel hotel) {
+        File eventsFile = Settings.getSettings().getEventsFile();
         Gson gson = new GsonBuilder().create();
-        JsonArray eventJsonArray = null;
+
+        JsonArray eventJsonArray;
         try {
             eventJsonArray = gson.fromJson(Files.newBufferedReader(new File(String.valueOf(eventsFile)).toPath(), StandardCharsets.UTF_8), JsonArray.class);
         } catch (IOException | JsonParseException e) {
+            hotel.menu.addJsonError("eventsfile");
             hotel.menu.changeScene("loadFilePage");
+            return null;
         }
 
         ArrayList<Event> eventsArray = new ArrayList<>();
@@ -49,6 +51,7 @@ public class EventBuilder {
                 duration = data.get("duration").getAsInt();
             }
 
+            //creating events based on eventtype string.
             Event event = null;
             switch (eventType) {
                 case "CHECK_IN":
@@ -79,7 +82,7 @@ public class EventBuilder {
                     event = new StartCinemaEvent(eventTime, hotel, duration);
                     break;
                 //                case "GODZILLA":
-                ////                    event = new GodzillaEvent(guestList, eventTime);
+                //                    event = new GodzillaEvent(guestList, eventTime);
                 //                break;
                 case "EVACUATE":
                     event = new EvacuateEvent(hotel, eventTime);
@@ -97,7 +100,7 @@ public class EventBuilder {
         eventsArray.sort(new SortEventsByTime());
 
         // Determine the highest HTE
-        hotel.settings.setHighestHteInJsonFile(eventsArray.stream().reduce((first, second) -> second).orElse(null).getEventTime());
+        Settings.getSettings().setHighestHteInJsonFile(eventsArray.stream().reduce((first, second) -> second).orElse(null).getEventTime());
 
         // Create queue
         return new PriorityQueue<>(eventsArray);

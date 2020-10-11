@@ -32,7 +32,7 @@ public class CreateCleaners implements StartListener {
     }
 
     @Override
-    public void handleStart() throws Exception {
+    public void handleStart() {
         this.create();
     }
 }

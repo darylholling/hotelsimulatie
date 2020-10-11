@@ -16,13 +16,17 @@ public class EventHandler implements StartListener, HTEListener {
     }
 
     @Override
-    public void handleStart() throws Exception {
+    public void handleStart() {
         this.initializeEvents();
     }
 
-    private void initializeEvents()  {
+    private void initializeEvents() {
         EventBuilder eventBuilder = new EventBuilder();
-        this.eventQueue = eventBuilder.readJson(hotel);
+        Queue<Event> eventQueue = eventBuilder.readJson(hotel);
+
+        if (eventQueue != null) {
+            this.eventQueue = eventQueue;
+        }
     }
 
     @Override

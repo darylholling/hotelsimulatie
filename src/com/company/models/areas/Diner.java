@@ -4,7 +4,6 @@ import java.io.FileNotFoundException;
 
 public class Diner extends Area {
     private int capacity;
-    boolean full = true;
 
     public Diner(int x, int y, int areaWidth, int areaHeight, int capacity) throws FileNotFoundException {
         super(x, y, areaWidth, areaHeight);
@@ -12,18 +11,12 @@ public class Diner extends Area {
         this.capacity = capacity;
     }
 
-    public int getCapacity() {
-        return capacity;
-    }
-
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
-    }
-
+    //due to time shortage this function is not used yet.
     public boolean isFull() {
-        if (this.persons.size() < capacity) {
-            full = false;
+        if (this.persons.size() < this.capacity) {
+            return false;
         }
-        return full;
+
+        return true;
     }
 }
