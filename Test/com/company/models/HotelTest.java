@@ -51,17 +51,4 @@ public class HotelTest {
         Assert.assertEquals(guestList.get(2), hotel.getGuestByNumber(40));
     }
 
-    @Test
-    public void hotelTest() {
-
-        //TODO wat kunnen we hier van testen?
-
-        JFXPanel jfxPanel = new JFXPanel();
-
-        Platform.runLater(() -> {
-            Stage stage = new Stage();
-            hotel.start(stage);
-        });
-
-    }
 }

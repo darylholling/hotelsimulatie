@@ -10,14 +10,11 @@ import java.util.Timer;
 import static org.junit.jupiter.api.Assertions.*;
 
 class TimeTest {
-    ArrayList<HTEListener> HTElisteners;
-    Settings settings = new Settings();
-    Time time = new Time(HTElisteners,settings);
+Time time = new Time(null,Settings.getSettings());
 
     @Test
     public void testIfTheTimerStartsAndStops(){
-        settings.setSettings(1,1,1,1);
-
+        Settings.getSettings().setSettings(1,1,1,1);
         Assert.assertFalse(time.running);
 
         time.startTimer();
