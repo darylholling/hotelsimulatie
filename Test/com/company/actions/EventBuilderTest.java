@@ -2,6 +2,7 @@ package com.company.actions;
 
 import com.company.events.*;
 import com.company.models.Hotel;
+import com.company.models.Settings;
 import com.google.gson.JsonArray;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.layout.GridPane;
@@ -17,14 +18,15 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class EventHandlerTest {
     Hotel hotel = new Hotel();
-    EventBuilder eventBuilder = new EventBuilder(new File("Test/jsonTestFiles/events3Test.json"));
+    EventBuilder eventBuilder = new EventBuilder();
+    Settings settings = new Settings();
 
     @Test
     public void checkIfEventsGetCreated() throws IOException {
         JFXPanel jfxPanel = new JFXPanel();
         boolean correctEventType = false;
 
-
+        settings.setEventsFile(new File("Test/jsonTestFiles/events3Test.json"));
         eventBuilder.readJson(hotel);
 
         //TODO Build check if all Events are Added to Application
