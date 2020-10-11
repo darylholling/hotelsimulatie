@@ -38,7 +38,6 @@ public class Menu {
             this.stage.getIcons().add(gameIcon);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-            System.out.println("application will run without hotel icon");
         }
     }
 
@@ -317,7 +316,7 @@ public class Menu {
 
     public BorderPane createBorderPane() {
         BorderPane borderPane = new BorderPane();
-        borderPane.setPrefSize(1000, 1000);
+        borderPane.setPrefSize(600, 600);
         borderPane.setStyle(
                 "-fx-background-image:url(/com/company/images/background.jpg);"
                         + "-fx-background-size: cover, auto;"

@@ -1,5 +1,5 @@
 package com.company.models;
 
-public interface HTEListener {
+public interface LateComingHTEListener {
     void updatedHTE(int HTE);
 }

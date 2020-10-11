@@ -3,25 +3,23 @@ package com.company.models;
 import java.util.ArrayList;
 import java.util.Timer;
 
-public class Time implements StartListener{
-    private static Timer timer;
+public class Time implements StartListener {
     static boolean running;
+    private static Timer timer;
     private ArrayList<HTEListener> HTElisteners;
+    private Settings settings;
 
-    public boolean isRunning() {
-        return running;
-    }
-
-    public Time(ArrayList<HTEListener> HTElisteners) {
+    public Time(ArrayList<HTEListener> HTElisteners, Settings settings) {
         this.HTElisteners = HTElisteners;
+        this.settings = settings;
     }
 
     public void startTimer() {
+        int hteTime = settings.getHTETime();
         timer = new Timer();
         running = true;
-        HteCounter htecounter = new HteCounter(this.HTElisteners);
-//        timer.scheduleAtFixedRate(htecounter, Settings.getSettings().getHTETime(),Settings.getSettings().getHTETime());
-        timer.scheduleAtFixedRate(htecounter, 1000,1000);
+        HteCounter hteCounter = new HteCounter(this.HTElisteners);
+        timer.scheduleAtFixedRate(hteCounter, hteTime, hteTime);
     }
 
     public void stopTimer() {
@@ -29,13 +27,19 @@ public class Time implements StartListener{
         timer.cancel();
     }
 
-    public void resumeTimer(){
+    public void resumeTimer() {
         this.startTimer();
     }
 
     @Override
     public void handleStart() throws Exception {
         this.startTimer();
+    }
+
+    public void addHTEListener(HTEListener hteListener) {
+        this.HTElisteners.add(hteListener);
+        ArrayList<HTEListener> newList = this.HTElisteners;
+        new HteCounter(newList);
     }
 }
 
