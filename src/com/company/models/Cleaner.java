@@ -25,6 +25,8 @@ public class Cleaner extends Person implements CleaningListener {
     }
 
     private void checkQueue() {
+        System.out.println("emergancy events"+hotel.cleaningEmergencyEvents);
+        System.out.println("default events"+hotel.defaultCleaningEvents);
 
         if (currentCleanEvent != null) {
             if (currentCleanEvent instanceof CleaningEmergencyEvent) {
@@ -72,14 +74,15 @@ public class Cleaner extends Person implements CleaningListener {
         endArea.addPerson(this);
         this.movingQueue.remove(startArea);
         if (this.movingQueue.size() == 1 && this.movingQueue.getFirst() == endArea){
+            System.out.println("startcleaning");
             this.movingQueue.remove(endArea);
-            System.out.println(this.movingQueue);
             cleaning();
         }
     }
 
     @Override
     public void updatedHTE(int HTE) {
+        System.out.println("HTE"+hotel.getCurrentHTE() +", " + endHTE);
         if (movingQueue.size() > 1) {
             this.move(this.movingQueue.getFirst(), this.movingQueue.get(1));
         }
@@ -89,6 +92,7 @@ public class Cleaner extends Person implements CleaningListener {
         if (hotel.getCurrentHTE() == endHTE) {
             currentCleanEvent = null;
             cleaning = false;
+            System.out.println("ik ben klaar");
             checkQueue();
         }
     }

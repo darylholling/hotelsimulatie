@@ -72,10 +72,8 @@ public class Guest extends Person {
         endArea.addPerson(this);
         this.movingQueue.remove(startArea);
 
-        if (this.movingQueue.size() == 1 && this.movingQueue.getFirst() == endArea){
+        if (this.movingQueue.size() == 1){
             this.movingQueue.remove(endArea);
-//            this.movingQueue.clear();
-//            this.movingQueue = new LinkedList<>();
             if (endArea instanceof Lobby) {
                 Hotel hotel = this.getArea().getHotel();
                 hotel.activeGuestList.remove(this);
