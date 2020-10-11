@@ -259,7 +259,8 @@ public class Menu {
         Button eventButton = new Button("Select the event json");
         Button layoutButton = new Button("Select the layout json");
         Button startHotelButton = new Button("Start up hotel");
-        startHotelButton.relocate(0, 5);
+        Button menuButton = new Button("Back to menu");
+        menuButton.relocate(0, 5);
 
         // Name Window
         eventsChooser.setTitle("Choose the event file");
@@ -285,7 +286,6 @@ public class Menu {
             File layoutFile = layoutChooser.showOpenDialog(this.stage);
             if (layoutFile != null) {
                 Settings.getSettings().setLayoutFile(layoutFile);
-//                settings.setLayoutFile(layoutFile);
                 layoutStatus.setText("Layout file selected: " + layoutFile.getName());
                 layoutStatus.setTextFill(Color.BLACK);
             } else {
@@ -294,25 +294,50 @@ public class Menu {
             }
         });
 
+        if (Settings.getSettings().getEventsFile() != null) {
+            eventStatus.setText("Event file selected: " + Settings.getSettings().getEventsFile().getName());
+            eventStatus.setTextFill(Color.BLACK);
+        }
+
+        if (Settings.getSettings().getLayoutFile() != null) {
+            layoutStatus.setText("Layout file selected: " + Settings.getSettings().getLayoutFile().getName());
+            layoutStatus.setTextFill(Color.BLACK);
+        }
+
         double maxWidth = Double.MAX_VALUE;
         eventButton.setMaxWidth(maxWidth);
         layoutButton.setMaxWidth(maxWidth);
 
         // Button positions in main menu
         GridPane fileChooserArea = new GridPane();
+        GridPane fileChooserAreaText = new GridPane();
+        GridPane fileChooserAreaButton = new GridPane();
 
         fileChooserArea.setHgap(15);
         fileChooserArea.setVgap(15);
         fileChooserArea.setAlignment(Pos.CENTER);
+        fileChooserArea.setPadding(new Insets(10, 10, 10, 10));
+
+        fileChooserAreaText.setHgap(15);
+        fileChooserAreaText.setVgap(15);
+        fileChooserAreaText.setAlignment(Pos.CENTER);
+        fileChooserAreaText.setPadding(new Insets(10, 10, 10, 10));
+
+        fileChooserAreaButton.setHgap(15);
+        fileChooserAreaButton.setVgap(15);
+        fileChooserAreaButton.setAlignment(Pos.CENTER);
+        fileChooserAreaButton.setPadding(new Insets(10, 10, 10, 10));
 
         fileChooserArea.add(eventButton, 0, 0);
         fileChooserArea.add(layoutButton, 1, 0);
-        fileChooserArea.add(eventStatus, 0, 1);
-        fileChooserArea.add(layoutStatus, 0, 2);
-        fileChooserArea.add(startHotelButton, 0, 3);
+        fileChooserAreaText.add(eventStatus, 0, 0);
+        fileChooserAreaText.add(layoutStatus, 0, 1);
+        fileChooserAreaButton.add(startHotelButton, 0, 0);
+
+        menuButton.setOnAction((ActionEvent Event) -> changeScene("MAINMENU"));
 
         // Add everyting to menupane
-        filePage.getChildren().addAll(filePageTitle, fileChooserArea);
+        filePage.getChildren().addAll(filePageTitle, fileChooserArea, fileChooserAreaText, fileChooserAreaButton, menuButton);
         base.setCenter(filePage);
         Scene scene = new Scene(base);
 
