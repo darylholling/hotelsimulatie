@@ -2,8 +2,6 @@ package com.company.actions;
 
 import com.company.models.Person;
 import com.company.models.areas.Area;
-import com.company.models.areas.Lobby;
-import javafx.application.Platform;
 
 import java.util.*;
 
@@ -21,7 +19,6 @@ public class Dijkstra {
             try {
                 toCheck = unvisitedAreas.stream().min(Comparator.comparingInt(n -> n.getDistanceForPerson(person))).get();
             } catch( NoSuchElementException ex) {
-//                System.out.println(unvisitedAreas);
                 break;
             }
         }
@@ -70,6 +67,7 @@ public class Dijkstra {
             area.setLatestForPerson(person, null);
             area.setDistanceForPerson(person, Integer.MAX_VALUE);
         }
+
         return path;
     }
 }

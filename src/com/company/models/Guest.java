@@ -1,5 +1,6 @@
 package com.company.models;
 
+import com.company.events.DefaultCleaningEvent;
 import com.company.models.areas.Area;
 import com.company.models.areas.GuestRoom;
 import javafx.application.Platform;
@@ -11,7 +12,6 @@ public class Guest extends Person {
     private int preferredStars;
     private GuestRoom guestRoom;
     private int guestNumber;
-    private boolean shown = true;
     private boolean movingToCheckOut = false;
     private int checkInTime;
 
@@ -43,20 +43,8 @@ public class Guest extends Person {
         this.guestNumber = guestNumber;
     }
 
-    public int getPreferredStars() {
-        return preferredStars;
-    }
-
     public void setPreferredStars(int preferredStars) {
         this.preferredStars = preferredStars;
-    }
-
-    public boolean isShown() {
-        return shown;
-    }
-
-    public void setShown(boolean shown) {
-        this.shown = shown;
     }
 
     public GuestRoom getGuestRoom() {
@@ -78,25 +66,20 @@ public class Guest extends Person {
 
     @Override
     public void move(Area startArea, Area endArea) {
-        //TODO zorg dat het plaatje niet zichtbaar is
 
-//        System.out.println("old location" + startArea.getX() + ":" + startArea.getY());
         this.getArea().removePerson(this);
         this.setArea(endArea);
         endArea.addPerson(this);
         this.movingQueue.remove(startArea);
 
-        System.out.println("size"+ this.movingQueue.size());
-        System.out.println("endarea" + endArea);
-
-        System.out.println(this.movingQueue.size() == 1);
-        System.out.println(this.movingQueue.getFirst() == endArea);
+        //System.out.println(this.movingQueue.size() == 1);
+        //System.out.println(this.movingQueue.getFirst() == endArea);
         if (this.movingQueue.size() == 1 && this.movingQueue.getFirst() == endArea){
-            System.out.println("removing end area");
+            //System.out.println("removing end area");
 //            this.movingQueue.remove(endArea);
 //            this.movingQueue.clear();
             this.movingQueue = new LinkedList<>();
-            System.out.println(movingQueue);
+            //System.out.println(movingQueue);
         }
 
         //TODO zorg dat het plaatje wel zichtbaar is
@@ -108,8 +91,8 @@ public class Guest extends Person {
     @Override
     public void updatedHTE(int HTE) {
         if (this.movingQueue.size() > 1 && HTE != checkInTime) {
-            System.out.println(this.movingQueue);
-            System.out.println("guest" + guestNumber);
+            //System.out.println(this.movingQueue);
+            //System.out.println("guest" + guestNumber);
             if (this.movingQueue.size() > 1) {
                 this.move(this.movingQueue.getFirst(), this.movingQueue.get(1));
             }

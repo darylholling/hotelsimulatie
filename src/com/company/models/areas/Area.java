@@ -4,7 +4,6 @@ import com.company.models.Person;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -42,14 +41,9 @@ public abstract class Area extends Pane {
         this.areaWidth = areaWidth;
         this.areaHeight = areaHeight;
 
-
         this.neighbours = new HashMap<>();
         this.distance = Integer.MAX_VALUE;
         this.latest = null;
-    }
-
-    public ArrayList<Person> getPersons() {
-        return persons;
     }
 
     public void addPerson(Person person) {
@@ -61,7 +55,6 @@ public abstract class Area extends Pane {
     public void removePerson(Person person) {
         this.persons.remove(person);
     }
-
 
     public int getX() {
         return x;
@@ -83,16 +76,8 @@ public abstract class Area extends Pane {
         return areaWidth;
     }
 
-    public void setAreaWidth(int areaWidth) {
-        this.areaWidth = areaWidth;
-    }
-
     public int getAreaHeight() {
         return areaHeight;
-    }
-
-    public void setAreaHeight(int areaHeight) {
-        this.areaHeight = areaHeight;
     }
 
     public HashMap<Area, Integer> getNeighbours() {
@@ -101,10 +86,6 @@ public abstract class Area extends Pane {
 
     public void addNeighbour(Area area, Integer distance) {
         this.neighbours.put(area, distance);
-    }
-
-    public void setNeighbours(HashMap<Area, Integer> neighbours) {
-        this.neighbours = neighbours;
     }
 
     public int getDistance() {
