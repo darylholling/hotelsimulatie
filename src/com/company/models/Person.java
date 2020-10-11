@@ -1,14 +1,17 @@
 package com.company.models;
 
 import com.company.actions.HotelBuilder;
+import java.io.FileNotFoundException;
 import com.company.models.areas.Area;
+import javafx.scene.image.ImageView;
 import javafx.application.Platform;
 import javafx.scene.image.Image;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.LinkedList;
 
 abstract public class Person extends Pane implements MoveInterface, LateComingHTEListener {
@@ -24,7 +27,6 @@ abstract public class Person extends Pane implements MoveInterface, LateComingHT
         if (this.area != null) {
             Platform.runLater(this::removePersonFromGrid);
         }
-
         this.area = area;
         Platform.runLater(this::addPersonToGrid);
     }
@@ -58,5 +60,9 @@ abstract public class Person extends Pane implements MoveInterface, LateComingHT
 
     public void setMovingQueue(LinkedList<Area> movingQueue) {
         this.movingQueue = movingQueue;
+    }
+
+    public LinkedList<Area> getMovingQueue() {
+        return movingQueue;
     }
 }

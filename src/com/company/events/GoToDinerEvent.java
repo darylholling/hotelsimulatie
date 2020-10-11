@@ -4,7 +4,7 @@ import com.company.actions.Dijkstra;
 import com.company.models.Guest;
 import com.company.models.Hotel;
 import com.company.models.areas.Area;
-
+import javafx.application.Platform;
 import java.util.LinkedList;
 
 public class GoToDinerEvent extends Event {
@@ -17,32 +17,33 @@ public class GoToDinerEvent extends Event {
         this.hotel = hotel;
     }
 
-    public int getIdGuest() {
+    public int getGuestNumber() {
         return guestNumber;
     }
 
-    public void setIdGuest(int guestNumber) {
+    public void setGuestNumber(int guestNumber) {
         this.guestNumber = guestNumber;
     }
 
     @Override
     public void fire() {
-        System.out.println("firing diner");
+    movingPath(hotel.getDiner());
 
-        //        this.hotel.guestList.remove(hotel.getGuestByNumber(guestNumber));
+    }
+    public void movingPath(Area destination){
+
         Guest currentGuest = hotel.getGuestByNumber(guestNumber);
-//        this.hotel.guestList.remove(currentGuest);
-        //todo lopen naar Diner
-        //NOT TESTED
-        Area diner = hotel.getDiner();
-        System.out.println("Guest number: " + currentGuest.getGuestNumber() + " is walking to Diner");
+
+        if (currentGuest == null) {
+            return;
+        }
         Dijkstra ds = new Dijkstra();
-//        currentGuest.getArea().setDistance(0);
-        LinkedList<Area> path = ds.findPath(currentGuest.getArea(), diner);
-        System.out.println(path);
-//        String path = this.hotel.dijkstra.findPath(currentGuest, currentGuest.getArea(), diner);
-        System.out.println("Guest number: " + currentGuest.getGuestNumber() + " is at diner location X: " + currentGuest.getArea().getX() + " and Y: " + currentGuest.getArea().getY());
-        currentGuest.setArea(diner);
-        diner.addPerson(currentGuest);
+        currentGuest.getArea().setDistanceForPerson(currentGuest, 0);
+        //System.out.println("Guest number: "+currentGuest.getGuestNumber()+ " is walking to Diner");
+        LinkedList<Area> path = ds.findPath(currentGuest, currentGuest.getArea(), destination);
+        destination.addPerson(currentGuest);
+        Platform.runLater(()->currentGuest.setMovingQueue(path));
+        //System.out.println("Guest number: "+currentGuest.getGuestNumber()+  " is at diner location X: "+currentGuest.getArea().getX()+" and Y: "+ currentGuest.getArea().getY());
+
     }
 }

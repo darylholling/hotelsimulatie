@@ -8,27 +8,25 @@
     }
   },
   {
-    "type": "CHECK_IN",
-    "time": 2,
+    "type": "GO_TO_DINER",
+    "time": 30,
     "data": {
-      "guest": 2,
-      "stars": 3
+      "guest": 1
     }
   },
   {
-    "type": "CHECK_IN",
-    "time": 5,
+    "type": "GO_TO_FITNESS",
+    "time": 16,
     "data": {
-      "guest": 3,
-      "stars": 3
+      "guest": 1,
+      "duration": 10
     }
   },
   {
-    "type": "CHECK_IN",
-    "time": 5,
+    "type": "CHECK_OUT",
+    "time": 45,
     "data": {
-      "guest": 4,
-      "stars": 4
+      "guest": 1
     }
   }
 ]

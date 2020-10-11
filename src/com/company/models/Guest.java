@@ -1,9 +1,11 @@
 package com.company.models;
 
-import com.company.events.DefaultCleaningEvent;
 import com.company.models.areas.Area;
 import com.company.models.areas.GuestRoom;
 import javafx.application.Platform;
+
+import java.util.LinkedList;
+import java.util.Random;
 
 public class Guest extends Person {
     private int preferredStars;
@@ -21,10 +23,14 @@ public class Guest extends Person {
     }
 
     public void setGuestImage() {
-        super.setPersonImage("guest.png");
+        super.setPersonImage(randomSelect());
     }
 
-    public void setcheckInTime(int checkInTime) {
+    public int getCheckInTime() {
+        return checkInTime;
+    }
+
+    public void setCheckInTime(int checkInTime) {
         this.checkInTime = checkInTime;
     }
 
@@ -48,22 +54,45 @@ public class Guest extends Person {
         this.guestRoom = guestRoom;
     }
 
+    // selects random picture
+    public String randomSelect() {
+
+        String[] arr = {"guest.png", "guest2.png"};
+        Random random = new Random();
+        int select = random.nextInt(arr.length);
+        return arr[select];
+    }
+
     @Override
     public void move(Area startArea, Area endArea) {
+
         this.getArea().removePerson(this);
         this.setArea(endArea);
         endArea.addPerson(this);
         this.movingQueue.remove(startArea);
 
-        if (this.movingQueue.size() == 1 && this.movingQueue.getFirst() == endArea) {
-            this.movingQueue.remove(endArea);
+        //System.out.println(this.movingQueue.size() == 1);
+        //System.out.println(this.movingQueue.getFirst() == endArea);
+        if (this.movingQueue.size() == 1 && this.movingQueue.getFirst() == endArea){
+            //System.out.println("removing end area");
+//            this.movingQueue.remove(endArea);
+//            this.movingQueue.clear();
+            this.movingQueue = new LinkedList<>();
+            //System.out.println(movingQueue);
         }
+
+//        System.out.println("New location" + endArea.getX() + ":" + endArea.getY());
+
     }
 
     @Override
     public void updatedHTE(int HTE) {
-        if (!movingQueue.isEmpty() && HTE != checkInTime) {
-            this.move(this.movingQueue.getFirst(), this.movingQueue.get(1));
+        if (this.movingQueue.size() > 1 && HTE != checkInTime) {
+            //System.out.println(this.movingQueue);
+            //System.out.println("guest" + guestNumber);
+            if (this.movingQueue.size() > 1) {
+                this.move(this.movingQueue.getFirst(), this.movingQueue.get(1));
+            }
 
             if (this.movingQueue.isEmpty()) {
                 Platform.runLater(() -> this.removePersonFromGrid());

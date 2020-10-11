@@ -3,6 +3,7 @@ package com.company.models;
 import com.company.actions.CreateCleaners;
 import com.company.actions.EventHandler;
 import com.company.actions.HotelBuilder;
+import com.company.models.areas.*;
 import com.company.events.CleaningEmergencyEvent;
 import com.company.events.DefaultCleaningEvent;
 import com.company.models.areas.Area;
@@ -81,5 +82,8 @@ public class Hotel extends Application implements HTEListener {
 
     public int getCurrentHTE() {
         return this.currentHTE;
+    }
+    public Area getFitness() {
+        return this.areas.stream().filter(area -> area instanceof Fitness).findFirst().orElse(null);
     }
 }

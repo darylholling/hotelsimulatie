@@ -30,10 +30,32 @@
       "guest": 5,
       "stars": 1
     }
+  },  {
+  "type": "CHECK_OUT",
+  "time": 18,
+  "data": {
+    "guest": 1
+  }
+},
+  {
+    "type": "CHECK_OUT",
+    "time": 20,
+    "data": {
+      "guest": 3
+    }
   },
   {
-    "type": "EVACUATE",
-    "time": 20,
-    "data": {}
+    "type": "CHECK_OUT",
+    "time":22,
+    "data": {
+      "guest": 4
+    }
+  },
+  {
+    "type": "CHECK_OUT",
+    "time": 24,
+    "data": {
+      "guest": 5
+    }
   }
 ]
