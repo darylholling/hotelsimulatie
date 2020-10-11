@@ -25,9 +25,6 @@ public class Cleaner extends Person implements CleaningListener {
     }
 
     private void checkQueue() {
-        System.out.println("emergancy events"+hotel.cleaningEmergencyEvents);
-        System.out.println("default events"+hotel.defaultCleaningEvents);
-
         if (currentCleanEvent != null) {
             if (currentCleanEvent instanceof CleaningEmergencyEvent) {
                 moveToCleaning(currentCleanEvent);
@@ -36,13 +33,20 @@ public class Cleaner extends Person implements CleaningListener {
                 hotel.defaultCleaningEvents.add((DefaultCleaningEvent) currentCleanEvent);
             }
         }
+
         if (!hotel.cleaningEmergencyEvents.isEmpty()) {
             currentCleanEvent = hotel.cleaningEmergencyEvents.poll();
             moveToCleaning(currentCleanEvent);
-        } else if (!hotel.defaultCleaningEvents.isEmpty()) {
+            return;
+        }
+
+        if (!hotel.defaultCleaningEvents.isEmpty()) {
             currentCleanEvent = hotel.defaultCleaningEvents.poll();
             moveToCleaning(currentCleanEvent);
-        } else if (!(this.getArea() instanceof Lobby)) {
+            return;
+        }
+
+        if (!(this.getArea() instanceof Lobby)) {
             moveToLobby();
         }
     }
@@ -55,6 +59,10 @@ public class Cleaner extends Person implements CleaningListener {
     }
 
     private void moveToCleaning(CleaningEvent event) {
+        if (this.getArea() == hotel.getGuestByNumber(event.guestNumber).getGuestRoom()) {
+            return;
+        }
+
         Dijkstra dijkstra = new Dijkstra();
         this.getArea().setDistanceForPerson(this, 0);
         LinkedList<Area> path = dijkstra.findPath(this, this.getArea(), hotel.getGuestByNumber(event.guestNumber).getGuestRoom());
@@ -74,7 +82,6 @@ public class Cleaner extends Person implements CleaningListener {
         endArea.addPerson(this);
         this.movingQueue.remove(startArea);
         if (this.movingQueue.size() == 1 && this.movingQueue.getFirst() == endArea){
-            System.out.println("startcleaning");
             this.movingQueue.remove(endArea);
             cleaning();
         }
@@ -82,7 +89,6 @@ public class Cleaner extends Person implements CleaningListener {
 
     @Override
     public void updatedHTE(int HTE) {
-        System.out.println("HTE"+hotel.getCurrentHTE() +", " + endHTE);
         if (movingQueue.size() > 1) {
             this.move(this.movingQueue.getFirst(), this.movingQueue.get(1));
         }
@@ -92,7 +98,6 @@ public class Cleaner extends Person implements CleaningListener {
         if (hotel.getCurrentHTE() == endHTE) {
             currentCleanEvent = null;
             cleaning = false;
-            System.out.println("ik ben klaar");
             checkQueue();
         }
     }
