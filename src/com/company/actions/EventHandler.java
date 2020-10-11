@@ -35,8 +35,10 @@ public class EventHandler implements StartListener, HTEListener {
             this.handleEvents(HTE);
         }
     }
-
     private void handleEvents(int HTE) {
+        if (eventQueue == null ) {
+            return;
+        }
         Event[] events = eventQueue.stream().filter(event -> event.getEventTime() == HTE).toArray(Event[]::new);
 
         for (Event event : events) {
