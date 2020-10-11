@@ -24,6 +24,7 @@ public class EventBuilder {
         try {
             eventJsonArray = gson.fromJson(Files.newBufferedReader(new File(String.valueOf(eventsFile)).toPath(), StandardCharsets.UTF_8), JsonArray.class);
         } catch (IOException | JsonParseException e) {
+            hotel.timer.stopTimer();
             hotel.menu.addJsonError("eventsfile");
             hotel.menu.changeScene("loadFilePage");
             return null;

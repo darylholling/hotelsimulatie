@@ -60,6 +60,7 @@ public class HotelBuilder implements StartListener, HTEListener {
         try {
             jsonArrays = gson.fromJson(Files.newBufferedReader(new File(String.valueOf(layoutFile)).toPath(), StandardCharsets.UTF_8), JsonArray.class);
         } catch (IOException | JsonParseException e) {
+            hotel.timer.stopTimer();
             hotel.menu.addJsonError("hotelfile");
             return hotel.menu.mainMenuContent();
         }

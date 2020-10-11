@@ -47,10 +47,10 @@ public class Hotel extends Application implements HTEListener {
 
         Menu menu = new Menu(stage, new ArrayList<>() {
             {
+                add(timer);
                 add(hotelBuilder);
                 add(createCleaners);
                 add(eventHandler);
-                add(timer);
             }
         });
         this.menu = menu;
