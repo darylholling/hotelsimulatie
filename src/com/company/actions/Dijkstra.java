@@ -6,7 +6,7 @@ import com.company.models.areas.Area;
 import java.util.*;
 
 public class Dijkstra {
-    private ArrayList<Area> unvisitedAreas;
+    public ArrayList<Area> unvisitedAreas;
 
     public Dijkstra() {
         unvisitedAreas = new ArrayList<>();
