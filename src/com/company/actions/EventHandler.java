@@ -31,7 +31,9 @@ public class EventHandler implements StartListener, HTEListener {
 
     @Override
     public void updatedHTE(int HTE) {
-        this.handleEvents(HTE);
+        if (this.eventQueue != null) {
+            this.handleEvents(HTE);
+        }
     }
 
     private void handleEvents(int HTE) {
@@ -42,3 +44,4 @@ public class EventHandler implements StartListener, HTEListener {
         }
     }
 }
+

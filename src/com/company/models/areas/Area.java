@@ -24,7 +24,7 @@ public abstract class Area extends Pane {
     // Remember latest per person
     protected HashMap<Person, Area> latestPerPerson = new HashMap<>();
     //    The nodes neighbours with the distance to each one
-    private HashMap<Area, Integer> neighbours;
+    protected HashMap<Area, Integer> neighbours;
 
     public Area(int x, int y, int areaWidth, int areaHeight) {
         this.x = x;

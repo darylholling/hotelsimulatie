@@ -26,6 +26,7 @@ public class StartCinemaEvent extends Event {
     @Override
     public void fire() {
         Cinema[] allCinemas = this.hotel.areas.stream().filter(area -> area instanceof Cinema).toArray(Cinema[]::new);
+
         for (Cinema cinema : allCinemas) {
             cinema.isPlaying();
             endHte = hotel.currentHTE + this.duration;

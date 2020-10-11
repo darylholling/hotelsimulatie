@@ -22,7 +22,6 @@ public class Hotel extends Application implements HTEListener {
     public ArrayList<Guest> activeGuestList = new ArrayList<>();
     public ArrayList<Area> areas = new ArrayList<>();
     public ArrayList<Cleaner> cleaners = new ArrayList<>();
-    public Settings settings = new Settings();
     public Stage stage;
     public Hotel hotel = this;
     public Time timer;
@@ -44,9 +43,9 @@ public class Hotel extends Application implements HTEListener {
                 add(hotelBuilder);
                 add(hotel);
             }
-        }, this.settings);
+        });
 
-        Menu menu = new Menu(stage, this.settings, new ArrayList<>() {
+        Menu menu = new Menu(stage, new ArrayList<>() {
             {
                 add(hotelBuilder);
                 add(createCleaners);
@@ -83,13 +82,11 @@ public class Hotel extends Application implements HTEListener {
         return this.areas.stream().filter(area -> area instanceof Diner).findFirst().orElse(null);
     }
 
-    public int getCurrentHTE() {
-        return this.currentHTE;
-    }
     public Area getFitness() {
         return this.areas.stream().filter(area -> area instanceof Fitness).findFirst().orElse(null);
     }
-    public Stage getStage(){
-        return this.stage;
+
+    public int getCurrentHTE() {
+        return this.currentHTE;
     }
 }

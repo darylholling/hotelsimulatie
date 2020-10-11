@@ -11,6 +11,7 @@ public class Cinema extends Area implements LateComingHTEListener {
     private boolean isPlaying = false;
     private int endHTE;
     private StartCinemaEvent cinemaEvent;
+
     public Cinema(int x, int y, int areaWidth, int areaHeight) throws FileNotFoundException {
         super(x, y, areaWidth, areaHeight);
         super.setDefaultImage(this, "cinema.jpg", areaWidth);

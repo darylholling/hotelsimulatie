@@ -22,10 +22,11 @@ public class GoToCinemaEvent extends Event {
         if (hotel.getCinema() == null) {
             return;
         }
-        movingPath(hotel.getGuestByNumber(guestNumber));
+
+        determineAndSetMovingQueue(hotel.getGuestByNumber(guestNumber));
     }
 
-    public void movingPath(Guest currentGuest) {
+    public void determineAndSetMovingQueue(Guest currentGuest) {
         if (currentGuest == null) {
             return;
         }

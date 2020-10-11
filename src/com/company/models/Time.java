@@ -6,19 +6,17 @@ import java.util.Timer;
 public class Time implements StartListener {
     static boolean running;
     private static Timer timer;
-    private ArrayList<HTEListener> HTElisteners;
-    private Settings settings;
+    private ArrayList<HTEListener> HTEListeners;
 
-    public Time(ArrayList<HTEListener> HTElisteners, Settings settings) {
-        this.HTElisteners = HTElisteners;
-        this.settings = settings;
+    public Time(ArrayList<HTEListener> HTEListeners) {
+        this.HTEListeners = HTEListeners;
     }
 
     public void startTimer() {
-        int HTETime = settings.getHTETime();
+        int HTETime = Settings.getSettings().getHTETime();
         timer = new Timer();
         running = true;
-        HteCounter HTECounter = new HteCounter(this.HTElisteners);
+        HteCounter HTECounter = new HteCounter(this.HTEListeners);
         timer.scheduleAtFixedRate(HTECounter, HTETime, HTETime);
     }
 

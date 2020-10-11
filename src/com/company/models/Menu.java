@@ -23,13 +23,11 @@ import java.util.ArrayList;
 
 public class Menu {
     private Stage stage;
-    private Settings settings;
     private ArrayList<StartListener> startListeners;
     private ArrayList<String> jsonErrors = new ArrayList<>();
 
-    public Menu(Stage stage, Settings settings, ArrayList<StartListener> startListeners) {
+    public Menu(Stage stage, ArrayList<StartListener> startListeners) {
         this.stage = stage;
-        this.settings = settings;
         this.startListeners = startListeners;
         this.stage.setScene(mainMenu());
         this.stage.setTitle("Hotel Simulation");
@@ -64,7 +62,7 @@ public class Menu {
         stage.show();
     }
 
-    private VBox createVbox() {
+    private VBox createVBox() {
         // Centered box
         VBox vbox = new VBox();
         vbox.setStyle(
@@ -88,7 +86,7 @@ public class Menu {
         BorderPane base = createBorderPane();
 
         // Centered box
-        VBox baseMenu = this.createVbox();
+        VBox baseMenu = this.createVBox();
 
         // Initialise labels for menu
         if (!this.jsonErrors.isEmpty()) {
@@ -186,22 +184,22 @@ public class Menu {
 
         // Settings HTE
         Label setHTETimeLabel = new Label("Amount of milliseconds a HTE represents:");
-        String setHTETimeText = String.valueOf(settings.getHTETime());
+        String setHTETimeText = String.valueOf(Settings.getSettings().getHTETime());
         TextField setHTETimeInput = new TextField(setHTETimeText);
 
         // Settings HTE Stairs
         Label setHTEStairsLabel = new Label("Amount of HTE it takes guests to use stairs:");
-        String setHTEStairsText = String.valueOf(settings.getStairsHTE());
+        String setHTEStairsText = String.valueOf(Settings.getSettings().getStairsHTE());
         TextField setHTEStairsInput = new TextField(setHTEStairsText);
 
         // Settings HTE Clean
         Label setHTECleanLabel = new Label("Amount of HTE it takes to clean a room:");
-        String setHTECleanText = String.valueOf(settings.getCleanHTE());
+        String setHTECleanText = String.valueOf(Settings.getSettings().getCleanHTE());
         TextField setHTECleanInput = new TextField(setHTECleanText);
 
         // Settings HTE Death
         Label setHTEDeathLabel = new Label("Amount of HTE it takes for guests to die from waiting for the elevator:");
-        String setHTEDeathText = String.valueOf(settings.getElevatorDeathHTE());
+        String setHTEDeathText = String.valueOf(Settings.getSettings().getElevatorDeathHTE());
         TextField setHTEDeathInput = new TextField(setHTEDeathText);
 
         // Add everything to header
@@ -226,7 +224,7 @@ public class Menu {
             int setHTEClean = Integer.parseInt(setHTECleanInput.getText());
             int setHTEDeath = Integer.parseInt(setHTEDeathInput.getText());
 
-            settings.setSettings(setHTETime, setHTEStairs, setHTEClean, setHTEDeath);
+            Settings.getSettings().setSettings(setHTETime, setHTEStairs, setHTEClean, setHTEDeath);
         });
 
         // Panes adding to hsPane
@@ -242,7 +240,7 @@ public class Menu {
         // Main Pane
         BorderPane base = createBorderPane();
 
-        VBox filePage = this.createVbox();
+        VBox filePage = this.createVBox();
 
         // Initialise labels for menu
         Label filePageTitle = new Label("Please select the files you want to use to run the hotel");
@@ -347,23 +345,6 @@ public class Menu {
         );
 
         return borderPane;
-    }
-
-    //type = hier event of hotel file oid.
-    public VBox createErrorJsonScreen() {
-        VBox errorJsonVBox = new VBox();
-
-        Label instructionMenu = new Label("The provided hotel file was incorrect, please provide a correctly written json");
-        instructionMenu.setStyle("-fx-padding:10;");
-        instructionMenu.relocate(5, 5);
-
-        Button menuPage = new Button("Back to menu");
-        menuPage.setMaxWidth(Double.MAX_VALUE);
-        menuPage.setOnAction((ActionEvent Event) -> changeScene("MAINMENU"));
-
-        errorJsonVBox.getChildren().addAll(instructionMenu, menuPage);
-
-        return errorJsonVBox;
     }
 
     public void addJsonError(String string) {
