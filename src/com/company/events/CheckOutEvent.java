@@ -38,7 +38,7 @@ public class CheckOutEvent extends Event {
             return;
         }
 
-        guest.getGuestRoom().removePerson(guest);
+
         guest.setMovingToCheckOut(true);
         if (!guest.getMovingQueue().isEmpty()) {
             guest.getMovingQueue().clear();
@@ -46,8 +46,6 @@ public class CheckOutEvent extends Event {
 
         Dijkstra dijkstra = new Dijkstra();
         guest.getArea().setDistanceForPerson(guest, 0);
-//        System.out.println(guest.getArea());
-//        System.out.println(guest.getGuestRoom());
         LinkedList<Area> path = dijkstra.findPath(guest, guest.getArea(), hotel.getLobby());
         Platform.runLater(()->guest.setMovingQueue(path));
 
@@ -58,6 +56,7 @@ public class CheckOutEvent extends Event {
             CleaningListener.startCleaners();
         }
         //TODO deregister guest from latecominghtelisteners.
+        guest.getGuestRoom().removePerson(guest);
 //        hotel.guestList.remove(guest);
     }
 }

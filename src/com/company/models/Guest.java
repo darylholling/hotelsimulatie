@@ -70,18 +70,9 @@ public class Guest extends Person {
         this.setArea(endArea);
         endArea.addPerson(this);
         this.movingQueue.remove(startArea);
-
-        //System.out.println(this.movingQueue.size() == 1);
-        //System.out.println(this.movingQueue.getFirst() == endArea);
         if (this.movingQueue.size() == 1 && this.movingQueue.getFirst() == endArea){
-            //System.out.println("removing end area");
-//            this.movingQueue.remove(endArea);
-//            this.movingQueue.clear();
             this.movingQueue = new LinkedList<>();
-            //System.out.println(movingQueue);
         }
-
-//        System.out.println("New location" + endArea.getX() + ":" + endArea.getY());
 
     }
 

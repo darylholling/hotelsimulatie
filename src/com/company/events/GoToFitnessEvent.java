@@ -40,6 +40,9 @@ public class GoToFitnessEvent extends Event {
    // LinkedList<Area> path = null;
     @Override
     public void fire() {
+        if (hotel.getFitness() == null){
+            return;
+        }
         movingPath(hotel.getGuestByNumber(guestNumber));
 //        movingPath(hotel.getFitness());
 

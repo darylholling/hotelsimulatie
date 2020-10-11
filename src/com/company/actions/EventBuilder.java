@@ -78,6 +78,9 @@ public class EventBuilder {
                         add(hotel.cleaners.get(1));
                     }});
                     break;
+                case "GO_TO_CINEMA":
+                    event = new GoToCinemaEvent(eventTime, hotel, guestNumber);
+                    break;
 //                case "GODZILLA":
 //                    event = new GodzillaEvent(eventTime, hotel);
 //                break;
