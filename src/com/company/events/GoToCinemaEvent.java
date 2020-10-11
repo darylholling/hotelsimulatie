@@ -19,12 +19,18 @@ public class GoToCinemaEvent extends Event {
 
     @Override
     public void fire() {
+        if (hotel.getCinema() ==null){
+            return;
+        }
     movingPath(hotel.getCinema());
     }
     public void movingPath(Area destination){
         Guest currentGuest = hotel.getGuestByNumber(guestNumber);
         if (currentGuest == null) {
             return;
+        }
+        if (currentGuest.getArea()!=null){
+            currentGuest.getArea().removePerson(currentGuest);
         }
         Dijkstra ds = new Dijkstra();
         currentGuest.getArea().setDistanceForPerson(currentGuest, 0);

@@ -89,7 +89,7 @@ public class EventBuilder {
 ////                    event = new CleaningEvent(eventTime);
 //                break;
 //                case "GODZILLA":
-////                    event = new GodzillaEvent(guestList, eventTime);
+//                    event = new GodzillaEvent(eventTime, hotel);
 //                break;
 //                case "EVACUATE":
 //                    event = new EvacuateEvent(hotel, eventTime);

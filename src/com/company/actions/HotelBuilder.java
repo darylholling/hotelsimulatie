@@ -48,7 +48,7 @@ public class HotelBuilder implements StartListener, HTEListener {
 
 //        set layout file to run Hotelbuilder
         File layoutFile = new File("src/com/company/files/layout.json");
-//        File layoutFile = new File("json/2roomlayout.json");
+//        File layoutFile = new File("src/com/company/files/2roomlayout.json");
 
         Gson gson = new GsonBuilder().create();
         jsonArrays = gson.fromJson(Files.newBufferedReader(new File(String.valueOf(layoutFile)).toPath(), StandardCharsets.UTF_8), JsonArray.class);
@@ -313,13 +313,12 @@ public class HotelBuilder implements StartListener, HTEListener {
         label.setTextAlignment(TextAlignment.JUSTIFY);
         String myString = "";
         for (Guest guest : hotel.guestList) {
-            myString += "Guest " + guest.getGuestNumber() + " is at " + guest.getArea() + " @ " + guest.getArea().getX() + "/" + guest.getArea().getY() +"\n";
+            myString += "Guest " + guest.getGuestNumber() + " is at " + guest.getArea().getClass().getSimpleName()+ " @ X: " + guest.getArea().getX() + " ,Y: " + guest.getArea().getY() +"\n";
         }
         label.setText(myString);
         pausePane.getChildren().add(label);
         return pausePane;
     }
-
     public Stage getStage() {
         return this.hotel.stage;
     }

@@ -87,16 +87,16 @@ public class Guest extends Person {
         this.movingQueue.remove(startArea);
 
         System.out.println("size"+ this.movingQueue.size());
-        System.out.println("endarea" + endArea);
+//        System.out.println("endarea" + endArea);
 
-        System.out.println(this.movingQueue.size() == 1);
-        System.out.println(this.movingQueue.getFirst() == endArea);
+//        System.out.println(this.movingQueue.size() == 1);
+//        System.out.println(this.movingQueue.getFirst() == endArea);
         if (this.movingQueue.size() == 1 && this.movingQueue.getFirst() == endArea){
             System.out.println("removing end area");
 //            this.movingQueue.remove(endArea);
 //            this.movingQueue.clear();
             this.movingQueue = new LinkedList<>();
-            System.out.println(movingQueue);
+//            System.out.println(movingQueue);
         }
 
         //TODO zorg dat het plaatje wel zichtbaar is
