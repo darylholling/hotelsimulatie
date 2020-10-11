@@ -15,6 +15,16 @@ public class Guest extends Person {
     private boolean movingToCheckOut = false;
     private int checkInTime;
 
+    public boolean isAvailable() {
+        return isAvailable;
+    }
+
+    public void setAvailable(boolean available) {
+        isAvailable = available;
+    }
+
+    private boolean isAvailable = true;
+
     public boolean isMovingToCheckOut() {
         return movingToCheckOut;
     }

@@ -72,7 +72,7 @@ public class EventBuilder {
                     event = new GoToCinemaEvent(eventTime, hotel, guestNumber);
                     break;
                 case "START_CINEMA":
-                    event = new StartCinemaEvent(eventTime, hotel);
+                    event = new StartCinemaEvent(eventTime, hotel, duration);
                     break;
                 //                case "GODZILLA":
                 ////                    event = new GodzillaEvent(guestList, eventTime);

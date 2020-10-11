@@ -39,6 +39,7 @@ public class GoToCinemaEvent extends Event {
         System.out.println("Guest number: " + currentGuest.getGuestNumber() + " is walking to cinema");
         Area selectedCinema = null;
         LinkedList<Area> selectedPath = null;
+        //find closest cinema
         int closestDistance = Integer.MAX_VALUE;
         for (Area movie : allCinemas) {
             Dijkstra ds = new Dijkstra();
@@ -56,5 +57,6 @@ public class GoToCinemaEvent extends Event {
         LinkedList<Area> finalSelectedPath = selectedPath;
         Platform.runLater(()->currentGuest.setMovingQueue(finalSelectedPath));
         System.out.println("Guest number: " + currentGuest.getGuestNumber() + " is at cinema location X: " + currentGuest.getArea().getX() + " and Y: " + currentGuest.getArea().getY());
+//        }
     }
 }

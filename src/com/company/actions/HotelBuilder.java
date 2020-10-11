@@ -294,6 +294,7 @@ public class HotelBuilder implements StartListener, HTEListener {
         lobbyButton.setHeight(50);
         lobbyButton.setWidth(50 * (hotelWidth - 1));
         lobbyButton.setFill(Color.TRANSPARENT);
+        lobbyButton.toFront();
         lobbyButton.setOnMouseClicked(mouseEvent -> {
             this.hotel.stage.setScene(createPauseScreen());
             hotel.timer.stopTimer();
@@ -327,7 +328,7 @@ public class HotelBuilder implements StartListener, HTEListener {
         label.setAlignment(Pos.CENTER);
         label.setTextAlignment(TextAlignment.JUSTIFY);
         String myString = "";
-        for (Guest guest : hotel.guestList) {
+        for (Guest guest : hotel.activeGuestList) {
             myString += "Guest " + guest.getGuestNumber() + " is at " + guest.getArea().getClass().getSimpleName()+ " @ X: " + guest.getArea().getX() + " ,Y: " + guest.getArea().getY() +"\n";
         }
         label.setText(myString);
