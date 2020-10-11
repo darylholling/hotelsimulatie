@@ -10,6 +10,7 @@ public class Settings {
     private int ElevatorDeathHTE = 1;
     private File layoutFile;
     private File eventsFile;
+    private int highestHteInJsonFile;
 
     public static synchronized Settings getSettings() {
         return settings;
@@ -52,5 +53,13 @@ public class Settings {
 
     public void setEventsFile(File eventsFile) {
         this.eventsFile = eventsFile;
+    }
+
+    public int getHighestHteInJsonFile() {
+        return highestHteInJsonFile;
+    }
+
+    public void setHighestHteInJsonFile(int highestHteInJsonFile) {
+        this.highestHteInJsonFile = highestHteInJsonFile;
     }
 }

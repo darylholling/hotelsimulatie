@@ -1,13 +1,6 @@
 package com.company.actions;
 
-import com.company.events.CheckInEvent;
-import com.company.events.CleaningEmergencyEvent;
-import com.company.events.EvacuateEvent;
-import com.company.events.Event;
-import com.company.models.CleaningListener;
 import com.company.events.*;
-import com.company.models.BuilderInterface;
-import com.company.models.Guest;
 import com.company.models.Hotel;
 import com.google.gson.*;
 
@@ -21,15 +14,12 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 
 public class EventBuilder {
-    public static int highestHteInJsonFile;
-    private File eventsFile;
-
-    public EventBuilder(File eventFile) {
-        this.eventsFile = eventFile;
+    public EventBuilder() {
     }
 
     public Queue<Event> readJson(Hotel hotel) throws IOException {
-        eventsFile = new File("src/com/company/files/events3.json");
+        File eventsFile = new File("src/com/company/files/events3.json");
+//        File eventsFile = hotel.settings.getEventsFile();
         Gson gson = new GsonBuilder().create();
         JsonArray eventJsonArray = gson.fromJson(Files.newBufferedReader(new File(String.valueOf(eventsFile)).toPath(), StandardCharsets.UTF_8), JsonArray.class);
 
@@ -60,32 +50,32 @@ public class EventBuilder {
                 case "CHECK_IN":
                     event = new CheckInEvent(hotel, eventTime, guestNumber, stars);
                     break;
-               case "CHECK_OUT":
-                   event = new CheckOutEvent(hotel, eventTime, guestNumber, new ArrayList<>() {{
-                       add(hotel.cleaners.get(0));
-                       add(hotel.cleaners.get(1));
-                   }});
-                   break;
+                case "CHECK_OUT":
+                    event = new CheckOutEvent(hotel, eventTime, guestNumber, new ArrayList<>() {{
+                        add(hotel.cleaners.get(0));
+                        add(hotel.cleaners.get(1));
+                    }});
+                    break;
                 case "GO_TO_DINER":
                     event = new GoToDinerEvent(eventTime, hotel, guestNumber);
-                break;
+                    break;
                 case "GO_TO_FITNESS":
                     event = new GoToFitnessEvent(eventTime, hotel, guestNumber, duration);
-                break;
+                    break;
                 case "CLEANING_EMERGENCY":
                     event = new CleaningEmergencyEvent(hotel, eventTime, guestNumber, new ArrayList<>() {{
                         add(hotel.cleaners.get(0));
                         add(hotel.cleaners.get(1));
                     }});
                     break;
-//                case "GODZILLA":
-////                    event = new GodzillaEvent(guestList, eventTime);
-//                break;
+                //                case "GODZILLA":
+                ////                    event = new GodzillaEvent(guestList, eventTime);
+                //                break;
                 case "EVACUATE":
                     event = new EvacuateEvent(hotel, eventTime);
                     break;
                 default:
-                    System.out.println("No event");
+                    System.out.println("Event type " + eventType + " wasn't found.");
             }
 
             if (event != null) {
@@ -97,7 +87,7 @@ public class EventBuilder {
         eventsArray.sort(new SortEventsByTime());
 
         // Determine the highest HTE
-        highestHteInJsonFile = eventsArray.stream().reduce((first, second) -> second).orElse(null).getEventTime();
+        hotel.settings.setHighestHteInJsonFile(eventsArray.stream().reduce((first, second) -> second).orElse(null).getEventTime());
 
         // Create queue
         return new PriorityQueue<>(eventsArray);

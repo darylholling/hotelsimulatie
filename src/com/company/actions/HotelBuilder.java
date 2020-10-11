@@ -35,6 +35,7 @@ public class HotelBuilder implements StartListener, HTEListener {
     Area[][] areas;
     Scene mainScene;
     private Label hteInfoBoard;
+    private Label highestHTE;
     private Hotel hotel;
 
     public HotelBuilder(Hotel hotel) {
@@ -278,9 +279,14 @@ public class HotelBuilder implements StartListener, HTEListener {
         this.hteInfoBoard = new Label("HTE : " + HteCounter.getHte());
         hteInfoBoard.setStyle("-fx-font-size: 170%");
         hteInfoBoard.setTextFill(Color.BLACK);
-        hteInfoBoard.relocate(255, 5);
+        hteInfoBoard.relocate(280, 2);
 
-        header.getChildren().add(hteInfoBoard);
+        this.highestHTE = new Label("Final event starts at HTE: " + hotel.settings.getHighestHteInJsonFile());
+        highestHTE.setStyle("-fx-font-size: 170%");
+        highestHTE.setTextFill(Color.BLACK);
+        highestHTE.relocate(5, 2);
+
+        header.getChildren().addAll(highestHTE, hteInfoBoard);
         Rectangle lobbyButton = new Rectangle();
         lobbyButton.setHeight(50);
         lobbyButton.setWidth(50 * (hotelWidth - 1));
@@ -332,6 +338,7 @@ public class HotelBuilder implements StartListener, HTEListener {
 
     public void handleStart() throws Exception {
         this.start(this.getStage());
+        Platform.runLater(() -> highestHTE.setText("Final event starts at HTE: " + hotel.settings.getHighestHteInJsonFile()));
     }
 
     public void hteLabelUpdate() {
