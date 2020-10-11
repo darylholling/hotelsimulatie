@@ -27,6 +27,9 @@ public class GoToDinerEvent extends Event {
 
     @Override
     public void fire() {
+        if (hotel.getDiner()==null){
+            return;
+        }
     movingPath(hotel.getDiner());
 
     }

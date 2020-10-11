@@ -89,4 +89,7 @@ public class Hotel extends Application implements HTEListener {
     public Area getFitness() {
         return this.areas.stream().filter(area -> area instanceof Fitness).findFirst().orElse(null);
     }
+    public Stage getStage(){
+        return this.stage;
+    }
 }

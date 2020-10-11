@@ -7,7 +7,6 @@ import com.company.models.areas.Area;
 import com.company.models.areas.Fitness;
 import javafx.application.Platform;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class GoToFitnessEvent extends Event {
@@ -41,59 +40,45 @@ public class GoToFitnessEvent extends Event {
    // LinkedList<Area> path = null;
     @Override
     public void fire() {
-//        movingPath(hotel.getGuestByNumber(guestNumber));
-        movingPath(hotel.getFitness());
+        if (hotel.getFitness() == null){
+            return;
+        }
+        movingPath(hotel.getGuestByNumber(guestNumber));
+//        movingPath(hotel.getFitness());
 
     }
 
-    public void movingPath(Area destination){
-        Guest currentGuest = hotel.getGuestByNumber(guestNumber);
-
+    public void movingPath(Guest currentGuest) {
         if (currentGuest == null) {
             return;
         }
+        if (currentGuest.getArea()!=null){
+            currentGuest.getArea().removePerson(currentGuest);
+        }
+        Area[] allFitness = this.hotel.areas.stream().filter(area -> area instanceof Fitness).toArray(Area[]::new);
+        for (Area fit: allFitness){
+            System.out.println(fit.getClass().getSimpleName());
+        }
+        System.out.println("Guest number: " + currentGuest.getGuestNumber() + " is walking to fitness");
+        Area selectedFitness = null;
+        LinkedList<Area> selectedPath = null;
+        int closestDistance = Integer.MAX_VALUE;
+        for (Area fitness : allFitness) {
+            Dijkstra ds = new Dijkstra();
+            currentGuest.getArea().setDistanceForPerson(currentGuest, 0);
+            LinkedList<Area> currentPath = ds.findPath(currentGuest, currentGuest.getArea(), fitness);
+            int distance = currentPath.size();
+            if (closestDistance > distance) {
+                closestDistance = distance;
+                selectedFitness = fitness;
+                selectedPath = currentPath;
+            }
+        }
+        selectedFitness.addPerson(currentGuest);
 
-        Dijkstra ds = new Dijkstra();
-//        if(null == currentGuest) {
-//            System.out.println("there is no guests!! "+ guestNumber);
-//            return;
-//        }
-        currentGuest.getArea().setDistanceForPerson(currentGuest, 0);
-//       System.out.println("Guest number: "+currentGuest.getGuestNumber()+ " is walking to fitness");
-        LinkedList<Area> path = ds.findPath(currentGuest, currentGuest.getArea(), destination);
-//        System.out.println(path);
-        destination.addPerson(currentGuest);
-        Platform.runLater(()->currentGuest.setMovingQueue(path));
-//        System.out.println("Guest number: "+currentGuest.getGuestNumber()+  " is at fitness location X: "+currentGuest.getArea().getX()+" and Y: "+ currentGuest.getArea().getY());
+        LinkedList<Area> finalSelectedPath = selectedPath;
+        Platform.runLater(()->currentGuest.setMovingQueue(finalSelectedPath));
+        System.out.println("Guest number: " + currentGuest.getGuestNumber() + " is at fitness location X: " + currentGuest.getArea().getX() + " and Y: " + currentGuest.getArea().getY());
     }
-
-
-
-//    public void xmovingPath(Guest currentGuest) {
-////        for (Area area : hotel.areas) {
-////            area.setLatest(null);
-////            area.setDistance(Integer.MAX_VALUE);
-////        }
-//        Dijkstra ds = new Dijkstra();
-//        Area[] allFitness = this.hotel.areas.stream().filter(area -> area instanceof Fitness).toArray(Area[]::new);
-//        System.out.println("Guest number: " + currentGuest.getGuestNumber() + " is walking to fitness");
-//        currentGuest.getArea().setDistanceForPerson(currentGuest, 0);
-//        Area selectedFitness = null;
-//        int closestDistance = Integer.MAX_VALUE;
-//        for (Area fitness : allFitness) {
-//            int distance = (ds.findPath(currentGuest, currentGuest.getArea(), fitness)).size();
-//            if (closestDistance > distance) {
-//                closestDistance = distance;
-//                selectedFitness = fitness;
-//            } else {
-//                return;
-//            }
-//        }
-//        Area finalSelectedFitness = selectedFitness;
-//        Platform.runLater(() -> currentGuest.setMovingQueue(ds.findPath(currentGuest, currentGuest.getArea(), finalSelectedFitness)));
-//        selectedFitness.addPerson(currentGuest);
-//        System.out.println("Guest number: " + currentGuest.getGuestNumber() + " is at fitness location X: " + currentGuest.getArea().getX() + " and Y: " + currentGuest.getArea().getY());
-//
-//    }
 }
 

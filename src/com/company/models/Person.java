@@ -25,10 +25,11 @@ abstract public class Person extends Pane implements MoveInterface, LateComingHT
 
     public void setArea(Area area) {
         if (this.area != null) {
-            Platform.runLater(this::removePersonFromGrid);
+            Platform.runLater(()->this.removePersonFromGrid());
         }
+
         this.area = area;
-        Platform.runLater(this::addPersonToGrid);
+        Platform.runLater(()->this.addPersonToGrid());
     }
 
     public void setPersonImage(String image) {
