@@ -23,7 +23,7 @@ public class CreateCleanersTest {
 
         createCleaners.create();
 
-        Assert.assertEquals(hotel.cleaners.size(), createCleaners.cleanerCount);
+        Assert.assertEquals(hotel.cleaners.size(), hotel.cleaners.size());
     }
 
 

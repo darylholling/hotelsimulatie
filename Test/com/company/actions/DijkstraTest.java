@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class DijkstraTest {
     Dijkstra dijkstra = new Dijkstra();
-    ArrayList<Area> unvisitedAreas = new ArrayList<>();
+
 
 
     @Test
@@ -26,12 +26,11 @@ class DijkstraTest {
         GuestRoom guestRoomEnd = new GuestRoom(3, 1, 1, 1, 1);
 
 
-        unvisitedAreas.addAll(Arrays.asList(guestRoomStart, guestRoomInBetween, guestRoomEnd));
-        dijkstra.unvisitedAreas = unvisitedAreas;
+        dijkstra.unvisitedAreas.addAll(Arrays.asList(guestRoomStart, guestRoomInBetween, guestRoomEnd));
 
         dijkstra.findPath(guestRoomStart, guestRoomEnd);
 
-        Assert.assertEquals(unvisitedAreas.get(0), guestRoomEnd);
+        Assert.assertEquals(dijkstra.unvisitedAreas.get(0), guestRoomEnd);
 
     }
 }

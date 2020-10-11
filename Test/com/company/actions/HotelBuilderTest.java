@@ -2,6 +2,7 @@ package com.company.actions;
 
 import com.company.models.Hotel;
 import com.company.models.HteCounter;
+import com.company.models.Settings;
 import com.company.models.areas.Area;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.layout.GridPane;
@@ -9,6 +10,7 @@ import javafx.scene.layout.VBox;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,6 +20,7 @@ class HotelBuilderTest {
     Hotel hotel = new Hotel();
     HotelBuilder hotelBuilder = new HotelBuilder(hotel);
     GridPane gridPane = new GridPane();
+    Settings settings = new Settings();
     JFXPanel jfxPanel = new JFXPanel();
 
 
@@ -41,6 +44,7 @@ class HotelBuilderTest {
         Assert.assertFalse(isArea);
 
         //Create content
+        settings.setLayoutFile(new File("Test/jsonTestFiles/layoutTest.json"));
         hotelBuilder.createContent();
 
         //With created content

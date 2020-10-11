@@ -1,8 +1,11 @@
 package com.company.models.areas;
 
 
+import com.company.actions.HotelBuilder;
 import com.company.models.*;
 import com.company.models.areas.*;
+import javafx.application.Platform;
+import javafx.embed.swing.JFXPanel;
 import javafx.stage.Stage;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
@@ -46,5 +49,19 @@ public class HotelTest {
         hotel.guestList = guestList;
 
         Assert.assertEquals(guestList.get(2), hotel.getGuestByNumber(40));
+    }
+
+    @Test
+    public void hotelTest() {
+
+        //TODO wat kunnen we hier van testen?
+
+        JFXPanel jfxPanel = new JFXPanel();
+
+        Platform.runLater(() -> {
+            Stage stage = new Stage();
+            hotel.start(stage);
+        });
+
     }
 }

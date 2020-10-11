@@ -18,11 +18,13 @@ class TimeTest {
     public void testIfTheTimerStartsAndStops(){
         settings.setSettings(1,1,1,1);
 
-        Assert.assertEquals(false,time.isRunning());
-        time.startTimer();
+        Assert.assertFalse(time.running);
 
-        Assert.assertEquals(true, time.isRunning());
+        time.startTimer();
+        Assert.assertTrue(time.running);
+
         time.stopTimer();
+        Assert.assertFalse(time.running);
     }
 
 }
