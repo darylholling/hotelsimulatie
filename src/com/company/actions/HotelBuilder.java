@@ -26,12 +26,12 @@ import java.nio.file.Files;
 import java.util.Arrays;
 
 public class HotelBuilder implements StartListener, HTEListener {
+    public static GridPane gridPane;
     int maxXInJson = 0;
     int maxYInJson = 0;
     int hotelHeight = 0;
     int hotelWidth = 0;
     JsonArray jsonArrays;
-    public static GridPane gridPane;
     Area[][] areas;
     Scene mainScene;
     private Label hteInfoBoard;
@@ -41,6 +41,13 @@ public class HotelBuilder implements StartListener, HTEListener {
         this.hotel = hotel;
     }
 
+    public void start(Stage stage) throws Exception {
+        mainScene = new Scene(createContent());
+        stage.setScene(mainScene);
+        stage.setResizable(false);
+        stage.show();
+    }
+
     public Parent createContent() throws IOException {
         // size of window
         Pane root = new Pane();
@@ -48,7 +55,7 @@ public class HotelBuilder implements StartListener, HTEListener {
 
 //        set layout file to run Hotelbuilder
         File layoutFile = new File("src/com/company/files/layout.json");
-//        File layoutFile = new File("src/com/company/files/2roomlayout.json");
+//        File layoutFile = new File("json/2roomlayout.json");
 
         Gson gson = new GsonBuilder().create();
         jsonArrays = gson.fromJson(Files.newBufferedReader(new File(String.valueOf(layoutFile)).toPath(), StandardCharsets.UTF_8), JsonArray.class);
@@ -82,26 +89,7 @@ public class HotelBuilder implements StartListener, HTEListener {
         this.createAreas(gridPane, jsonArrays, areas);
         this.createNeighbours(areas, hotelWidth, hotelHeight);
 
-        // Adding the HTE information board
-        Pane header = new Pane();
-        VBox hotelPane = new VBox();
-
-        this.hteInfoBoard = new Label("HTE : " + HteCounter.getHte());
-        hteInfoBoard.setStyle("-fx-font-size: 170%");
-        hteInfoBoard.setTextFill(Color.BLACK);
-        hteInfoBoard.relocate(255, 5);
-
-        header.getChildren().add(hteInfoBoard);
-        Rectangle lobbyButton = new Rectangle();
-        lobbyButton.setHeight(50);
-        lobbyButton.setWidth(50 * (hotelWidth - 1));
-        lobbyButton.setFill(Color.TRANSPARENT);
-        lobbyButton.setOnMouseClicked(mouseEvent -> {
-            this.hotel.stage.setScene(createPauseScreen());
-            hotel.timer.stopTimer();
-        });
-        gridPane.add(lobbyButton, 1, hotelHeight, hotelWidth - 1, 1);
-        hotelPane.getChildren().addAll(header, gridPane);
+        VBox hotelPane = this.createHTEInfoBoard();
 
         for (Area[] areaList : areas) {
             hotel.areas.addAll(Arrays.asList(areaList));
@@ -282,11 +270,29 @@ public class HotelBuilder implements StartListener, HTEListener {
         }
     }
 
-    public void start(Stage stage) throws Exception {
-        mainScene = new Scene(createContent());
-        stage.setScene(mainScene);
-        stage.setResizable(false);
-        stage.show();
+    private VBox createHTEInfoBoard() {
+        // Adding the HTE information board
+        Pane header = new Pane();
+        VBox hotelPane = new VBox();
+
+        this.hteInfoBoard = new Label("HTE : " + HteCounter.getHte());
+        hteInfoBoard.setStyle("-fx-font-size: 170%");
+        hteInfoBoard.setTextFill(Color.BLACK);
+        hteInfoBoard.relocate(255, 5);
+
+        header.getChildren().add(hteInfoBoard);
+        Rectangle lobbyButton = new Rectangle();
+        lobbyButton.setHeight(50);
+        lobbyButton.setWidth(50 * (hotelWidth - 1));
+        lobbyButton.setFill(Color.TRANSPARENT);
+        lobbyButton.setOnMouseClicked(mouseEvent -> {
+            this.hotel.stage.setScene(createPauseScreen());
+            hotel.timer.stopTimer();
+        });
+        gridPane.add(lobbyButton, 1, hotelHeight, hotelWidth - 1, 1);
+        hotelPane.getChildren().addAll(header, gridPane);
+
+        return hotelPane;
     }
 
     // Create pause scene
@@ -294,7 +300,7 @@ public class HotelBuilder implements StartListener, HTEListener {
         return new Scene(createPausePane());
     }
 
-    public Pane createPausePane() {
+    private Pane createPausePane() {
         Pane pausePane = new Pane();
         Button resumeButton = new Button();
         resumeButton.setText("Resume Game");

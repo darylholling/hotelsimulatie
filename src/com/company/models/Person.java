@@ -8,15 +8,16 @@ import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import java.io.FileInputStream;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 
+import java.io.FileInputStream;
 import java.util.LinkedList;
 
 abstract public class Person extends Pane implements MoveInterface, LateComingHTEListener {
     protected ImageView personImageFile;
     protected Area area;
     protected LinkedList<Area> movingQueue = new LinkedList<>();
-    private HBox imageBox;
 
     public Area getArea() {
         return this.area;
@@ -44,7 +45,6 @@ abstract public class Person extends Pane implements MoveInterface, LateComingHT
         this.setPersonImageFile(personImageView);
     }
 
-
     public void setPersonImageFile(ImageView personImageFile) {
         this.personImageFile = personImageFile;
         getChildren().add(this.personImageFile);
@@ -59,11 +59,11 @@ abstract public class Person extends Pane implements MoveInterface, LateComingHT
         HotelBuilder.gridPane.getChildren().remove(this);
     }
 
-    public LinkedList<Area> getMovingQueue() {
-        return movingQueue;
-    }
-
     public void setMovingQueue(LinkedList<Area> movingQueue) {
         this.movingQueue = movingQueue;
+    }
+
+    public LinkedList<Area> getMovingQueue() {
+        return movingQueue;
     }
 }
