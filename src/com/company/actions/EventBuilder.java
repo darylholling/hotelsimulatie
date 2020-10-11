@@ -41,11 +41,6 @@ public class EventBuilder {
             int eventTime = jsonObject.get("time").getAsInt();
             JsonObject data = jsonObject.get("data").getAsJsonObject();
 
-            //TODO tycho herschreven
-            if (eventTime > highestHteInJsonFile) {
-                highestHteInJsonFile = eventTime;
-            }
-
             int guestNumber = 0;
             int stars = 0;
             int duration = 0;
@@ -100,6 +95,9 @@ public class EventBuilder {
 
         // Sort array
         eventsArray.sort(new SortEventsByTime());
+
+        // Determine the highest HTE
+        highestHteInJsonFile = eventsArray.stream().reduce((first, second) -> second).orElse(null).getEventTime();
 
         // Create queue
         return new PriorityQueue<>(eventsArray);
