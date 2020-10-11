@@ -5,7 +5,6 @@ import com.company.models.HTEListener;
 import com.company.models.Hotel;
 import com.company.models.StartListener;
 
-import java.io.IOException;
 import java.util.Queue;
 
 public class EventHandler implements StartListener, HTEListener {
@@ -17,13 +16,17 @@ public class EventHandler implements StartListener, HTEListener {
     }
 
     @Override
-    public void handleStart() throws Exception {
+    public void handleStart() {
         this.initializeEvents();
     }
 
-    private void initializeEvents() throws IOException {
-        EventBuilder eventBuilder = new EventBuilder(hotel.settings.getEventsFile());
-        this.eventQueue = eventBuilder.readJson(this.hotel);
+    private void initializeEvents() {
+        EventBuilder eventBuilder = new EventBuilder();
+        Queue<Event> eventQueue = eventBuilder.readJson(hotel);
+
+        if (eventQueue != null) {
+            this.eventQueue = eventQueue;
+        }
     }
 
     @Override

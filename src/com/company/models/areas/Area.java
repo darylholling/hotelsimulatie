@@ -1,5 +1,6 @@
 package com.company.models.areas;
 
+import com.company.models.Hotel;
 import com.company.models.Person;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -17,25 +18,20 @@ public abstract class Area extends Pane {
     protected int areaWidth;
     protected int areaHeight;
     protected ArrayList<Person> persons = new ArrayList<>();
-
+    protected Hotel hotel;
+    // Remember distance per person
+    protected HashMap<Person, Integer> distancesPerPerson = new HashMap<>();
+    // Remember latest per person
+    protected HashMap<Person, Area> latestPerPerson = new HashMap<>();
     //    The nodes neighbours with the distance to each one
     private HashMap<Area, Integer> neighbours;
-
-    //     Data for pathfinder, keeps the current distance
-    private int distance;
-
-    //    Remembers the previous node
-    private Area latest;
 
     public Area(int x, int y, int areaWidth, int areaHeight) {
         this.x = x;
         this.y = y;
         this.areaWidth = areaWidth;
         this.areaHeight = areaHeight;
-
         this.neighbours = new HashMap<>();
-        this.distance = Integer.MAX_VALUE;
-        this.latest = null;
     }
 
     public void addPerson(Person person) {
@@ -80,23 +76,15 @@ public abstract class Area extends Pane {
         this.neighbours.put(area, distance);
     }
 
-    public int getDistance() {
-        return distance;
+    public Hotel getHotel() {
+        return hotel;
     }
 
-    public void setDistance(int distance) {
-        this.distance = distance;
+    public void setHotel(Hotel hotel) {
+        this.hotel = hotel;
     }
 
-    public Area getLatest() {
-        return latest;
-    }
-
-    public void setLatest(Area latest) {
-        this.latest = latest;
-    }
-
-    public AreaBackground createAreaBackground(int defaultX, int defaultY, int width, int height, ImageView classname) throws FileNotFoundException {
+    public AreaBackground createAreaBackground(int defaultX, int defaultY, int width, int height, ImageView classname) {
         return new AreaBackground(defaultX, defaultY, width, height, classname);
     }
 
@@ -116,7 +104,25 @@ public abstract class Area extends Pane {
         getChildren().add(this.imageFile);
     }
 
-    public String printCoordinates() {
-        return "x:" + this.x + "-y:" + y;
+    public int getDistanceForPerson(Person person) {
+        if (this.distancesPerPerson.containsKey(person)) {
+            return this.distancesPerPerson.get(person);
+        }
+        return Integer.MAX_VALUE;
+    }
+
+    public void setDistanceForPerson(Person person, int distance) {
+        this.distancesPerPerson.put(person, distance);
+    }
+
+    public Area getLatestForPerson(Person person) {
+        if (this.distancesPerPerson.containsKey(person)) {
+            return this.latestPerPerson.get(person);
+        }
+        return null;
+    }
+
+    public void setLatestForPerson(Person person, Area latest) {
+        this.latestPerPerson.put(person, latest);
     }
 }

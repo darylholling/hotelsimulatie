@@ -4,45 +4,56 @@ import com.company.actions.Dijkstra;
 import com.company.models.Guest;
 import com.company.models.Hotel;
 import com.company.models.areas.Area;
+import com.company.models.areas.Diner;
+import javafx.application.Platform;
 
 import java.util.LinkedList;
 
 public class GoToDinerEvent extends Event {
     private int guestNumber;
-    private Hotel hotel;
 
     public GoToDinerEvent(Integer eventTime, Hotel hotel, int guestNumber) {
         super(eventTime, hotel);
-        this.guestNumber = guestNumber;
-        this.hotel = hotel;
-    }
-
-    public int getIdGuest() {
-        return guestNumber;
-    }
-
-    public void setIdGuest(int guestNumber) {
         this.guestNumber = guestNumber;
     }
 
     @Override
     public void fire() {
-        System.out.println("firing diner");
+        if (hotel.getDiner() == null) {
+            return;
+        }
 
-        //        this.hotel.guestList.remove(hotel.getGuestByNumber(guestNumber));
-        Guest currentGuest = hotel.getGuestByNumber(guestNumber);
-//        this.hotel.guestList.remove(currentGuest);
-        //todo lopen naar Diner
-        //NOT TESTED
-        Area diner = hotel.getDiner();
-        System.out.println("Guest number: " + currentGuest.getGuestNumber() + " is walking to Diner");
-        Dijkstra ds = new Dijkstra();
-//        currentGuest.getArea().setDistance(0);
-        LinkedList<Area> path = ds.findPath(currentGuest.getArea(), diner);
-        System.out.println(path);
-//        String path = this.hotel.dijkstra.findPath(currentGuest, currentGuest.getArea(), diner);
-        System.out.println("Guest number: " + currentGuest.getGuestNumber() + " is at diner location X: " + currentGuest.getArea().getX() + " and Y: " + currentGuest.getArea().getY());
-        currentGuest.setArea(diner);
-        diner.addPerson(currentGuest);
+        determineAndSetMovingQueue(hotel.getGuestByNumber(guestNumber));
+    }
+
+    public void determineAndSetMovingQueue(Guest currentGuest) {
+        if (currentGuest == null) {
+            return;
+        }
+        if (currentGuest.getArea() != null) {
+            currentGuest.getArea().removePerson(currentGuest);
+        }
+        Area[] allDiner = this.hotel.areas.stream().filter(area -> area instanceof Diner).toArray(Area[]::new);
+
+        Area selectetDiner = null;
+        LinkedList<Area> selectedPath = null;
+        int closestDistance = Integer.MAX_VALUE;
+        for (Area diner : allDiner) {
+            Dijkstra dijkstra = new Dijkstra();
+            currentGuest.getArea().setDistanceForPerson(currentGuest, 0);
+            LinkedList<Area> currentPath = dijkstra.findPath(currentGuest, currentGuest.getArea(), diner);
+            int distance = currentPath.size();
+            if (closestDistance > distance) {
+                closestDistance = distance;
+                selectetDiner = diner;
+                selectedPath = currentPath;
+            }
+        }
+        if (selectetDiner != null) {
+            selectetDiner.addPerson(currentGuest);
+        }
+
+        LinkedList<Area> finalSelectedPath = selectedPath;
+        Platform.runLater(() -> currentGuest.setMovingQueue(finalSelectedPath));
     }
 }

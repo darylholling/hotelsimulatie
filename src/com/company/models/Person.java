@@ -56,6 +56,10 @@ abstract public class Person extends Pane implements MoveInterface, LateComingHT
         HotelBuilder.gridPane.getChildren().remove(this);
     }
 
+    public LinkedList<Area> getMovingQueue() {
+        return movingQueue;
+    }
+
     public void setMovingQueue(LinkedList<Area> movingQueue) {
         this.movingQueue = movingQueue;
     }

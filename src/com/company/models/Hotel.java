@@ -3,6 +3,7 @@ package com.company.models;
 import com.company.actions.CreateCleaners;
 import com.company.actions.EventHandler;
 import com.company.actions.HotelBuilder;
+import com.company.models.areas.*;
 import com.company.events.CleaningEmergencyEvent;
 import com.company.events.DefaultCleaningEvent;
 import com.company.models.areas.Area;
@@ -18,6 +19,7 @@ import java.util.Queue;
 
 public class Hotel extends Application implements HTEListener {
     public ArrayList<Guest> guestList = new ArrayList<>();
+    public ArrayList<Guest> activeGuestList = new ArrayList<>();
     public ArrayList<Area> areas = new ArrayList<>();
     public ArrayList<Cleaner> cleaners = new ArrayList<>();
     public Settings settings = new Settings();
@@ -28,6 +30,7 @@ public class Hotel extends Application implements HTEListener {
     public Queue<DefaultCleaningEvent> defaultCleaningEvents = new LinkedList<>();
     public int currentHTE;
     public ArrayList<LateComingHTEListener> lateComingHTEListeners = new ArrayList<>();
+    public Menu menu;
 
     @Override
     public void start(Stage stage) {
@@ -51,6 +54,7 @@ public class Hotel extends Application implements HTEListener {
                 add(timer);
             }
         });
+        this.menu = menu;
         menu.run();
     }
 
@@ -81,5 +85,11 @@ public class Hotel extends Application implements HTEListener {
 
     public int getCurrentHTE() {
         return this.currentHTE;
+    }
+    public Area getFitness() {
+        return this.areas.stream().filter(area -> area instanceof Fitness).findFirst().orElse(null);
+    }
+    public Stage getStage(){
+        return this.stage;
     }
 }

@@ -11,11 +11,12 @@ public class Diner extends Area {
         this.capacity = capacity;
     }
 
-    public int getCapacity() {
-        return capacity;
-    }
+    //due to time shortage this function is not used yet.
+    public boolean isFull() {
+        if (this.persons.size() < this.capacity) {
+            return false;
+        }
 
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
+        return true;
     }
 }

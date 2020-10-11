@@ -23,7 +23,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.util.Arrays;
 
 public class HotelBuilder implements StartListener, HTEListener {
     public static GridPane gridPane;
@@ -34,31 +33,36 @@ public class HotelBuilder implements StartListener, HTEListener {
     JsonArray jsonArrays;
     Area[][] areas;
     Scene mainScene;
-    private Label hteInfoBoard;
+    private Label HTEInfoBoard;
+    private Label highestHTE;
     private Hotel hotel;
 
+    //constructor
     public HotelBuilder(Hotel hotel) {
         this.hotel = hotel;
     }
 
-    public void start(Stage stage) throws Exception {
+    //engaging the scene
+    public void start(Stage stage) throws FileNotFoundException {
         mainScene = new Scene(createContent());
         stage.setScene(mainScene);
         stage.setResizable(false);
         stage.show();
     }
 
-    public Parent createContent() throws IOException {
-        // size of window
-        Pane root = new Pane();
+    //creating hotel content including visualisation.
+    public Parent createContent() throws FileNotFoundException {
         gridPane = new GridPane();
 
-//        set layout file to run Hotelbuilder
-        File layoutFile = new File("src/com/company/files/layout.json");
-//        File layoutFile = new File("json/2roomlayout.json");
+        File layoutFile = Settings.getSettings().getLayoutFile();
 
         Gson gson = new GsonBuilder().create();
-        jsonArrays = gson.fromJson(Files.newBufferedReader(new File(String.valueOf(layoutFile)).toPath(), StandardCharsets.UTF_8), JsonArray.class);
+        try {
+            jsonArrays = gson.fromJson(Files.newBufferedReader(new File(String.valueOf(layoutFile)).toPath(), StandardCharsets.UTF_8), JsonArray.class);
+        } catch (IOException | JsonParseException e) {
+            hotel.menu.addJsonError("hotelfile");
+            return hotel.menu.mainMenuContent();
+        }
 
         for (JsonElement jsonElement : jsonArrays) {
             JsonObject jsonObject = jsonElement.getAsJsonObject();
@@ -92,48 +96,17 @@ public class HotelBuilder implements StartListener, HTEListener {
         VBox hotelPane = this.createHTEInfoBoard();
 
         for (Area[] areaList : areas) {
-            hotel.areas.addAll(Arrays.asList(areaList));
+            for (Area area : areaList) {
+                hotel.areas.add(area);
+                area.setHotel(hotel);
+            }
         }
 
         return hotelPane;
     }
 
+    //add neighbours for pathfinding
     private void createNeighbours(Area[][] areas, int hotelWidth, int hotelHeight) {
-
-        // if we want elevator
-//        for (int x = 0; x <= hotelWidth; x++) {
-//            for (int y = 0; y <= hotelHeight; y++) {
-//                Area currentArea = areas[x][y];
-//
-//                if (x == 0) {
-//                    currentArea.addNeighbour(areas[currentArea.getX() + 1][currentArea.getY()], 1);
-//                    if (y != hotelHeight) {
-//                        currentArea.addNeighbour(areas[currentArea.getX()][currentArea.getY() + 1], 1);
-//                    }
-//                    if (y != 0) {
-//                        currentArea.addNeighbour(areas[currentArea.getX()][currentArea.getY() - 1], 1);
-//                    }
-//
-//                    continue;
-//                }
-//
-//                if (x == hotelWidth) {
-//                    currentArea.addNeighbour(areas[currentArea.getX() - 1][currentArea.getY()], 1);
-//
-//                    if (y != hotelHeight) {
-//                        currentArea.addNeighbour(areas[currentArea.getX()][currentArea.getY() + 1], 1);
-//                    }
-//                    if (y != 0) {
-//                        currentArea.addNeighbour(areas[currentArea.getX()][currentArea.getY() - 1], 1);
-//                    }
-//
-//                    continue;
-//                }
-//
-//                currentArea.addNeighbour(areas[currentArea.getX() - 1][currentArea.getY()], 1);
-//                currentArea.addNeighbour(areas[currentArea.getX() + 1][currentArea.getY()], 1);
-//            }
-//        }
         for (int x = 1; x <= hotelWidth; x++) {
             for (int y = 0; y <= hotelHeight; y++) {
                 Area currentArea = areas[x][y];
@@ -163,7 +136,8 @@ public class HotelBuilder implements StartListener, HTEListener {
         }
     }
 
-    public void createDefaultAreas(GridPane gridPane, int i, int j, Area[][] areas) throws FileNotFoundException {
+    //create all default areas which is not defined in json file
+    private void createDefaultAreas(GridPane gridPane, int i, int j, Area[][] areas) throws FileNotFoundException {
         Area area;
 
         int dimensionWidth = maxXInJson + 1;
@@ -207,7 +181,7 @@ public class HotelBuilder implements StartListener, HTEListener {
 
         for (JsonElement jsonElement : jsonArrays) {
             Area area = null;
-            Area areaBackground = null;
+            Area areaBackground;
             JsonObject jsonObject = jsonElement.getAsJsonObject();
 
             JsonObject position = jsonObject.get("position").getAsJsonObject();
@@ -269,21 +243,27 @@ public class HotelBuilder implements StartListener, HTEListener {
         }
     }
 
+    //create textual info presenting HTE time
     private VBox createHTEInfoBoard() {
-        // Adding the HTE information board
         Pane header = new Pane();
         VBox hotelPane = new VBox();
 
-        this.hteInfoBoard = new Label("HTE : " + HteCounter.getHte());
-        hteInfoBoard.setStyle("-fx-font-size: 170%");
-        hteInfoBoard.setTextFill(Color.BLACK);
-        hteInfoBoard.relocate(255, 5);
+        this.HTEInfoBoard = new Label("HTE : " + HteCounter.getHTE());
+        HTEInfoBoard.setStyle("-fx-font-size: 170%");
+        HTEInfoBoard.setTextFill(Color.BLACK);
+        HTEInfoBoard.relocate(280, 2);
 
-        header.getChildren().add(hteInfoBoard);
+        this.highestHTE = new Label("Final event starts at HTE: " + Settings.getSettings().getHighestHteInJsonFile());
+        highestHTE.setStyle("-fx-font-size: 170%");
+        highestHTE.setTextFill(Color.BLACK);
+        highestHTE.relocate(5, 2);
+
+        header.getChildren().addAll(highestHTE, HTEInfoBoard);
         Rectangle lobbyButton = new Rectangle();
         lobbyButton.setHeight(50);
         lobbyButton.setWidth(50 * (hotelWidth - 1));
         lobbyButton.setFill(Color.TRANSPARENT);
+        lobbyButton.toFront();
         lobbyButton.setOnMouseClicked(mouseEvent -> {
             this.hotel.stage.setScene(createPauseScreen());
             hotel.timer.stopTimer();
@@ -299,6 +279,7 @@ public class HotelBuilder implements StartListener, HTEListener {
         return new Scene(createPausePane());
     }
 
+    //creating pane to display guestlist when clicking the lobby
     private Pane createPausePane() {
         Pane pausePane = new Pane();
         Button resumeButton = new Button();
@@ -317,8 +298,8 @@ public class HotelBuilder implements StartListener, HTEListener {
         label.setAlignment(Pos.CENTER);
         label.setTextAlignment(TextAlignment.JUSTIFY);
         String myString = "";
-        for (Guest guest : hotel.guestList) {
-            myString += "Guest " + guest.getGuestNumber() + " is at " + guest.getArea() + " @ " + guest.getArea().getX() + "/" + guest.getArea().getY() + "\n";
+        for (Guest guest : hotel.activeGuestList) {
+            myString += "Guest " + guest.getGuestNumber() + " is at " + guest.getArea().getClass().getSimpleName() + " @ X: " + guest.getArea().getX() + " ,Y: " + guest.getArea().getY() + "\n";
         }
         label.setText(myString);
         pausePane.getChildren().add(label);
@@ -329,16 +310,22 @@ public class HotelBuilder implements StartListener, HTEListener {
         return this.hotel.stage;
     }
 
+    //handling the start method fired from menu.
     public void handleStart() throws Exception {
         this.start(this.getStage());
+
+        if (highestHTE != null) {
+            Platform.runLater(() -> highestHTE.setText("Final event starts at HTE: " + Settings.getSettings().getHighestHteInJsonFile()));
+        }
     }
 
-    public void hteLabelUpdate() {
-        Platform.runLater(() -> hteInfoBoard.setText("HTE: " + HteCounter.getHte()));
+    //updating HTElabel once received from listener
+    public void HTELabelUpdate() {
+        Platform.runLater(() -> HTEInfoBoard.setText("HTE: " + HteCounter.getHTE()));
     }
 
     @Override
     public void updatedHTE(int HTE) {
-        this.hteLabelUpdate();
+        this.HTELabelUpdate();
     }
 }

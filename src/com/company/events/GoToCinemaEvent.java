@@ -4,38 +4,60 @@ import com.company.actions.Dijkstra;
 import com.company.models.Guest;
 import com.company.models.Hotel;
 import com.company.models.areas.Area;
+import com.company.models.areas.Cinema;
+import javafx.application.Platform;
 
 import java.util.LinkedList;
 
 public class GoToCinemaEvent extends Event {
     private int guestNumber;
-    private Hotel hotel;
 
     public GoToCinemaEvent(Integer eventTime, Hotel hotel, int guestNumber) {
         super(eventTime, hotel);
         this.guestNumber = guestNumber;
-        this.hotel = hotel;
     }
 
     @Override
     public void fire() {
-        System.out.println("firing cinema");
-        Guest currentGuest = hotel.getGuestByNumber(guestNumber);
-        System.out.println(guestNumber);
-        System.out.println(currentGuest.getClass());
-        System.out.println(currentGuest.getArea().getX() + ":" + currentGuest.getArea().getY());
-//        this.hotel.guestList.remove(currentGuest);
-        //todo lopen naar cinema
-        //NOT TESTED
-        Area cinema = hotel.getCinema();
-        System.out.println("Guest number: " + currentGuest.getGuestNumber() + " is walking to cinema");
+        if (hotel.getCinema() == null) {
+            return;
+        }
+        movingPath(hotel.getGuestByNumber(guestNumber));
+    }
 
-        Dijkstra dijkstra = new Dijkstra();
-        currentGuest.getArea().setDistance(0);
-        LinkedList<Area> path = dijkstra.findPath(currentGuest.getArea(), cinema);
-        System.out.println(path);
-        System.out.println("Guest number: " + currentGuest.getGuestNumber() + " is at cinema location X: " + currentGuest.getArea().getX() + " and Y: " + currentGuest.getArea().getY());
-        currentGuest.setArea(cinema);
-        cinema.addPerson(currentGuest);
+    public void movingPath(Guest currentGuest) {
+        if (currentGuest == null) {
+            return;
+        }
+
+        if (currentGuest.getArea() != null) {
+            currentGuest.getArea().removePerson(currentGuest);
+        }
+
+        Area[] allCinemas = this.hotel.areas.stream().filter(area -> area instanceof Cinema).toArray(Area[]::new);
+
+        Area selectedCinema = null;
+        LinkedList<Area> selectedPath = null;
+
+        //find closest cinema
+        int closestDistance = Integer.MAX_VALUE;
+        for (Area movie : allCinemas) {
+            Dijkstra dijkstra = new Dijkstra();
+            currentGuest.getArea().setDistanceForPerson(currentGuest, 0);
+            LinkedList<Area> currentPath = dijkstra.findPath(currentGuest, currentGuest.getArea(), movie);
+            int distance = currentPath.size();
+            if (closestDistance > distance) {
+                closestDistance = distance;
+                selectedCinema = movie;
+                selectedPath = currentPath;
+            }
+        }
+
+        if (selectedCinema != null) {
+            selectedCinema.addPerson(currentGuest);
+        }
+
+        LinkedList<Area> finalSelectedPath = selectedPath;
+        Platform.runLater(() -> currentGuest.setMovingQueue(finalSelectedPath));
     }
 }
