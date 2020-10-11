@@ -28,13 +28,13 @@ public class GoToCinemaEvent extends Event {
         //todo lopen naar cinema
         //NOT TESTED
         Area cinema = hotel.getCinema();
-        System.out.println("Guest number: "+currentGuest.getGuestNumber()+ " is walking to cinema");
+        System.out.println("Guest number: " + currentGuest.getGuestNumber() + " is walking to cinema");
 
         Dijkstra dijkstra = new Dijkstra();
         currentGuest.getArea().setDistance(0);
         LinkedList<Area> path = dijkstra.findPath(currentGuest.getArea(), cinema);
         System.out.println(path);
-        System.out.println("Guest number: "+currentGuest.getGuestNumber()+  " is at cinema location X: "+currentGuest.getArea().getX()+" and Y: "+ currentGuest.getArea().getY());
+        System.out.println("Guest number: " + currentGuest.getGuestNumber() + " is at cinema location X: " + currentGuest.getArea().getX() + " and Y: " + currentGuest.getArea().getY());
         currentGuest.setArea(cinema);
         cinema.addPerson(currentGuest);
     }

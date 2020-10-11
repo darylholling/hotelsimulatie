@@ -316,7 +316,7 @@ public class Menu {
 
     public BorderPane createBorderPane() {
         BorderPane borderPane = new BorderPane();
-        borderPane.setPrefSize(1000, 1000);
+        borderPane.setPrefSize(600, 600);
         borderPane.setStyle(
                 "-fx-background-image:url(/com/company/images/background.jpg);"
                         + "-fx-background-size: cover, auto;"
