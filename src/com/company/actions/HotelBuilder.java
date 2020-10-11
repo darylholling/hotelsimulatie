@@ -55,9 +55,7 @@ public class HotelBuilder implements StartListener, HTEListener {
         gridPane = new GridPane();
 
 //        set layout file to run Hotelbuilder
-//        File layoutFile = new File("src/com/company/files/errorhotel.json");
-        File layoutFile = new File("src/com/company/files/layout.json");
-//        File layoutFile = new File("json/2roomlayout.json");
+        File layoutFile = hotel.settings.getLayoutFile();
 
         Gson gson = new GsonBuilder().create();
         try {

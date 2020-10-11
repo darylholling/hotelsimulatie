@@ -326,19 +326,23 @@ public class Menu {
         return borderPane;
     }
 
-
     //type = hier event of hotel file oid.
     public VBox createErrorJsonScreen(String type) {
         System.out.println(type);
         //TODO deze wordt aangeroepen, zorgen dat er een display is dat file fout is + knop naar start menu, of files.
         //TODO deze knop kan functie op onderstaande line misschien triggeren?
-//        hotel.menu.changeScene("loadFilePage");
 
-        Pane header = new Pane();
         VBox errorJsonVBox = new VBox();
 
-//        gridPane.add(lobbyButton, 1, hotelHeight, hotelWidth - 1, 1);
-//        errorJsonVBox.getChildren().addAll(header, gridPane);
+        Label instructionMenu = new Label("The provided hotel file was incorrect, please provide a correctly written json");
+        instructionMenu.setStyle("-fx-padding:10;");
+        instructionMenu.relocate(5, 5);
+
+        Button menuPage = new Button("Back to menu");
+        menuPage.setMaxWidth(Double.MAX_VALUE);
+        menuPage.setOnAction((ActionEvent Event) -> changeScene("MAINMENU"));
+
+        errorJsonVBox.getChildren().addAll(instructionMenu, menuPage);
 
         return errorJsonVBox;
     }
