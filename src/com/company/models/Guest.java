@@ -5,40 +5,15 @@ import com.company.models.areas.GuestRoom;
 import com.company.models.areas.Lobby;
 import javafx.application.Platform;
 
-import java.util.LinkedList;
 import java.util.Random;
 
 public class Guest extends Person {
-    private int preferredStars;
     private GuestRoom guestRoom;
     private int guestNumber;
-    private boolean movingToCheckOut = false;
     private int checkInTime;
-
-    public boolean isAvailable() {
-        return isAvailable;
-    }
-
-    public void setAvailable(boolean available) {
-        isAvailable = available;
-    }
-
-    private boolean isAvailable = true;
-
-    public boolean isMovingToCheckOut() {
-        return movingToCheckOut;
-    }
-
-    public void setMovingToCheckOut(boolean movingToCheckOut) {
-        this.movingToCheckOut = movingToCheckOut;
-    }
 
     public void setGuestImage() {
         super.setPersonImage(randomSelect());
-    }
-
-    public int getCheckInTime() {
-        return checkInTime;
     }
 
     public void setCheckInTime(int checkInTime) {
@@ -53,10 +28,6 @@ public class Guest extends Person {
         this.guestNumber = guestNumber;
     }
 
-    public void setPreferredStars(int preferredStars) {
-        this.preferredStars = preferredStars;
-    }
-
     public GuestRoom getGuestRoom() {
         return guestRoom;
     }
@@ -67,7 +38,6 @@ public class Guest extends Person {
 
     // selects random picture
     public String randomSelect() {
-
         String[] arr = {"guest.png", "guest2.png"};
         Random random = new Random();
         int select = random.nextInt(arr.length);
@@ -76,7 +46,6 @@ public class Guest extends Person {
 
     @Override
     public void move(Area startArea, Area endArea) {
-
         this.getArea().removePerson(this);
         this.setArea(endArea);
         endArea.addPerson(this);

@@ -19,7 +19,6 @@ public class CheckInEvent extends Event {
         super(eventTime, hotel);
         this.guestNumber = guestNumber;
         this.stars = stars;
-        this.hotel = hotel;
     }
 
     @Override
@@ -40,8 +39,7 @@ public class CheckInEvent extends Event {
         GuestRoom selectedGuestRoom = availableByStars[new Random().nextInt(availableByStars.length)];
 
         Guest guest = new Guest();
-        guest.setGuestNumber(guestNumber);
-        guest.setPreferredStars(stars);
+        guest.setGuestNumber(this.guestNumber);
         guest.setGuestRoom(selectedGuestRoom);
         Platform.runLater(() -> guest.setGuestImage());
         guest.setArea(this.hotel.getLobby());
@@ -51,7 +49,6 @@ public class CheckInEvent extends Event {
         Platform.runLater(()->hotel.lateComingHTEListeners.add(guest));
         hotel.guestList.add(guest);
         hotel.activeGuestList.add(guest);
-
 
         Dijkstra dijkstra = new Dijkstra();
         guest.getArea().setDistanceForPerson(guest, 0);

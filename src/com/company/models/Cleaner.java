@@ -5,8 +5,10 @@ import com.company.events.CleaningEmergencyEvent;
 import com.company.events.CleaningEvent;
 import com.company.events.DefaultCleaningEvent;
 import com.company.models.areas.Area;
+import com.company.models.areas.GuestRoom;
 import com.company.models.areas.Lobby;
 import javafx.application.Platform;
+
 import java.util.LinkedList;
 
 public class Cleaner extends Person implements CleaningListener {
@@ -42,6 +44,7 @@ public class Cleaner extends Person implements CleaningListener {
 
         if (!hotel.defaultCleaningEvents.isEmpty()) {
             currentCleanEvent = hotel.defaultCleaningEvents.poll();
+
             moveToCleaning(currentCleanEvent);
             return;
         }
@@ -71,7 +74,7 @@ public class Cleaner extends Person implements CleaningListener {
 
     public void cleaning() {
         int beginHTE = hotel.currentHTE;
-        endHTE = beginHTE + hotel.settings.getCleanHTE();
+        endHTE = beginHTE + Settings.getSettings().getCleanHTE();
         cleaning = true;
     }
 
@@ -81,9 +84,13 @@ public class Cleaner extends Person implements CleaningListener {
         this.setArea(endArea);
         endArea.addPerson(this);
         this.movingQueue.remove(startArea);
-        if (this.movingQueue.size() == 1 && this.movingQueue.getFirst() == endArea){
+        if (this.movingQueue.size() == 1 && this.movingQueue.getFirst() == endArea) {
             this.movingQueue.remove(endArea);
             cleaning();
+
+            if (endArea instanceof GuestRoom) {
+                ((GuestRoom) endArea).setClean(true);
+            }
         }
     }
 
@@ -102,7 +109,7 @@ public class Cleaner extends Person implements CleaningListener {
         }
     }
 
-    public void startCleaners(){
+    public void startCleaners() {
         if (!cleaning) {
             checkQueue();
         }
