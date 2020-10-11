@@ -46,19 +46,14 @@ public class CheckOutEvent extends Event {
 
         Dijkstra dijkstra = new Dijkstra();
         guest.getArea().setDistanceForPerson(guest, 0);
-//        System.out.println(guest.getArea());
-//        System.out.println(guest.getGuestRoom());
         LinkedList<Area> path = dijkstra.findPath(guest, guest.getArea(), hotel.getLobby());
         Platform.runLater(()->guest.setMovingQueue(path));
-
 
         DefaultCleaningEvent defaultCleaningEvent = new DefaultCleaningEvent(hotel.settings.getCleanHTE(), hotel, guestNumber, cleaningListeners);
         hotel.defaultCleaningEvents.add(defaultCleaningEvent);
         for (CleaningListener CleaningListener : cleaningListeners) {
             CleaningListener.startCleaners();
         }
-        //TODO deregister guest from latecominghtelisteners.
-//        hotel.guestList.remove(guest);
     }
 }
 

@@ -19,6 +19,7 @@ import java.util.Queue;
 
 public class Hotel extends Application implements HTEListener {
     public ArrayList<Guest> guestList = new ArrayList<>();
+    public ArrayList<Guest> activeGuestList = new ArrayList<>();
     public ArrayList<Area> areas = new ArrayList<>();
     public ArrayList<Cleaner> cleaners = new ArrayList<>();
     public Settings settings = new Settings();

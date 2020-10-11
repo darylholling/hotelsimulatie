@@ -93,7 +93,10 @@ public class HotelBuilder implements StartListener, HTEListener {
         VBox hotelPane = this.createHTEInfoBoard();
 
         for (Area[] areaList : areas) {
-            hotel.areas.addAll(Arrays.asList(areaList));
+            for(Area area : areaList) {
+                hotel.areas.add(area);
+                area.setHotel(hotel);
+            }
         }
 
         return hotelPane;
@@ -324,7 +327,7 @@ public class HotelBuilder implements StartListener, HTEListener {
         label.setAlignment(Pos.CENTER);
         label.setTextAlignment(TextAlignment.JUSTIFY);
         String myString = "";
-        for (Guest guest : hotel.guestList) {
+        for (Guest guest : hotel.activeGuestList) {
             myString += "Guest " + guest.getGuestNumber() + " is at " + guest.getArea() + " @ " + guest.getArea().getX() + "/" + guest.getArea().getY() + "\n";
         }
         label.setText(myString);
