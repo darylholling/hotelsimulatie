@@ -48,32 +48,8 @@
     }
   },
   {
-    "type": "CLEANING_EMERGENCY",
-    "time": 7,
-    "data": {
-      "guest": 1,
-      "stars": 1
-    }
-  },
-  {
-    "type": "CLEANING_EVENT",
-    "time": 8,
-    "data": {
-      "guest": 1,
-      "stars": 1
-    }
-  },
-  {
     "type": "EVACUATE",
     "time": 9,
-    "data": {
-      "guest": 1,
-      "stars": 1
-    }
-  },
-  {
-    "type": "GODZILLA",
-    "time": 10,
     "data": {
       "guest": 1,
       "stars": 1

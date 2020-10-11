@@ -19,8 +19,8 @@ class GuestRoomTest {
         guest.setGuestRoom(guestRoom);
         guestRoom.persons.add(guest);
 
-        Assert.assertEquals(true, guestRoom.isOccupied());
-        Assert.assertEquals(false, guestRoom.isAvailable());
+        Assert.assertTrue(guestRoom.isOccupied());
+        Assert.assertFalse(guestRoom.isAvailable());
     }
 
     @Test
@@ -31,7 +31,7 @@ class GuestRoomTest {
             if (guestRoom.getImageFile() != null) {
                 hasImage = true;
             }
-            Assert.assertEquals(true, hasImage);
+            Assert.assertTrue(hasImage);
         }
     }
 }

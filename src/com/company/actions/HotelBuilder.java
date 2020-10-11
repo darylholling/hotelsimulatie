@@ -137,7 +137,7 @@ public class HotelBuilder implements StartListener, HTEListener {
     }
 
     //create all default areas which is not defined in json file
-    private void createDefaultAreas(GridPane gridPane, int i, int j, Area[][] areas) throws FileNotFoundException {
+    public void createDefaultAreas(GridPane gridPane, int i, int j, Area[][] areas) throws FileNotFoundException {
         Area area;
 
         int dimensionWidth = maxXInJson + 1;
