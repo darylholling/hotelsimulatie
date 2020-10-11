@@ -50,6 +50,7 @@ public class CheckInEvent extends Event {
 
         Platform.runLater(()->hotel.lateComingHTEListeners.add(guest));
         hotel.guestList.add(guest);
+        hotel.activeGuestList.add(guest);
 
 
         Dijkstra dijkstra = new Dijkstra();

@@ -1,5 +1,6 @@
 package com.company.models.areas;
 
+import com.company.models.Hotel;
 import com.company.models.Person;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -17,6 +18,7 @@ public abstract class Area extends Pane {
     protected int areaWidth;
     protected int areaHeight;
     protected ArrayList<Person> persons = new ArrayList<>();
+    protected Hotel hotel;
 
     //    The nodes neighbours with the distance to each one
     private HashMap<Area, Integer> neighbours;
@@ -102,6 +104,14 @@ public abstract class Area extends Pane {
 
     public void setLatest(Area latest) {
         this.latest = latest;
+    }
+
+    public Hotel getHotel() {
+        return hotel;
+    }
+
+    public void setHotel(Hotel hotel) {
+        this.hotel = hotel;
     }
 
     public AreaBackground createAreaBackground(int defaultX, int defaultY, int width, int height, ImageView classname) throws FileNotFoundException {

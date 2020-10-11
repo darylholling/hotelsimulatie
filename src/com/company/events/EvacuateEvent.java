@@ -14,7 +14,7 @@ public class EvacuateEvent extends Event {
 
     @Override
     public void fire() {
-        if (hotel.guestList.isEmpty()) {
+        if (hotel.activeGuestList.isEmpty()) {
             return;
         }
 
@@ -24,7 +24,7 @@ public class EvacuateEvent extends Event {
             return;
         }
 
-        for (Guest guest : hotel.guestList) {
+        for (Guest guest : hotel.activeGuestList) {
             Dijkstra dijkstra = new Dijkstra();
             guest.getArea().setDistanceForPerson(guest, 0);
             LinkedList<Area> path = dijkstra.findPath(guest, guest.getArea(), lobby);

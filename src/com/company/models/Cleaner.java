@@ -7,7 +7,6 @@ import com.company.events.DefaultCleaningEvent;
 import com.company.models.areas.Area;
 import com.company.models.areas.Lobby;
 import javafx.application.Platform;
-
 import java.util.LinkedList;
 
 public class Cleaner extends Person implements CleaningListener {

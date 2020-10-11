@@ -2,6 +2,7 @@ package com.company.models;
 
 import com.company.models.areas.Area;
 import com.company.models.areas.GuestRoom;
+import com.company.models.areas.Lobby;
 import javafx.application.Platform;
 
 import java.util.LinkedList;
@@ -70,23 +71,26 @@ public class Guest extends Person {
         this.setArea(endArea);
         endArea.addPerson(this);
         this.movingQueue.remove(startArea);
-        if (this.movingQueue.size() == 1 && this.movingQueue.getFirst() == endArea){
-            this.movingQueue = new LinkedList<>();
-        }
 
+        if (this.movingQueue.size() == 1 && this.movingQueue.getFirst() == endArea){
+            this.movingQueue.remove(endArea);
+//            this.movingQueue.clear();
+//            this.movingQueue = new LinkedList<>();
+            if (endArea instanceof Lobby) {
+                Hotel hotel = this.getArea().getHotel();
+                hotel.activeGuestList.remove(this);
+                Platform.runLater(() -> hotel.lateComingHTEListeners.remove(this));
+            }
+        }
     }
 
     @Override
     public void updatedHTE(int HTE) {
         if (this.movingQueue.size() > 1 && HTE != checkInTime) {
-            //System.out.println(this.movingQueue);
-            //System.out.println("guest" + guestNumber);
-            if (this.movingQueue.size() > 1) {
-                this.move(this.movingQueue.getFirst(), this.movingQueue.get(1));
-            }
+            this.move(this.movingQueue.getFirst(), this.movingQueue.get(1));
 
             if (this.movingQueue.isEmpty()) {
-                Platform.runLater(() -> this.removePersonFromGrid());
+                Platform.runLater(this::removePersonFromGrid);
             }
         }
     }

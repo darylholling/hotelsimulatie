@@ -22,8 +22,8 @@ public class EventHandler implements StartListener, HTEListener {
     }
 
     private void initializeEvents() throws IOException {
-        EventBuilder eventBuilder = new EventBuilder(hotel.settings.getEventsFile());
-        this.eventQueue = eventBuilder.readJson(this.hotel);
+        EventBuilder eventBuilder = new EventBuilder();
+        this.eventQueue = eventBuilder.readJson(hotel);
     }
 
     @Override
