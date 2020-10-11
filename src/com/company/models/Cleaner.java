@@ -4,7 +4,6 @@ import com.company.actions.Dijkstra;
 import com.company.events.CleaningEmergencyEvent;
 import com.company.events.CleaningEvent;
 import com.company.events.DefaultCleaningEvent;
-import com.company.events.Event;
 import com.company.models.areas.Area;
 import com.company.models.areas.Lobby;
 import javafx.application.Platform;
@@ -12,7 +11,7 @@ import javafx.application.Platform;
 import java.util.LinkedList;
 
 public class Cleaner extends Person implements CleaningListener {
-    private final Hotel hotel;
+    private Hotel hotel;
     private boolean cleaning = false;
     private CleaningEvent currentCleanEvent;
     private int endHTE;
@@ -27,16 +26,17 @@ public class Cleaner extends Person implements CleaningListener {
     }
 
     private void checkQueue() {
+
         if (currentCleanEvent != null) {
             if (currentCleanEvent instanceof CleaningEmergencyEvent) {
-                return;
+                moveToCleaning(currentCleanEvent);
             }
             if (currentCleanEvent instanceof DefaultCleaningEvent) {
                 hotel.defaultCleaningEvents.add((DefaultCleaningEvent) currentCleanEvent);
             }
         }
         if (!hotel.cleaningEmergencyEvents.isEmpty()) {
-            currentCleanEvent = hotel.hotel.cleaningEmergencyEvents.poll();
+            currentCleanEvent = hotel.cleaningEmergencyEvents.poll();
             moveToCleaning(currentCleanEvent);
         } else if (!hotel.defaultCleaningEvents.isEmpty()) {
             currentCleanEvent = hotel.defaultCleaningEvents.poll();
@@ -48,22 +48,21 @@ public class Cleaner extends Person implements CleaningListener {
 
     private void moveToLobby() {
         Dijkstra dijkstra = new Dijkstra();
-        this.getArea().setDistance(0);
-        LinkedList<Area> path = dijkstra.findPath(this.getArea(), hotel.getLobby());
+        this.getArea().setDistanceForPerson(this, 0);
+        LinkedList<Area> path = dijkstra.findPath(this, this.getArea(), hotel.getLobby());
         this.setMovingQueue(path);
     }
 
     private void moveToCleaning(CleaningEvent event) {
         Dijkstra dijkstra = new Dijkstra();
-        this.getArea().setDistance(0);
-        LinkedList<Area> path = dijkstra.findPath(this.getArea(), hotel.getGuestByNumber(event.guestNumber).getGuestRoom());
+        this.getArea().setDistanceForPerson(this, 0);
+        LinkedList<Area> path = dijkstra.findPath(this, this.getArea(), hotel.getGuestByNumber(event.guestNumber).getGuestRoom());
         this.setMovingQueue(path);
     }
 
     public void cleaning() {
         int beginHTE = hotel.currentHTE;
         endHTE = beginHTE + hotel.settings.getCleanHTE();
-
         cleaning = true;
     }
 
@@ -73,20 +72,20 @@ public class Cleaner extends Person implements CleaningListener {
         this.setArea(endArea);
         endArea.addPerson(this);
         this.movingQueue.remove(startArea);
-
         if (this.movingQueue.size() == 1 && this.movingQueue.getFirst() == endArea){
             this.movingQueue.remove(endArea);
+            System.out.println(this.movingQueue);
             cleaning();
         }
     }
 
     @Override
     public void updatedHTE(int HTE) {
-        if (!movingQueue.isEmpty()) {
+        if (movingQueue.size() > 1) {
             this.move(this.movingQueue.getFirst(), this.movingQueue.get(1));
-            if (this.movingQueue.isEmpty() && !(this.getArea() instanceof Lobby)) {
-                Platform.runLater(this::removePersonFromGrid);
-            }
+        }
+        if (this.movingQueue.isEmpty() && !(this.getArea() instanceof Lobby)) {
+            Platform.runLater(this::removePersonFromGrid);
         }
         if (hotel.getCurrentHTE() == endHTE) {
             currentCleanEvent = null;

@@ -1,6 +1,5 @@
 package com.company.models;
 
-import com.company.events.DefaultCleaningEvent;
 import com.company.models.areas.Area;
 import com.company.models.areas.GuestRoom;
 import javafx.application.Platform;
@@ -82,8 +81,6 @@ public class Guest extends Person {
             //System.out.println(movingQueue);
         }
 
-        //TODO zorg dat het plaatje wel zichtbaar is
-        this.shown = true;
 //        System.out.println("New location" + endArea.getX() + ":" + endArea.getY());
 
     }

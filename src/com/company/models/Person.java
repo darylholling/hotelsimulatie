@@ -61,4 +61,8 @@ abstract public class Person extends Pane implements MoveInterface, LateComingHT
     public void setMovingQueue(LinkedList<Area> movingQueue) {
         this.movingQueue = movingQueue;
     }
+
+    public LinkedList<Area> getMovingQueue() {
+        return movingQueue;
+    }
 }

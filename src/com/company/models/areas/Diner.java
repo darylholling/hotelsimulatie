@@ -21,8 +21,7 @@ public class Diner extends Area {
     }
 
     public boolean isFull() {
-        System.out.println("size of persons array"+ this.getPersons().size());
-        if (this.getPersons().size() < capacity) {
+        if (this.persons.size() < capacity) {
             full = false;
         }
         return full;
