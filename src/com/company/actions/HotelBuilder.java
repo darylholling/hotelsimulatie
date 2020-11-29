@@ -1,22 +1,12 @@
 package com.company.actions;
 
-import com.company.models.*;
+import com.company.models.Hotel;
+import com.company.models.Settings;
 import com.company.models.areas.*;
 import com.google.gson.*;
-import javafx.application.Platform;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.TextAlignment;
-import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -24,7 +14,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 
-public class HotelBuilder implements StartListener, HTEListener {
+public class HotelBuilder {
     public static GridPane gridPane;
     int maxXInJson = 0;
     int maxYInJson = 0;
@@ -32,9 +22,6 @@ public class HotelBuilder implements StartListener, HTEListener {
     int hotelWidth = 0;
     JsonArray jsonArrays;
     Area[][] areas;
-    Scene mainScene;
-    private Label HTEInfoBoard;
-    private Label highestHTE;
     private Hotel hotel;
 
     //constructor
@@ -42,16 +29,8 @@ public class HotelBuilder implements StartListener, HTEListener {
         this.hotel = hotel;
     }
 
-    //engaging the scene
-    public void start(Stage stage) throws FileNotFoundException {
-        mainScene = new Scene(createContent());
-        stage.setScene(mainScene);
-        stage.setResizable(false);
-        stage.show();
-    }
-
     //creating hotel content including visualisation.
-    public Parent createContent() throws FileNotFoundException {
+    public void createContent() throws FileNotFoundException {
         gridPane = new GridPane();
 
         File layoutFile = Settings.getSettings().getLayoutFile();
@@ -62,7 +41,7 @@ public class HotelBuilder implements StartListener, HTEListener {
         } catch (IOException | JsonParseException e) {
             hotel.timer.stopTimer();
             hotel.menu.addJsonError("hotelfile");
-            return hotel.menu.mainMenuContent();
+            hotel.setScene(new Scene(hotel.menu.mainMenuContent()));
         }
 
         for (JsonElement jsonElement : jsonArrays) {
@@ -84,6 +63,9 @@ public class HotelBuilder implements StartListener, HTEListener {
         hotelHeight = (maxYInJson + 1);
         hotelWidth = (maxXInJson + 2);
 
+        hotel.hotelHeight = hotelHeight;
+        hotel.hotelWidth = hotelWidth;
+
         areas = new Area[hotelWidth + 1][hotelHeight + 1];
         for (int x = 0; x <= hotelWidth; x++) {
             for (int y = 0; y <= hotelHeight; y++) {
@@ -94,8 +76,6 @@ public class HotelBuilder implements StartListener, HTEListener {
         this.createAreas(gridPane, jsonArrays, areas);
         this.createNeighbours(areas, hotelWidth, hotelHeight);
 
-        VBox hotelPane = this.createHTEInfoBoard();
-
         for (Area[] areaList : areas) {
             for (Area area : areaList) {
                 hotel.areas.add(area);
@@ -103,7 +83,7 @@ public class HotelBuilder implements StartListener, HTEListener {
             }
         }
 
-        return hotelPane;
+        hotel.mainPane = gridPane;
     }
 
     //add neighbours for pathfinding
@@ -242,91 +222,5 @@ public class HotelBuilder implements StartListener, HTEListener {
                 areas[defaultX][defaultY] = area;
             }
         }
-    }
-
-    //create textual info presenting HTE time
-    private VBox createHTEInfoBoard() {
-        Pane header = new Pane();
-        VBox hotelPane = new VBox();
-
-        this.HTEInfoBoard = new Label("HTE : " + HteCounter.getHTE());
-        HTEInfoBoard.setStyle("-fx-font-size: 170%");
-        HTEInfoBoard.setTextFill(Color.BLACK);
-        HTEInfoBoard.relocate(280, 2);
-
-        this.highestHTE = new Label("Final event starts at HTE: " + Settings.getSettings().getHighestHteInJsonFile());
-        highestHTE.setStyle("-fx-font-size: 170%");
-        highestHTE.setTextFill(Color.BLACK);
-        highestHTE.relocate(5, 2);
-
-        header.getChildren().addAll(highestHTE, HTEInfoBoard);
-        Rectangle lobbyButton = new Rectangle();
-        lobbyButton.setHeight(50);
-        lobbyButton.setWidth(50 * (hotelWidth - 1));
-        lobbyButton.setFill(Color.TRANSPARENT);
-        lobbyButton.toFront();
-        lobbyButton.setOnMouseClicked(mouseEvent -> {
-            this.hotel.stage.setScene(createPauseScreen());
-            hotel.timer.stopTimer();
-        });
-        gridPane.add(lobbyButton, 1, hotelHeight, hotelWidth - 1, 1);
-        hotelPane.getChildren().addAll(header, gridPane);
-
-        return hotelPane;
-    }
-
-    // Create pause scene
-    public Scene createPauseScreen() {
-        return new Scene(createPausePane());
-    }
-
-    //creating pane to display guestlist when clicking the lobby
-    private Pane createPausePane() {
-        Pane pausePane = new Pane();
-        Button resumeButton = new Button();
-        resumeButton.setText("Resume Game");
-        resumeButton.setOnMouseClicked(mouseEvent -> {
-            this.hotel.stage.setScene(mainScene);
-            hotel.timer.resumeTimer();
-        });
-        resumeButton.relocate(150, 410);
-        pausePane.getChildren().add(resumeButton);
-        pausePane.setPrefHeight((hotelHeight + 1) * 50);
-        pausePane.setPrefWidth((hotelWidth + 1) * 50);
-        Label label = new Label();
-        label.setMaxWidth(hotelWidth * 50);
-        label.setWrapText(true);
-        label.setAlignment(Pos.CENTER);
-        label.setTextAlignment(TextAlignment.JUSTIFY);
-        String myString = "";
-        for (Guest guest : hotel.activeGuestList) {
-            myString += "Guest " + guest.getGuestNumber() + " is at " + guest.getArea().getClass().getSimpleName() + " @ X: " + guest.getArea().getX() + " ,Y: " + guest.getArea().getY() + "\n";
-        }
-        label.setText(myString);
-        pausePane.getChildren().add(label);
-        return pausePane;
-    }
-
-    public Stage getStage() {
-        return this.hotel.stage;
-    }
-
-    //handling the start method fired from menu.
-    public void handleStart() throws Exception {
-        this.start(this.getStage());
-
-        if (highestHTE != null) {
-            Platform.runLater(() -> highestHTE.setText("Final event starts at HTE: " + Settings.getSettings().getHighestHteInJsonFile()));
-        }
-    }
-
-    //updating HTElabel once received from listener
-    public void HTELabelUpdate() {
-        Platform.runLater(() -> HTEInfoBoard.setText("HTE: " + HteCounter.getHTE()));
-    }
-
-    @Override
-    public void updatedHTE(int HTE) {
-        this.HTELabelUpdate();
     }
 }

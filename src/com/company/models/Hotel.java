@@ -2,15 +2,13 @@ package com.company.models;
 
 import com.company.actions.CreateCleaners;
 import com.company.actions.EventHandler;
-import com.company.actions.HotelBuilder;
+import com.company.actions.HotelHandler;
 import com.company.models.areas.*;
 import com.company.events.CleaningEmergencyEvent;
 import com.company.events.DefaultCleaningEvent;
-import com.company.models.areas.Area;
-import com.company.models.areas.Cinema;
-import com.company.models.areas.Diner;
-import com.company.models.areas.Lobby;
 import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -30,17 +28,20 @@ public class Hotel extends Application implements HTEListener {
     public int currentHTE;
     public ArrayList<LateComingHTEListener> lateComingHTEListeners = new ArrayList<>();
     public Menu menu;
+    public int hotelWidth;
+    public int hotelHeight;
+    public GridPane mainPane;
 
     @Override
     public void start(Stage stage) {
         this.stage = stage;
-        HotelBuilder hotelBuilder = new HotelBuilder(hotel);
+        HotelHandler hotelHandler = new HotelHandler(hotel);
         CreateCleaners createCleaners = new CreateCleaners(hotel);
         EventHandler eventHandler = new EventHandler(hotel);
         this.timer = new Time(new ArrayList<>() {
             {
                 add(eventHandler);
-                add(hotelBuilder);
+                add(hotelHandler);
                 add(hotel);
             }
         });
@@ -48,7 +49,7 @@ public class Hotel extends Application implements HTEListener {
         Menu menu = new Menu(stage, new ArrayList<>() {
             {
                 add(timer);
-                add(hotelBuilder);
+                add(hotelHandler);
                 add(createCleaners);
                 add(eventHandler);
             }
@@ -89,6 +90,13 @@ public class Hotel extends Application implements HTEListener {
     public int getCurrentHTE() {
         return this.currentHTE;
     }
+
+    public void setScene(Scene scene) {
+        hotel.stage.setScene(scene);
+        hotel.stage.setResizable(false);
+        hotel.stage.show();
+    }
+
     public void addGuest(Guest guest) {
         guestList.add(guest);
         activeGuestList.add(guest);
