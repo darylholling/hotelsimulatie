@@ -8,9 +8,3 @@ public class Lobby extends Area {
         super.setDefaultImage(this, "lobby.jpg", areaWidth);
     }
 }
-
-
-
-
-
-

@@ -13,10 +13,6 @@ public class Diner extends Area {
 
     //due to time shortage this function is not used yet.
     public boolean isFull() {
-        if (this.persons.size() < this.capacity) {
-            return false;
-        }
-
-        return true;
+        return this.persons.size() >= this.capacity;
     }
 }
