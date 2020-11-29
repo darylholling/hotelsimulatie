@@ -14,9 +14,11 @@ import java.util.Random;
 public class CheckInEvent extends Event {
     private int guestNumber;
     private int stars;
+    private Hotel hotel;
 
     public CheckInEvent(Hotel hotel, Integer eventTime, int guestNumber, int stars) {
         super(eventTime, hotel);
+        this.hotel = hotel;
         this.guestNumber = guestNumber;
         this.stars = stars;
     }
@@ -47,8 +49,7 @@ public class CheckInEvent extends Event {
         selectedGuestRoom.addPerson(guest);
 
         Platform.runLater(()->hotel.lateComingHTEListeners.add(guest));
-        hotel.guestList.add(guest);
-        hotel.activeGuestList.add(guest);
+        hotel.addGuest(guest);
 
         Dijkstra dijkstra = new Dijkstra();
         guest.getArea().setDistanceForPerson(guest, 0);

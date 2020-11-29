@@ -89,4 +89,12 @@ public class Hotel extends Application implements HTEListener {
     public int getCurrentHTE() {
         return this.currentHTE;
     }
+    public void addGuest(Guest guest) {
+        guestList.add(guest);
+        activeGuestList.add(guest);
+    }
+
+    public void removeGuest(Guest guest) {
+        activeGuestList.remove(guest);
+    }
 }
