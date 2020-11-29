@@ -1,6 +1,6 @@
 package com.company.events;
 
-import com.company.models.FireableListener;
+import com.company.listeners.FireableListener;
 import com.company.models.Hotel;
 
 abstract public class Event implements Comparable<Event>, FireableListener {

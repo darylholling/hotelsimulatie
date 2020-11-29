@@ -1,8 +1,8 @@
 package com.company.actions;
 
-import com.company.models.Cleaner;
+import com.company.persons.Cleaner;
 import com.company.models.Hotel;
-import com.company.models.StartListener;
+import com.company.listeners.StartListener;
 import com.company.models.areas.Area;
 
 import java.util.ArrayList;

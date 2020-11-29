@@ -1,8 +1,8 @@
 package com.company.events;
 
 import com.company.actions.Dijkstra;
-import com.company.models.CleaningListener;
-import com.company.models.Guest;
+import com.company.listeners.CleaningListener;
+import com.company.persons.Guest;
 import com.company.models.Hotel;
 import com.company.models.Settings;
 import com.company.models.areas.Area;

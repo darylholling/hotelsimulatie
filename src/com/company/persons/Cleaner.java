@@ -1,9 +1,12 @@
-package com.company.models;
+package com.company.persons;
 
 import com.company.actions.Dijkstra;
 import com.company.events.CleaningEmergencyEvent;
 import com.company.events.CleaningEvent;
 import com.company.events.DefaultCleaningEvent;
+import com.company.listeners.CleaningListener;
+import com.company.models.Hotel;
+import com.company.models.Settings;
 import com.company.models.areas.Area;
 import com.company.models.areas.GuestRoom;
 import com.company.models.areas.Lobby;

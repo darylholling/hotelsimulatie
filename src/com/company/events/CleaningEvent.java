@@ -1,6 +1,6 @@
 package com.company.events;
 
-import com.company.models.CleaningListener;
+import com.company.listeners.CleaningListener;
 import com.company.models.Hotel;
 
 import java.util.ArrayList;

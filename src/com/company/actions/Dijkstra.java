@@ -1,6 +1,6 @@
 package com.company.actions;
 
-import com.company.models.Person;
+import com.company.persons.Person;
 import com.company.models.areas.Area;
 
 import java.util.*;
