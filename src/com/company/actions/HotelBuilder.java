@@ -1,7 +1,10 @@
 package com.company.actions;
 
+import com.company.listeners.HTEListener;
+import com.company.listeners.StartListener;
 import com.company.models.*;
 import com.company.models.areas.*;
+import com.company.persons.Guest;
 import com.google.gson.*;
 import javafx.application.Platform;
 import javafx.geometry.Pos;

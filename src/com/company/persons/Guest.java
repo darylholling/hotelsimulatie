@@ -1,5 +1,6 @@
-package com.company.models;
+package com.company.persons;
 
+import com.company.models.Hotel;
 import com.company.models.areas.Area;
 import com.company.models.areas.GuestRoom;
 import com.company.models.areas.Lobby;

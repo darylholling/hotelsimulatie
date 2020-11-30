@@ -1,6 +1,7 @@
-package com.company.models;
+package com.company.persons;
 
 import com.company.actions.HotelBuilder;
+import com.company.listeners.LateComingHTEListener;
 import com.company.models.areas.Area;
 import javafx.application.Platform;
 import javafx.scene.image.Image;
