@@ -1,4 +1,4 @@
-package com.company.models;
+package com.company.persons;
 
 import com.company.models.areas.Area;
 

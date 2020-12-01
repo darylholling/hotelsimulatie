@@ -1,4 +1,4 @@
-package com.company.models;
+package com.company.listeners;
 
 public interface FireableListener {
     void fire();

@@ -1,6 +1,6 @@
 package com.company.events;
 
-import com.company.models.Guest;
+import com.company.persons.Guest;
 import com.company.models.Hotel;
 import com.company.models.areas.Cinema;
 

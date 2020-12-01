@@ -1,7 +1,7 @@
 package com.company.models.areas;
 
 import com.company.events.StartCinemaEvent;
-import com.company.models.LateComingHTEListener;
+import com.company.listeners.LateComingHTEListener;
 
 import java.io.FileNotFoundException;
 

@@ -1,13 +1,10 @@
 package com.company.events;
 
-import com.company.models.CleaningListener;
 import com.company.models.Hotel;
 
-import java.util.ArrayList;
-
 public class DefaultCleaningEvent extends CleaningEvent {
-    public DefaultCleaningEvent(Integer eventTime, Hotel hotel, int guestNumber, ArrayList<CleaningListener> cleaningListeners) {
-        super(eventTime, hotel, guestNumber, cleaningListeners);
+    public DefaultCleaningEvent(Integer eventTime, Hotel hotel, int guestNumber) {
+        super(eventTime, hotel, guestNumber);
     }
 
     @Override

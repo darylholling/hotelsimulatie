@@ -1,11 +1,17 @@
 package com.company.models;
 
-import com.company.actions.CreateCleaners;
 import com.company.actions.EventHandler;
-import com.company.actions.HotelHandler;
+import com.company.listeners.HTEListener;
+import com.company.listeners.LateComingHTEListener;
 import com.company.models.areas.*;
 import com.company.events.CleaningEmergencyEvent;
 import com.company.events.DefaultCleaningEvent;
+import com.company.models.areas.Area;
+import com.company.models.areas.Cinema;
+import com.company.models.areas.Diner;
+import com.company.models.areas.Lobby;
+import com.company.persons.Cleaner;
+import com.company.persons.Guest;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
