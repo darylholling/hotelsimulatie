@@ -1,5 +1,6 @@
 package com.company.persons;
 
+import com.company.actions.Dijkstra;
 import com.company.actions.HotelBuilder;
 import com.company.listeners.LateComingHTEListener;
 import com.company.models.areas.Area;
@@ -63,5 +64,10 @@ abstract public class Person extends Pane implements MoveInterface, LateComingHT
 
     public void setMovingQueue(LinkedList<Area> movingQueue) {
         this.movingQueue = movingQueue;
+    }
+
+    public LinkedList<Area> determineShortestPath(Area area)
+    {
+        return new Dijkstra().findPath(this, this.getArea(), area);
     }
 }

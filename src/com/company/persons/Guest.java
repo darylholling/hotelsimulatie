@@ -1,11 +1,10 @@
 package com.company.persons;
 
 import com.company.models.Hotel;
-import com.company.models.areas.Area;
-import com.company.models.areas.GuestRoom;
-import com.company.models.areas.Lobby;
+import com.company.models.areas.*;
 import javafx.application.Platform;
 
+import java.util.LinkedList;
 import java.util.Random;
 
 public class Guest extends Person {
@@ -52,7 +51,7 @@ public class Guest extends Person {
         endArea.addPerson(this);
         this.movingQueue.remove(startArea);
 
-        if (this.movingQueue.size() == 1){
+        if (this.movingQueue.size() == 1) {
             this.movingQueue.remove(endArea);
             if (endArea instanceof Lobby) {
                 Hotel hotel = this.getArea().getHotel();
@@ -71,5 +70,47 @@ public class Guest extends Person {
                 Platform.runLater(this::removePersonFromGrid);
             }
         }
+    }
+
+    public void addShortestPathToMovingQueueByAreaType(String areaType) {
+        Area[] arealist = null;
+
+        switch (areaType) {
+            case "cinema":
+                arealist = this.guestRoom.getHotel().areas.stream().filter(area -> area instanceof Cinema).toArray(Area[]::new);
+                break;
+            case "diner":
+                arealist = this.guestRoom.getHotel().areas.stream().filter(area -> area instanceof Diner).toArray(Area[]::new);
+                break;
+            case "fitness":
+                arealist = this.guestRoom.getHotel().areas.stream().filter(area -> area instanceof Fitness).toArray(Area[]::new);
+                break;
+        }
+
+        if (arealist != null) {
+            LinkedList<Area> selectedPath = this.determinePathByArealist(arealist);
+
+            if (selectedPath != null && !selectedPath.isEmpty()) {
+                this.setMovingQueue(selectedPath);
+            }
+        }
+    }
+
+    private LinkedList<Area> determinePathByArealist(Area[] areas) {
+        LinkedList<Area> selectedPath = null;
+        int closestDistance = Integer.MAX_VALUE;
+
+        for (Area area : areas) {
+            LinkedList<Area> currentPath = this.determineShortestPath(area);
+
+            int distance = currentPath.size();
+
+            if (closestDistance > distance) {
+                closestDistance = distance;
+                selectedPath = currentPath;
+            }
+        }
+
+        return selectedPath;
     }
 }

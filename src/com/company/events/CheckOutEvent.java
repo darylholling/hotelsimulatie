@@ -1,15 +1,12 @@
 package com.company.events;
 
-import com.company.actions.Dijkstra;
 import com.company.listeners.CleaningListener;
-import com.company.persons.Guest;
 import com.company.models.Hotel;
 import com.company.models.Settings;
 import com.company.models.areas.Area;
-import javafx.application.Platform;
+import com.company.persons.Guest;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 public class CheckOutEvent extends Event {
     private ArrayList<CleaningListener> cleaningListeners;
@@ -44,10 +41,7 @@ public class CheckOutEvent extends Event {
             guest.getMovingQueue().clear();
         }
 
-        Dijkstra dijkstra = new Dijkstra();
-        guest.getArea().setDistanceForPerson(guest, 0);
-        LinkedList<Area> path = dijkstra.findPath(guest, guest.getArea(), hotel.getLobby());
-        Platform.runLater(()->guest.setMovingQueue(path));
+        guest.setMovingQueue(guest.determineShortestPath(hotel.getLobby()));
 
         DefaultCleaningEvent defaultCleaningEvent = new DefaultCleaningEvent(Settings.getSettings().getCleanHTE(), hotel, guestNumber, cleaningListeners);
         hotel.defaultCleaningEvents.add(defaultCleaningEvent);

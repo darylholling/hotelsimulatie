@@ -1,6 +1,5 @@
 package com.company.persons;
 
-import com.company.actions.Dijkstra;
 import com.company.events.CleaningEmergencyEvent;
 import com.company.events.CleaningEvent;
 import com.company.events.DefaultCleaningEvent;
@@ -11,8 +10,6 @@ import com.company.models.areas.Area;
 import com.company.models.areas.GuestRoom;
 import com.company.models.areas.Lobby;
 import javafx.application.Platform;
-
-import java.util.LinkedList;
 
 public class Cleaner extends Person implements CleaningListener {
     private Hotel hotel;
@@ -53,15 +50,8 @@ public class Cleaner extends Person implements CleaningListener {
         }
 
         if (!(this.getArea() instanceof Lobby)) {
-            moveToLobby();
+            this.setMovingQueue(this.determineShortestPath(hotel.getLobby()));
         }
-    }
-
-    private void moveToLobby() {
-        Dijkstra dijkstra = new Dijkstra();
-        this.getArea().setDistanceForPerson(this, 0);
-        LinkedList<Area> path = dijkstra.findPath(this, this.getArea(), hotel.getLobby());
-        this.setMovingQueue(path);
     }
 
     private void moveToCleaning(CleaningEvent event) {
@@ -69,10 +59,7 @@ public class Cleaner extends Person implements CleaningListener {
             return;
         }
 
-        Dijkstra dijkstra = new Dijkstra();
-        this.getArea().setDistanceForPerson(this, 0);
-        LinkedList<Area> path = dijkstra.findPath(this, this.getArea(), hotel.getGuestByNumber(event.guestNumber).getGuestRoom());
-        this.setMovingQueue(path);
+        this.setMovingQueue(this.determineShortestPath(hotel.getGuestByNumber(event.guestNumber).getGuestRoom()));
     }
 
     public void cleaning() {
