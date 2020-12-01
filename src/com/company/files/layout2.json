@@ -28,136 +28,10 @@
 		}
 	},
 	{
-		"type": "room",
-		"position": {
-			"x": 2,
-			"y": 0
-		},
-		"dimensions": {
-			"width": 1,
-			"height": 1
-		},
-		"data": {
-			"stars": 1
-		}
-	},
-	{
-		"type": "room",
-		"position": {
-			"x": 3,
-			"y": 0
-		},
-		"dimensions": {
-			"width": 1,
-			"height": 1
-		},
-		"data": {
-			"stars": 1
-		}
-	},
-	{
-		"type": "room",
-		"position": {
-			"x": 4,
-			"y": 0
-		},
-		"dimensions": {
-			"width": 1,
-			"height": 1
-		},
-		"data": {
-			"stars": 1
-		}
-	},
-	{
-		"type": "room",
-		"position": {
-			"x": 5,
-			"y": 0
-		},
-		"dimensions": {
-			"width": 1,
-			"height": 1
-		},
-		"data": {
-			"stars": 1
-		}
-	},
-	
-	{
-		"type": "room",
-		"position": {
-			"x": 0,
-			"y": 1
-		},
-		"dimensions": {
-			"width": 1,
-			"height": 1
-		},
-		"data": {
-			"stars": 2
-		}
-	},
-	{
-		"type": "room",
-		"position": {
-			"x": 1,
-			"y": 1
-		},
-		"dimensions": {
-			"width": 1,
-			"height": 1
-		},
-		"data": {
-			"stars": 2
-		}
-	},
-	{
-		"type": "room",
-		"position": {
-			"x": 2,
-			"y": 1
-		},
-		"dimensions": {
-			"width": 1,
-			"height": 1
-		},
-		"data": {
-			"stars": 2
-		}
-	},
-	{
-		"type": "room",
-		"position": {
-			"x": 3,
-			"y": 1
-		},
-		"dimensions": {
-			"width": 1,
-			"height": 1
-		},
-		"data": {
-			"stars": 2
-		}
-	},
-	{
-		"type": "fitness",
-		"position": {
-			"x": 4,
-			"y": 1
-		},
-		"dimensions": {
-			"width": 2,
-			"height": 1
-		},
-		"data": {}
-	},
-	
-	{
 		"type": "diner",
 		"position": {
-			"x": 0,
-			"y": 2
+			"x": 2,
+			"y": 0
 		},
 		"dimensions": {
 			"width": 2,
@@ -170,6 +44,132 @@
 	{
 		"type": "room",
 		"position": {
+			"x": 4,
+			"y": 0
+		},
+		"dimensions": {
+			"width": 1,
+			"height": 1
+		},
+		"data": {
+			"stars": 1
+		}
+	},
+	{
+		"type": "room",
+		"position": {
+			"x": 5,
+			"y": 0
+		},
+		"dimensions": {
+			"width": 1,
+			"height": 1
+		},
+		"data": {
+			"stars": 1
+		}
+	},
+	
+	{
+		"type": "fitness",
+		"position": {
+			"x": 0,
+			"y": 1
+		},
+		"dimensions": {
+			"width": 2,
+			"height": 1
+		},
+		"data": {}
+	},
+	{
+		"type": "room",
+		"position": {
+			"x": 2,
+			"y": 1
+		},
+		"dimensions": {
+			"width": 1,
+			"height": 1
+		},
+		"data": {
+			"stars": 1
+		}
+	},
+	{
+		"type": "room",
+		"position": {
+			"x": 3,
+			"y": 1
+		},
+		"dimensions": {
+			"width": 1,
+			"height": 1
+		},
+		"data": {
+			"stars": 2
+		}
+	},
+	{
+		"type": "room",
+		"position": {
+			"x": 4,
+			"y": 1
+		},
+		"dimensions": {
+			"width": 1,
+			"height": 1
+		},
+		"data": {
+			"stars": 2
+		}
+	},
+	{
+		"type": "room",
+		"position": {
+			"x": 5,
+			"y": 1
+		},
+		"dimensions": {
+			"width": 1,
+			"height": 1
+		},
+		"data": {
+			"stars": 2
+		}
+	},
+	
+	{
+		"type": "room",
+		"position": {
+			"x": 0,
+			"y": 2
+		},
+		"dimensions": {
+			"width": 1,
+			"height": 1
+		},
+		"data": {
+			"stars": 2
+		}
+	},
+	{
+		"type": "room",
+		"position": {
+			"x": 1,
+			"y": 2
+		},
+		"dimensions": {
+			"width": 1,
+			"height": 1
+		},
+		"data": {
+			"stars": 2
+		}
+	},
+	{
+		"type": "room",
+		"position": {
 			"x": 2,
 			"y": 2
 		},
@@ -178,7 +178,7 @@
 			"height": 1
 		},
 		"data": {
-			"stars": 3
+			"stars": 2
 		}
 	},
 	{
@@ -196,14 +196,184 @@
 		}
 	},
 	{
-		"type": "movie",
+		"type": "room",
 		"position": {
 			"x": 4,
 			"y": 2
 		},
 		"dimensions": {
+			"width": 1,
+			"height": 1
+		},
+		"data": {
+			"stars": 3
+		}
+	},
+	{
+		"type": "room",
+		"position": {
+			"x": 5,
+			"y": 2
+		},
+		"dimensions": {
+			"width": 1,
+			"height": 1
+		},
+		"data": {
+			"stars": 3
+		}
+	},
+	
+	{
+		"type": "room",
+		"position": {
+			"x": 0,
+			"y": 3
+		},
+		"dimensions": {
+			"width": 2,
+			"height": 1
+		},
+		"data": {
+			"stars": 4
+		}
+	},
+	{
+		"type": "movie",
+		"position": {
+			"x": 2,
+			"y": 3
+		},
+		"dimensions": {
 			"width": 2,
 			"height": 2
+		},
+		"data": {}
+	},
+	{
+		"type": "room",
+		"position": {
+			"x": 4,
+			"y": 3
+		},
+		"dimensions": {
+			"width": 1,
+			"height": 1
+		},
+		"data": {
+			"stars": 3
+		}
+	},
+	{
+		"type": "room",
+		"position": {
+			"x": 5,
+			"y": 3
+		},
+		"dimensions": {
+			"width": 1,
+			"height": 1
+		},
+		"data": {
+			"stars": 3
+		}
+	},
+	
+	{
+		"type": "room",
+		"position": {
+			"x": 0,
+			"y": 4
+		},
+		"dimensions": {
+			"width": 2,
+			"height": 1
+		},
+		"data": {
+			"stars": 4
+		}
+	},
+	{
+		"type": "room",
+		"position": {
+			"x": 4,
+			"y": 4
+		},
+		"dimensions": {
+			"width": 2,
+			"height": 1
+		},
+		"data": {
+			"stars": 4
+		}
+	},
+	
+	{
+		"type": "room",
+		"position": {
+			"x": 0,
+			"y": 5
+		},
+		"dimensions": {
+			"width": 2,
+			"height": 2
+		},
+		"data": {
+			"stars": 5
+		}
+	},
+	{
+		"type": "room",
+		"position": {
+			"x": 2,
+			"y": 5
+		},
+		"dimensions": {
+			"width": 2,
+			"height": 1
+		},
+		"data": {
+			"stars": 4
+		}
+	},
+	{
+		"type": "room",
+		"position": {
+			"x": 4,
+			"y": 5
+		},
+		"dimensions": {
+			"width": 2,
+			"height": 1
+		},
+		"data": {
+			"stars": 4
+		}
+	},
+	
+	{
+		"type": "room",
+		"position": {
+			"x": 2,
+			"y": 6
+		},
+		"dimensions": {
+			"width": 2,
+			"height": 1
+		},
+		"data": {
+			"stars": 4
+		}
+	},
+	{
+		"type": "fitness",
+		"position": {
+			"x": 4,
+			"y": 6
+		},
+		"dimensions": {
+			"width": 2,
+			"height": 1
 		},
 		"data": {}
 	},
@@ -212,35 +382,21 @@
 		"type": "room",
 		"position": {
 			"x": 0,
-			"y": 3
+			"y": 7
 		},
 		"dimensions": {
-			"width": 1,
-			"height": 1
+			"width": 2,
+			"height": 2
 		},
 		"data": {
-			"stars": 3
-		}
-	},
-	{
-		"type": "room",
-		"position": {
-			"x": 1,
-			"y": 3
-		},
-		"dimensions": {
-			"width": 1,
-			"height": 1
-		},
-		"data": {
-			"stars": 3
+			"stars": 5
 		}
 	},
 	{
 		"type": "room",
 		"position": {
 			"x": 2,
-			"y": 3
+			"y": 7
 		},
 		"dimensions": {
 			"width": 2,
@@ -248,149 +404,35 @@
 		},
 		"data": {
 			"stars": 4
+		}
+	},
+	{
+		"type": "room",
+		"position": {
+			"x": 4,
+			"y": 7
+		},
+		"dimensions": {
+			"width": 2,
+			"height": 2
+		},
+		"data": {
+			"stars": 5
 		}
 	},
 	
-	{
-		"type": "room",
-		"position": {
-			"x": 0,
-			"y": 4
-		},
-		"dimensions": {
-			"width": 1,
-			"height": 1
-		},
-		"data": {
-			"stars": 3
-		}
-	},
-	{
-		"type": "room",
-		"position": {
-			"x": 1,
-			"y": 4
-		},
-		"dimensions": {
-			"width": 2,
-			"height": 1
-		},
-		"data": {
-			"stars": 4
-		}
-	},
-	{
-		"type": "room",
-		"position": {
-			"x": 3,
-			"y": 4
-		},
-		"dimensions": {
-			"width": 2,
-			"height": 1
-		},
-		"data": {
-			"stars": 4
-		}
-	},
-	{
-		"type": "room",
-		"position": {
-			"x": 5,
-			"y": 4
-		},
-		"dimensions": {
-			"width": 1,
-			"height": 1
-		},
-		"data": {
-			"stars": 3
-		}
-	},
-	
-	{
-		"type": "room",
-		"position": {
-			"x": 0,
-			"y": 5
-		},
-		"dimensions": {
-			"width": 2,
-			"height": 1
-		},
-		"data": {
-			"stars": 4
-		}
-	},
-	{
-		"type": "room",
-		"position": {
-			"x": 2,
-			"y": 5
-		},
-		"dimensions": {
-			"width": 2,
-			"height": 1
-		},
-		"data": {
-			"stars": 4
-		}
-	},
 	{
 		"type": "diner",
 		"position": {
-			"x": 4,
-			"y": 5
+			"x": 2,
+			"y": 8
 		},
 		"dimensions": {
 			"width": 2,
 			"height": 1
 		},
 		"data": {
-			"max": 2
-		}
-	},
-	
-	{
-		"type": "room",
-		"position": {
-			"x": 0,
-			"y": 6
-		},
-		"dimensions": {
-			"width": 2,
-			"height": 2
-		},
-		"data": {
-			"stars": 5
-		}
-	},
-	{
-		"type": "room",
-		"position": {
-			"x": 2,
-			"y": 6
-		},
-		"dimensions": {
-			"width": 2,
-			"height": 2
-		},
-		"data": {
-			"stars": 5
-		}
-	},
-	{
-		"type": "room",
-		"position": {
-			"x": 4,
-			"y": 6
-		},
-		"dimensions": {
-			"width": 2,
-			"height": 2
-		},
-		"data": {
-			"stars": 5
+			"max": 3
 		}
 	}
 ]

@@ -57,9 +57,10 @@ public class HotelBuilder implements StartListener, HTEListener {
     public Parent createContent() throws FileNotFoundException {
         gridPane = new GridPane();
 
-        File layoutFile = Settings.getSettings().getLayoutFile();
-
+//        File layoutFile = Settings.getSettings().getLayoutFile();
+        File layoutFile = new File("src/com/company/files/layout2.json");
         Gson gson = new GsonBuilder().create();
+
         try {
             jsonArrays = gson.fromJson(Files.newBufferedReader(new File(String.valueOf(layoutFile)).toPath(), StandardCharsets.UTF_8), JsonArray.class);
         } catch (IOException | JsonParseException e) {

@@ -17,7 +17,8 @@ import java.util.Queue;
 public class EventBuilder {
     //reading json file and creating event queue from it.
     public Queue<Event> readJson(Hotel hotel) {
-        File eventsFile = Settings.getSettings().getEventsFile();
+//        File eventsFile = Settings.getSettings().getEventsFile();
+        File eventsFile = new File("src/com/company/files/eventskapot.json");
         Gson gson = new GsonBuilder().create();
 
         JsonArray eventJsonArray;
@@ -64,9 +65,9 @@ public class EventBuilder {
                         add(hotel.cleaners.get(1));
                     }});
                     break;
-                case "GO_TO_DINER":
-                    event = new GoToDinerEvent(eventTime, hotel, guestNumber);
-                    break;
+//                case "GO_TO_DINER":
+//                    event = new GoToDinerEvent(eventTime, hotel, guestNumber);
+//                    break;
                 case "GO_TO_FITNESS":
                     event = new GoToFitnessEvent(eventTime, hotel, guestNumber, duration);
                     break;
@@ -76,18 +77,18 @@ public class EventBuilder {
                         add(hotel.cleaners.get(1));
                     }});
                     break;
-                case "GO_TO_CINEMA":
-                    event = new GoToCinemaEvent(eventTime, hotel, guestNumber);
-                    break;
+//                case "GO_TO_CINEMA":
+//                    event = new GoToCinemaEvent(eventTime, hotel, guestNumber);
+//                    break;
                 case "START_CINEMA":
                     event = new StartCinemaEvent(eventTime, hotel, duration);
                     break;
-                //                case "GODZILLA":
-                //                    event = new GodzillaEvent(guestList, eventTime);
-                //                break;
-                case "EVACUATE":
-                    event = new EvacuateEvent(hotel, eventTime);
-                    break;
+//                case "GODZILLA":
+//                    event = new GodzillaEvent(guestList, eventTime);
+//                break;
+//                case "EVACUATE":
+//                    event = new EvacuateEvent(hotel, eventTime);
+//                    break;
                 default:
                     System.out.println("Event type " + eventType + " wasn't found.");
             }

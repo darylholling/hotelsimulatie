@@ -13,6 +13,7 @@ public class Dijkstra {
     }
 
     public LinkedList<Area> findPath(Person person, Area start, Area end) {
+        person.getArea().setDistanceForPerson(person, 0);
         Area toCheck = start;
 
         while (!Visit(person, toCheck, end)) {
