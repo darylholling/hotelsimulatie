@@ -1,18 +1,15 @@
 package com.company.models;
 
-import javafx.application.Platform;
+import com.company.listeners.HTEListener;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.Timer;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class TimeTest {
     ArrayList<HTEListener> HTElisteners;
     Settings settings = new Settings();
-    Time time = new Time(HTElisteners,settings);
+    Time time = new Time(HTElisteners);
 
     @Test
     public void testIfTheTimerStartsAndStops(){

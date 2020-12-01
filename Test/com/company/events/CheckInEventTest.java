@@ -1,7 +1,6 @@
 package com.company.events;
 
 import com.company.actions.HotelBuilder;
-import com.company.models.Guest;
 import com.company.models.Hotel;
 import com.company.models.Settings;
 import javafx.embed.swing.JFXPanel;

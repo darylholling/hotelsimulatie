@@ -1,9 +1,8 @@
 package com.company.models;
 
 
-import com.company.actions.HotelBuilder;
-import com.company.models.*;
 import com.company.models.areas.*;
+import com.company.persons.Guest;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.stage.Stage;

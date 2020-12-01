@@ -1,14 +1,10 @@
 package com.company.models.areas;
 
-import com.company.models.Guest;
-import javafx.scene.image.ImageView;
+import com.company.persons.Guest;
 import org.junit.Assert;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class GuestRoomTest {
 
