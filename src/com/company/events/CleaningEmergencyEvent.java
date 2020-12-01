@@ -3,11 +3,9 @@ package com.company.events;
 import com.company.listeners.CleaningListener;
 import com.company.models.Hotel;
 
-import java.util.ArrayList;
-
 public class CleaningEmergencyEvent extends CleaningEvent {
-    public CleaningEmergencyEvent(Hotel hotel, Integer eventTime, int guestNumber, ArrayList<CleaningListener> cleaningListeners) {
-        super(eventTime, hotel, guestNumber, cleaningListeners);
+    public CleaningEmergencyEvent(Hotel hotel, Integer eventTime, int guestNumber) {
+        super(eventTime, hotel, guestNumber);
     }
 
     @Override

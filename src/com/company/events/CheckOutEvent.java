@@ -12,10 +12,10 @@ public class CheckOutEvent extends Event {
     private ArrayList<CleaningListener> cleaningListeners;
     private int guestNumber;
 
-    public CheckOutEvent(Hotel hotel, Integer eventTime, int guestNumber, ArrayList<CleaningListener> CleaningListener) {
+    public CheckOutEvent(Hotel hotel, Integer eventTime, int guestNumber) {
         super(eventTime, hotel);
         this.guestNumber = guestNumber;
-        this.cleaningListeners = CleaningListener;
+        this.cleaningListeners = new ArrayList<>(hotel.cleaners);
     }
 
     @Override
@@ -43,7 +43,7 @@ public class CheckOutEvent extends Event {
 
         guest.setMovingQueue(guest.determineShortestPath(hotel.getLobby()));
 
-        DefaultCleaningEvent defaultCleaningEvent = new DefaultCleaningEvent(Settings.getSettings().getCleanHTE(), hotel, guestNumber, cleaningListeners);
+        DefaultCleaningEvent defaultCleaningEvent = new DefaultCleaningEvent(Settings.getSettings().getCleanHTE(), hotel, guestNumber);
         hotel.defaultCleaningEvents.add(defaultCleaningEvent);
         for (CleaningListener CleaningListener : cleaningListeners) {
             CleaningListener.startCleaners();

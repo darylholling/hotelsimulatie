@@ -9,9 +9,9 @@ abstract public class CleaningEvent extends Event {
     public int guestNumber;
     protected ArrayList<CleaningListener> cleaningListeners;
 
-    public CleaningEvent(Integer eventTime, Hotel hotel, int guestNumber, ArrayList<CleaningListener> cleaningListeners) {
+    public CleaningEvent(Integer eventTime, Hotel hotel, int guestNumber) {
         super(eventTime, hotel);
         this.guestNumber = guestNumber;
-        this.cleaningListeners = cleaningListeners;
+        this.cleaningListeners = new ArrayList<>(hotel.cleaners);
     }
 }

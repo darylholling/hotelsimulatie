@@ -60,10 +60,7 @@ public class EventBuilder {
                     event = new CheckInEvent(hotel, eventTime, guestNumber, stars);
                     break;
                 case "CHECK_OUT":
-                    event = new CheckOutEvent(hotel, eventTime, guestNumber, new ArrayList<>() {{
-                        add(hotel.cleaners.get(0));
-                        add(hotel.cleaners.get(1));
-                    }});
+                    event = new CheckOutEvent(hotel, eventTime, guestNumber);
                     break;
                 case "GO_TO_DINER":
                     event = new GoToDinerEvent(eventTime, hotel, guestNumber);
@@ -72,10 +69,7 @@ public class EventBuilder {
                     event = new GoToFitnessEvent(eventTime, hotel, guestNumber, duration);
                     break;
                 case "CLEANING_EMERGENCY":
-                    event = new CleaningEmergencyEvent(hotel, eventTime, guestNumber, new ArrayList<>() {{
-                        add(hotel.cleaners.get(0));
-                        add(hotel.cleaners.get(1));
-                    }});
+                    event = new CleaningEmergencyEvent(hotel, eventTime, guestNumber);
                     break;
                 case "GO_TO_CINEMA":
                     event = new GoToCinemaEvent(eventTime, hotel, guestNumber);
