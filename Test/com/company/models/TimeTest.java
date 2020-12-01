@@ -12,8 +12,8 @@ class TimeTest {
     Time time = new Time(HTElisteners);
 
     @Test
-    public void testIfTheTimerStartsAndStops(){
-        settings.setSettings(1,1,1,1);
+    public void testIfTheTimerStartsAndStops() {
+        settings.setSettings(1, 1, 1, 1);
 
         Assert.assertFalse(time.running);
 

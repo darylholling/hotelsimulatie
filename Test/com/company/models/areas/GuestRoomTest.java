@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import java.io.FileNotFoundException;
 
 class GuestRoomTest {
-
     @Test
     public void checkIfRoomIsOccupiedAndUnavailableAfterAddingGuest() throws FileNotFoundException {
         GuestRoom guestRoom = new GuestRoom(0, 0, 1, 0, 1);

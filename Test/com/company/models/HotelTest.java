@@ -1,7 +1,7 @@
-package com.company.models;
+package com.company.models.areas;
 
 
-import com.company.models.areas.*;
+import com.company.models.Hotel;
 import com.company.persons.Guest;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
