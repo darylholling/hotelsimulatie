@@ -55,7 +55,7 @@ public class Guest extends Person {
             this.movingQueue.remove(endArea);
             if (endArea instanceof Lobby) {
                 Hotel hotel = this.getArea().getHotel();
-                hotel.removeGuest(this);
+                hotel.removeGuestFromActiveList(this);
                 Platform.runLater(() -> hotel.lateComingHTEListeners.remove(this));
             }
         }

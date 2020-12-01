@@ -104,12 +104,12 @@ public class Hotel extends Application implements HTEListener {
         hotel.stage.show();
     }
 
-    public void addGuest(Guest guest) {
+    public void addGuestToBothLists(Guest guest) {
         guestList.add(guest);
         activeGuestList.add(guest);
     }
 
-    public void removeGuest(Guest guest) {
+    public void removeGuestFromActiveList(Guest guest) {
         activeGuestList.remove(guest);
     }
 

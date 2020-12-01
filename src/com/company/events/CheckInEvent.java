@@ -46,7 +46,7 @@ public class CheckInEvent extends Event {
         selectedGuestRoom.addPerson(guest);
 
         Platform.runLater(()->hotel.lateComingHTEListeners.add(guest));
-        hotel.addGuest(guest);
+        hotel.addGuestToBothLists(guest);
 
         guest.setMovingQueue(guest.determineShortestPath(guest.getGuestRoom()));
     }
