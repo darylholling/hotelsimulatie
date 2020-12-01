@@ -36,7 +36,6 @@ public class Hotel extends Application implements HTEListener {
     public void start(Stage stage) {
         this.stage = stage;
         HotelHandler hotelHandler = new HotelHandler(hotel);
-        CreateCleaners createCleaners = new CreateCleaners(hotel);
         EventHandler eventHandler = new EventHandler(hotel);
         this.timer = new Time(new ArrayList<>() {
             {
@@ -45,12 +44,10 @@ public class Hotel extends Application implements HTEListener {
                 add(hotel);
             }
         });
-
         Menu menu = new Menu(stage, new ArrayList<>() {
             {
                 add(timer);
                 add(hotelHandler);
-                add(createCleaners);
                 add(eventHandler);
             }
         });
@@ -104,5 +101,18 @@ public class Hotel extends Application implements HTEListener {
 
     public void removeGuest(Guest guest) {
         activeGuestList.remove(guest);
+    }
+
+    public void createCleaners() {
+        int cleanerCount = 2;
+
+        for (int i = 0; i < cleanerCount; i++) {
+            Area lobby = this.getLobby();
+            if (lobby != null) {
+                Cleaner cleaner = new Cleaner(hotel, lobby);
+                this.cleaners.add(cleaner);
+                hotel.lateComingHTEListeners.add(cleaner);
+            }
+        }
     }
 }

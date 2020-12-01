@@ -26,6 +26,7 @@ public class HotelHandler implements StartListener, HTEListener  {
         try {
             hotelBuilder.createContent();
             hotelController.createContent();
+            hotel.createCleaners();
         } catch (FileNotFoundException e ) {
             System.out.println("Failed to build hotel");
         }

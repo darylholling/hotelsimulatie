@@ -20,6 +20,7 @@ public class Cleaner extends Person implements CleaningListener {
     public Cleaner(Hotel hotel, Area area) {
         super.setArea(area);
         this.hotel = hotel;
+        this.setCleanerImage();
     }
 
     public void setCleanerImage() {
