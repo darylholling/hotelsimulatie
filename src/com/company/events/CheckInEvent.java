@@ -11,11 +11,9 @@ import java.util.Random;
 public class CheckInEvent extends Event {
     private int guestNumber;
     private int stars;
-    private Hotel hotel;
 
     public CheckInEvent(Hotel hotel, Integer eventTime, int guestNumber, int stars) {
         super(eventTime, hotel);
-        this.hotel = hotel;
         this.guestNumber = guestNumber;
         this.stars = stars;
     }
