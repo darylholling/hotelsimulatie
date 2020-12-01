@@ -35,7 +35,7 @@ public class GoToCinemaEvent extends Event {
             currentGuest.getArea().removePerson(currentGuest);
         }
 
-        Area[] allCinemas = this.hotel.areas.stream().filter(area -> area instanceof Cinema).toArray(Area[]::new);
+        Area[] allCinemas = hotel.getAllCinemas();
 
         Area selectedCinema = null;
         LinkedList<Area> selectedPath = null;

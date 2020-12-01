@@ -76,6 +76,10 @@ public class Hotel extends Application implements HTEListener {
         return this.areas.stream().filter(area -> area instanceof Cinema).findFirst().orElse(null);
     }
 
+    public Area[] getAllCinemas() {
+        return hotel.areas.stream().filter(area -> area instanceof Cinema).toArray(Area[]::new);
+    }
+
     public Area getDiner() {
         return this.areas.stream().filter(area -> area instanceof Diner).findFirst().orElse(null);
     }
