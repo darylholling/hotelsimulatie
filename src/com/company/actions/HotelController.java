@@ -1,6 +1,6 @@
 package com.company.actions;
 
-import com.company.models.Guest;
+import com.company.persons.Guest;
 import com.company.models.Hotel;
 import com.company.models.HteCounter;
 import com.company.models.Settings;

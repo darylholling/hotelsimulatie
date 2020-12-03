@@ -1,6 +1,7 @@
 package com.company.models;
 
 import com.company.actions.EventHandler;
+import com.company.actions.HotelHandler;
 import com.company.listeners.HTEListener;
 import com.company.listeners.LateComingHTEListener;
 import com.company.models.areas.*;

@@ -1,8 +1,8 @@
 package com.company.actions;
 
-import com.company.models.HTEListener;
+import com.company.listeners.HTEListener;
 import com.company.models.Hotel;
-import com.company.models.StartListener;
+import com.company.listeners.StartListener;
 
 import java.io.FileNotFoundException;
 
