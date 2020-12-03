@@ -54,7 +54,7 @@ public class HotelController {
         lobbyButton.setFill(Color.TRANSPARENT);
         lobbyButton.toFront();
         lobbyButton.setOnMouseClicked(mouseEvent -> {
-            this.hotel.stage.setScene(createPausePane());
+            this.hotel.setScene(createPausePane());
             hotel.timer.stopTimer();
         });
         hotel.mainPane.add(lobbyButton, 1, hotel.hotelHeight, hotel.hotelWidth - 1, 1);
@@ -69,7 +69,7 @@ public class HotelController {
         Button resumeButton = new Button();
         resumeButton.setText("Resume Game");
         resumeButton.setOnMouseClicked(mouseEvent -> {
-            this.hotel.stage.setScene(mainScene);
+            this.hotel.setScene(mainScene);
             hotel.timer.resumeTimer();
         });
         resumeButton.relocate(150, 410);
