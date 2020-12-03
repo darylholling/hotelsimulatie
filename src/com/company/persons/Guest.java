@@ -80,10 +80,10 @@ public class Guest extends Person {
                 arealist = this.guestRoom.getHotel().getAllCinemas();
                 break;
             case "diner":
-                arealist = this.guestRoom.getHotel().areas.stream().filter(area -> area instanceof Diner).toArray(Area[]::new);
+                arealist = this.guestRoom.getHotel().getAllDiners();
                 break;
             case "fitness":
-                arealist = this.guestRoom.getHotel().areas.stream().filter(area -> area instanceof Fitness).toArray(Area[]::new);
+                arealist = this.guestRoom.getHotel().getAllFitnessRooms();
                 break;
         }
 
