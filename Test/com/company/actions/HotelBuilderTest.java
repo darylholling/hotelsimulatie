@@ -22,10 +22,10 @@ class HotelBuilderTest {
     HotelBuilder hotelBuilder = new HotelBuilder(hotel);
     JFXPanel jfxPanel = new JFXPanel();
 
-    @Test
-    public void testIfContentGetsCreatedAndReturnsHotelPane() throws IOException {
-        Assert.assertEquals(VBox.class, hotelBuilder.createContent().getClass());
-    }
+//    @Test
+//    public void testIfContentGetsCreatedAndReturnsHotelPane() throws IOException {
+//        Assert.assertEquals(VBox.class, hotelBuilder.createContent().getClass());
+//    }
 
     @Test
     public void checkIfAreasAreAddedToHotel() throws IOException {
