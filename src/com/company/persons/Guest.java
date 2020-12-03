@@ -55,7 +55,7 @@ public class Guest extends Person {
             this.movingQueue.remove(endArea);
             if (endArea instanceof Lobby) {
                 Hotel hotel = this.getArea().getHotel();
-                hotel.activeGuestList.remove(this);
+                hotel.removeGuestFromActiveList(this);
                 Platform.runLater(() -> hotel.lateComingHTEListeners.remove(this));
             }
         }
@@ -77,7 +77,7 @@ public class Guest extends Person {
 
         switch (areaType) {
             case "cinema":
-                arealist = this.guestRoom.getHotel().areas.stream().filter(area -> area instanceof Cinema).toArray(Area[]::new);
+                arealist = this.guestRoom.getHotel().getAllCinemas();
                 break;
             case "diner":
                 arealist = this.guestRoom.getHotel().areas.stream().filter(area -> area instanceof Diner).toArray(Area[]::new);

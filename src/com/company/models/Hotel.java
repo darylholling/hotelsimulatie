@@ -1,8 +1,6 @@
 package com.company.models;
 
-import com.company.actions.CreateCleaners;
 import com.company.actions.EventHandler;
-import com.company.actions.HotelBuilder;
 import com.company.listeners.HTEListener;
 import com.company.listeners.LateComingHTEListener;
 import com.company.models.areas.*;
@@ -15,6 +13,8 @@ import com.company.models.areas.Lobby;
 import com.company.persons.Cleaner;
 import com.company.persons.Guest;
 import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -34,26 +34,26 @@ public class Hotel extends Application implements HTEListener {
     public int currentHTE;
     public ArrayList<LateComingHTEListener> lateComingHTEListeners = new ArrayList<>();
     public Menu menu;
+    public int hotelWidth;
+    public int hotelHeight;
+    public GridPane mainPane;
 
     @Override
     public void start(Stage stage) {
         this.stage = stage;
-        HotelBuilder hotelBuilder = new HotelBuilder(hotel);
-        CreateCleaners createCleaners = new CreateCleaners(hotel);
+        HotelHandler hotelHandler = new HotelHandler(hotel);
         EventHandler eventHandler = new EventHandler(hotel);
         this.timer = new Time(new ArrayList<>() {
             {
                 add(eventHandler);
-                add(hotelBuilder);
+                add(hotelHandler);
                 add(hotel);
             }
         });
-
         Menu menu = new Menu(stage, new ArrayList<>() {
             {
                 add(timer);
-                add(hotelBuilder);
-                add(createCleaners);
+                add(hotelHandler);
                 add(eventHandler);
             }
         });
@@ -82,6 +82,10 @@ public class Hotel extends Application implements HTEListener {
         return this.areas.stream().filter(area -> area instanceof Cinema).findFirst().orElse(null);
     }
 
+    public Area[] getAllCinemas() {
+        return hotel.areas.stream().filter(area -> area instanceof Cinema).toArray(Area[]::new);
+    }
+
     public Area getDiner() {
         return this.areas.stream().filter(area -> area instanceof Diner).findFirst().orElse(null);
     }
@@ -92,5 +96,33 @@ public class Hotel extends Application implements HTEListener {
 
     public int getCurrentHTE() {
         return this.currentHTE;
+    }
+
+    public void setScene(Scene scene) {
+        hotel.stage.setScene(scene);
+        hotel.stage.setResizable(false);
+        hotel.stage.show();
+    }
+
+    public void addGuestToBothLists(Guest guest) {
+        guestList.add(guest);
+        activeGuestList.add(guest);
+    }
+
+    public void removeGuestFromActiveList(Guest guest) {
+        activeGuestList.remove(guest);
+    }
+
+    public void createCleaners() {
+        int cleanerCount = 2;
+
+        for (int i = 0; i < cleanerCount; i++) {
+            Area lobby = this.getLobby();
+            if (lobby != null) {
+                Cleaner cleaner = new Cleaner(hotel, lobby);
+                this.cleaners.add(cleaner);
+                hotel.lateComingHTEListeners.add(cleaner);
+            }
+        }
     }
 }

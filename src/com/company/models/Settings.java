@@ -16,7 +16,6 @@ public class Settings {
         if (settings == null) {
             settings = new Settings();
         }
-
         return settings;
     }
 
