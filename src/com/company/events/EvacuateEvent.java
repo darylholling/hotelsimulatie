@@ -1,11 +1,8 @@
 package com.company.events;
 
-import com.company.actions.Dijkstra;
-import com.company.models.Guest;
 import com.company.models.Hotel;
 import com.company.models.areas.Area;
-
-import java.util.LinkedList;
+import com.company.persons.Guest;
 
 public class EvacuateEvent extends Event {
     public EvacuateEvent(Hotel hotel, Integer eventTime) {
@@ -25,10 +22,7 @@ public class EvacuateEvent extends Event {
         }
 
         for (Guest guest : hotel.activeGuestList) {
-            Dijkstra dijkstra = new Dijkstra();
-            guest.getArea().setDistanceForPerson(guest, 0);
-            LinkedList<Area> path = dijkstra.findPath(guest, guest.getArea(), lobby);
-            guest.setMovingQueue(path);
+            guest.setMovingQueue(guest.determineShortestPath(lobby));
         }
     }
 }

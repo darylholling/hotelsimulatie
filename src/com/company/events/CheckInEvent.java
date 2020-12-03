@@ -1,14 +1,11 @@
 package com.company.events;
 
-import com.company.actions.Dijkstra;
-import com.company.models.Guest;
 import com.company.models.Hotel;
-import com.company.models.areas.Area;
 import com.company.models.areas.GuestRoom;
+import com.company.persons.Guest;
 import javafx.application.Platform;
 
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.Random;
 
 public class CheckInEvent extends Event {
@@ -47,12 +44,8 @@ public class CheckInEvent extends Event {
         selectedGuestRoom.addPerson(guest);
 
         Platform.runLater(()->hotel.lateComingHTEListeners.add(guest));
-        hotel.guestList.add(guest);
-        hotel.activeGuestList.add(guest);
+        hotel.addGuestToBothLists(guest);
 
-        Dijkstra dijkstra = new Dijkstra();
-        guest.getArea().setDistanceForPerson(guest, 0);
-        LinkedList<Area> path = dijkstra.findPath(guest, guest.getArea(), guest.getGuestRoom());
-        guest.setMovingQueue(path);
+        guest.setMovingQueue(guest.determineShortestPath(guest.getGuestRoom()));
     }
 }

@@ -8,5 +8,3 @@ public class Hallway extends Area {
         super.setDefaultImage(this, "hallway.jpg", areaWidth);
     }
 }
-
-

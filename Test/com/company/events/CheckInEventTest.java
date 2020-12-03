@@ -1,7 +1,6 @@
 package com.company.events;
 
 import com.company.actions.HotelBuilder;
-import com.company.models.Guest;
 import com.company.models.Hotel;
 import com.company.models.Settings;
 import javafx.embed.swing.JFXPanel;
@@ -12,9 +11,6 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Arrays;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class EventTest {
     Hotel hotel = new Hotel();
@@ -59,9 +55,9 @@ class EventTest {
         hotelBuilder.createContent();
         checkInEvent.fire();
 
-        Assert.assertEquals(1,hotel.activeGuestList.size());
+        Assert.assertEquals(1, hotel.activeGuestList.size());
 
-        CheckOutEvent checkOutEvent = new CheckOutEvent(hotel,0,1,null);
+        CheckOutEvent checkOutEvent = new CheckOutEvent(hotel, 0, 1);
 
         checkOutEvent.fire();
 

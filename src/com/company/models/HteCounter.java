@@ -1,5 +1,7 @@
 package com.company.models;
 
+import com.company.listeners.HTEListener;
+
 import java.util.ArrayList;
 import java.util.TimerTask;
 
@@ -17,7 +19,6 @@ public class HteCounter extends TimerTask {
 
     public void run() {
         HTE++;
-
         this.update();
     }
 

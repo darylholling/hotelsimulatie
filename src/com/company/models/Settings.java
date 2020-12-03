@@ -4,7 +4,7 @@ import java.io.File;
 
 public class Settings {
     private static Settings settings = null;
-    private int HTETime = 1000;
+    private int HTETime = 100;
     private int StairsHTE = 1;
     private int CleanHTE = 5;
     private int ElevatorDeathHTE = 1;
@@ -16,7 +16,6 @@ public class Settings {
         if (settings == null) {
             settings = new Settings();
         }
-
         return settings;
     }
 

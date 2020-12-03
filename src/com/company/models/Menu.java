@@ -1,5 +1,6 @@
 package com.company.models;
 
+import com.company.listeners.StartListener;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -343,19 +344,20 @@ public class Menu {
 
         startHotelButton.setOnAction(e -> {
             this.jsonErrors.clear();
-            if (Settings.getSettings().getEventsFile() != null && Settings.getSettings().getLayoutFile() != null) {
+//            if (Settings.getSettings().getEventsFile() != null && Settings.getSettings().getLayoutFile() != null) {
                 try {
                     this.notifyStart();
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
-            } if (Settings.getSettings().getEventsFile() == null)  {
-                eventStatus.setText("Please select a event file!");
-                eventStatus.setTextFill(Color.RED);
-            } if (Settings.getSettings().getLayoutFile() == null) {
-                layoutStatus.setText("Please select a layout file!");
-                layoutStatus.setTextFill(Color.RED);
-            }
+//            }
+//            if (Settings.getSettings().getEventsFile() == null)  {
+//                eventStatus.setText("Please select a event file!");
+//                eventStatus.setTextFill(Color.RED);
+//            } if (Settings.getSettings().getLayoutFile() == null) {
+//                layoutStatus.setText("Please select a layout file!");
+//                layoutStatus.setTextFill(Color.RED);
+//            }
         });
 
         return scene;

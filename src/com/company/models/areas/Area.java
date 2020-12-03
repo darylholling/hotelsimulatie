@@ -1,7 +1,7 @@
 package com.company.models.areas;
 
 import com.company.models.Hotel;
-import com.company.models.Person;
+import com.company.persons.Person;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
