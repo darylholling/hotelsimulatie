@@ -64,8 +64,7 @@ public class Cleaner extends Person implements CleaningListener {
     }
 
     public void cleaning() {
-        int beginHTE = hotel.currentHTE;
-        endHTE = beginHTE + Settings.getSettings().getCleanHTE();
+        this.endHTE = hotel.currentHTE + Settings.getSettings().getCleanHTE();
         cleaning = true;
     }
 
@@ -93,7 +92,7 @@ public class Cleaner extends Person implements CleaningListener {
         if (this.movingQueue.isEmpty() && !(this.getArea() instanceof Lobby)) {
             Platform.runLater(this::removePersonFromGrid);
         }
-        if (hotel.getCurrentHTE() == endHTE) {
+        if (hotel.getCurrentHTE() == this.endHTE) {
             currentCleanEvent = null;
             cleaning = false;
             checkQueue();

@@ -10,8 +10,8 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Queue;
 
+//TODO fix test
 class EventHandlerTest {
     Hotel hotel = new Hotel();
     EventBuilder eventBuilder = new EventBuilder();
@@ -21,8 +21,8 @@ class EventHandlerTest {
         JFXPanel jfxPanel = new JFXPanel();
         Lobby lobby = new Lobby(0, 0, 0, 0);
         hotel.areas.add(lobby);
-        CreateCleaners createCleaners = new CreateCleaners(hotel);
-        createCleaners.create();
+//        CreateCleaners createCleaners = new CreateCleaners(hotel);
+//        createCleaners.create();
         int checkCounter = 0;
 
 

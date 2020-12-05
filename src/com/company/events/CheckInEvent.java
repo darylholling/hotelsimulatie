@@ -23,7 +23,7 @@ public class CheckInEvent extends Event {
         GuestRoom[] guestRooms = this.hotel.areas.stream().filter(area -> area instanceof GuestRoom).toArray(GuestRoom[]::new);
         GuestRoom[] availableByStars = null;
 
-        while ((availableByStars != null ? availableByStars.length : 0) == 0 && this.stars < 5) {
+        while ((availableByStars != null ? availableByStars.length : 0) == 0 && this.stars <= 5) {
             availableByStars = Arrays.stream(guestRooms).filter(guestRoom -> guestRoom.getStars() == this.stars && guestRoom.isAvailable()).toArray(GuestRoom[]::new);
             this.stars++;
         }

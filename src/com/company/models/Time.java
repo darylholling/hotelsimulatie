@@ -1,12 +1,11 @@
 package com.company.models;
 
 import com.company.listeners.HTEListener;
-import com.company.listeners.StartListener;
 
 import java.util.ArrayList;
 import java.util.Timer;
 
-public class Time implements StartListener {
+public class Time {
     static boolean running;
     private static Timer timer;
     private ArrayList<HTEListener> HTEListeners;
@@ -32,10 +31,10 @@ public class Time implements StartListener {
         this.startTimer();
     }
 
-    @Override
-    public void handleStart() {
-        this.startTimer();
-    }
+//    @Override
+//    public void handleStart() {
+//        this.startTimer();
+//    }
 }
 
 

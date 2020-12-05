@@ -18,7 +18,7 @@ public class EventBuilder {
     //reading json file and creating event queue from it.
     public Queue<Event> readJson(Hotel hotel) {
 //        File eventsFile = Settings.getSettings().getEventsFile();
-        File eventsFile = new File("src/com/company/files/eventskapot.json");
+        File eventsFile = new File("src/com/company/files/eventsfile.json");
         Gson gson = new GsonBuilder().create();
 
         JsonArray eventJsonArray;
@@ -77,14 +77,9 @@ public class EventBuilder {
                 case "START_CINEMA":
                     event = new StartCinemaEvent(eventTime, hotel, duration);
                     break;
-//                case "GODZILLA":
-//                    event = new GodzillaEvent(guestList, eventTime);
-//                break;
                 case "EVACUATE":
                     event = new EvacuateEvent(hotel, eventTime);
                     break;
-                default:
-                    System.out.println("Event type " + eventType + " wasn't found.");
             }
 
             if (event != null) {

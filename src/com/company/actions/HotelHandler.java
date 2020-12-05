@@ -23,10 +23,12 @@ public class HotelHandler implements StartListener, HTEListener  {
     private void initializeHotel() {
         hotelBuilder = new HotelBuilder(hotel);
         hotelController = new HotelController(hotel);
+
         try {
             hotelBuilder.createContent();
             hotelController.createContent();
             hotel.createCleaners();
+            hotel.timer.startTimer();
         } catch (FileNotFoundException e ) {
             System.out.println("Failed to build hotel");
         }
