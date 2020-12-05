@@ -46,13 +46,21 @@ public class Guest extends Person {
 
     @Override
     public void move(Area startArea, Area endArea) {
+//        System.out.print("startarea" + startArea);
+//        System.out.println("=> endarea" + endArea);
         this.getArea().removePerson(this);
         this.setArea(endArea);
         endArea.addPerson(this);
         this.movingQueue.remove(startArea);
 
         if (this.movingQueue.size() == 1) {
+            if (this.guestNumber == 2) {
+                System.out.println("movqsize" + this.movingQueue.size());
+            }
             this.movingQueue.remove(endArea);
+            if (this.guestNumber == 2) {
+                System.out.println("checkout-endarea" + endArea.getClass());
+            }
             if (endArea instanceof Lobby) {
                 Hotel hotel = this.getArea().getHotel();
                 hotel.removeGuestFromActiveList(this);
@@ -63,7 +71,10 @@ public class Guest extends Person {
 
     @Override
     public void updatedHTE(int HTE) {
+        System.out.println("size" + this.movingQueue.size());
         if (this.movingQueue.size() > 1 && HTE != checkInTime) {
+            System.out.print("first"+ this.movingQueue.getFirst());
+            System.out.println("=> 1 => "+ this.movingQueue.get(1));
             this.move(this.movingQueue.getFirst(), this.movingQueue.get(1));
 
             if (this.movingQueue.isEmpty()) {

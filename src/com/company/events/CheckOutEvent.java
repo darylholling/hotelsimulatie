@@ -36,6 +36,7 @@ public class CheckOutEvent extends Event {
             return;
         }
 
+        System.out.println("checking out" + guestNumber);
         guest.getGuestRoom().removePerson(guest);
         if (!guest.getMovingQueue().isEmpty()) {
             guest.getMovingQueue().clear();

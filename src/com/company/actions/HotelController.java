@@ -1,9 +1,9 @@
 package com.company.actions;
 
-import com.company.persons.Guest;
 import com.company.models.Hotel;
 import com.company.models.HteCounter;
 import com.company.models.Settings;
+import com.company.persons.Guest;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -82,6 +82,7 @@ public class HotelController {
         label.setAlignment(Pos.CENTER);
         label.setTextAlignment(TextAlignment.JUSTIFY);
         String myString = "";
+
         for (Guest guest : hotel.activeGuestList) {
             myString += "Guest " + guest.getGuestNumber() + " is at " + guest.getArea().getClass().getSimpleName() + " @ X: " + guest.getArea().getX() + " ,Y: " + guest.getArea().getY() + "\n";
         }
