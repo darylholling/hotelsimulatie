@@ -60,8 +60,6 @@ class HotelBuilderTest {
         Settings.getSettings().setLayoutFile(new File("Test/jsonTestFiles/layoutTest.json"));
         hotelBuilder.createContent();
 
-        System.out.println(hotel.areas);
-
         hotelBuilder.maxXInJson = 4;
         hotelBuilder.maxYInJson = 4;
         hotelBuilder.hotelHeight = 5;

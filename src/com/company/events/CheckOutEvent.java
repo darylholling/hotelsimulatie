@@ -37,6 +37,7 @@ public class CheckOutEvent extends Event {
         }
 
         guest.getGuestRoom().removePerson(guest);
+
         if (!guest.getMovingQueue().isEmpty()) {
             guest.getMovingQueue().clear();
         }
@@ -44,7 +45,9 @@ public class CheckOutEvent extends Event {
         guest.setMovingQueue(guest.determineShortestPath(hotel.getLobby()));
 
         DefaultCleaningEvent defaultCleaningEvent = new DefaultCleaningEvent(Settings.getSettings().getCleanHTE(), hotel, guestNumber);
+
         hotel.defaultCleaningEvents.add(defaultCleaningEvent);
+
         for (CleaningListener CleaningListener : cleaningListeners) {
             CleaningListener.startCleaners();
         }

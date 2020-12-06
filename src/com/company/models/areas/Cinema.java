@@ -1,11 +1,10 @@
 package com.company.models.areas;
 
 import com.company.events.StartCinemaEvent;
-import com.company.listeners.LateComingHTEListener;
 
 import java.io.FileNotFoundException;
 
-public class Cinema extends Area implements LateComingHTEListener {
+public class Cinema extends Area {
     //due to time shortage variables below are not used yet.
     private boolean isPlaying = false;
     private int endHTE;
@@ -18,10 +17,5 @@ public class Cinema extends Area implements LateComingHTEListener {
 
     public boolean isPlaying() {
         return isPlaying = true;
-    }
-
-    @Override
-    public void updatedHTE(int HTE) {
-
     }
 }

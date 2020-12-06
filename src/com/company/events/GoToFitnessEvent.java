@@ -22,7 +22,10 @@ public class GoToFitnessEvent extends Event {
         Guest guest = hotel.getGuestByNumber(guestNumber);
 
         if (guest != null) {
-            guest.addShortestPathToMovingQueueByAreaType("fitness");
+            guest.getArea().removePerson(guest);
+
+            guest.setMovingQueue(guest.determineShortestPath(hotel.getFitness()));
+//            guest.addShortestPathToMovingQueueByAreaType("fitness");
         }
     }
 }

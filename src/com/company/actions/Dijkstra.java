@@ -1,7 +1,8 @@
 package com.company.actions;
 
-import com.company.persons.Person;
+import com.company.models.Hotel;
 import com.company.models.areas.Area;
+import com.company.persons.Person;
 
 import java.util.*;
 
@@ -12,11 +13,11 @@ public class Dijkstra {
         unvisitedAreas = new ArrayList<>();
     }
 
-    public LinkedList<Area> findPath(Person person, Area start, Area end) {
+    public LinkedList<Area> findPath(Person person, Area destination) {
         person.getArea().setDistanceForPerson(person, 0);
-        Area toCheck = start;
+        Area toCheck = person.getArea();
 
-        while (!Visit(person, toCheck, end)) {
+        while (!Visit(person, toCheck, destination)) {
             try {
                 toCheck = unvisitedAreas.stream().min(Comparator.comparingInt(n -> n.getDistanceForPerson(person))).get();
             } catch (NoSuchElementException ex) {
@@ -24,7 +25,16 @@ public class Dijkstra {
             }
         }
 
-        return makePath(person, end);
+        Hotel hotel = destination.getHotel();
+
+        LinkedList<Area> path = makePath(person, destination);
+
+        for (Area area : hotel.getAreas()) {
+            area.setLatestForPerson(person, null);
+            area.setDistanceForPerson(person, Integer.MAX_VALUE);
+        }
+
+        return path;
     }
 
     boolean Visit(Person person, Area current, Area end) {
@@ -46,6 +56,7 @@ public class Dijkstra {
                 }
             }
         }
+
         return false;
     }
 
@@ -65,11 +76,6 @@ public class Dijkstra {
                 cont = false;
             }
         }
-        for (Area area : path) {
-            area.setLatestForPerson(person, null);
-            area.setDistanceForPerson(person, Integer.MAX_VALUE);
-        }
-
         return path;
     }
 }
