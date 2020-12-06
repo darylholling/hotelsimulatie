@@ -17,6 +17,7 @@ abstract public class Person extends Pane implements MoveInterface, LateComingHT
     protected ImageView personImageFile;
     protected Area area;
     protected LinkedList<Area> movingQueue = new LinkedList<>();
+    protected boolean activeListener = true;
 
     public Area getArea() {
         return this.area;
@@ -66,8 +67,16 @@ abstract public class Person extends Pane implements MoveInterface, LateComingHT
         this.movingQueue = movingQueue;
     }
 
-    public LinkedList<Area> determineShortestPath(Area area)
+    public LinkedList<Area> determineShortestPath(Area destination)
     {
-        return new Dijkstra().findPath(this, this.getArea(), area);
+        return new Dijkstra().findPath(this, destination);
+    }
+
+    public boolean isActiveListener() {
+        return activeListener;
+    }
+
+    public void setActiveListener(boolean activeListener) {
+        this.activeListener = activeListener;
     }
 }
