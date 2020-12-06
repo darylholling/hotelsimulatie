@@ -365,7 +365,19 @@
 			"stars": 4
 		}
 	},
-	
+	{
+		"type": "fitness",
+		"position": {
+			"x": 4,
+			"y": 6
+		},
+		"dimensions": {
+			"width": 2,
+			"height": 1
+		},
+		"data": {}
+	},
+
 	{
 		"type": "room",
 		"position": {
@@ -406,6 +418,21 @@
 		},
 		"data": {
 			"stars": 5
+		}
+	},
+
+	{
+		"type": "diner",
+		"position": {
+			"x": 2,
+			"y": 8
+		},
+		"dimensions": {
+			"width": 2,
+			"height": 1
+		},
+		"data": {
+			"max": 3
 		}
 	}
 ]
