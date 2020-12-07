@@ -13,14 +13,12 @@ public class GoToCinemaEvent extends Event {
 
     @Override
     public void fire() {
-        if (hotel.getCinema() == null) {
+        Guest guest = hotel.getGuestByNumber(guestNumber);
+
+        if (guest == null) {
             return;
         }
 
-        Guest guest = hotel.getGuestByNumber(guestNumber);
-
-        if (guest != null) {
-            guest.addShortestPathToMovingQueueByAreaType("cinema");
-        }
+        guest.addShortestPathToMovingQueueByAreaType("cinema");
     }
 }

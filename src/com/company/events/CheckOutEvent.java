@@ -22,6 +22,7 @@ public class CheckOutEvent extends Event {
     //handling fire event for current event
     public void fire() {
         Guest guest = this.hotel.getGuestByNumber(guestNumber);
+
         if (guest == null) {
             return;
         }
