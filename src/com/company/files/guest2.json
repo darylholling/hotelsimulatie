@@ -1,0 +1,25 @@
+[
+  {
+    "type": "CHECK_IN",
+    "time": 2,
+    "data": {
+      "guest": 2,
+      "stars": 3
+    }
+  },
+  {
+    "type": "GO_TO_FITNESS",
+    "time": 15,
+    "data": {
+      "guest": 2,
+      "duration": 10
+    }
+  },
+  {
+    "type": "CHECK_OUT",
+    "time": 30,
+    "data": {
+      "guest": 2
+    }
+  }
+]
