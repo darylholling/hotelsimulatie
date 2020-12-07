@@ -74,19 +74,7 @@ public class Guest extends Person {
     }
 
     public void addShortestPathToMovingQueueByAreaType(String areaType) {
-        Area[] arealist = null;
-
-        switch (areaType) {
-            case "cinema":
-                arealist = this.guestRoom.getHotel().getAllCinemas();
-                break;
-            case "diner":
-                arealist = this.guestRoom.getHotel().areas.stream().filter(area -> area instanceof Diner).toArray(Area[]::new);
-                break;
-            case "fitness":
-                arealist = this.guestRoom.getHotel().areas.stream().filter(area -> area instanceof Fitness).toArray(Area[]::new);
-                break;
-        }
+        Area[] arealist = this.guestRoom.getHotel().getAreasForType(areaType);
 
         if (arealist != null) {
             LinkedList<Area> selectedPath = this.determinePathByAreaList(arealist);
