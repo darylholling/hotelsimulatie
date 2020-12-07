@@ -3,6 +3,9 @@ package com.company.events;
 import com.company.actions.HotelBuilder;
 import com.company.models.Hotel;
 import com.company.models.Settings;
+import com.company.models.areas.GuestRoom;
+import com.company.models.areas.Lobby;
+import com.company.persons.Guest;
 import javafx.embed.swing.JFXPanel;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeAll;
@@ -16,6 +19,7 @@ class EventTest {
     Hotel hotel = new Hotel();
     HotelBuilder hotelBuilder = new HotelBuilder(hotel);
     CheckInEvent checkInEvent = new CheckInEvent(hotel, 0, 1, 1);
+    CheckOutEvent checkOutEvent = new CheckOutEvent(hotel, 1, 1);
     JFXPanel jfxPanel = new JFXPanel();
 
     @BeforeAll
@@ -28,7 +32,6 @@ class EventTest {
     public void checkIfGuestIsAddedToHotelGuestListAfterCheckInEvent() throws IOException {
 
         boolean hasGuest = false;
-
         //check if guestList is empty before check-in
         for (int i = 0; i < hotel.activeGuestList.size(); i++) {
             if (hotel.activeGuestList.get(i) != null) {
@@ -50,7 +53,7 @@ class EventTest {
         Assert.assertTrue(hasGuest);
 
     }
-
+    @Test
     public void checkIfGuestIsRemovedFromHotelGuestListAfterCheckOutEvent() throws FileNotFoundException {
         hotelBuilder.createContent();
         checkInEvent.fire();
@@ -60,7 +63,6 @@ class EventTest {
         CheckOutEvent checkOutEvent = new CheckOutEvent(hotel, 0, 1);
 
         checkOutEvent.fire();
-
         Assert.assertEquals(0, hotel.activeGuestList.size());
     }
 }

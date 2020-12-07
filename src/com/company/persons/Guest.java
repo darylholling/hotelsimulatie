@@ -89,7 +89,7 @@ public class Guest extends Person {
         }
 
         if (arealist != null) {
-            LinkedList<Area> selectedPath = this.determinePathByArealist(arealist);
+            LinkedList<Area> selectedPath = this.determinePathByAreaList(arealist);
 
             if (selectedPath != null && !selectedPath.isEmpty()) {
                 this.setMovingQueue(selectedPath);
@@ -97,7 +97,7 @@ public class Guest extends Person {
         }
     }
 
-    private LinkedList<Area> determinePathByArealist(Area[] areas) {
+    private LinkedList<Area> determinePathByAreaList(Area[] areas) {
         LinkedList<Area> selectedPath = null;
         int closestDistance = Integer.MAX_VALUE;
 
