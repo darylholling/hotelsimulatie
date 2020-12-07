@@ -20,6 +20,7 @@ public class HteCounter extends TimerTask {
     public void run() {
         HTE++;
         this.update();
+        System.out.println(HTE);
     }
 
     private void update() {

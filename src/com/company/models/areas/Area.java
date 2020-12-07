@@ -34,60 +34,74 @@ public abstract class Area extends Pane {
         this.neighbours = new HashMap<>();
     }
 
+//    add Person
     public void addPerson(Person person) {
         if (!this.persons.contains(person)) {
             this.persons.add(person);
         }
     }
 
+//    remove Person
     public void removePerson(Person person) {
         this.persons.remove(person);
     }
 
+//    get X
     public int getX() {
         return x;
     }
 
+//    set X
     public void setX(int x) {
         this.x = x;
     }
 
+//    get Y
     public int getY() {
         return y;
     }
 
+//    set Y
     public void setY(int y) {
         this.y = y;
     }
 
+//    get area width
     public int getAreaWidth() {
         return areaWidth;
     }
 
+//    get area height
     public int getAreaHeight() {
         return areaHeight;
     }
 
+//    get neighbours
     public HashMap<Area, Integer> getNeighbours() {
         return neighbours;
     }
 
+//    add neighbour with distance to each one
     public void addNeighbour(Area area, Integer distance) {
         this.neighbours.put(area, distance);
     }
 
+//    get hotel
     public Hotel getHotel() {
         return hotel;
     }
 
+//    set hotel
     public void setHotel(Hotel hotel) {
         this.hotel = hotel;
     }
 
+//    creates the area background
     public AreaBackground createAreaBackground(int defaultX, int defaultY, int width, int height, ImageView classname) {
         return new AreaBackground(defaultX, defaultY, width, height, classname);
     }
 
+//    set the image based on string image
     public void setDefaultImage(Area area, String image, int areaWidth) throws FileNotFoundException {
         ImageView imageView = new ImageView(new Image(new FileInputStream("src/com/company/images/" + image)));
         imageView.setFitHeight(50);
@@ -95,15 +109,17 @@ public abstract class Area extends Pane {
         area.setImageFile(imageView);
     }
 
+//      get ImageFile
     public ImageView getImageFile() {
         return imageFile;
     }
-
+//    set ImageFile
     public void setImageFile(ImageView imageFile) {
         this.imageFile = imageFile;
         getChildren().add(this.imageFile);
     }
 
+//    get distance for person
     public int getDistanceForPerson(Person person) {
         if (this.distancesPerPerson.containsKey(person)) {
             return this.distancesPerPerson.get(person);
@@ -111,10 +127,12 @@ public abstract class Area extends Pane {
         return Integer.MAX_VALUE;
     }
 
+//    set distance for person
     public void setDistanceForPerson(Person person, int distance) {
         this.distancesPerPerson.put(person, distance);
     }
 
+//    get latest area for person
     public Area getLatestForPerson(Person person) {
         if (this.distancesPerPerson.containsKey(person)) {
             return this.latestPerPerson.get(person);
@@ -122,6 +140,7 @@ public abstract class Area extends Pane {
         return null;
     }
 
+//    set latest area for person
     public void setLatestForPerson(Person person, Area latest) {
         this.latestPerPerson.put(person, latest);
     }

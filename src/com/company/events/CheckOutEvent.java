@@ -50,6 +50,7 @@ public class CheckOutEvent extends Event {
 
         for (CleaningListener CleaningListener : cleaningListeners) {
             CleaningListener.startCleaners();
+            System.out.println("Check out " + guestNumber);
         }
     }
 }

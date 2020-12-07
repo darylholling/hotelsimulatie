@@ -15,6 +15,7 @@ public class Cinema extends Area {
         super.setDefaultImage(this, "cinema.jpg", areaWidth);
     }
 
+//    checks if cinema is playing movie
     public boolean isPlaying() {
         return isPlaying = true;
     }

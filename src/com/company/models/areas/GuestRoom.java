@@ -15,6 +15,7 @@ public class GuestRoom extends Area {
         super(x, y, areaWidth, areaHeight);
         this.stars = stars;
 
+//        switch to the right filepath based on the stars
         String filePath;
         switch (stars) {
             case 1:
@@ -42,18 +43,22 @@ public class GuestRoom extends Area {
         }
     }
 
+//    checks if the room is clean and available
     public boolean isAvailable() {
         return isClean && !isOccupied();
     }
 
+//    sets the guestroom to clean
     public void setClean(boolean clean) {
         isClean = clean;
     }
 
+//    checks if the guestroom is occupied
     public boolean isOccupied() {
         return this.persons.stream().anyMatch(i -> i instanceof Guest);
     }
 
+//    get stars
     public int getStars() {
         return stars;
     }

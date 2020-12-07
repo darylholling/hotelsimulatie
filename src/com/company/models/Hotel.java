@@ -69,53 +69,65 @@ public class Hotel extends Application implements HTEListener {
         }
     }
 
+//    get areas
     public ArrayList<Area> getAreas() {
         return this.areas;
     }
 
+//    get lobby
     public Area getLobby() {
         return this.areas.stream().filter(area -> area instanceof Lobby).findFirst().orElse(null);
     }
 
+//    get guest by guest number
     public Guest getGuestByNumber(int number) {
         return this.guestList.stream().filter(guest -> guest.getGuestNumber() == number).findFirst().orElse(null);
     }
 
+//    get cinema
     public Area getCinema() {
         return this.areas.stream().filter(area -> area instanceof Cinema).findFirst().orElse(null);
     }
 
+//    get all cinemas
     public Area[] getAllCinemas() {
         return hotel.areas.stream().filter(area -> area instanceof Cinema).toArray(Area[]::new);
     }
 
+//    get diner
     public Area getDiner() {
         return this.areas.stream().filter(area -> area instanceof Diner).findFirst().orElse(null);
     }
 
+//    get fitness
     public Area getFitness() {
         return this.areas.stream().filter(area -> area instanceof Fitness).findFirst().orElse(null);
     }
 
+//    get current HTE
     public int getCurrentHTE() {
         return this.currentHTE;
     }
 
+//    set scene
     public void setScene(Scene scene) {
         hotel.stage.setScene(scene);
         hotel.stage.setResizable(false);
         hotel.stage.show();
     }
 
+//    add guest to guestList and activeGuestList
     public void addGuestToBothLists(Guest guest) {
         guestList.add(guest);
         activeGuestList.add(guest);
     }
 
+//    remove guest from activeGuestList
     public void removeGuestFromActiveList(Guest guest) {
         activeGuestList.remove(guest);
     }
 
+//    create cleaner
     public void createCleaners() {
         int cleanerCount = 2;
 

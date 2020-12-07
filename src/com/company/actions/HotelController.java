@@ -63,7 +63,7 @@ public class HotelController {
         return hotelPane;
     }
 
-    //creating pane to display guestlist when clicking the lobby
+    //creating pane to display guestList when clicking the lobby
     private Scene createPausePane() {
         Pane pausePane = new Pane();
         Button resumeButton = new Button();
@@ -91,7 +91,7 @@ public class HotelController {
         return new Scene(pausePane);
     }
 
-    //updating HTElabel once received from listener
+//      updating HTELabel once received from listener
     public void HTELabelUpdate() {
         Platform.runLater(() -> HTEInfoBoard.setText("HTE: " + HteCounter.getHTE()));
         if (highestHTE != null) {

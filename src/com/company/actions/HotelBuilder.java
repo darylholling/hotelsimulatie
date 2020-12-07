@@ -1,10 +1,7 @@
 package com.company.actions;
 
-import com.company.listeners.HTEListener;
-import com.company.listeners.StartListener;
-import com.company.models.*;
+import com.company.models.Hotel;
 import com.company.models.areas.*;
-import com.company.persons.Guest;
 import com.google.gson.*;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -31,7 +28,7 @@ public class HotelBuilder {
         this.hotel = hotel;
     }
 
-    //creating hotel content including visualisation.
+    //creating hotel content including visualisation
     public void createContent() throws FileNotFoundException {
         gridPane = new GridPane();
 
@@ -152,9 +149,9 @@ public class HotelBuilder {
         return null;
     }
 
-
+//      creating areas in the hotel
     private void createAreas(GridPane gridPane, JsonArray jsonArrays, Area[][] areas) throws FileNotFoundException {
-        //ADD HALLWAY WHEN THERE'S AN EMPTY SPACE
+        //add hallway when there's ann empty space
         for (int i = 1; i < hotelWidth; i++) {
             for (int j = 0; j < hotelHeight; j++) {
                 Area area = new Hallway(i, j, 1, 1);
@@ -168,14 +165,17 @@ public class HotelBuilder {
             Area areaBackground;
             JsonObject jsonObject = jsonElement.getAsJsonObject();
 
+//          get position x and y
             JsonObject position = jsonObject.get("position").getAsJsonObject();
             int x = position.get("x").getAsInt();
             int y = position.get("y").getAsInt();
 
+//          get dimensions height and width
             JsonObject dimensions = jsonObject.get("dimensions").getAsJsonObject();
             int height = dimensions.get("height").getAsInt();
             int width = dimensions.get("width").getAsInt();
 
+//          get data if present in json
             JsonObject data = jsonObject.get("data").getAsJsonObject();
             int stars = 0;
             if (data.has("stars")) {
@@ -190,6 +190,7 @@ public class HotelBuilder {
             int defaultY = (hotelHeight - y) - 1;
             int defaultX = x + 1;
 
+//          creates areas based on type
             switch (jsonObject.get("type").getAsString()) {
                 case "room":
                     area = new GuestRoom(defaultX, defaultY, width, height, stars);

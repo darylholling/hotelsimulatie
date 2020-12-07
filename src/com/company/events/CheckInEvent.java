@@ -47,5 +47,6 @@ public class CheckInEvent extends Event {
         hotel.addGuestToBothLists(guest);
 
         guest.setMovingQueue(guest.determineShortestPath(guest.getGuestRoom()));
+        System.out.println("check in " + guestNumber);
     }
 }

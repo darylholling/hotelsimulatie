@@ -20,6 +20,7 @@ public class HotelHandler implements StartListener, HTEListener  {
         this.initializeHotel();
     }
 
+
     private void initializeHotel() {
         hotelBuilder = new HotelBuilder(hotel);
         hotelController = new HotelController(hotel);
