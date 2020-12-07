@@ -15,18 +15,15 @@ public class GoToFitnessEvent extends Event {
 
     @Override
     public void fire() {
-        if (hotel.getFitness() == null) {
+        Guest guest = hotel.getGuestByNumber(guestNumber);
+
+        if (guest == null) {
             return;
         }
 
-        Guest guest = hotel.getGuestByNumber(guestNumber);
+        guest.getArea().removePerson(guest);
 
-        if (guest != null) {
-            guest.getArea().removePerson(guest);
-
-            guest.setMovingQueue(guest.determineShortestPath(hotel.getFitness()));
-//            guest.addShortestPathToMovingQueueByAreaType("fitness");
-        }
+        guest.addShortestPathToMovingQueueByAreaType("fitness");
     }
 }
 

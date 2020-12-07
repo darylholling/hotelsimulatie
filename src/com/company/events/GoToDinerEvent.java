@@ -13,14 +13,12 @@ public class GoToDinerEvent extends Event {
 
     @Override
     public void fire() {
-        if (hotel.getDiner() == null) {
+        Guest guest = hotel.getGuestByNumber(guestNumber);
+
+        if (guest == null) {
             return;
         }
 
-        Guest guest = hotel.getGuestByNumber(guestNumber);
-
-        if (guest != null) {
-            guest.addShortestPathToMovingQueueByAreaType("diner");
-        }
+        guest.addShortestPathToMovingQueueByAreaType("fitness");
     }
 }

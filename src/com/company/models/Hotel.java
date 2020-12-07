@@ -81,20 +81,17 @@ public class Hotel extends Application implements HTEListener {
         return this.guestList.stream().filter(guest -> guest.getGuestNumber() == number).findFirst().orElse(null);
     }
 
-    public Area getCinema() {
-        return this.areas.stream().filter(area -> area instanceof Cinema).findFirst().orElse(null);
-    }
+    public Area[] getAreasForType(String areaType) {
+        switch (areaType) {
+            case "cinema":
+                return hotel.areas.stream().filter(area -> area instanceof Cinema).toArray(Area[]::new);
+            case "diner":
+                return hotel.areas.stream().filter(area -> area instanceof Diner).toArray(Area[]::new);
+            case "fitness":
+                return hotel.areas.stream().filter(area -> area instanceof Fitness).toArray(Area[]::new);
+        }
 
-    public Area[] getAllCinemas() {
-        return hotel.areas.stream().filter(area -> area instanceof Cinema).toArray(Area[]::new);
-    }
-
-    public Area getDiner() {
-        return this.areas.stream().filter(area -> area instanceof Diner).findFirst().orElse(null);
-    }
-
-    public Area getFitness() {
-        return this.areas.stream().filter(area -> area instanceof Fitness).findFirst().orElse(null);
+        return null;
     }
 
     public int getCurrentHTE() {
