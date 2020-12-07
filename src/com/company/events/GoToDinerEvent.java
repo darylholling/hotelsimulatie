@@ -19,6 +19,6 @@ public class GoToDinerEvent extends Event {
             return;
         }
 
-        guest.addShortestPathToMovingQueueByAreaType("fitness");
+        guest.addShortestPathToMovingQueueByAreaType("diner");
     }
 }
