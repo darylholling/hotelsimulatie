@@ -1,11 +1,9 @@
 package com.company.events;
 
 import com.company.actions.HotelBuilder;
+import com.company.actions.HotelHandler;
 import com.company.models.Hotel;
 import com.company.models.Settings;
-import com.company.models.areas.GuestRoom;
-import com.company.models.areas.Lobby;
-import com.company.persons.Guest;
 import javafx.embed.swing.JFXPanel;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeAll;
@@ -16,15 +14,15 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 class EventTest {
-    Hotel hotel = new Hotel();
-    HotelBuilder hotelBuilder = new HotelBuilder(hotel);
+    private static Hotel hotel = new Hotel();
+    private static HotelHandler hotelHandler = new HotelHandler(hotel);
     CheckInEvent checkInEvent = new CheckInEvent(hotel, 0, 1, 1);
-    CheckOutEvent checkOutEvent = new CheckOutEvent(hotel, 1, 1);
     JFXPanel jfxPanel = new JFXPanel();
 
     @BeforeAll
     public static void prepareForTest() {
-        Settings.getSettings().setLayoutFile(new File("Test/jsonTestFiles/layoutTest.json"));
+        hotelHandler.handleStart();
+        JFXPanel jfxPanel = new JFXPanel();
     }
 
 
@@ -32,6 +30,7 @@ class EventTest {
     public void checkIfGuestIsAddedToHotelGuestListAfterCheckInEvent() throws IOException {
 
         boolean hasGuest = false;
+
         //check if guestList is empty before check-in
         for (int i = 0; i < hotel.activeGuestList.size(); i++) {
             if (hotel.activeGuestList.get(i) != null) {
@@ -41,7 +40,6 @@ class EventTest {
         Assert.assertFalse(hasGuest);
 
         //Fire check-in
-        hotelBuilder.createContent();
         checkInEvent.fire();
 
         //check if guest is added after check-in
@@ -55,7 +53,6 @@ class EventTest {
     }
     @Test
     public void checkIfGuestIsRemovedFromHotelGuestListAfterCheckOutEvent() throws FileNotFoundException {
-        hotelBuilder.createContent();
         checkInEvent.fire();
 
         Assert.assertEquals(1, hotel.activeGuestList.size());
@@ -63,6 +60,7 @@ class EventTest {
         CheckOutEvent checkOutEvent = new CheckOutEvent(hotel, 0, 1);
 
         checkOutEvent.fire();
+
         Assert.assertEquals(0, hotel.activeGuestList.size());
     }
 }
