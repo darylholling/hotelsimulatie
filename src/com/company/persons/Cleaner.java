@@ -28,13 +28,22 @@ public class Cleaner extends Person implements CleaningListener {
     }
 
     private void checkQueue() {
+
         if (currentCleanEvent != null) {
             if (currentCleanEvent instanceof CleaningEmergencyEvent) {
                 moveToCleaning(currentCleanEvent);
+                return;
             }
             if (currentCleanEvent instanceof DefaultCleaningEvent) {
-                hotel.defaultCleaningEvents.add((DefaultCleaningEvent) currentCleanEvent);
+                if (!hotel.cleaningEmergencyEvents.isEmpty()) {
+                    hotel.defaultCleaningEvents.add((DefaultCleaningEvent) currentCleanEvent);
+                    currentCleanEvent = hotel.cleaningEmergencyEvents.poll();
+                    moveToCleaning(currentCleanEvent);
+                    return;
+                }
+                moveToCleaning(currentCleanEvent);
             }
+            return;
         }
 
         if (!hotel.cleaningEmergencyEvents.isEmpty()) {
@@ -45,21 +54,16 @@ public class Cleaner extends Person implements CleaningListener {
 
         if (!hotel.defaultCleaningEvents.isEmpty()) {
             currentCleanEvent = hotel.defaultCleaningEvents.poll();
-
             moveToCleaning(currentCleanEvent);
             return;
         }
 
-        if (!(this.getArea() instanceof Lobby)) {
+        if (!(this.getArea() instanceof Lobby) && currentCleanEvent == null) {
             this.setMovingQueue(this.determineShortestPath(hotel.getLobby()));
         }
     }
 
     private void moveToCleaning(CleaningEvent event) {
-        if (this.getArea() == hotel.getGuestByNumber(event.guestNumber).getGuestRoom()) {
-            return;
-        }
-
         this.setMovingQueue(this.determineShortestPath(hotel.getGuestByNumber(event.guestNumber).getGuestRoom()));
     }
 
@@ -86,6 +90,9 @@ public class Cleaner extends Person implements CleaningListener {
 
     @Override
     public void updatedHTE(int HTE) {
+        if (movingQueue.size() == 1) {
+            this.movingQueue.addFirst(this.getArea());
+        }
         if (movingQueue.size() > 1) {
             this.move(this.movingQueue.getFirst(), this.movingQueue.get(1));
         }
