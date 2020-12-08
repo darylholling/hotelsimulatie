@@ -29,7 +29,9 @@ abstract public class Person extends Pane implements MoveInterface, LateComingHT
         }
 
         this.area = area;
-        Platform.runLater(this::addPersonToGrid);
+        if (HotelBuilder.gridPane != null) {
+            Platform.runLater(this::addPersonToGrid);
+        }
     }
 
     public void setPersonImage(String image) {

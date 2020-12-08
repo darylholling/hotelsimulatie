@@ -1,20 +1,16 @@
 package com.company.actions;
 
+import java.io.File;
+import org.junit.Assert;
+import java.util.HashMap;
+import java.io.IOException;
 import com.company.models.Hotel;
-import com.company.models.HteCounter;
 import com.company.models.Settings;
 import com.company.models.areas.Area;
-import javafx.embed.swing.JFXPanel;
-import javafx.scene.Group;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
-import org.junit.Assert;
-import org.junit.jupiter.api.Test;
-
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
+import javafx.scene.layout.GridPane;
+import javafx.embed.swing.JFXPanel;
+import org.junit.jupiter.api.Test;
 
 
 class HotelBuilderTest {
@@ -22,16 +18,11 @@ class HotelBuilderTest {
     HotelBuilder hotelBuilder = new HotelBuilder(hotel);
     JFXPanel jfxPanel = new JFXPanel();
 
-//    @Test
-//    public void testIfContentGetsCreatedAndReturnsHotelPane() throws IOException {
-//        Assert.assertEquals(VBox.class, hotelBuilder.createContent().getClass());
-//    }
 
     @Test
     public void checkIfAreasAreAddedToHotel() throws IOException {
 
         Settings.getSettings().setLayoutFile(new File("Test/jsonTestFiles/layoutTest.json"));
-        boolean isArea = false;
         int testCounter = 0;
 
         //Without created content
@@ -72,16 +63,30 @@ class HotelBuilderTest {
 
             }
         }
+        Assert.assertEquals("ElevatorShaft", areas[0][0].getClass().getSimpleName());
+        Assert.assertEquals("Stairs", areas[6][5].getClass().getSimpleName());
+        Assert.assertEquals("Lobby", areas[1][5].getClass().getSimpleName());
+        Assert.assertEquals("Hallway", areas[1][1].getClass().getSimpleName());
 
-        String expectedElevatorShaft = "ElevatorShaft";
-        String expectedStairs = "Stairs";
-        String expectedLobby = "Lobby";
-        String expectedHallway = "Hallway";
+    }
 
-        Assert.assertEquals(expectedElevatorShaft, areas[0][0].getClass().getSimpleName());
-        Assert.assertEquals(expectedStairs, areas[6][5].getClass().getSimpleName());
-        Assert.assertEquals(expectedLobby, areas[1][5].getClass().getSimpleName());
-        Assert.assertEquals(expectedHallway, areas[1][1].getClass().getSimpleName());
+    @Test
+    public void checkIfNeighboursAreSetCorrectly() throws IOException {
 
+        Settings.getSettings().setLayoutFile(new File("Test/jsonTestFiles/layoutTest.json"));
+        hotelBuilder.createContent();
+        for (int i = 0; i < hotel.areas.size(); i++) {
+            HashMap neighbours = hotel.areas.get(i).getNeighbours();
+
+            if (hotel.areas.get(i).getClass().getSimpleName().equals("ElevatorShaft")) {
+                Assert.assertEquals(0, hotel.areas.get(i).getNeighbours().size());
+            }
+            if (hotel.areas.get(i).getX() == 1 && hotel.areas.get(i).getY() == 1) {
+                Assert.assertEquals(1, neighbours.size());
+            }
+            if (hotel.areas.get(i).getX() == 7 && hotel.areas.get(i).getY() == 4) {
+                Assert.assertEquals(3, neighbours.size());
+            }
+        }
     }
 }

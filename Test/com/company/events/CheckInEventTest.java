@@ -1,15 +1,12 @@
 package com.company.events;
 
-import com.company.actions.HotelBuilder;
 import com.company.actions.HotelHandler;
 import com.company.models.Hotel;
-import com.company.models.Settings;
 import javafx.embed.swing.JFXPanel;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
