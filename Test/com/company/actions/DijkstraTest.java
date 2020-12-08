@@ -21,7 +21,6 @@ class DijkstraTest {
         GuestRoom guestRoomInBetween = new GuestRoom(2, 1, 1, 1, 1);
         GuestRoom guestRoomEnd = new GuestRoom(3, 1, 1, 1, 1);
 
-
         dijkstra.unvisitedAreas.addAll(Arrays.asList(guestRoomStart, guestRoomInBetween, guestRoomEnd));
 
         dijkstra.findPath(guest, guestRoomEnd);
