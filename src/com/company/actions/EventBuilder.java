@@ -15,6 +15,7 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 
 public class EventBuilder {
+
     //reading json file and creating event queue from it
     public Queue<Event> readJson(Hotel hotel) {
 //        File eventsFile = Settings.getSettings().getEventsFile();
@@ -33,7 +34,8 @@ public class EventBuilder {
         }
 
         ArrayList<Event> eventsArray = new ArrayList<>();
-//          loops through json and creating variables from it
+
+        //loops through json and creating variables from it
         for (JsonElement jsonElement : eventJsonArray) {
             JsonObject jsonObject = jsonElement.getAsJsonObject();
             String eventType = jsonObject.get("type").getAsString();
@@ -88,17 +90,17 @@ public class EventBuilder {
             }
         }
 
-        // sort array
+        //sort array
         eventsArray.sort(new SortEventsByTime());
 
-        // determine the highest HTE
+        //determine the highest HTE
         Settings.getSettings().setHighestHteInJsonFile(eventsArray.stream().reduce((first, second) -> second).orElse(null).getEventTime());
 
-        // create queue
+        //create queue
         return new PriorityQueue<>(eventsArray);
     }
 
-    //    sort event by time
+    //sort event by time
     static class SortEventsByTime implements Comparator<Event> {
         public int compare(Event a, Event b) {
             return a.getEventTime() - b.getEventTime();

@@ -19,7 +19,7 @@ public class CheckOutEvent extends Event {
     }
 
     @Override
-    //handling fire event for current event
+    //handles the notification received from FireableListener
     public void fire() {
         Guest guest = this.hotel.getGuestByNumber(guestNumber);
 
@@ -37,6 +37,7 @@ public class CheckOutEvent extends Event {
             return;
         }
 
+        //removes guest, clears moving queu and notify cleaners to clean the room
         guest.getGuestRoom().removePerson(guest);
 
         if (!guest.getMovingQueue().isEmpty()) {
@@ -51,7 +52,6 @@ public class CheckOutEvent extends Event {
 
         for (CleaningListener CleaningListener : cleaningListeners) {
             CleaningListener.startCleaners();
-            System.out.println("Check out " + guestNumber);
         }
     }
 }

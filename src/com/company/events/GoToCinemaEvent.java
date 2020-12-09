@@ -12,6 +12,7 @@ public class GoToCinemaEvent extends Event {
     }
 
     @Override
+    //handles the notification received from FireableListener
     public void fire() {
         Guest guest = hotel.getGuestByNumber(guestNumber);
 
@@ -19,6 +20,7 @@ public class GoToCinemaEvent extends Event {
             return;
         }
 
+        //sends guest to cinema
         guest.addShortestPathToMovingQueueByAreaType("cinema");
     }
 }

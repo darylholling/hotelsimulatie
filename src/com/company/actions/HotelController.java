@@ -91,7 +91,7 @@ public class HotelController {
         return new Scene(pausePane);
     }
 
-//      updating HTELabel once received from listener
+    //updating HTELabel
     public void HTELabelUpdate() {
         Platform.runLater(() -> HTEInfoBoard.setText("HTE: " + HteCounter.getHTE()));
         if (highestHTE != null) {

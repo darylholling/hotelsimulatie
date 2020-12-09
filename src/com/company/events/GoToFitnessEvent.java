@@ -14,6 +14,7 @@ public class GoToFitnessEvent extends Event {
     }
 
     @Override
+    //handles the notification received from FireableListener
     public void fire() {
         Guest guest = hotel.getGuestByNumber(guestNumber);
 
@@ -21,8 +22,7 @@ public class GoToFitnessEvent extends Event {
             return;
         }
 
-        guest.getArea().removePerson(guest);
-
+         //sends guest to fitness
         guest.addShortestPathToMovingQueueByAreaType("fitness");
     }
 }

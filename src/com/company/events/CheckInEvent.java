@@ -19,10 +19,12 @@ public class CheckInEvent extends Event {
     }
 
     @Override
+    //handles the notification received from FireableListener
     public void fire() {
         GuestRoom[] guestRooms = this.hotel.areas.stream().filter(area -> area instanceof GuestRoom).toArray(GuestRoom[]::new);
         GuestRoom[] availableByStars = null;
 
+        //checks if there is a room available with preferred stars, if not then upgrade
         while ((availableByStars != null ? availableByStars.length : 0) == 0 && this.stars <= 5) {
             availableByStars = Arrays.stream(guestRooms).filter(guestRoom -> guestRoom.getStars() == this.stars && guestRoom.isAvailable()).toArray(GuestRoom[]::new);
             this.stars++;
@@ -34,7 +36,7 @@ public class CheckInEvent extends Event {
         }
 
         GuestRoom selectedGuestRoom = availableByStars[new Random().nextInt(availableByStars.length)];
-
+        //add guest to selected guest room
         Guest guest = new Guest();
         guest.setGuestNumber(this.guestNumber);
         guest.setGuestRoom(selectedGuestRoom);
@@ -43,7 +45,7 @@ public class CheckInEvent extends Event {
         guest.setCheckInTime(eventTime);
         selectedGuestRoom.addPerson(guest);
 
-        Platform.runLater(()->hotel.lateComingHTEListeners.add(guest));
+        Platform.runLater(() -> hotel.lateComingHTEListeners.add(guest));
         hotel.addGuestToBothLists(guest);
 
         guest.setMovingQueue(guest.determineShortestPath(guest.getGuestRoom()));

@@ -2,6 +2,7 @@ package com.company.actions;
 
 import com.company.models.areas.GuestRoom;
 import com.company.persons.Guest;
+import javafx.embed.swing.JFXPanel;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
@@ -10,6 +11,7 @@ import java.util.Arrays;
 
 class DijkstraTest {
     Dijkstra dijkstra = new Dijkstra();
+    JFXPanel jfxPanel = new JFXPanel();
 
 
     @Test
@@ -17,10 +19,9 @@ class DijkstraTest {
         Guest guest = new Guest();
         GuestRoom guestRoomStart = new GuestRoom(1, 1, 1, 1, 1);
         guest.setArea(guestRoomStart);
-        guestRoomStart.setDistanceForPerson(guest, 1);
+        guestRoomStart.setDistanceForPerson(guest, 0);
         GuestRoom guestRoomInBetween = new GuestRoom(2, 1, 1, 1, 1);
         GuestRoom guestRoomEnd = new GuestRoom(3, 1, 1, 1, 1);
-
 
         dijkstra.unvisitedAreas.addAll(Arrays.asList(guestRoomStart, guestRoomInBetween, guestRoomEnd));
 

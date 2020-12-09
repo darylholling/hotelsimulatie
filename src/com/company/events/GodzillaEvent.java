@@ -9,6 +9,7 @@ public class GodzillaEvent extends Event {
     }
 
     @Override
+    //handles the notification received from FireableListener
     public void fire() {
     }
 }

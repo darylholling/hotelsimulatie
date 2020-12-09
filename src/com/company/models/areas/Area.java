@@ -44,7 +44,7 @@ public abstract class Area extends Pane {
 //    remove Person
     public void removePerson(Person person) {
         this.persons.remove(person);
-    }
+            }
 
 //    get X
     public int getX() {

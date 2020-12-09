@@ -10,6 +10,7 @@ public class EvacuateEvent extends Event {
     }
 
     @Override
+    //handles the notification received from FireableListener
     public void fire() {
         if (hotel.activeGuestList.isEmpty()) {
             return;
@@ -21,6 +22,7 @@ public class EvacuateEvent extends Event {
             return;
         }
 
+        //checks all guest on the active guestList and sends them to the lobby
         for (Guest guest : hotel.activeGuestList) {
             guest.setMovingQueue(guest.determineShortestPath(lobby));
         }

@@ -12,15 +12,18 @@ abstract public class Event implements Comparable<Event>, FireableListener {
         this.hotel = hotel;
     }
 
+    //get eventTime
     public int getEventTime() {
         return eventTime;
     }
 
+    //set eventTime
     public void setEventTime(int eventTime) {
         this.eventTime = eventTime;
     }
 
     @Override
+    //
     public int compareTo(Event event) {
         return Integer.compare(this.getEventTime(), event.getEventTime());
     }

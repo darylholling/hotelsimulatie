@@ -15,15 +15,18 @@ public class StartCinemaEvent extends Event {
         this.duration = duration;
     }
 
+    //get guest
     public Guest getGuest() {
         return guest;
     }
 
+    //set guest
     public void setGuest(Guest guest) {
         this.guest = guest;
     }
 
     @Override
+    //handles the notification received from FireableListener
     public void fire() {
         Cinema[] allCinemas = this.hotel.areas.stream().filter(area -> area instanceof Cinema).toArray(Cinema[]::new);
 

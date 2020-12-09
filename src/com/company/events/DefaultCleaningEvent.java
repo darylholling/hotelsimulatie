@@ -8,6 +8,7 @@ public class DefaultCleaningEvent extends CleaningEvent {
     }
 
     @Override
+    //handles the notification received from FireableListener
     public void fire() {
     }
 }

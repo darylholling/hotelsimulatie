@@ -23,7 +23,7 @@ public class HotelBuilder {
     Area[][] areas;
     private Hotel hotel;
 
-    //constructor
+
     public HotelBuilder(Hotel hotel) {
         this.hotel = hotel;
     }
@@ -32,7 +32,7 @@ public class HotelBuilder {
     public void createContent() throws FileNotFoundException {
         gridPane = new GridPane();
 
-//        File layoutFile = Settings.getSettings().getLayoutFile();
+        //File layoutFile = Settings.getSettings().getLayoutFile();
         File layoutFile = new File("src/com/company/files/layout2.json");
         Gson gson = new GsonBuilder().create();
 
@@ -149,7 +149,7 @@ public class HotelBuilder {
         return null;
     }
 
-//      creating areas in the hotel
+    //creating areas in the hotel
     private void createAreas(GridPane gridPane, JsonArray jsonArrays, Area[][] areas) throws FileNotFoundException {
         //add hallway when there's ann empty space
         for (int i = 1; i < hotelWidth; i++) {
@@ -165,23 +165,24 @@ public class HotelBuilder {
             Area areaBackground;
             JsonObject jsonObject = jsonElement.getAsJsonObject();
 
-//          get position x and y
+            //get position x and y
             JsonObject position = jsonObject.get("position").getAsJsonObject();
             int x = position.get("x").getAsInt();
             int y = position.get("y").getAsInt();
 
-//          get dimensions height and width
+            //get dimensions height and width
             JsonObject dimensions = jsonObject.get("dimensions").getAsJsonObject();
             int height = dimensions.get("height").getAsInt();
             int width = dimensions.get("width").getAsInt();
 
-//          get data if present in json
+            //get stars if present in json
             JsonObject data = jsonObject.get("data").getAsJsonObject();
             int stars = 0;
             if (data.has("stars")) {
                 stars = data.get("stars").getAsInt();
             }
 
+            //get capacity if present in json
             int capacity = 0;
             if (data.has("max")) {
                 capacity = data.get("max").getAsInt();
@@ -190,7 +191,7 @@ public class HotelBuilder {
             int defaultY = (hotelHeight - y) - 1;
             int defaultX = x + 1;
 
-//          creates areas based on type
+            //creates areas based on type
             switch (jsonObject.get("type").getAsString()) {
                 case "room":
                     area = new GuestRoom(defaultX, defaultY, width, height, stars);
