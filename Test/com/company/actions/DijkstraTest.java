@@ -16,7 +16,6 @@ class DijkstraTest {
     Hotel hotel = new Hotel();
     JFXPanel jfxPanel = new JFXPanel();
 
-
     @Test
     public void checkIfPathFindingRemovesAreasFromUnvisitedAndReachesEndArea() throws FileNotFoundException {
         Guest guest = new Guest();
@@ -39,12 +38,10 @@ class DijkstraTest {
         hotel.areas.add(guestRoomSeven);
         guestRoomSeven.setHotel(hotel);
 
-
         dijkstra.unvisitedAreas.addAll(Arrays.asList(guestRoomOne, guestRoomTwo, guestRoomThree, guestRoomFour, guestRoomFive, guestRoomSix, guestRoomSeven));
 
         dijkstra.findPath(guest, guestRoomSeven);
 
         Assert.assertEquals(dijkstra.unvisitedAreas.get(0), guestRoomSeven);
-
     }
 }

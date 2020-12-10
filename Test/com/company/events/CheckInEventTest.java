@@ -8,7 +8,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 
 class EventTest {
     private static Hotel hotel = new Hotel();
@@ -22,32 +21,30 @@ class EventTest {
         JFXPanel jfxPanel = new JFXPanel();
     }
 
-
     @Test
-    public void checkIfGuestIsAddedToHotelGuestListAfterCheckInEvent() throws IOException {
-
+    public void checkIfGuestIsAddedToHotelGuestListAfterCheckInEvent() {
         boolean hasGuest = false;
 
-        //check if guestList is empty before check-in
         for (int i = 0; i < hotel.activeGuestList.size(); i++) {
             if (hotel.activeGuestList.get(i) != null) {
                 hasGuest = true;
+                break;
             }
         }
+
         Assert.assertFalse(hasGuest);
 
-        //Fire check-in
         checkInEvent.fire();
 
-        //check if guest is added after check-in
         for (int i = 0; i < hotel.activeGuestList.size(); i++) {
             if (hotel.activeGuestList.get(i) != null) {
                 hasGuest = true;
             }
         }
-        Assert.assertTrue(hasGuest);
 
+        Assert.assertTrue(hasGuest);
     }
+
     @Test
     public void checkIfGuestIsRemovedFromHotelGuestListAfterCheckOutEvent() throws FileNotFoundException {
         checkInEvent.fire();

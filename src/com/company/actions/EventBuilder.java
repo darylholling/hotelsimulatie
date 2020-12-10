@@ -15,20 +15,18 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 
 public class EventBuilder {
-    //reading json file and creating event queue from it.
     public Queue<Event> readJson(Hotel hotel) {
         File eventsFile = Settings.getSettings().getEventsFile();
-//        File eventsFile = new File("src/com/company/files/guest2.json");
-//        File eventsFile = new File("src/com/company/files/eventsfile.json");
         Gson gson = new GsonBuilder().create();
-
         JsonArray eventJsonArray;
+
         try {
             eventJsonArray = gson.fromJson(Files.newBufferedReader(new File(String.valueOf(eventsFile)).toPath(), StandardCharsets.UTF_8), JsonArray.class);
         } catch (IOException | JsonParseException e) {
             hotel.timer.stopTimer();
             hotel.menu.addJsonError("eventsfile");
             hotel.menu.changeScene("loadFilePage");
+
             return null;
         }
 
@@ -42,20 +40,16 @@ public class EventBuilder {
 
             int guestNumber = 0;
             int stars = 0;
-            int duration = 0;
+            Event event = null;
 
             if (data.has("guest")) {
                 guestNumber = data.get("guest").getAsInt();
             }
+
             if (data.has("stars")) {
                 stars = data.get("stars").getAsInt();
             }
-            if (data.has("duration")) {
-                duration = data.get("duration").getAsInt();
-            }
 
-            //creating events based on eventtype string.
-            Event event = null;
             switch (eventType) {
                 case "CHECK_IN":
                     event = new CheckInEvent(hotel, eventTime, guestNumber, stars);
@@ -67,16 +61,13 @@ public class EventBuilder {
                     event = new GoToDinerEvent(eventTime, hotel, guestNumber);
                     break;
                 case "GO_TO_FITNESS":
-                    event = new GoToFitnessEvent(eventTime, hotel, guestNumber, duration);
+                    event = new GoToFitnessEvent(eventTime, hotel, guestNumber);
                     break;
                 case "CLEANING_EMERGENCY":
                     event = new CleaningEmergencyEvent(hotel, eventTime, guestNumber);
                     break;
                 case "GO_TO_CINEMA":
                     event = new GoToCinemaEvent(eventTime, hotel, guestNumber);
-                    break;
-                case "START_CINEMA":
-                    event = new StartCinemaEvent(eventTime, hotel, duration);
                     break;
                 case "EVACUATE":
                     event = new EvacuateEvent(hotel, eventTime);
@@ -88,13 +79,10 @@ public class EventBuilder {
             }
         }
 
-        // Sort array
         eventsArray.sort(new SortEventsByTime());
 
-        // Determine the highest HTE
         Settings.getSettings().setHighestHteInJsonFile(eventsArray.stream().reduce((first, second) -> second).orElse(null).getEventTime());
 
-        // Create queue
         return new PriorityQueue<>(eventsArray);
     }
 

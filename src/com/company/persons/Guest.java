@@ -36,20 +36,16 @@ public class Guest extends Person {
         this.guestRoom = guestRoom;
     }
 
-    // selects random picture
     public String randomSelect() {
         String[] arr = {"guest.png", "guest2.png"};
         Random random = new Random();
-        int select = random.nextInt(arr.length);
-        return arr[select];
+
+        return arr[random.nextInt(arr.length)];
     }
 
     @Override
     public void move(Area startArea, Area endArea) {
-        this.getArea().removePerson(this);
-        this.setArea(endArea);
-        endArea.addPerson(this);
-        this.movingQueue.remove(startArea);
+        this.changeArea(startArea, endArea);
 
         if (this.movingQueue.size() == 1) {
             this.movingQueue.remove(endArea);
@@ -64,6 +60,10 @@ public class Guest extends Person {
 
     @Override
     public void updatedHTE(int HTE) {
+        if (movingQueue.size() == 1) {
+            this.movingQueue.addFirst(this.getArea());
+        }
+
         if (this.movingQueue.size() > 1 && HTE != checkInTime) {
             this.move(this.movingQueue.getFirst(), this.movingQueue.get(1));
 

@@ -40,6 +40,7 @@ class TimeTest {
         int timeAfterStop = hotel.getCurrentHTE();
         Thread.sleep(2000);
         int timeAfterSleep = hotel.getCurrentHTE();
+
         Assert.assertEquals(timeAfterStop, timeAfterSleep);
     }
 

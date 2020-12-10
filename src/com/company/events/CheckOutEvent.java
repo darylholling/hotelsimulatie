@@ -19,7 +19,6 @@ public class CheckOutEvent extends Event {
     }
 
     @Override
-    //handling fire event for current event
     public void fire() {
         Guest guest = this.hotel.getGuestByNumber(guestNumber);
 

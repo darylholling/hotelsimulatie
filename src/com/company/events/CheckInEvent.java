@@ -28,7 +28,6 @@ public class CheckInEvent extends Event {
             this.stars++;
         }
 
-        //guest will not check in because nothing is available.
         if (availableByStars == null || availableByStars.length == 0) {
             return;
         }
@@ -38,12 +37,12 @@ public class CheckInEvent extends Event {
         Guest guest = new Guest();
         guest.setGuestNumber(this.guestNumber);
         guest.setGuestRoom(selectedGuestRoom);
-        Platform.runLater(() -> guest.setGuestImage());
+        Platform.runLater(guest::setGuestImage);
         guest.setArea(this.hotel.getLobby());
         guest.setCheckInTime(eventTime);
         selectedGuestRoom.addPerson(guest);
 
-        Platform.runLater(()->hotel.lateComingHTEListeners.add(guest));
+        Platform.runLater(() -> hotel.lateComingHTEListeners.add(guest));
         hotel.addGuestToBothLists(guest);
 
         guest.setMovingQueue(guest.determineShortestPath(guest.getGuestRoom()));

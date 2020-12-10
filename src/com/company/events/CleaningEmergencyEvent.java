@@ -9,9 +9,9 @@ public class CleaningEmergencyEvent extends CleaningEvent {
     }
 
     @Override
-    //handling fire event for current event
     public void fire() {
         hotel.cleaningEmergencyEvents.add(this);
+
         for (CleaningListener CleaningListener : cleaningListeners) {
             CleaningListener.startCleaners();
         }
