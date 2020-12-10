@@ -35,8 +35,8 @@ public class HotelBuilder {
     public void createContent() throws FileNotFoundException {
         gridPane = new GridPane();
 
-//        File layoutFile = Settings.getSettings().getLayoutFile();
-        File layoutFile = new File("src/com/company/files/layout2.json");
+        File layoutFile = Settings.getSettings().getLayoutFile();
+//        File layoutFile = new File("src/com/company/files/layout2.json");
         Gson gson = new GsonBuilder().create();
 
         try {

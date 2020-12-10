@@ -1,26 +1,25 @@
 package com.company.events;
 
-import com.company.actions.HotelBuilder;
+import com.company.actions.HotelHandler;
 import com.company.models.Hotel;
-import com.company.models.Settings;
 import javafx.embed.swing.JFXPanel;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 class EventTest {
-    Hotel hotel = new Hotel();
-    HotelBuilder hotelBuilder = new HotelBuilder(hotel);
+    private static Hotel hotel = new Hotel();
+    private static HotelHandler hotelHandler = new HotelHandler(hotel);
     CheckInEvent checkInEvent = new CheckInEvent(hotel, 0, 1, 1);
     JFXPanel jfxPanel = new JFXPanel();
 
     @BeforeAll
     public static void prepareForTest() {
-        Settings.getSettings().setLayoutFile(new File("Test/jsonTestFiles/layoutTest.json"));
+        hotelHandler.handleStart();
+        JFXPanel jfxPanel = new JFXPanel();
     }
 
 
@@ -38,7 +37,6 @@ class EventTest {
         Assert.assertFalse(hasGuest);
 
         //Fire check-in
-        hotelBuilder.createContent();
         checkInEvent.fire();
 
         //check if guest is added after check-in
@@ -50,9 +48,8 @@ class EventTest {
         Assert.assertTrue(hasGuest);
 
     }
-
+    @Test
     public void checkIfGuestIsRemovedFromHotelGuestListAfterCheckOutEvent() throws FileNotFoundException {
-        hotelBuilder.createContent();
         checkInEvent.fire();
 
         Assert.assertEquals(1, hotel.activeGuestList.size());
