@@ -15,6 +15,10 @@ public class EventHandler implements StartListener, HTEListener {
         this.hotel = hotel;
     }
 
+    public Queue<Event> getEventsQueue() {
+        return eventQueue;
+    }
+
     @Override
     public void handleStart() {
         this.initializeEvents();
