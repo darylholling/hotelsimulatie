@@ -14,6 +14,7 @@ public class Time {
         this.HTEListeners = HTEListeners;
     }
 
+    //start timer
     public void startTimer() {
         int HTETime = Settings.getSettings().getHTETime();
         timer = new Timer();
@@ -22,11 +23,14 @@ public class Time {
         timer.scheduleAtFixedRate(HTECounter, HTETime, HTETime);
     }
 
+    //stop timer
     public void stopTimer() {
         running = false;
         timer.cancel();
     }
 
+
+    //resume timer
     public void resumeTimer() {
         this.startTimer();
     }

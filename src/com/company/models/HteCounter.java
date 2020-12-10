@@ -13,16 +13,19 @@ public class HteCounter extends TimerTask {
         this.HTElisteners = HTElisteners;
     }
 
+    //get HTE
     public static int getHTE() {
         return HTE;
     }
 
+    //runs the timer
     public void run() {
         HTE++;
         this.update();
-        System.out.println(HTE);
+
     }
 
+    //send notifications to HTElistener
     private void update() {
         for (HTEListener HTElistener : HTElisteners) {
             HTElistener.updatedHTE(HTE);

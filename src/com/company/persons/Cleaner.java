@@ -23,12 +23,15 @@ public class Cleaner extends Person implements CleaningListener {
         this.setCleanerImage();
     }
 
+    //set image of cleaner
     public void setCleanerImage() {
         super.setPersonImage("cleaner.png");
     }
 
+    //check queue for cleaning events
     private void checkQueue() {
 
+        //checks which cleaning event is available
         if (currentCleanEvent != null) {
             if (currentCleanEvent instanceof CleaningEmergencyEvent) {
                 moveToCleaning(currentCleanEvent);
@@ -63,16 +66,20 @@ public class Cleaner extends Person implements CleaningListener {
         }
     }
 
+    //sends the cleaner to the cleaning event
     private void moveToCleaning(CleaningEvent event) {
         this.setMovingQueue(this.determineShortestPath(hotel.getGuestByNumber(event.guestNumber).getGuestRoom()));
     }
 
+    //cleaner starts cleaning
     public void cleaning() {
         this.endHTE = hotel.currentHTE + Settings.getSettings().getCleanHTE();
         cleaning = true;
     }
 
     @Override
+
+    //sends the cleaner to the guestroom
     public void move(Area startArea, Area endArea) {
         this.getArea().removePerson(this);
         this.setArea(endArea);
@@ -89,6 +96,7 @@ public class Cleaner extends Person implements CleaningListener {
     }
 
     @Override
+    //actions
     public void updatedHTE(int HTE) {
         if (movingQueue.size() == 1) {
             this.movingQueue.addFirst(this.getArea());
@@ -106,6 +114,7 @@ public class Cleaner extends Person implements CleaningListener {
         }
     }
 
+    //start cleaners
     public void startCleaners() {
         if (!cleaning) {
             checkQueue();

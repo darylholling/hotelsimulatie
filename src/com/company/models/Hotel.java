@@ -36,6 +36,7 @@ public class Hotel extends Application implements HTEListener {
     public GridPane mainPane;
 
     @Override
+    //starting the hotel
     public void start(Stage stage) {
         this.stage = stage;
         HotelHandler hotelHandler = new HotelHandler(hotel);
@@ -59,6 +60,8 @@ public class Hotel extends Application implements HTEListener {
     }
 
     @Override
+
+    //update HTE and send notifications to active listeners
     public void updatedHTE(int HTE) {
         this.currentHTE = HTE;
 
@@ -69,21 +72,22 @@ public class Hotel extends Application implements HTEListener {
         }
     }
 
-//    get areas
+    //get areas
     public ArrayList<Area> getAreas() {
         return this.areas;
     }
 
-//    get lobby
+    //get lobby
     public Area getLobby() {
         return this.areas.stream().filter(area -> area instanceof Lobby).findFirst().orElse(null);
     }
 
-//    get guest by guest number
+    //get guest by guest number
     public Guest getGuestByNumber(int number) {
         return this.guestList.stream().filter(guest -> guest.getGuestNumber() == number).findFirst().orElse(null);
     }
 
+    //create array with area type
     public Area[] getAreasForType(String areaType) {
         switch (areaType) {
             case "cinema":
@@ -97,30 +101,30 @@ public class Hotel extends Application implements HTEListener {
         return null;
     }
 
-//    get current HTE
+    //get current HTE
     public int getCurrentHTE() {
         return this.currentHTE;
     }
 
-//    set scene
+    //set scene
     public void setScene(Scene scene) {
         hotel.stage.setScene(scene);
         hotel.stage.setResizable(false);
         hotel.stage.show();
     }
 
-//    add guest to guestList and activeGuestList
+    //add guest to guestList and activeGuestList
     public void addGuestToBothLists(Guest guest) {
         guestList.add(guest);
         activeGuestList.add(guest);
     }
 
-//    remove guest from activeGuestList
+    //remove guest from activeGuestList
     public void removeGuestFromActiveList(Guest guest) {
         activeGuestList.remove(guest);
     }
 
-//    create cleaner
+    //create cleaner
     public void createCleaners() {
         int cleanerCount = 2;
 

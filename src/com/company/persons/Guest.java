@@ -12,31 +12,37 @@ public class Guest extends Person {
     private int guestNumber;
     private int checkInTime;
 
+    //set guest image
     public void setGuestImage() {
         super.setPersonImage(randomSelect());
     }
 
+    //set check in time
     public void setCheckInTime(int checkInTime) {
         this.checkInTime = checkInTime;
     }
 
+    //get guest number
     public int getGuestNumber() {
         return guestNumber;
     }
 
+    //set guest number
     public void setGuestNumber(int guestNumber) {
         this.guestNumber = guestNumber;
     }
 
+    //get guest room
     public GuestRoom getGuestRoom() {
         return guestRoom;
     }
 
+    //set guest room
     public void setGuestRoom(GuestRoom guestRoom) {
         this.guestRoom = guestRoom;
     }
 
-    // selects random picture
+    //selects random picture
     public String randomSelect() {
         String[] arr = {"guest.png", "guest2.png"};
         Random random = new Random();
@@ -45,6 +51,7 @@ public class Guest extends Person {
     }
 
     @Override
+    //guest moves
     public void move(Area startArea, Area endArea) {
         this.getArea().removePerson(this);
         this.setArea(endArea);
@@ -73,6 +80,7 @@ public class Guest extends Person {
         }
     }
 
+    //add shortest path to moving queue based on area type
     public void addShortestPathToMovingQueueByAreaType(String areaType) {
         Area[] arealist = this.guestRoom.getHotel().getAreasForType(areaType);
 
@@ -85,6 +93,7 @@ public class Guest extends Person {
         }
     }
 
+    //determine path by area
     private LinkedList<Area> determinePathByArealist(Area[] areas) {
         LinkedList<Area> selectedPath = null;
         int closestDistance = Integer.MAX_VALUE;

@@ -12,6 +12,7 @@ public class Settings {
     private File eventsFile;
     private int highestHteInJsonFile;
 
+    //get settings
     public static synchronized Settings getSettings() {
         if (settings == null) {
             settings = new Settings();
@@ -20,6 +21,7 @@ public class Settings {
         return settings;
     }
 
+    //set Settings
     public void setSettings(int HTETime, int stairsHTE, int cleanHTE, int elevatorDeathHTE) {
         this.HTETime = HTETime;
         this.StairsHTE = stairsHTE;
@@ -27,42 +29,52 @@ public class Settings {
         this.ElevatorDeathHTE = elevatorDeathHTE;
     }
 
+    //get HTE time
     public int getHTETime() {
         return HTETime;
     }
 
+    //get HTE time to take stairs
     public int getStairsHTE() {
         return StairsHTE;
     }
 
+    //get HTE time to clean to room
     public int getCleanHTE() {
         return CleanHTE;
     }
 
+    //get HTE time to die waiting for the elevator
     public int getElevatorDeathHTE() {
         return ElevatorDeathHTE;
     }
 
+    //get layout file
     public File getLayoutFile() {
         return layoutFile;
     }
 
+    //set layout file
     public void setLayoutFile(File layoutFile) {
         this.layoutFile = layoutFile;
     }
 
+    //get event file
     public File getEventsFile() {
         return eventsFile;
     }
 
+    //set event file
     public void setEventsFile(File eventsFile) {
         this.eventsFile = eventsFile;
     }
 
+    //get highest HTE in Json file
     public int getHighestHteInJsonFile() {
         return highestHteInJsonFile;
     }
 
+    //set highest HTE from Json File
     public void setHighestHteInJsonFile(int highestHteInJsonFile) {
         this.highestHteInJsonFile = highestHteInJsonFile;
     }

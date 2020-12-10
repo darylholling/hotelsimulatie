@@ -41,15 +41,17 @@ public class Menu {
         }
     }
 
+    //runs the stage
     public void run() {
         this.stage.show();
     }
 
-    //function to change scenes based on stringnames
+    //function to change scenes based on string names
     public void changeScene(String newScene) {
         Scene scene = mainMenu();
         switch (newScene) {
             case "loadFilePage":
+
 //                scene = startGame();
                 break;
             case "SETTINGS":
@@ -63,8 +65,9 @@ public class Menu {
         stage.show();
     }
 
+    //centered box
     private VBox createVBox() {
-        // Centered box
+
         VBox vbox = new VBox();
         vbox.setStyle(
                 "-fx-background-color: whitesmoke;"
@@ -83,13 +86,13 @@ public class Menu {
     }
 
     public BorderPane mainMenuContent() {
-        // Main Pane
+        //main pane
         BorderPane base = createBorderPane();
 
-        // Centered box
+        //centered box
         VBox baseMenu = this.createVBox();
 
-        // Initialise labels for menu
+        //initialise labels for menu
         if (!this.jsonErrors.isEmpty()) {
             for (String errorName : this.jsonErrors) {
                 Label label = new Label("There was an error loading the " + errorName + ".");
@@ -106,14 +109,14 @@ public class Menu {
         instructionMenu.setStyle("-fx-padding:10;");
         instructionMenu.relocate(5, 5);
 
-        // Buttons
+        //buttons
         Button settingsMenu = new Button("Settings");
         Button loadFilePage = new Button("Start the hotel");
 
         settingsMenu.setMaxWidth(Double.MAX_VALUE);
         loadFilePage.setMaxWidth(Double.MAX_VALUE);
 
-        // Button positions in main menu
+        //button positions in main menu
         GridPane mainMenuButtons = new GridPane();
 
         mainMenuButtons.setHgap(15);
@@ -127,7 +130,7 @@ public class Menu {
 
         settingsMenu.setOnAction((ActionEvent event) -> changeScene("SETTINGS"));
 
-        // Add everyting to menupane
+        //add everything to menu pane
         baseMenu.getChildren().addAll(instructionMenu, mainMenuButtons);
         base.setCenter(baseMenu);
 
@@ -139,11 +142,11 @@ public class Menu {
         return new Scene(this.mainMenuContent());
     }
 
-    // Scene for settings pane
+    //scene for settings pane
     public Scene settingsForm() {
         BorderPane base = createBorderPane();
 
-        // Creating all Panes
+        //creating all Panes
         VBox settingsPane = new VBox();
         Pane header = new Pane();
         GridPane settingsGridPane = new GridPane();
@@ -166,48 +169,48 @@ public class Menu {
         settingsGridPane.setVgap(10);
         settingsGridPane.setPadding(new Insets(10, 10, 10, 10));
 
-        // Return to menu button
+        //return to menu button
         Button returnButton = new Button("Return To Menu");
         returnButton.setOnAction((ActionEvent Event) -> changeScene("MAINMENU"));
         returnButton.relocate(0, 5);
 
-        // Title settings
+        //title settings
         Label title = new Label("Settings");
         title.setStyle("-fx-font-size: 170%");
         title.setTextFill(Color.BLACK);
         title.relocate(255, 5);
 
-        // Settings
+        //settings
         Label introSetttings = new Label("This is where you can edit the settings");
         introSetttings.setAlignment(Pos.CENTER);
         Label ExplainHTE = new Label("HTE is the the unit for time in the hotel");
         Button saveButton = new Button("Save settings");
 
-        // Settings HTE
+        //settings HTE
         Label setHTETimeLabel = new Label("Amount of milliseconds a HTE represents:");
         String setHTETimeText = String.valueOf(Settings.getSettings().getHTETime());
         TextField setHTETimeInput = new TextField(setHTETimeText);
 
-        // Settings HTE Stairs
+        //settings HTE Stairs
         Label setHTEStairsLabel = new Label("Amount of HTE it takes guests to use stairs:");
         String setHTEStairsText = String.valueOf(Settings.getSettings().getStairsHTE());
         TextField setHTEStairsInput = new TextField(setHTEStairsText);
 
-        // Settings HTE Clean
+        //settings HTE Clean
         Label setHTECleanLabel = new Label("Amount of HTE it takes to clean a room:");
         String setHTECleanText = String.valueOf(Settings.getSettings().getCleanHTE());
         TextField setHTECleanInput = new TextField(setHTECleanText);
 
-        // Settings HTE Death
+        //settings HTE Death
         Label setHTEDeathLabel = new Label("Amount of HTE it takes for guests to die from waiting for the elevator:");
         String setHTEDeathText = String.valueOf(Settings.getSettings().getElevatorDeathHTE());
         TextField setHTEDeathInput = new TextField(setHTEDeathText);
 
-        // Add everything to header
+        //add everything to header
         header.getChildren().add(title);
         header.getChildren().add(returnButton);
 
-        // Add everything to settings
+        //add everything to settings
         settingsGridPane.add(introSetttings, 0, 0);
         settingsGridPane.add(setHTETimeLabel, 0, 1);
         settingsGridPane.add(setHTETimeInput, 1, 1);
@@ -218,7 +221,7 @@ public class Menu {
         settingsGridPane.add(setHTEDeathLabel, 0, 4);
         settingsGridPane.add(setHTEDeathInput, 1, 4);
 
-        // actions for save button
+        //actions for save button
         saveButton.setOnAction((ActionEvent event) -> {
             int setHTETime = Integer.parseInt(setHTETimeInput.getText());
             int setHTEStairs = Integer.parseInt(setHTEStairsInput.getText());
@@ -228,46 +231,46 @@ public class Menu {
             Settings.getSettings().setSettings(setHTETime, setHTEStairs, setHTEClean, setHTEDeath);
         });
 
-        // Panes adding to hsPane
+        //panes adding to hsPane
         settingsPane.getChildren().addAll(header, settingsGridPane, ExplainHTE, saveButton);
         base.setCenter(settingsPane);
 
-        // Primary scene show
+        //primary scene show
         return new Scene(base);
     }
 
     //creation of scene page for selecting files
     public Scene filePage() {
-        // Main Pane
+        //main pane
         BorderPane base = createBorderPane();
 
         VBox filePage = this.createVBox();
 
-        // Initialise labels for menu
+        //initialise labels for menu
         Label filePageTitle = new Label("Please select the files you want to use to run the hotel");
         filePageTitle.setStyle("-fx-padding:10;");
         filePageTitle.relocate(5, 5);
 
-        // text about files
+        //text about files
         Label eventStatus = new Label();
         Label layoutStatus = new Label();
 
-        // filesChoosers
+        //filesChoosers
         FileChooser eventsChooser = new FileChooser();
         FileChooser layoutChooser = new FileChooser();
 
-        // Buttons
+        //buttons
         Button eventButton = new Button("Select the event json");
         Button layoutButton = new Button("Select the layout json");
         Button startHotelButton = new Button("Start up hotel");
         Button menuButton = new Button("Back to menu");
         menuButton.relocate(0, 5);
 
-        // Name Window
+        //name Window
         eventsChooser.setTitle("Choose the event file");
         layoutChooser.setTitle("Choose the layout file");
 
-        // Default file names and extentions
+        //default file names and extentions
         eventsChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Json file", "*.json"));
         layoutChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Json file", "*.json"));
 
@@ -309,7 +312,7 @@ public class Menu {
         eventButton.setMaxWidth(maxWidth);
         layoutButton.setMaxWidth(maxWidth);
 
-        // Button positions in main menu
+        //button positions in main menu
         GridPane fileChooserArea = new GridPane();
         GridPane fileChooserAreaText = new GridPane();
         GridPane fileChooserAreaButton = new GridPane();
@@ -337,7 +340,7 @@ public class Menu {
 
         menuButton.setOnAction((ActionEvent Event) -> changeScene("MAINMENU"));
 
-        // Add everyting to menupane
+        //add everyting to menupane
         filePage.getChildren().addAll(filePageTitle, fileChooserArea, fileChooserAreaText, fileChooserAreaButton, menuButton);
         base.setCenter(filePage);
         Scene scene = new Scene(base);
@@ -345,11 +348,11 @@ public class Menu {
         startHotelButton.setOnAction(e -> {
             this.jsonErrors.clear();
 //            if (Settings.getSettings().getEventsFile() != null && Settings.getSettings().getLayoutFile() != null) {
-                try {
-                    this.notifyStart();
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
+            try {
+                this.notifyStart();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
 //            }
 //            if (Settings.getSettings().getEventsFile() == null)  {
 //                eventStatus.setText("Please select a event file!");
@@ -363,14 +366,14 @@ public class Menu {
         return scene;
     }
 
-    //sending notification to all startlisteners that the application has started.
+    //sending notification to all startlisteners that the application has started
     private void notifyStart() throws Exception {
         for (StartListener startListener : startListeners) {
             startListener.handleStart();
         }
     }
 
-    //pane with background for visual improvements.
+    //pane with background for visual improvements
     public BorderPane createBorderPane() {
         BorderPane borderPane = new BorderPane();
         borderPane.setPrefSize(600, 600);
