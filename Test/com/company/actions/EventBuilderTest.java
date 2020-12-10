@@ -11,18 +11,16 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.IOException;
 
-//TODO fix test
 class EventHandlerTest {
     Hotel hotel = new Hotel();
     EventBuilder eventBuilder = new EventBuilder();
 
     @Test
-    public void checkIfEventsGetCreated() throws IOException {
+    public void checkIfEventsGetCreatedAfterReadingJson() throws IOException {
         JFXPanel jfxPanel = new JFXPanel();
         Lobby lobby = new Lobby(0, 0, 0, 0);
         hotel.areas.add(lobby);
-//        CreateCleaners createCleaners = new CreateCleaners(hotel);
-//        createCleaners.create();
+        hotel.createCleaners();
         int checkCounter = 0;
 
 
@@ -30,26 +28,9 @@ class EventHandlerTest {
 
         //instanceof is not switchable
         for (Event element : eventBuilder.readJson(hotel)) {
-
-
-            if (element instanceof CheckInEvent) {
+            if (element != null) {
                 checkCounter++;
-            } else if (element instanceof CheckOutEvent) {
-                checkCounter++;
-            } else if (element instanceof GoToCinemaEvent) {
-                checkCounter++;
-            } else if (element instanceof GoToDinerEvent) {
-                checkCounter++;
-            } else if (element instanceof GoToFitnessEvent) {
-                checkCounter++;
-            } else if (element instanceof CleaningEmergencyEvent) {
-                checkCounter++;
-            } else if (element instanceof EvacuateEvent) {
-                checkCounter++;
-            } else {
-                System.out.println("Test failed. Event unknown and not created.");
             }
-
         }
         Assert.assertEquals(7,checkCounter);
     }

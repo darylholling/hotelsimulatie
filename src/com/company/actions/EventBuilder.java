@@ -18,9 +18,9 @@ public class EventBuilder {
 
     //reading json file and creating event queue from it
     public Queue<Event> readJson(Hotel hotel) {
-//        File eventsFile = Settings.getSettings().getEventsFile();
+        File eventsFile = Settings.getSettings().getEventsFile();
 //        File eventsFile = new File("src/com/company/files/guest2.json");
-        File eventsFile = new File("src/com/company/files/eventsfile.json");
+//        File eventsFile = new File("src/com/company/files/eventsfile.json");
         Gson gson = new GsonBuilder().create();
 
         JsonArray eventJsonArray;

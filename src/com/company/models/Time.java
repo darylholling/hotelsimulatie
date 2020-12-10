@@ -34,11 +34,6 @@ public class Time {
     public void resumeTimer() {
         this.startTimer();
     }
-
-//    @Override
-//    public void handleStart() {
-//        this.startTimer();
-//    }
 }
 
 

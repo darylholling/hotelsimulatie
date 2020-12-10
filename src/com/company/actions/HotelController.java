@@ -17,7 +17,6 @@ import javafx.scene.text.TextAlignment;
 
 public class HotelController {
     private Hotel hotel;
-    private VBox hotelPane;
     private Label HTEInfoBoard;
     private Label highestHTE;
     private Scene mainScene;
@@ -35,7 +34,7 @@ public class HotelController {
     //create textual info presenting HTE time
     private VBox createMainPane() {
         Pane header = new Pane();
-        hotelPane = new VBox();
+        VBox hotelPane = new VBox();
 
         HTEInfoBoard = new Label("HTE : " + HteCounter.getHTE());
         HTEInfoBoard.setStyle("-fx-font-size: 170%");

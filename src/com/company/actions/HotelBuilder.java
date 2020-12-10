@@ -1,7 +1,10 @@
 package com.company.actions;
 
-import com.company.models.Hotel;
+import com.company.listeners.HTEListener;
+import com.company.listeners.StartListener;
+import com.company.models.*;
 import com.company.models.areas.*;
+import com.company.persons.Guest;
 import com.google.gson.*;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -23,7 +26,6 @@ public class HotelBuilder {
     Area[][] areas;
     private Hotel hotel;
 
-
     public HotelBuilder(Hotel hotel) {
         this.hotel = hotel;
     }
@@ -32,8 +34,8 @@ public class HotelBuilder {
     public void createContent() throws FileNotFoundException {
         gridPane = new GridPane();
 
-        //File layoutFile = Settings.getSettings().getLayoutFile();
-        File layoutFile = new File("src/com/company/files/layout2.json");
+        File layoutFile = Settings.getSettings().getLayoutFile();
+//        File layoutFile = new File("src/com/company/files/layout2.json");
         Gson gson = new GsonBuilder().create();
 
         try {
