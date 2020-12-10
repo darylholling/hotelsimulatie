@@ -23,7 +23,7 @@ abstract public class Event implements Comparable<Event>, FireableListener {
     }
 
     @Override
-    //
+    //compare event times
     public int compareTo(Event event) {
         return Integer.compare(this.getEventTime(), event.getEventTime());
     }

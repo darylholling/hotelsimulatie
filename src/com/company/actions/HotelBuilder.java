@@ -1,10 +1,8 @@
 package com.company.actions;
 
-import com.company.listeners.HTEListener;
-import com.company.listeners.StartListener;
-import com.company.models.*;
+import com.company.models.Hotel;
+import com.company.models.Settings;
 import com.company.models.areas.*;
-import com.company.persons.Guest;
 import com.google.gson.*;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -141,6 +139,7 @@ public class HotelBuilder {
 
         areas[i][j] = area;
     }
+
 
     private Node getChildAtRowCol(GridPane gridPane, int row, int col) {
         for (Node child : gridPane.getChildren()) {

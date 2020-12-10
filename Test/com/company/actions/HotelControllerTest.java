@@ -6,6 +6,7 @@ import javafx.embed.swing.JFXPanel;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.io.IOException;
 
 class HotelControllerTest {
@@ -16,6 +17,7 @@ class HotelControllerTest {
     @Test
     public void checkIfTheHighestHteIsSetToHTEBoard() throws IOException {
 
+        Settings.getSettings().setEventsFile(new File("Test/jsonTestFiles/events3Test.json"));
         eventBuilder.readJson(hotel);
         int highestHTE = Settings.getSettings().getHighestHteInJsonFile();
         Assert.assertEquals(120, highestHTE);

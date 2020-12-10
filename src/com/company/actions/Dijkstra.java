@@ -13,7 +13,7 @@ public class Dijkstra {
         unvisitedAreas = new ArrayList<>();
     }
 
-    //
+    //find path to destination
     public LinkedList<Area> findPath(Person person, Area destination) {
         person.getArea().setDistanceForPerson(person, 0);
         Area toCheck = person.getArea();
@@ -62,7 +62,7 @@ public class Dijkstra {
         return false;
     }
 
-    //
+    //make path
     private LinkedList<Area> makePath(Person person, Area end) {
         boolean cont = true;
         Area current = end;
