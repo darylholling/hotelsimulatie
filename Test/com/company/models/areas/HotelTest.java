@@ -32,12 +32,9 @@ public class HotelTest {
 
     @Test
     public void checkIfHotelCreatesTwoCleaners() throws FileNotFoundException {
-        Stage stage = new Stage();
-        Hotel hotel = new Hotel();
         Lobby lobby = new Lobby(1,1,1,1);
         hotel.areas.add(lobby);
-        hotel.start(stage);
-
+        hotel.createCleaners();
         Assert.assertEquals(2, hotel.cleaners.size());
     }
 
@@ -78,7 +75,7 @@ public class HotelTest {
         Assert.assertEquals(diners.length, 0);
     }
 
-        @Test
+    @Test
     public void checkIfAreaStreamReturnsCorrectTypeOfArea() throws FileNotFoundException {
         areas.add(new GuestRoom(0, 0, 1, 1, 1));
         areas.add(new Lobby(1, 1, 1, 1));
