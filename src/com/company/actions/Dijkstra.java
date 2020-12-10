@@ -26,7 +26,6 @@ public class Dijkstra {
         }
 
         Hotel hotel = destination.getHotel();
-
         LinkedList<Area> path = makePath(person, destination);
 
         for (Area area : hotel.getAreas()) {
@@ -60,7 +59,6 @@ public class Dijkstra {
         return false;
     }
 
-    //making path to return being made of Areas
     private LinkedList<Area> makePath(Person person, Area end) {
         boolean cont = true;
         Area current = end;
@@ -69,7 +67,6 @@ public class Dijkstra {
         while (cont) {
             path.addFirst(current);
 
-            //check if we reached the end
             if (current.getLatestForPerson(person) != null) {
                 current = current.getLatestForPerson(person);
             } else {

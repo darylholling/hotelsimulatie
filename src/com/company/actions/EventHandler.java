@@ -2,8 +2,8 @@ package com.company.actions;
 
 import com.company.events.Event;
 import com.company.listeners.HTEListener;
-import com.company.models.Hotel;
 import com.company.listeners.StartListener;
+import com.company.models.Hotel;
 
 import java.util.Queue;
 

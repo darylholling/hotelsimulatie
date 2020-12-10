@@ -16,6 +16,7 @@ public class GuestRoom extends Area {
         this.stars = stars;
 
         String filePath;
+
         switch (stars) {
             case 1:
                 filePath = "1star.jpg";
@@ -35,6 +36,7 @@ public class GuestRoom extends Area {
             default:
                 throw new RuntimeException("no image defined");
         }
+
         if (areaHeight == 1) {
             super.setDefaultImage(this, filePath, areaWidth);
         } else {

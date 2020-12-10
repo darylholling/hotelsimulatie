@@ -40,6 +40,7 @@ public class Hotel extends Application implements HTEListener {
         this.stage = stage;
         HotelHandler hotelHandler = new HotelHandler(hotel);
         EventHandler eventHandler = new EventHandler(hotel);
+
         this.timer = new Time(new ArrayList<>() {
             {
                 add(eventHandler);
@@ -47,15 +48,15 @@ public class Hotel extends Application implements HTEListener {
                 add(hotel);
             }
         });
-        Menu menu = new Menu(stage, new ArrayList<>() {
+
+        this.menu = new Menu(stage, new ArrayList<>() {
             {
-//                add(timer);
                 add(hotelHandler);
                 add(eventHandler);
             }
         });
-        this.menu = menu;
-        menu.run();
+
+        this.menu.run();
     }
 
     @Override

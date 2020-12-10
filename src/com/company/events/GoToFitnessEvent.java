@@ -5,12 +5,10 @@ import com.company.persons.Guest;
 
 public class GoToFitnessEvent extends Event {
     private int guestNumber;
-    private int duration;
 
-    public GoToFitnessEvent(Integer eventTime, Hotel hotel, int guestNumber, int duration) {
+    public GoToFitnessEvent(Integer eventTime, Hotel hotel, int guestNumber) {
         super(eventTime, hotel);
         this.guestNumber = guestNumber;
-        this.duration = duration;
     }
 
     @Override
@@ -20,8 +18,6 @@ public class GoToFitnessEvent extends Event {
         if (guest == null) {
             return;
         }
-
-        guest.getArea().removePerson(guest);
 
         guest.addShortestPathToMovingQueueByAreaType("fitness");
     }

@@ -28,33 +28,39 @@ public class Cleaner extends Person implements CleaningListener {
     }
 
     private void checkQueue() {
-
         if (currentCleanEvent != null) {
             if (currentCleanEvent instanceof CleaningEmergencyEvent) {
                 moveToCleaning(currentCleanEvent);
+
                 return;
             }
+
             if (currentCleanEvent instanceof DefaultCleaningEvent) {
                 if (!hotel.cleaningEmergencyEvents.isEmpty()) {
                     hotel.defaultCleaningEvents.add((DefaultCleaningEvent) currentCleanEvent);
                     currentCleanEvent = hotel.cleaningEmergencyEvents.poll();
                     moveToCleaning(currentCleanEvent);
+
                     return;
                 }
+
                 moveToCleaning(currentCleanEvent);
             }
+
             return;
         }
 
         if (!hotel.cleaningEmergencyEvents.isEmpty()) {
             currentCleanEvent = hotel.cleaningEmergencyEvents.poll();
             moveToCleaning(currentCleanEvent);
+
             return;
         }
 
         if (!hotel.defaultCleaningEvents.isEmpty()) {
             currentCleanEvent = hotel.defaultCleaningEvents.poll();
             moveToCleaning(currentCleanEvent);
+
             return;
         }
 
@@ -64,7 +70,7 @@ public class Cleaner extends Person implements CleaningListener {
     }
 
     private void moveToCleaning(CleaningEvent event) {
-        this.setMovingQueue(this.determineShortestPath(hotel.getGuestByNumber(event.guestNumber).getGuestRoom()));
+        this.setMovingQueue(this.determineShortestPath(hotel.getGuestByNumber(event.getGuestNumber()).getGuestRoom()));
     }
 
     public void cleaning() {
@@ -74,10 +80,8 @@ public class Cleaner extends Person implements CleaningListener {
 
     @Override
     public void move(Area startArea, Area endArea) {
-        this.getArea().removePerson(this);
-        this.setArea(endArea);
-        endArea.addPerson(this);
-        this.movingQueue.remove(startArea);
+        this.changeArea(startArea, endArea);
+
         if (this.movingQueue.size() == 1 && this.movingQueue.getFirst() == endArea) {
             this.movingQueue.remove(endArea);
             cleaning();
@@ -93,12 +97,15 @@ public class Cleaner extends Person implements CleaningListener {
         if (movingQueue.size() == 1) {
             this.movingQueue.addFirst(this.getArea());
         }
+
         if (movingQueue.size() > 1) {
             this.move(this.movingQueue.getFirst(), this.movingQueue.get(1));
         }
+
         if (this.movingQueue.isEmpty() && !(this.getArea() instanceof Lobby)) {
             Platform.runLater(this::removePersonFromGrid);
         }
+
         if (hotel.getCurrentHTE() == this.endHTE) {
             currentCleanEvent = null;
             cleaning = false;

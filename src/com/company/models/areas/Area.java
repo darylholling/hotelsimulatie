@@ -19,11 +19,8 @@ public abstract class Area extends Pane {
     protected int areaHeight;
     protected ArrayList<Person> persons = new ArrayList<>();
     protected Hotel hotel;
-    // Remember distance per person
     protected HashMap<Person, Integer> distancesPerPerson = new HashMap<>();
-    // Remember latest per person
     protected HashMap<Person, Area> latestPerPerson = new HashMap<>();
-    //    The nodes neighbours with the distance to each one
     protected HashMap<Area, Integer> neighbours;
 
     public Area(int x, int y, int areaWidth, int areaHeight) {
@@ -108,6 +105,7 @@ public abstract class Area extends Pane {
         if (this.distancesPerPerson.containsKey(person)) {
             return this.distancesPerPerson.get(person);
         }
+
         return Integer.MAX_VALUE;
     }
 
@@ -119,6 +117,7 @@ public abstract class Area extends Pane {
         if (this.distancesPerPerson.containsKey(person)) {
             return this.latestPerPerson.get(person);
         }
+
         return null;
     }
 

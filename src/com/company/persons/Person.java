@@ -29,6 +29,7 @@ abstract public class Person extends Pane implements MoveInterface, LateComingHT
         }
 
         this.area = area;
+
         if (HotelBuilder.gridPane != null) {
             Platform.runLater(this::addPersonToGrid);
         }
@@ -36,11 +37,13 @@ abstract public class Person extends Pane implements MoveInterface, LateComingHT
 
     public void setPersonImage(String image) {
         ImageView personImageView = null;
+
         try {
             personImageView = new ImageView(new Image(new FileInputStream("src/com/company/images/" + image)));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+
         personImageView.setFitHeight(48);
         personImageView.setFitWidth(25);
         personImageView.toFront();
@@ -69,8 +72,7 @@ abstract public class Person extends Pane implements MoveInterface, LateComingHT
         this.movingQueue = movingQueue;
     }
 
-    public LinkedList<Area> determineShortestPath(Area destination)
-    {
+    public LinkedList<Area> determineShortestPath(Area destination) {
         return new Dijkstra().findPath(this, destination);
     }
 
@@ -80,5 +82,12 @@ abstract public class Person extends Pane implements MoveInterface, LateComingHT
 
     public void setActiveListener(boolean activeListener) {
         this.activeListener = activeListener;
+    }
+
+    public void changeArea(Area startArea, Area endArea) {
+        this.getArea().removePerson(this);
+        this.setArea(endArea);
+        endArea.addPerson(this);
+        this.movingQueue.remove(startArea);
     }
 }

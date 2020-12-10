@@ -21,7 +21,6 @@ public class HotelController {
     private Label highestHTE;
     private Scene mainScene;
 
-
     public HotelController(Hotel hotel) {
         this.hotel = hotel;
     }
@@ -31,7 +30,6 @@ public class HotelController {
         hotel.setScene(mainScene);
     }
 
-    //create textual info presenting HTE time
     private VBox createMainPane() {
         Pane header = new Pane();
         VBox hotelPane = new VBox();
@@ -62,7 +60,6 @@ public class HotelController {
         return hotelPane;
     }
 
-    //creating pane to display guestlist when clicking the lobby
     private Scene createPausePane() {
         Pane pausePane = new Pane();
         Button resumeButton = new Button();
@@ -71,6 +68,7 @@ public class HotelController {
             this.hotel.stage.setScene(mainScene);
             hotel.timer.resumeTimer();
         });
+
         resumeButton.relocate(150, 410);
         pausePane.getChildren().add(resumeButton);
         pausePane.setPrefHeight((hotel.hotelHeight + 1) * 50);
@@ -85,12 +83,13 @@ public class HotelController {
         for (Guest guest : hotel.activeGuestList) {
             myString += "Guest " + guest.getGuestNumber() + " is at " + guest.getArea().getClass().getSimpleName() + " @ X: " + guest.getArea().getX() + " ,Y: " + guest.getArea().getY() + "\n";
         }
+
         label.setText(myString);
         pausePane.getChildren().add(label);
+
         return new Scene(pausePane);
     }
 
-    //updating HTElabel once received from listener
     public void HTELabelUpdate() {
         Platform.runLater(() -> HTEInfoBoard.setText("HTE: " + HteCounter.getHTE()));
         if (highestHTE != null) {

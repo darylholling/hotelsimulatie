@@ -1,8 +1,7 @@
-package com.company.models;
+package com.company.models.areas;
 
-import com.company.models.areas.*;
+import com.company.models.Hotel;
 import com.company.persons.Guest;
-import javafx.stage.Stage;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +14,6 @@ public class HotelTest {
     ArrayList<Area> areas = new ArrayList<>();
     ArrayList<Guest> guestList = new ArrayList<>();
 
-
     @Test
     public void checkIfGetLobbyReturnsNullIfNotExists() {
         Area lobby = hotel.getLobby();
@@ -24,7 +22,7 @@ public class HotelTest {
 
     @Test
     public void checkIfGetLobbyReturnsLobbyIfExists() throws FileNotFoundException {
-        Area lobby = new Lobby(1,1,1,1);
+        Area lobby = new Lobby(1, 1, 1, 1);
         hotel.areas.add(lobby);
 
         Assert.assertTrue(hotel.getLobby() instanceof Lobby);
@@ -32,7 +30,7 @@ public class HotelTest {
 
     @Test
     public void checkIfHotelCreatesTwoCleaners() throws FileNotFoundException {
-        Lobby lobby = new Lobby(1,1,1,1);
+        Lobby lobby = new Lobby(1, 1, 1, 1);
         hotel.areas.add(lobby);
         hotel.createCleaners();
         Assert.assertEquals(2, hotel.cleaners.size());
@@ -40,24 +38,27 @@ public class HotelTest {
 
     @Test
     public void checkIfAreaForTypeReturnsProperType() throws FileNotFoundException {
-        this.hotel.areas.add(new Diner(1, 1, 1, 1, 1));
-        this.hotel.areas.add(new Diner(1, 1, 1, 1, 1));
+        this.hotel.areas.add(new Diner(1, 1, 1, 1));
+        this.hotel.areas.add(new Diner(1, 1, 1, 1));
         this.hotel.areas.add(new Cinema(1, 1, 1, 1));
         this.hotel.areas.add(new Cinema(1, 1, 1, 1));
         this.hotel.areas.add(new Fitness(1, 1, 1, 1));
         this.hotel.areas.add(new Fitness(1, 1, 1, 1));
 
         Area[] diners = hotel.getAreasForType("diner");
+
         for (Area area : diners) {
             Assert.assertTrue(area instanceof Diner);
         }
 
         Area[] cinemas = hotel.getAreasForType("cinema");
+
         for (Area area : cinemas) {
             Assert.assertTrue(area instanceof Cinema);
         }
 
         Area[] fitnesses = hotel.getAreasForType("fitness");
+
         for (Area area : fitnesses) {
             Assert.assertTrue(area instanceof Fitness);
         }
@@ -79,13 +80,12 @@ public class HotelTest {
     public void checkIfAreaStreamReturnsCorrectTypeOfArea() throws FileNotFoundException {
         areas.add(new GuestRoom(0, 0, 1, 1, 1));
         areas.add(new Lobby(1, 1, 1, 1));
-        areas.add(new Diner(2, 2, 1, 1, 1));
+        areas.add(new Diner(2, 2, 1, 1));
         areas.add(new Cinema(3, 3, 1, 1));
         areas.add(new Fitness(3, 3, 1, 1));
 
         hotel.areas = areas;
 
-        //TODO fix this because it does not work
         Assert.assertEquals(areas.get(1), hotel.getLobby());
         Assert.assertEquals(areas.get(2), hotel.getAreasForType("diner")[0]);
         Assert.assertEquals(areas.get(3), hotel.getAreasForType("cinema")[0]);
