@@ -35,7 +35,6 @@ class EventsTest {
     public void checkIfGuestIsAddedToHotelGuestListAfterCheckInEvent() throws FileNotFoundException {
         boolean hasGuest = false;
 
-
         if (hotel.activeGuestList.size() > 0) {
             hasGuest = true;
         }
@@ -47,7 +46,6 @@ class EventsTest {
         if (hotel.activeGuestList.size() > 0) {
             hasGuest = true;
         }
-
 
         Assert.assertTrue(hasGuest);
     }
