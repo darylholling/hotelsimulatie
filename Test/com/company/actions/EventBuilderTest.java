@@ -12,11 +12,11 @@ import java.io.File;
 import java.io.IOException;
 
 class EventHandlerTest {
-    Hotel hotel = new Hotel();
-    EventBuilder eventBuilder = new EventBuilder();
+    private Hotel hotel = new Hotel();
+    private EventBuilder eventBuilder = new EventBuilder();
 
     @Test
-    public void checkIfEventsGetCreatedAfterReadingJson() throws IOException {
+    public void checkIfEventsGetCreatedAfterReadingJson() throws    IOException {
         JFXPanel jfxPanel = new JFXPanel();
         Lobby lobby = new Lobby(0, 0, 0, 0);
         hotel.areas.add(lobby);
