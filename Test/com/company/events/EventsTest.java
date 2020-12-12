@@ -24,6 +24,7 @@ class EventsTest {
     private Hotel hotel = new Hotel();
     private HotelBuilder hotelBuilder = new HotelBuilder(hotel);
     private CheckInEvent checkInEvent = new CheckInEvent(hotel, 0, 1, 1);
+    Guest guest = new Guest();
     JFXPanel jfxPanel = new JFXPanel();
 
     @BeforeAll
@@ -49,14 +50,15 @@ class EventsTest {
 
         Assert.assertTrue(hasGuest);
     }
-
+    public void standardCheckingInEvent() throws FileNotFoundException {
+        hotelBuilder.createContent();
+        checkInEvent.fire();
+        guest = hotel.getGuestByNumber(1);
+        guest.setArea(guest.getGuestRoom());
+    }
     @Test
     public void checkIfGuestChoosesPathToClosestFacilities() throws FileNotFoundException {
-        hotelBuilder.createContent();
-        System.out.println(hotel.getAreas());
-        checkInEvent.fire();
-        Guest guest = hotel.getGuestByNumber(1);
-        guest.setArea(guest.getGuestRoom());
+        standardCheckingInEvent();
         GoToDinerEvent goToDinerEvent = new GoToDinerEvent(0, hotel, 1);
         goToDinerEvent.fire();
         Assert.assertEquals(17, guest.getMovingQueue().size());
@@ -66,6 +68,14 @@ class EventsTest {
         GoToCinemaEvent goToCinemaEvent = new GoToCinemaEvent(0, hotel, 1);
         goToCinemaEvent.fire();
         Assert.assertEquals(14, guest.getMovingQueue().size());
+    }
+    @Test
+    public void checkIfGuestGoToLobbyAfterEvacuateEventIsTriggered() throws FileNotFoundException {
+        standardCheckingInEvent();
+        EvacuateEvent evacuateEvent = new EvacuateEvent(hotel, 0);
+        evacuateEvent.fire();
+        Assert.assertEquals("Lobby", guest.getMovingQueue().getLast().getClass().getSimpleName());
+
     }
 
 }
