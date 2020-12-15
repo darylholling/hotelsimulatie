@@ -16,14 +16,6 @@
     }
   },
   {
-    "type": "CHECK_OUT",
-    "time": 2,
-    "data": {
-      "guest": 1,
-      "stars": 1
-    }
-  },
-  {
     "type": "CLEANING_EMERGENCY",
     "time": 3,
     "data": {
