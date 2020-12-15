@@ -16,24 +16,8 @@
     }
   },
   {
-    "type": "GO_TO_CINEMA",
-    "time": 3,
-    "data": {
-      "guest": 1,
-      "stars": 1
-    }
-  },
-  {
-    "type": "GO_TO_DINER",
-    "time": 4,
-    "data": {
-      "guest": 1,
-      "stars": 1
-    }
-  },
-  {
-    "type": "GO_TO_FITNESS",
-    "time": 5,
+    "type": "CHECK_OUT",
+    "time": 2,
     "data": {
       "guest": 1,
       "stars": 1
@@ -41,7 +25,7 @@
   },
   {
     "type": "CLEANING_EMERGENCY",
-    "time": 6,
+    "time": 3,
     "data": {
       "guest": 1,
       "stars": 1
