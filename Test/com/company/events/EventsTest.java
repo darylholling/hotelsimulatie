@@ -45,7 +45,6 @@ class EventsTest {
         Assert.assertTrue(hasGuest);
     }
 
-    @Test
     public void standardCheckingInEvent() throws FileNotFoundException {
         hotelBuilder.createContent();
         checkInEvent.fire();
@@ -58,8 +57,8 @@ class EventsTest {
         this.standardCheckingInEvent();
 
         Guest guest = hotel.getGuestByNumber(1);
-        guest.setArea(guest.getMovingQueue().get(guest.getMovingQueue().size()-1));
-        guest.setGuestRoom((GuestRoom)guest.getMovingQueue().get(guest.getMovingQueue().size()-1));
+        guest.setArea(guest.getMovingQueue().get(guest.getMovingQueue().size() - 1));
+        guest.setGuestRoom((GuestRoom) guest.getMovingQueue().get(guest.getMovingQueue().size() - 1));
 
         CheckOutEvent checkOutEvent = new CheckOutEvent(this.hotel, 0, 1);
         checkOutEvent.fire();
@@ -97,20 +96,6 @@ class EventsTest {
         this.checkoutEvent();
 
         Assert.assertFalse(hotel.defaultCleaningEvents.isEmpty());
-    }
-
-//TODO finish test below.
-    @Test
-    public void checkIfCleanersStartWorkingOnCheckoutEvent() throws FileNotFoundException {
-        Lobby lobby = new Lobby(1,1,1,1);
-        hotel.areas.add(lobby);
-        hotel.createCleaners();
-        this.checkoutEvent();
-
-        System.out.println(hotel.defaultCleaningEvents);
-//        Assert.assertFalse(hotel.defaultCleaningEvents.isEmpty());
-
-//        Assert.assertTrue(hotel.defaultCleaningEvents.isEmpty());
     }
 
     @Test
