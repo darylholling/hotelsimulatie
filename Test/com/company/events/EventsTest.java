@@ -1,10 +1,8 @@
 package com.company.events;
 
-import com.company.actions.*;
+import com.company.actions.HotelBuilder;
 import com.company.models.Hotel;
 import com.company.models.Settings;
-import com.company.models.areas.Area;
-import com.company.models.areas.Fitness;
 import com.company.models.areas.GuestRoom;
 import com.company.models.areas.Lobby;
 import com.company.persons.Guest;
@@ -15,17 +13,13 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.LinkedList;
-import java.util.Objects;
-import java.util.Queue;
 
 class EventsTest {
+    Guest guest = new Guest();
+    JFXPanel jfxPanel = new JFXPanel();
     private Hotel hotel = new Hotel();
     private HotelBuilder hotelBuilder = new HotelBuilder(hotel);
     private CheckInEvent checkInEvent = new CheckInEvent(hotel, 0, 1, 1);
-    Guest guest = new Guest();
-    JFXPanel jfxPanel = new JFXPanel();
 
     @BeforeAll
     public static void prepareForTest() {
@@ -50,12 +44,75 @@ class EventsTest {
 
         Assert.assertTrue(hasGuest);
     }
+
+    @Test
     public void standardCheckingInEvent() throws FileNotFoundException {
         hotelBuilder.createContent();
         checkInEvent.fire();
         guest = hotel.getGuestByNumber(1);
         guest.setArea(guest.getGuestRoom());
     }
+
+    @Test
+    public void checkoutEvent() throws FileNotFoundException {
+        this.standardCheckingInEvent();
+
+        Guest guest = hotel.getGuestByNumber(1);
+        guest.setArea(guest.getMovingQueue().get(guest.getMovingQueue().size()-1));
+        guest.setGuestRoom((GuestRoom)guest.getMovingQueue().get(guest.getMovingQueue().size()-1));
+
+        CheckOutEvent checkOutEvent = new CheckOutEvent(this.hotel, 0, 1);
+        checkOutEvent.fire();
+
+        Assert.assertFalse(guest.getMovingQueue().isEmpty());
+
+        while (!guest.getMovingQueue().isEmpty()) {
+            guest.move(guest.getMovingQueue().get(0), guest.getMovingQueue().get(1));
+        }
+    }
+
+    @Test
+    public void checkIfActiveGuestlistIsEmptyAfterCheckout() throws FileNotFoundException {
+        this.checkoutEvent();
+
+        Assert.assertTrue(hotel.activeGuestList.isEmpty());
+    }
+
+    @Test
+    public void checkIfMovingQueueIsEmptyAfterCheckout() throws FileNotFoundException {
+        this.checkoutEvent();
+
+        Assert.assertTrue(guest.getMovingQueue().isEmpty());
+    }
+
+    @Test
+    public void checkIfGuestAreaIsLobbyAfterCheckout() throws FileNotFoundException {
+        this.checkoutEvent();
+
+        Assert.assertTrue(guest.getArea() instanceof Lobby);
+    }
+
+    @Test
+    public void checkIfCleaningEventIsCreatedAfterCheckout() throws FileNotFoundException {
+        this.checkoutEvent();
+
+        Assert.assertFalse(hotel.defaultCleaningEvents.isEmpty());
+    }
+
+//TODO finish test below.
+    @Test
+    public void checkIfCleanersStartWorkingOnCheckoutEvent() throws FileNotFoundException {
+        Lobby lobby = new Lobby(1,1,1,1);
+        hotel.areas.add(lobby);
+        hotel.createCleaners();
+        this.checkoutEvent();
+
+        System.out.println(hotel.defaultCleaningEvents);
+//        Assert.assertFalse(hotel.defaultCleaningEvents.isEmpty());
+
+//        Assert.assertTrue(hotel.defaultCleaningEvents.isEmpty());
+    }
+
     @Test
     public void checkIfGuestChoosesPathToClosestFacilities() throws FileNotFoundException {
         standardCheckingInEvent();
@@ -69,13 +126,12 @@ class EventsTest {
         goToCinemaEvent.fire();
         Assert.assertEquals(14, guest.getMovingQueue().size());
     }
+
     @Test
     public void checkIfGuestGoToLobbyAfterEvacuateEventIsTriggered() throws FileNotFoundException {
         standardCheckingInEvent();
         EvacuateEvent evacuateEvent = new EvacuateEvent(hotel, 0);
         evacuateEvent.fire();
         Assert.assertEquals("Lobby", guest.getMovingQueue().getLast().getClass().getSimpleName());
-
     }
-
 }
