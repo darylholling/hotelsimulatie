@@ -54,6 +54,7 @@ public class CleanerTest {
         Assert.assertNotNull(hotel.cleaners.get(0).getCurrentCleanEvent());
     }
 
+    //TODO fix dijksta fail
     @Test
     public void checkIfCleanerPicksUpDefaultCleaningEvent() {
         triggerNextDefaultCleaningEvent();
