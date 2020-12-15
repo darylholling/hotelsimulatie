@@ -78,6 +78,9 @@ public class Cleaner extends Person implements CleaningListener {
         cleaning = true;
     }
 
+    public CleaningEvent getCurrentCleanEvent() {
+        return currentCleanEvent;
+    }
     @Override
     public void move(Area startArea, Area endArea) {
         this.changeArea(startArea, endArea);

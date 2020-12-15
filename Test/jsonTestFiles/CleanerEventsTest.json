@@ -1,0 +1,42 @@
+[
+  {
+    "type": "CHECK_IN",
+    "time": 1,
+    "data": {
+      "guest": 1,
+      "stars": 1
+    }
+  },
+  {
+    "type": "CLEANING_EMERGENCY",
+    "time": 1,
+    "data": {
+      "guest": 1,
+      "stars": 1
+    }
+  },
+  {
+    "type": "CHECK_OUT",
+    "time": 2,
+    "data": {
+      "guest": 1,
+      "stars": 1
+    }
+  },
+  {
+    "type": "CLEANING_EMERGENCY",
+    "time": 3,
+    "data": {
+      "guest": 1,
+      "stars": 1
+    }
+  },
+  {
+    "type": "EVACUATE",
+    "time": 9,
+    "data": {
+      "guest": 1,
+      "stars": 1
+    }
+  }
+]
