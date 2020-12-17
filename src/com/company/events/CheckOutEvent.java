@@ -42,6 +42,7 @@ public class CheckOutEvent extends Event {
             guest.getMovingQueue().clear();
         }
 
+        guest.setMovingToCheckout(true);
         guest.setMovingQueue(guest.determineShortestPath(hotel.getLobby()));
 
         DefaultCleaningEvent defaultCleaningEvent = new DefaultCleaningEvent(Settings.getSettings().getCleanHTE(), hotel, guestNumber);

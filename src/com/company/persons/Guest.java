@@ -1,7 +1,9 @@
 package com.company.persons;
 
 import com.company.models.Hotel;
-import com.company.models.areas.*;
+import com.company.models.areas.Area;
+import com.company.models.areas.GuestRoom;
+import com.company.models.areas.Lobby;
 import javafx.application.Platform;
 
 import java.util.LinkedList;
@@ -11,6 +13,7 @@ public class Guest extends Person {
     private GuestRoom guestRoom;
     private int guestNumber;
     private int checkInTime;
+    private boolean movingToCheckout;
 
     public void setGuestImage() {
         super.setPersonImage(randomSelect());
@@ -50,10 +53,10 @@ public class Guest extends Person {
         if (this.movingQueue.size() == 1) {
             this.movingQueue.remove(endArea);
 
-            if (endArea instanceof Lobby) {
+            if (endArea instanceof Lobby && this.isMovingToCheckout()) {
                 Hotel hotel = this.getArea().getHotel();
-                hotel.removeGuestFromActiveList(this);
                 this.setActiveListener(false);
+                hotel.removeGuestFromActiveList(this);
             }
         }
     }
@@ -101,5 +104,13 @@ public class Guest extends Person {
         }
 
         return selectedPath;
+    }
+
+    public boolean isMovingToCheckout() {
+        return movingToCheckout;
+    }
+
+    public void setMovingToCheckout(boolean movingToCheckout) {
+        this.movingToCheckout = movingToCheckout;
     }
 }
