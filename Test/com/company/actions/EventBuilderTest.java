@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.IOException;
 
-class EventHandlerTest {
+class EventBuilderTest {
     private Hotel hotel = new Hotel();
     private EventBuilder eventBuilder = new EventBuilder();
 
