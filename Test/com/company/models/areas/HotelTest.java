@@ -17,6 +17,7 @@ public class HotelTest {
     @Test
     public void checkIfGetLobbyReturnsNullIfNotExists() {
         Area lobby = hotel.getLobby();
+
         Assert.assertNull(lobby);
     }
 
@@ -33,6 +34,7 @@ public class HotelTest {
         Lobby lobby = new Lobby(1, 1, 1, 1);
         hotel.areas.add(lobby);
         hotel.createCleaners();
+
         Assert.assertEquals(2, hotel.cleaners.size());
     }
 

@@ -16,7 +16,7 @@ class EventHandlerTest {
     private EventBuilder eventBuilder = new EventBuilder();
 
     @Test
-    public void checkIfEventsGetCreatedAfterReadingJson() throws    IOException {
+    public void checkIfEventsGetCreatedAfterReadingJson() throws IOException {
         JFXPanel jfxPanel = new JFXPanel();
         Lobby lobby = new Lobby(0, 0, 0, 0);
         hotel.areas.add(lobby);

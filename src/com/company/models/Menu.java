@@ -271,26 +271,14 @@ public class Menu {
         eventButton.setMaxWidth(maxWidth);
         layoutButton.setMaxWidth(maxWidth);
 
-        GridPane fileChooserArea = new GridPane();
-        fileChooserArea.setHgap(15);
-        fileChooserArea.setVgap(15);
-        fileChooserArea.setAlignment(Pos.CENTER);
-        fileChooserArea.setPadding(new Insets(10, 10, 10, 10));
+        GridPane fileChooserArea = this.generateGridpane();
         fileChooserArea.add(eventButton, 0, 0);
         fileChooserArea.add(layoutButton, 1, 0);
 
-        GridPane fileChooserAreaButton = new GridPane();
-        fileChooserAreaButton.setHgap(15);
-        fileChooserAreaButton.setVgap(15);
-        fileChooserAreaButton.setAlignment(Pos.CENTER);
-        fileChooserAreaButton.setPadding(new Insets(10, 10, 10, 10));
+        GridPane fileChooserAreaButton = this.generateGridpane();
         fileChooserAreaButton.add(startHotelButton, 0, 0);
 
-        GridPane fileChooserAreaText = new GridPane();
-        fileChooserAreaText.setHgap(15);
-        fileChooserAreaText.setVgap(15);
-        fileChooserAreaText.setAlignment(Pos.CENTER);
-        fileChooserAreaText.setPadding(new Insets(10, 10, 10, 10));
+        GridPane fileChooserAreaText = this.generateGridpane();
         fileChooserAreaText.add(eventStatus, 0, 0);
         fileChooserAreaText.add(layoutStatus, 0, 1);
 
@@ -323,6 +311,16 @@ public class Menu {
         });
 
         return scene;
+    }
+
+    private GridPane generateGridpane() {
+        GridPane gridPane = new GridPane();
+        gridPane.setHgap(15);
+        gridPane.setVgap(15);
+        gridPane.setAlignment(Pos.CENTER);
+        gridPane.setPadding(new Insets(10, 10, 10, 10));
+
+        return gridPane;
     }
 
     private void notifyStart() throws Exception {

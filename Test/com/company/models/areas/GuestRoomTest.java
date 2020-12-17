@@ -21,11 +21,14 @@ class GuestRoomTest {
     @Test
     public void checkIfImageIsSetToNewRoom() throws FileNotFoundException {
         boolean hasImage = false;
+
         for (int i = 1; i <= 5; i++) {
             GuestRoom guestRoom = new GuestRoom(0, 0, 1, 1, i);
+
             if (guestRoom.getImageFile() != null) {
                 hasImage = true;
             }
+
             Assert.assertTrue(hasImage);
         }
     }

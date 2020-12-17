@@ -44,10 +44,12 @@ abstract public class Person extends Pane implements MoveInterface, LateComingHT
             e.printStackTrace();
         }
 
-        personImageView.setFitHeight(48);
-        personImageView.setFitWidth(25);
-        personImageView.toFront();
-        this.setPersonImageFile(personImageView);
+        if (personImageView != null) {
+            personImageView.setFitHeight(48);
+            personImageView.setFitWidth(25);
+            personImageView.toFront();
+            this.setPersonImageFile(personImageView);
+        }
     }
 
     public void setPersonImageFile(ImageView personImageFile) {
